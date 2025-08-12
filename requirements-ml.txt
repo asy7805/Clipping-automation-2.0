@@ -1,0 +1,13 @@
+# Local model inference (Hugging Face / WhisperX)
+transformers>=4.30.0
+torch>=2.0.0
+sentence-transformers>=2.2.0
+pyannote.audio
+git+https://github.com/m-bain/whisperX.git
+
+# Audio processing
+librosa>=0.10.0
+soundfile>=0.12.0
+
+# Parallelism / job handling
+joblib>=1.3.0

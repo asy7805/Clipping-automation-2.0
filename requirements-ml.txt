@@ -1,3 +1,8 @@
+# System dependencies (install separately)
+# ffmpeg - Required for audio/video processing
+#   macOS: brew install ffmpeg
+#   Ubuntu: sudo apt-get install -y ffmpeg
+
 # Local model inference (WhisperX)
 torch>=2.0.0
 pyannote.audio

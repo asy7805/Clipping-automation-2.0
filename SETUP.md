@@ -1,5 +1,26 @@
 # Setup Instructions
 
+## Prerequisites
+
+### Install ffmpeg (Required for WhisperX and yt-dlp)
+
+**macOS:**
+```bash
+brew install ffmpeg
+```
+
+**Ubuntu/Debian:**
+```bash
+sudo apt-get update
+sudo apt-get install -y ffmpeg
+```
+
+**Windows:**
+Download from [ffmpeg.org](https://ffmpeg.org/download.html) or use Chocolatey:
+```bash
+choco install ffmpeg
+```
+
 ## Quick Setup
 
 Run the automated setup script:

@@ -9,6 +9,19 @@ set -e  # Exit on any error
 
 echo "🚀 Setting up Clipping Automation 2.0 environments..."
 
+# Check for ffmpeg
+echo "🔍 Checking for ffmpeg..."
+if ! command -v ffmpeg &> /dev/null; then
+    echo "❌ ffmpeg is not installed!"
+    echo "Please install ffmpeg first:"
+    echo "  macOS: brew install ffmpeg"
+    echo "  Ubuntu: sudo apt-get install -y ffmpeg"
+    echo "  Windows: Download from https://ffmpeg.org/download.html"
+    exit 1
+else
+    echo "✅ ffmpeg found: $(ffmpeg -version | head -n1)"
+fi
+
 # Core Environment Setup
 echo "📦 Setting up core environment (API + orchestration)..."
 python -m venv .venv

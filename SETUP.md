@@ -57,6 +57,23 @@ pip install -U pip
 pip install -r requirements-ml.txt
 ```
 
+## Environment Configuration
+
+### Setup .env file
+Copy the example environment file and configure your API keys:
+```bash
+cp .env.example .env
+# Edit .env with your actual API keys
+```
+
+**Required for core environment:**
+- `OPENAI_API_KEY` - For semantic embeddings and AI features
+- `SUPABASE_URL` - Your Supabase project URL
+- `SUPABASE_SERVICE_ROLE_KEY` - For database operations
+
+**Optional for ML environment:**
+- `HUGGING_FACE_HUB_TOKEN` - Only needed for gated pyannote models
+
 ## Environment Usage
 
 ### Core Environment

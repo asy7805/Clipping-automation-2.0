@@ -7,3 +7,23 @@ __pycache__/
 *.mkv
 *.wav
 *.webm
+
+# Virtual environments
+whisperx-py311/
+whisperx-py311-macos/
+venv/
+venv-*/
+env/
+env-*/
+
+# Large model files
+*.bin
+*.safetensors
+*.pth
+*.pt
+*.ckpt
+
+# Audio/video processing
+*.ts
+*.m3u8
+*.mpd

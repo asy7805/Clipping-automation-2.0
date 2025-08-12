@@ -1,7 +1,5 @@
-# Local model inference (Hugging Face / WhisperX)
-transformers>=4.30.0
+# Local model inference (WhisperX)
 torch>=2.0.0
-sentence-transformers>=2.2.0
 pyannote.audio
 git+https://github.com/m-bain/whisperX.git
 

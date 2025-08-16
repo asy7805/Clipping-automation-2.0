@@ -56,10 +56,10 @@ def insert_row(table: str, data: Dict[str, Any]) -> Dict[str, Any]:
     Usage: insert_row("streams", {...})
     """
     sb = get_client()
-    resp = sb.table(table).insert(data).select("*").single().execute()
-    if resp.data is None:
+    resp = sb.table(table).insert(data).execute()
+    if not resp.data:
         raise RuntimeError(f"Insert returned no data: {resp}")
-    return resp.data
+    return resp.data[0]
 
 
 def fetch_one(table: str, **eq_filters) -> Optional[Dict[str, Any]]:
@@ -83,7 +83,8 @@ def upload_bytes(bucket: str, path: str, blob: bytes, upsert: bool = True) -> st
     NOTE: URL generation depends on your bucket's public/private setting.
     """
     sb = get_client()
-    sb.storage.from_(bucket).upload(path, blob, {"upsert": upsert})
+    file_options = {"upsert": str(upsert).lower()}
+    sb.storage.from_(bucket).upload(path, blob, file_options)
     return path
 
 

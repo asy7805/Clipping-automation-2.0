@@ -69,10 +69,30 @@ cp .env.example .env
 **Required for core environment:**
 - `OPENAI_API_KEY` - For semantic embeddings and AI features
 - `SUPABASE_URL` - Your Supabase project URL
-- `SUPABASE_SERVICE_ROLE_KEY` - For database operations
+- `SUPABASE_ANON_KEY` - For client-side database operations
+
+**Optional for privileged operations:**
+- `SUPABASE_SERVICE_ROLE_KEY` - Only when `USE_SERVICE_ROLE=true` (server scripts)
+- `USE_SERVICE_ROLE` - Set to `true` for privileged database operations
+- `SMOKE_TEST_USER_ID` - Optional UUID for testing foreign key constraints
 
 **Optional for ML environment:**
 - `HUGGING_FACE_HUB_TOKEN` - Only needed for gated pyannote models
+
+## Testing
+
+### Database Smoke Test
+Test your database and storage setup:
+```bash
+# Run the smoke test (uses service role automatically)
+python scripts/db_smoke.py
+```
+
+The smoke test will:
+- Insert a test stream record
+- Fetch and verify the data
+- Upload a test file to storage
+- Generate a public URL
 
 ## Environment Usage
 

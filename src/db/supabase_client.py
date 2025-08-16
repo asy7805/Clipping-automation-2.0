@@ -3,10 +3,6 @@ import os
 from typing import Any, Dict, Optional
 from supabase import create_client, Client  # pip: supabase>=2
 from dataclasses import dataclass
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
 
 
 REQUIRED_ENV = ["SUPABASE_URL", "SUPABASE_ANON_KEY"]  # service role only on server

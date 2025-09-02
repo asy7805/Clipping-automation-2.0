@@ -1,0 +1,27 @@
+---
+platform: twitch
+channel_name: "<set_me>"
+output_root: "/streams"
+audio:
+  sample_rate_hz: 16000
+  channels: 1
+  sample_fmt: s16
+chunking:
+  live_seconds: 30
+  vod_seconds: 60
+  overlap_seconds: 0.5
+storage:
+  keep_source_video: false
+  prune_processed_after_days: 7
+time:
+  timezone: "UTC"
+  clock_sync_required: true
+manifest:
+  write_stream_json: true
+  write_chunk_manifest: true
+twitch:
+  use_eventsub: false
+  poll_interval_seconds: 90
+  client_id_env: "TWITCH_CLIENT_ID"
+  client_secret_env: "TWITCH_CLIENT_SECRET"
+---

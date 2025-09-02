@@ -99,3 +99,4 @@ if __name__ == "__main__":
         download_clip(args.download, args.output)
     else:
         parser.print_help()
+

@@ -30,7 +30,7 @@ def ensure_streams_row(sb, channel_name: str, twitch_stream_id: Optional[str], u
         "channel_name": channel_name,
         "title": f"Live capture: {channel_name}",
         "category": None,
-        "started_at": None,
+        "started_at": time.strftime("%Y-%m-%dT%H:%M:%SZ"),
         "ended_at": None,
         "viewer_count": 0,
     }
@@ -77,6 +77,9 @@ def main():
     parser.add_argument("--stream_id", default=None, help="Optional known twitch_stream_id to attach to")
     args = parser.parse_args()
 
+    # Set environment to use service role for database operations
+    os.environ["USE_SERVICE_ROLE"] = "true"
+    
     sb = get_client()
     out_dir = Path(tempfile.mkdtemp(prefix=f"live_{args.channel}_"))
     print(f"📁 Writing temp segments to: {out_dir}")

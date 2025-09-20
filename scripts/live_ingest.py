@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import argparse, os, sys, time, tempfile, subprocess, signal, shutil
+import argparse, os, sys, time, tempfile, subprocess, shutil
 from pathlib import Path
 from typing import Optional
 from dotenv import load_dotenv
@@ -16,10 +16,6 @@ from src.db.supabase_client import get_client, insert_row, fetch_one
 SEGMENT_SECONDS = 30
 
 def ensure_streams_row(sb, channel_name: str, twitch_stream_id: Optional[str], user_id: Optional[str]):
-    """
-    Create a streams row if it doesn't exist yet (by twitch_stream_id if given, else by channel_name+created_at).
-    Returns the row dict.
-    """
     if twitch_stream_id:
         row = fetch_one("streams", twitch_stream_id=twitch_stream_id)
         if row:
@@ -36,37 +32,147 @@ def ensure_streams_row(sb, channel_name: str, twitch_stream_id: Optional[str], u
     }
     return insert_row("streams", payload)
 
+def upload_segment(sb, bucket: str, video_bytes: bytes, storage_prefix: str, channel: str, stream_uid: str):
+    day = time.strftime("%Y%m%d")
+    key = f"{storage_prefix}/{channel}/{stream_uid}/{day}/segment_{int(time.time())}.mp4"
+    
+    # Fix: Use string values, not boolean
+    file_options = {
+        "content-type": "video/mp4",
+        "upsert": "true"  # ← Must be string, not boolean
+    }
+    
+    try:
+        result = sb.storage.from_(bucket).upload(key, video_bytes, file_options)
+        return key
+    except Exception as e:
+        print(f"❌ Upload failed for {key}: {e}")
+        raise
+
 def start_pipeline(channel: str, out_dir: Path):
-    """
-    Launches: streamlink -> stdout | ffmpeg -> 30s segments in out_dir/seg_00001.mp4
-    Returns (proc_streamlink, proc_ffmpeg)
-    """
-    # streamlink: write video bytes to stdout (-O)
+    """Start streamlink -> ffmpeg pipeline with better segment handling."""
     sl_cmd = ["streamlink", "--twitch-disable-ads", f"https://twitch.tv/{channel}", "best", "-O"]
-    # ffmpeg: read from stdin, write segmented mp4
     seg_pattern = str(out_dir / "seg_%05d.mp4")
+    
     ff_cmd = [
         "ffmpeg", "-hide_banner", "-loglevel", "warning",
         "-i", "pipe:0",
-        "-c", "copy",
-        "-f", "segment", "-segment_time", str(SEGMENT_SECONDS),
+        "-c:v", "libx264", "-preset", "fast", "-crf", "23",
+        "-c:a", "aac", "-b:a", "128k",
+        "-f", "segment",
+        "-segment_time", str(SEGMENT_SECONDS),
+        "-segment_format", "mp4",
+        "-segment_list_flags", "+live",
+        "-segment_atclocktime", "1",
         "-reset_timestamps", "1",
+        "-movflags", "+faststart+frag_keyframe+empty_moov",
+        "-avoid_negative_ts", "make_zero",
+        "-break_non_keyframes", "1",  # Ensure segments break cleanly
+        "-g", "60",  # Keyframe interval
         seg_pattern
     ]
 
-    # Start streamlink and pipe to ffmpeg
     p_sl = subprocess.Popen(sl_cmd, stdout=subprocess.PIPE)
     p_ff = subprocess.Popen(ff_cmd, stdin=p_sl.stdout)
-    # Ensure streamlink doesn't get SIGPIPE if ffmpeg exits
     p_sl.stdout.close()
     return p_sl, p_ff, seg_pattern
+def wait_for_file_complete(file_path: Path, stable_time: float = 8.0, check_interval: float = 0.5) -> bool:
+    """Wait for file to be completely written by checking multiple indicators."""
+    if not file_path.exists():
+        return False
+    
+    last_size = -1
+    last_mtime = -1
+    stable_counter = 0
+    
+    while True:
+        try:
+            stat = file_path.stat()
+            curr_size = stat.st_size
+            curr_mtime = stat.st_mtime
+            
+            # File must be non-empty and both size and mtime must be stable
+            if (curr_size == last_size and 
+                curr_mtime == last_mtime and 
+                curr_size > 0):
+                stable_counter += check_interval
+                if stable_counter >= stable_time:
+                    # Additional check: try to open file exclusively
+                    try:
+                        # On Windows/some systems, this helps ensure file isn't being written
+                        with open(file_path, "r+b") as f:
+                            f.seek(0, 2)  # Seek to end
+                            size_check = f.tell()
+                            if size_check == curr_size:
+                                return True
+                    except (OSError, PermissionError):
+                        # File might still be in use, wait more
+                        stable_counter = 0
+                        time.sleep(check_interval)
+                        continue
+            else:
+                stable_counter = 0
+                
+            last_size = curr_size
+            last_mtime = curr_mtime
+            time.sleep(check_interval)
+            
+        except OSError:
+            time.sleep(check_interval)
+            continue
+ 
 
-def upload_segment(sb, bucket: str, local_path: Path, storage_prefix: str, channel: str, stream_uid: str):
-    # Compose storage key: raw/<channel>/<stream_uid>/YYYYMMDD/seg_xxxxx.mp4
-    day = time.strftime("%Y%m%d")
-    key = f"{storage_prefix}/{channel}/{stream_uid}/{day}/{local_path.name}"
-    sb.storage.from_(bucket).upload(key, local_path.read_bytes(), {"upsert": "true"})
-    return key
+def safe_delete(file_path: Path, retries: int = 10, delay: float = 0.3) -> bool:
+    for _ in range(retries):
+        try:
+            file_path.unlink()
+            print(f"🗑️ Deleted {file_path.name}")
+            return True
+        except PermissionError:
+            time.sleep(delay)
+    print(f"⚠️ Could not delete {file_path.name}: still in use")
+    return False
+
+def delete_completed_batches(out_dir: Path, batch_size: int = 5):
+    print("Delete command")
+    files = sorted(f for f in out_dir.glob("seg_*.mp4") if wait_for_file_complete(f))
+    while len(files) >= batch_size:
+        print("Deletion init")
+        batch = files[:batch_size]
+        for f in batch:
+            safe_delete(f)
+        files = files[batch_size:]
+def read_file_safely(file_path: Path, retries: int = 5, delay: float = 1.0) -> bytes:
+    """Safely read file with retries and MP4 validation."""
+    for attempt in range(retries):
+        try:
+            # Wait a bit more before reading
+            time.sleep(0.5)
+            
+            with open(file_path, "rb") as f:
+                data = f.read()
+            
+            # More thorough MP4 validation
+            if len(data) < 32:
+                raise ValueError("File too small to be valid MP4")
+                
+            # Check for MP4 signature
+            if not (data.startswith(b'\x00\x00\x00') and b'ftyp' in data[:32]):
+                raise ValueError("Invalid MP4 header signature")
+            
+            # Additional check: look for moov atom (indicates complete file)
+            if b'moov' not in data:
+                raise ValueError("MP4 missing moov atom - file incomplete")
+                
+            return data
+            
+        except (IOError, OSError, ValueError) as e:
+            if attempt < retries - 1:
+                print(f"⚠️ Attempt {attempt + 1} failed to read {file_path.name}: {e}")
+                time.sleep(delay)
+            else:
+                print(f"❌ Failed to read {file_path.name} after {retries} attempts: {e}")
+                raise
 
 def main():
     parser = argparse.ArgumentParser(description="Live ingest Twitch channel in 30s segments and upload to Supabase.")
@@ -77,37 +183,40 @@ def main():
     parser.add_argument("--stream_id", default=None, help="Optional known twitch_stream_id to attach to")
     args = parser.parse_args()
 
-    # Set environment to use service role for database operations
     os.environ["USE_SERVICE_ROLE"] = "true"
-    
     sb = get_client()
     out_dir = Path(tempfile.mkdtemp(prefix=f"live_{args.channel}_"))
     print(f"📁 Writing temp segments to: {out_dir}")
 
-    # Create/ensure one streams row for this session
     streams_row = ensure_streams_row(sb, args.channel, args.stream_id, args.user_id)
     stream_uid = streams_row["twitch_stream_id"]
-    print(f"🗂  Using streams row id={streams_row['id']} twitch_stream_id={stream_uid}")
+    print(f"🗂 Using streams row id={streams_row['id']} twitch_stream_id={stream_uid}")
 
-    # Launch recorder pipeline
     p_sl, p_ff, seg_pattern = start_pipeline(args.channel, out_dir)
-    print("▶️  Recording... (Ctrl+C to stop)")
+    print("▶️ Recording... (Ctrl+C to stop)")
 
     known = set()
     try:
         while True:
-            # Poll for new files
+            print("Iteration happening")
             for file in sorted(out_dir.glob("seg_*.mp4")):
-                if file not in known and file.stat().st_size > 0:
-                    # Upload and log
-                    key = upload_segment(sb, args.bucket, file, args.prefix, args.channel, stream_uid)
-                    print(f"⬆️  Uploaded: {key} ({file.stat().st_size/1e6:.1f} MB)")
-                    known.add(file)
-            time.sleep(1)
+                if file not in known and wait_for_file_complete(file):
+                    try:
+                        video_bytes = read_file_safely(file)  # ← CHANGED THIS LINE
+                        key = upload_segment(sb, args.bucket, video_bytes, args.prefix, args.channel, stream_uid)
+                        print(f"⬆️ Uploaded: {key} ({len(video_bytes)/1e6:.1f} MB)")
+                        known.add(file)
+                    except Exception as e:
+                        print(f"❌ Failed to process {file.name}: {e}")
+                        # Don't add to known set so it can be retried
+                        
+            delete_completed_batches(out_dir)
+            time.sleep(2)  # Increased from 1 second
+
     except KeyboardInterrupt:
-        print("\n⏹  Stopping...")
+        print("\n⏹ Stopping...")
+
     finally:
-        # Graceful shutdown
         for proc in (p_ff, p_sl):
             if proc and proc.poll() is None:
                 try:
@@ -116,14 +225,16 @@ def main():
                 except Exception:
                     proc.kill()
 
-        # Optional: clean temp files
-        # for f in out_dir.glob("seg_*.mp4"): f.unlink(missing_ok=True)
-        # out_dir.rmdir()
+        for f in out_dir.glob("seg_*.mp4"):
+            safe_delete(f)
+        try:
+            out_dir.rmdir()
+        except OSError:
+            pass
 
     print("✅ Live ingest ended.")
 
 if __name__ == "__main__":
-    # Ensure ffmpeg/streamlink are available
     for bin_name in ("streamlink", "ffmpeg"):
         if not shutil.which(bin_name):
             print(f"❌ {bin_name} not found. Please install it first.")

@@ -3,7 +3,7 @@ import argparse, os, sys, time, tempfile, subprocess, shutil
 from pathlib import Path
 from typing import Optional
 from dotenv import load_dotenv
-
+from select_and_clip import detect_interest  # Import the function from select_and_clip.py
 # Load environment variables from .env file
 load_dotenv()
 
@@ -201,16 +201,21 @@ def main():
             print("Iteration happening")
             for file in sorted(out_dir.glob("seg_*.mp4")):
                 if file not in known and wait_for_file_complete(file):
-                    try:
-                        video_bytes = read_file_safely(file)  # ← CHANGED THIS LINE
-                        key = upload_segment(sb, args.bucket, video_bytes, args.prefix, args.channel, stream_uid)
-                        print(f"⬆️ Uploaded: {key} ({len(video_bytes)/1e6:.1f} MB)")
+                    print(f"Processing {file.name}...")
+                    if (detect_interest(file)):  # Call the function to process the segment
+                        try:
+                            video_bytes = read_file_safely(file)  # ← CHANGED THIS LINE
+                            key = upload_segment(sb, args.bucket, video_bytes, args.prefix, args.channel, stream_uid)
+                            print(f"⬆️ Uploaded: {key} ({len(video_bytes)/1e6:.1f} MB)")
+                            known.add(file)
+                        except Exception as e:
+                            print(f"❌ Failed to process {file.name}: {e}")
+                            #Don't add to known set so it can be retried
+                    else:
+                        print(f"⏭️ Skipped (not interesting): {file.name}")
                         known.add(file)
-                    except Exception as e:
-                        print(f"❌ Failed to process {file.name}: {e}")
-                        # Don't add to known set so it can be retried
-                        
-            delete_completed_batches(out_dir)
+                    safe_delete(file)
+            #delete_completed_batches(out_dir)
             time.sleep(2)  # Increased from 1 second
 
     except KeyboardInterrupt:

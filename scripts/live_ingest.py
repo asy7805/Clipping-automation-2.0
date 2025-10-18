@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Optional
 from dotenv import load_dotenv
 from select_and_clip import detect_interest  # Import the function from select_and_clip.py
+from process import merge_segments, delete_from_supabase,select_best_segments
 # Load environment variables from .env file
 load_dotenv()
 
@@ -196,6 +197,7 @@ def main():
     print("▶️ Recording... (Ctrl+C to stop)")
 
     known = set()
+    interesting_buffer=[]
     try:
         while True:
             print("Iteration happening")
@@ -203,18 +205,41 @@ def main():
                 if file not in known and wait_for_file_complete(file):
                     print(f"Processing {file.name}...")
                     if (detect_interest(file)):  # Call the function to process the segment
-                        try:
-                            video_bytes = read_file_safely(file)  # ← CHANGED THIS LINE
-                            key = upload_segment(sb, args.bucket, video_bytes, args.prefix, args.channel, stream_uid)
-                            print(f"⬆️ Uploaded: {key} ({len(video_bytes)/1e6:.1f} MB)")
-                            known.add(file)
-                        except Exception as e:
-                            print(f"❌ Failed to process {file.name}: {e}")
-                            #Don't add to known set so it can be retried
+                        interesting_buffer.append(Path(file))
+                        print(f"🔥 Added to buffer ({len(interesting_buffer)}/5): {file.name}")
+
+                        # If 5 interesting clips collected
+                        if len(interesting_buffer) >= 5:
+                            try:
+                                merged_path = out_dir / f"merged_{int(time.time())}.mp4"
+                                top_segments = select_best_segments([str(p) for p in interesting_buffer], top_k=3)
+                                top_segment_paths = [Path(s[0]) for s in top_segments]
+
+                                merge_segments(top_segment_paths, merged_path)
+                                video_bytes = read_file_safely(merged_path)
+                                key = upload_segment(sb, args.bucket, video_bytes, args.prefix, args.channel, stream_uid)
+                                print(f"⬆️ Uploaded merged clip: {key}")
+
+                                # Delete original 5 segments from Supabase + local
+                                for seg in interesting_buffer:
+                                    delete_from_supabase(sb, args.bucket, seg.name, args.prefix, args.channel, stream_uid)
+                                    safe_delete(seg)
+                                    if seg in known:
+                                        known.remove(seg)  # ✅ Remove from known
+                                interesting_buffer.clear()
+                                #safe_delete(merged_path)
+                                continue
+
+                            except Exception as e:
+                                print(f"❌ Failed to merge batch: {e}")
+                                # Don't clear buffer if error, try next iteration
+
+                        known.add(file)
+
                     else:
                         print(f"⏭️ Skipped (not interesting): {file.name}")
                         known.add(file)
-                    safe_delete(file)
+                        safe_delete(file)
             #delete_completed_batches(out_dir)
             time.sleep(2)  # Increased from 1 second
 

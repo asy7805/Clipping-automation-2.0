@@ -7,7 +7,7 @@ import numpy as np
 import soundfile as sf
 from dotenv import load_dotenv
 from transformers import pipeline
-import whisper
+from faster_whisper import WhisperModel
 from typing import List, Tuple
 import torch
 
@@ -25,7 +25,7 @@ def get_whisper_model():
     global _whisper_model
     if _whisper_model is None:
         print("🔊 Loading Whisper model (small)...")
-        _whisper_model = whisper.load_model("small")
+        _whisper_model = WhisperModel("tiny", device="cpu", compute_type="int8")  
     return _whisper_model
 
 
@@ -72,13 +72,21 @@ def extract_audio_from_video(video_path: str) -> str:
 # -----------------------------------------
 # 🗣️ Speech-to-Text
 # -----------------------------------------
+
 def obtain_transcript(wav_path: str) -> str:
     """Transcribes audio using Whisper (small) model."""
-    model = get_whisper_model()
-    result = model.transcribe(wav_path, language="en", fp16=False)
-    transcript = result["text"].strip()
-    print(f"📝 Transcript: '{transcript[:80]}...'")
-    return transcript
+    if _whisper_model is None:
+        model = get_whisper_model()
+    else:
+        model = _whisper_model
+    try:
+        segments, info = model.transcribe(wav_path, beam_size=1)
+        text = " ".join([segment.text.strip() for segment in segments if segment.text.strip()])
+        print(text)
+        return text
+    except Exception as e:
+        print(f"Error transcribing {wav_path}: {e}")
+        return ""
 
 
 # -----------------------------------------
@@ -171,31 +179,50 @@ def detect_audio_spikes(
 # -----------------------------------------
 # 🎯 Interest Detection (Hybrid)
 # -----------------------------------------
-def is_interesting_segment(file_path: str, min_audio_spike_time: float = 2.0) -> bool:
-    """
-    Combines audio spikes + transcript emotion score.
-    Returns True if the segment is considered interesting.
-    """
-    #try:
-    spikes = detect_audio_spikes(file_path)
-    total_spike_time = sum(e - s for s, e in spikes)
 
-    if total_spike_time >= min_audio_spike_time:
-        print(f"🎧 Audio excitement: {total_spike_time:.2f}s spikes.")
-        return True
+def get_emotion_excitement(text):
+    sentiment = get_sentiment_pipeline()
+    results = sentiment(text)
 
-    transcript = obtain_transcript(file_path)
-    if not transcript:
-        print("💬 No transcript available.")
+    # Normalize list-of-lists output
+    if isinstance(results, list):
+        if len(results) > 0 and isinstance(results[0], list):
+            results = results[0]
+        results = results[0]
+
+    label = results["label"]
+    score = results["score"]
+
+    # Map excitement-like emotions higher
+    if label in ["joy", "excitement", "surprise", "anger"]:
+        return score
+    else:
+        return 0.0
+
+
+def is_interesting_segment(file_path: str, min_audio_spike_time: float = 1.5) -> bool:
+    try:
+        spikes = detect_audio_spikes(file_path)
+        total_spike_time = sum(e - s for s, e in spikes)
+        print(f"🎧 Spike duration: {total_spike_time:.2f}s")
+
+        if total_spike_time < 0.3:
+            print("😴 Very low energy — not interesting.")
+            return False
+
+        transcript = obtain_transcript(file_path)
+        excitement = peaks_in_transcript(transcript)
+        normalized_energy = min(total_spike_time / 4.0, 1.0)
+
+        final_score = 0.5 * normalized_energy + 0.5 * excitement
+        print(f"🔎 Energy={normalized_energy:.2f}, Excitement={excitement:.2f}, Final={final_score:.2f}")
+
+        return final_score > 0.3 or excitement > 0.4
+
+    except Exception as e:
+        print(f"⚠️ Error analyzing {file_path}: {e}")
         return False
 
-    excitement = peaks_in_transcript(transcript)
-    print(f"💥 Transcript excitement score: {excitement:.2f}")
-    return excitement > 0.45  # threshold tuneable
-
-    # except Exception as e:
-    #     print(f"⚠️ Error analyzing {file_path}: {e}")
-    #     return False
 
 
 # -----------------------------------------
@@ -206,6 +233,7 @@ def detect_interest(video_path: str):
     try:
         audio_path = extract_audio_from_video(video_path)
         result = is_interesting_segment(audio_path)
+        
         print(f"✅ Interesting: {result}")
         return result
     finally:

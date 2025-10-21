@@ -8,12 +8,24 @@ import {
   Star,
   ChevronDown,
   ArrowUpRight,
-  ArrowDownRight
+  ArrowDownRight,
+  Loader2
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAnalytics } from "@/hooks/useAnalytics";
+import { getChannelAvatarProps } from "@/lib/avatarUtils";
 
 const Analytics = () => {
+  const { data: analytics, isLoading } = useAnalytics();
+
+  if (isLoading || !analytics) {
+    return (
+      <div className="container mx-auto px-6 py-8 flex items-center justify-center h-96">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
   return (
     <div className="container mx-auto px-6 py-8 space-y-8">
       {/* Time Period Selector */}
@@ -29,17 +41,16 @@ const Analytics = () => {
         </Tabs>
       </div>
 
-      {/* KPI Cards */}
+      {/* KPI Cards - Real Data */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card className="p-6 bg-card border-border">
           <div className="flex items-center justify-between mb-4">
             <p className="text-sm text-muted-foreground">Total Clips</p>
             <BarChart3 className="w-5 h-5 text-primary" />
           </div>
-          <p className="text-3xl font-bold mb-2">1,284</p>
-          <div className="flex items-center gap-1 text-sm text-success">
-            <ArrowUpRight className="w-4 h-4" />
-            <span>+23% vs last period</span>
+          <p className="text-3xl font-bold mb-2">{analytics.totalClips.toLocaleString()}</p>
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <span>All time</span>
           </div>
         </Card>
 
@@ -49,17 +60,22 @@ const Analytics = () => {
             <Star className="w-5 h-5 text-warning" />
           </div>
           <div className="flex items-baseline gap-2 mb-2">
-            <p className="text-3xl font-bold">0.58</p>
+            <p className="text-3xl font-bold">{analytics.avgScore.toFixed(2)}</p>
             <div className="flex gap-0.5">
-              {[1, 2, 3, 4].map((i) => (
-                <Star key={i} className="w-3 h-3 fill-score-green text-score-green" />
+              {[1, 2, 3, 4, 5].map((i) => (
+                <Star 
+                  key={i} 
+                  className={`w-3 h-3 ${
+                    i <= Math.round(analytics.avgScore * 5) 
+                      ? 'fill-score-green text-score-green' 
+                      : 'text-muted'
+                  }`}
+                />
               ))}
-              <Star className="w-3 h-3 text-muted" />
             </div>
           </div>
-          <div className="flex items-center gap-1 text-sm text-success">
-            <ArrowUpRight className="w-4 h-4" />
-            <span>+0.08</span>
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <span>{analytics.highScoreClips} high-score clips</span>
           </div>
         </Card>
 
@@ -68,25 +84,24 @@ const Analytics = () => {
             <p className="text-sm text-muted-foreground">Storage Used</p>
             <TrendingUp className="w-5 h-5 text-info" />
           </div>
-          <p className="text-3xl font-bold mb-2">48.2 GB</p>
+          <p className="text-3xl font-bold mb-2">{analytics.storageUsedGB.toFixed(2)} GB</p>
           <div className="w-full bg-muted rounded-full h-2 mb-2">
             <div 
               className="h-full rounded-full bg-gradient-to-r from-primary to-pink-500"
-              style={{ width: '48%' }}
+              style={{ width: `${Math.min(100, (analytics.storageUsedGB / 10) * 100)}%` }}
             />
           </div>
-          <p className="text-xs text-muted-foreground">of 100 GB</p>
+          <p className="text-xs text-muted-foreground">of 10 GB quota</p>
         </Card>
 
         <Card className="p-6 bg-card border-border">
           <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-muted-foreground">Avg Duration</p>
+            <p className="text-sm text-muted-foreground">Channels</p>
             <Clock className="w-5 h-5 text-success" />
           </div>
-          <p className="text-3xl font-bold mb-2">28.4s</p>
-          <div className="flex items-center gap-1 text-sm text-destructive">
-            <ArrowDownRight className="w-4 h-4" />
-            <span>-2.1s vs last period</span>
+          <p className="text-3xl font-bold mb-2">{analytics.topChannels.length}</p>
+          <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            <span>Monitored streamers</span>
           </div>
         </Card>
       </div>
@@ -150,35 +165,41 @@ const Analytics = () => {
           </div>
         </Card>
 
-        {/* Channel Breakdown */}
+        {/* Channel Breakdown - Real Data */}
         <Card className="p-6 bg-card border-border">
           <h3 className="text-lg font-semibold mb-6">Top Channels</h3>
           <div className="space-y-4">
-            {[
-              { name: "nater4l", clips: 487, score: 0.68, growth: 23 },
-              { name: "jordanbentley", clips: 356, score: 0.54, growth: 15 },
-              { name: "stableronaldo", clips: 298, score: 0.62, growth: -5 },
-              { name: "asspizza730", clips: 143, score: 0.45, growth: 8 },
-            ].map((channel) => (
+            {analytics.topChannels.map((channel) => {
+              const { gradient, initials } = getChannelAvatarProps(channel.name);
+              return (
               <div key={channel.name} className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Avatar className="w-10 h-10">
-                    <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${channel.name}`} />
-                    <AvatarFallback>{channel.name[0]}</AvatarFallback>
-                  </Avatar>
+                  <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-bold text-sm`}>
+                    {initials}
+                  </div>
                   <div>
                     <p className="font-semibold text-foreground">{channel.name}</p>
                     <p className="text-xs text-muted-foreground">{channel.clips} clips</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-score-green">{channel.score.toFixed(2)}</p>
-                  <p className={`text-xs ${channel.growth > 0 ? 'text-success' : 'text-destructive'}`}>
-                    {channel.growth > 0 ? '+' : ''}{channel.growth}%
-                  </p>
+                  <p className="font-bold text-score-green">{channel.avgScore.toFixed(2)}</p>
+                  <div className="flex gap-0.5 justify-end">
+                    {[1,2,3,4,5].map((i) => (
+                      <Star 
+                        key={i}
+                        className={`w-2.5 h-2.5 ${
+                          i <= Math.round(channel.avgScore * 5)
+                            ? 'fill-score-green text-score-green'
+                            : 'text-muted'
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </Card>
       </div>
@@ -199,46 +220,58 @@ const Analytics = () => {
               </tr>
             </thead>
             <tbody>
-              {[
-                { name: "nater4l", clips: 487, score: 0.68, storage: 15.2, active: "2m ago", status: "active" },
-                { name: "jordanbentley", clips: 356, score: 0.54, storage: 12.8, active: "5m ago", status: "active" },
-                { name: "stableronaldo", clips: 298, score: 0.62, storage: 9.4, active: "1h ago", status: "paused" },
-              ].map((channel, i) => (
+              {analytics.topChannels.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="py-8 text-center text-muted-foreground">
+                    No channels with clips yet. Start monitoring streams!
+                  </td>
+                </tr>
+              ) : (
+                analytics.topChannels.map((channel, i) => {
+                  const { gradient, initials } = getChannelAvatarProps(channel.name);
+                  return (
                 <tr key={channel.name} className={`border-b border-border hover:bg-muted/50 ${i % 2 === 0 ? 'bg-muted/20' : ''}`}>
                   <td className="py-4 px-4">
                     <div className="flex items-center gap-3">
-                      <Avatar className="w-8 h-8">
-                        <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${channel.name}`} />
-                        <AvatarFallback>{channel.name[0]}</AvatarFallback>
-                      </Avatar>
+                      <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-bold text-xs`}>
+                        {initials}
+                      </div>
                       <span className="font-medium">{channel.name}</span>
                     </div>
                   </td>
                   <td className="py-4 px-4 font-bold">{channel.clips}</td>
                   <td className="py-4 px-4">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-score-green">{channel.score.toFixed(2)}</span>
+                      <span className="font-bold text-score-green">{channel.avgScore.toFixed(2)}</span>
                       <div className="flex gap-0.5">
-                        {[...Array(4)].map((_, i) => (
-                          <Star key={i} className="w-3 h-3 fill-score-green text-score-green" />
+                        {[1,2,3,4,5].map((starNum) => (
+                          <Star 
+                            key={starNum} 
+                            className={`w-3 h-3 ${
+                              starNum <= Math.round(channel.avgScore * 5)
+                                ? 'fill-score-green text-score-green'
+                                : 'text-muted'
+                            }`}
+                          />
                         ))}
                       </div>
                     </div>
                   </td>
                   <td className="py-4 px-4">
                     <div className="w-24 bg-muted rounded-full h-2">
-                      <div className="h-full bg-primary rounded-full" style={{ width: `${(channel.storage / 20) * 100}%` }} />
+                      <div className="h-full bg-primary rounded-full" style={{ width: `${Math.min(100, (channel.clips * 0.01 / 0.2) * 100)}%` }} />
                     </div>
-                    <span className="text-xs text-muted-foreground mt-1">{channel.storage} GB</span>
+                    <span className="text-xs text-muted-foreground mt-1">{(channel.clips * 0.01).toFixed(1)} GB</span>
                   </td>
-                  <td className="py-4 px-4 text-sm text-muted-foreground">{channel.active}</td>
+                  <td className="py-4 px-4 text-sm text-muted-foreground">Recently</td>
                   <td className="py-4 px-4">
-                    <Badge className={channel.status === "active" ? "bg-success/10 text-success" : "bg-muted text-muted-foreground"}>
-                      {channel.status}
+                    <Badge className="bg-success/10 text-success">
+                      active
                     </Badge>
                   </td>
                 </tr>
-              ))}
+              );
+              }))}
             </tbody>
           </table>
         </div>

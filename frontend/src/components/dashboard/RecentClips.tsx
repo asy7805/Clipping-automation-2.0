@@ -7,6 +7,7 @@ import { Star } from "lucide-react";
 import { useClips } from "@/hooks/useClips";
 import { Link } from "react-router-dom";
 import { useVideoPlayer } from "@/contexts/VideoPlayerContext";
+import { getChannelAvatarProps } from "@/lib/avatarUtils";
 
 const getScoreColor = (score: number) => {
   if (score >= 0.7) return "text-score-gold";
@@ -67,8 +68,9 @@ export const RecentClips = () => {
           {clips.map((clip) => {
             const score = clip.confidence_score;
             const stars = getStarCount(score);
-            const thumbnail = clip.thumbnail || `https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=225&fit=crop&sig=${clip.id}`;
-            const avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${clip.channel_name}`;
+            // Use real thumbnail from video first frame
+            const thumbnail = clip.thumbnail_url || clip.thumbnail || `https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=225&fit=crop&sig=${clip.id}`;
+            const { gradient, initials } = getChannelAvatarProps(clip.channel_name);
             
             return (
               <Card 
@@ -103,10 +105,9 @@ export const RecentClips = () => {
                 </div>
                 <div className="p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <Avatar className="w-6 h-6">
-                      <AvatarImage src={avatar} alt={clip.channel_name} />
-                      <AvatarFallback>{clip.channel_name[0]?.toUpperCase()}</AvatarFallback>
-                    </Avatar>
+                    <div className={`w-6 h-6 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-bold text-[9px]`}>
+                      {initials}
+                    </div>
                     <span className="text-sm font-semibold text-foreground">{clip.channel_name}</span>
                   </div>
                   <p className="text-sm text-muted-foreground line-clamp-1 mb-2">

@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -23,6 +24,7 @@ import {
 } from "lucide-react";
 import { AIScoreDisplay } from "@/components/AIScoreDisplay";
 import { cn } from "@/lib/utils";
+import { getChannelAvatarProps } from "@/lib/avatarUtils";
 
 interface VideoPlayerModalProps {
   clipId: string | null;
@@ -112,14 +114,32 @@ export function VideoPlayerModal({
     }
   };
 
-  if (!clipId || !clipData) return null;
+  if (!clipId || !clipData) {
+    console.log("VideoPlayerModal: No clip data", { clipId, clipData });
+    return null;
+  }
+
+  console.log("VideoPlayerModal: Rendering with clip", { 
+    id: clipData.id, 
+    channel: clipData.channel_name,
+    hasStorageUrl: !!clipData.storage_url,
+    storageUrl: clipData.storage_url 
+  });
 
   const stars = getStarCount(clipData.confidence_score);
-  const avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${clipData.channel_name}`;
+  const { gradient, initials } = getChannelAvatarProps(clipData.channel_name);
 
   return (
     <Dialog open={!!clipId} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="max-w-6xl p-0 gap-0 bg-background/95 backdrop-blur-xl border-white/10">
+        {/* Accessibility: Hidden title and description for screen readers */}
+        <VisuallyHidden>
+          <DialogTitle>Clip from {clipData?.channel_name}</DialogTitle>
+          <DialogDescription>
+            Video clip player showing content from {clipData?.channel_name}
+          </DialogDescription>
+        </VisuallyHidden>
+        
         {/* Close button */}
         <button
           onClick={onClose}
@@ -192,10 +212,9 @@ export function VideoPlayerModal({
             {/* Channel Info */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <Avatar className="w-12 h-12 ring-2 ring-primary/20">
-                  <AvatarImage src={avatar} alt={clipData.channel_name} />
-                  <AvatarFallback>{clipData.channel_name[0]?.toUpperCase()}</AvatarFallback>
-                </Avatar>
+                <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-bold text-lg ring-2 ring-primary/20`}>
+                  {initials}
+                </div>
                 <div className="flex-1">
                   <h3 className="font-bold text-lg">{clipData.channel_name}</h3>
                   <p className="text-xs text-muted-foreground">

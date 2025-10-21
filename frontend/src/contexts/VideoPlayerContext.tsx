@@ -17,6 +17,11 @@ export function VideoPlayerProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const openPlayer = (clip: Clip) => {
+    console.log("VideoPlayerContext: Opening clip", { 
+      id: clip.id, 
+      channel: clip.channel_name,
+      hasStorageUrl: !!clip.storage_url 
+    });
     setCurrentClip(clip);
     setIsOpen(true);
   };

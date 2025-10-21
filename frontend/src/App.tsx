@@ -29,11 +29,11 @@ function AppContent() {
           <Route path="/" element={<Index />} />
           
           {/* Dashboard routes with layout */}
-          <Route element={<DashboardLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/dashboard/clips" element={<Clips />} />
-            <Route path="/dashboard/analytics" element={<Analytics />} />
-            <Route path="/dashboard/settings" element={<Settings />} />
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="clips" element={<Clips />} />
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
           
           {/* 404 page */}

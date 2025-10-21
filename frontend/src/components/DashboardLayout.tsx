@@ -4,29 +4,18 @@ import {
   Film, 
   BarChart3, 
   Settings, 
-  Activity, 
-  Search, 
-  Bell,
   ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
-  { icon: Film, label: "Clips Library", path: "/clips" },
-  { icon: BarChart3, label: "Analytics", path: "/analytics" },
-  { icon: Settings, label: "Settings", path: "/settings" },
-];
-
-const quickChannels = [
-  { name: "nater4l", live: true },
-  { name: "jordanbentley", live: true },
-  { name: "asspizza730", live: false },
+  { icon: Film, label: "Clips Library", path: "/dashboard/clips" },
+  { icon: BarChart3, label: "Analytics", path: "/dashboard/analytics" },
+  { icon: Settings, label: "Settings", path: "/dashboard/settings" },
 ];
 
 export const DashboardLayout = () => {
@@ -86,35 +75,15 @@ export const DashboardLayout = () => {
           })}
         </nav>
 
-        {/* Quick Channels */}
-        <div className="p-4 border-t border-white/10">
-          <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">Quick Access</p>
-          <div className="space-y-2">
-            {quickChannels.map((channel) => (
-              <div key={channel.name} className="flex items-center gap-2 text-sm px-2 py-1.5 rounded-md hover:bg-white/5 transition-colors cursor-pointer">
-                <span className={cn(
-                  "w-2 h-2 rounded-full",
-                  channel.live ? "bg-success pulse-dot" : "bg-muted"
-                )} />
-                <span className="text-foreground/90">{channel.name}</span>
-              </div>
-            ))}
-            <Button variant="ghost" size="sm" className="w-full justify-start text-primary hover:text-primary hover:bg-primary/10 mt-2">
-              <span className="text-xl mr-2">+</span> Add Channel
-            </Button>
-          </div>
-        </div>
-
         {/* User Profile */}
         <div className="p-4 border-t border-white/10">
-          <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 transition-colors cursor-pointer">
-            <Avatar className="border-2 border-primary/50">
-              <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=user" />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar>
+          <div className="flex items-center gap-3 p-2 rounded-lg bg-muted/20">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-pink-500 flex items-center justify-center text-white font-bold">
+              A
+            </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-foreground truncate">Admin User</p>
-              <p className="text-xs text-primary">Pro Plan</p>
+              <p className="text-sm font-semibold text-foreground truncate">Admin</p>
+              <p className="text-xs text-muted-foreground">Local User</p>
             </div>
           </div>
         </div>
@@ -124,28 +93,22 @@ export const DashboardLayout = () => {
       <div className="flex-1 flex flex-col relative z-10">
         {/* Top Bar */}
         <header className="h-16 glass sticky top-0 z-40 flex items-center justify-between px-4 md:px-6 border-b border-white/10">
-          <div className="flex-1 max-w-xl">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input 
-                type="text"
-                placeholder="Search clips, channels..."
-                className="w-full pl-10 pr-4 py-2 bg-background/50 border border-white/10 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent placeholder:text-muted-foreground transition-all"
-              />
-            </div>
+          <div className="flex-1">
+            <h2 className="text-lg font-semibold text-foreground">
+              {location.pathname === "/dashboard" && "Dashboard"}
+              {location.pathname === "/dashboard/clips" && "Clips Library"}
+              {location.pathname === "/dashboard/analytics" && "Analytics"}
+              {location.pathname === "/dashboard/settings" && "Settings"}
+            </h2>
           </div>
 
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" className="relative hover:bg-white/5">
-              <Bell className="w-5 h-5" />
-              <Badge className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center p-0 bg-destructive text-xs border-2 border-background">
-                3
-              </Badge>
-            </Button>
-            <Avatar className="cursor-pointer ring-2 ring-primary/50 hover:ring-primary transition-all">
-              <AvatarImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=user" />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar>
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/30">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-pink-500 flex items-center justify-center text-white font-bold text-sm">
+                A
+              </div>
+              <span className="text-sm font-medium text-foreground">Admin</span>
+            </div>
           </div>
         </header>
 

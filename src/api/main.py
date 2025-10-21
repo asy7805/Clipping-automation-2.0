@@ -19,7 +19,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 load_dotenv()
 
 # Import API routers
-from .routers import clips, analytics, streams, health
+from .routers import clips, analytics, streams, health, monitors
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -57,6 +57,7 @@ app.include_router(health.router, prefix="/api/v1", tags=["health"])
 app.include_router(clips.router, prefix="/api/v1", tags=["clips"])
 app.include_router(analytics.router, prefix="/api/v1", tags=["analytics"])
 app.include_router(streams.router, prefix="/api/v1", tags=["streams"])
+app.include_router(monitors.router, prefix="/api/v1", tags=["monitors"])
 
 @app.get("/")
 async def root():

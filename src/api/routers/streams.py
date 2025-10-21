@@ -2,7 +2,8 @@
 Stream management endpoints for monitoring and managing live streams.
 """
 
-from fastapi import APIRouter, HTTPException, Query, Path
+from fastapi import APIRouter, HTTPException, Query
+from fastapi import Path as PathParam
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
 from datetime import datetime
@@ -56,27 +57,46 @@ async def get_streams(
         List of streams matching the criteria
     """
     try:
-        # TODO: Implement actual database query using SupabaseManager
-        # This is a placeholder response
-        return [
-            StreamResponse(
-                id="stream-1",
-                twitch_stream_id="twitch-12345",
-                channel_name="example_channel",
-                title="Example Stream Title",
-                category="Just Chatting",
-                started_at=datetime.utcnow(),
-                viewer_count=150,
-                is_live=True,
-                status="active"
-            )
-        ]
+        from db.supabase_client import get_client
+        
+        sb = get_client()
+        
+        # Query streams table
+        query = sb.table("streams").select("*").order("started_at", desc=True)
+        
+        # Apply filters
+        if channel_name:
+            query = query.eq("channel_name", channel_name)
+        if is_live is not None:
+            query = query.eq("is_live", is_live)
+            
+        # Get streams
+        streams_response = query.limit(limit).offset(offset).execute()
+        streams = streams_response.data if streams_response.data else []
+        
+        # Build response
+        result = []
+        for stream in streams:
+            result.append(StreamResponse(
+                id=stream.get("id", "unknown"),
+                twitch_stream_id=stream.get("twitch_stream_id", ""),
+                channel_name=stream.get("channel_name", ""),
+                title=stream.get("title", ""),
+                category=stream.get("category", "Unknown"),
+                started_at=stream.get("started_at", datetime.utcnow()),
+                viewer_count=stream.get("viewer_count", 0),
+                is_live=stream.get("is_live", False),
+                status=stream.get("status", "completed")
+            ))
+        
+        return result
         
     except Exception as e:
+        print(f"Error fetching streams: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to retrieve streams: {str(e)}")
 
 @router.get("/streams/{stream_id}", response_model=StreamResponse)
-async def get_stream(stream_id: str = Path(..., description="Stream ID")) -> StreamResponse:
+async def get_stream(stream_id: str = PathParam(..., description="Stream ID")) -> StreamResponse:
     """
     Retrieve a specific stream by ID.
     
@@ -163,7 +183,7 @@ async def get_live_streams() -> List[StreamResponse]:
 
 @router.get("/streams/{stream_id}/clips")
 async def get_stream_clips(
-    stream_id: str = Path(..., description="Stream ID"),
+    stream_id: str = PathParam(..., description="Stream ID"),
     limit: int = Query(10, ge=1, le=100)
 ) -> List[Dict[str, Any]]:
     """

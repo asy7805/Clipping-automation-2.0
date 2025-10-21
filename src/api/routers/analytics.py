@@ -44,25 +44,71 @@ async def get_analytics_summary(
         Analytics summary with key metrics
     """
     try:
-        # TODO: Implement actual analytics calculation
-        # This is a placeholder response
+        from db.supabase_client import get_client
+        
+        sb = get_client()
+        
+        # Calculate date threshold
+        date_threshold = (datetime.utcnow() - timedelta(days=days)).isoformat()
+        
+        # Get all predictions
+        try:
+            all_predictions = sb.table("clip_predictions").select("*").gte("created_at", date_threshold).execute()
+            predictions = all_predictions.data if all_predictions.data else []
+        except:
+            predictions = []
+        
+        # Calculate metrics
+        total_clips = len(predictions)
+        clip_worthy_count = sum(1 for p in predictions if p.get("clipworthy", False))
+        clip_worthy_percentage = (clip_worthy_count / total_clips * 100) if total_clips > 0 else 0
+        
+        # Count clips by channel (extract from clip_id)
+        channel_counts = {}
+        for pred in predictions:
+            clip_id = pred.get("clip_id", "")
+            # Try to extract channel name from clip_id pattern
+            for channel in ["nater4l", "jordanbentley", "stableronaldo", "asspizza730", "shroud", "jasontheween"]:
+                if channel in clip_id.lower():
+                    if channel not in channel_counts:
+                        channel_counts[channel] = {"total": 0, "worthy": 0}
+                    channel_counts[channel]["total"] += 1
+                    if pred.get("clipworthy", False):
+                        channel_counts[channel]["worthy"] += 1
+                    break
+        
+        # Build top channels list
+        top_channels = [
+            {
+                "channel": channel,
+                "clips": stats["total"],
+                "worthy_clips": stats["worthy"]
+            }
+            for channel, stats in sorted(channel_counts.items(), key=lambda x: x[1]["total"], reverse=True)[:3]
+        ]
+        
+        # Count today's clips
+        try:
+            today = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
+            today_predictions = sb.table("clip_predictions").select("*").gte("created_at", today).execute()
+            clips_today = len(today_predictions.data) if today_predictions.data else 0
+        except:
+            clips_today = 0
+        
         return AnalyticsSummary(
-            total_clips=150,
-            clip_worthy_count=45,
-            clip_worthy_percentage=30.0,
-            top_channels=[
-                {"channel": "example_channel_1", "clips": 25, "worthy_clips": 8},
-                {"channel": "example_channel_2", "clips": 20, "worthy_clips": 6},
-                {"channel": "example_channel_3", "clips": 18, "worthy_clips": 5}
-            ],
+            total_clips=total_clips,
+            clip_worthy_count=clip_worthy_count,
+            clip_worthy_percentage=round(clip_worthy_percentage, 2),
+            top_channels=top_channels,
             recent_activity={
-                "clips_today": 12,
-                "clips_this_week": 45,
+                "clips_today": clips_today,
+                "clips_this_week": total_clips,
                 "last_updated": datetime.utcnow().isoformat()
             }
         )
         
     except Exception as e:
+        print(f"Error getting analytics: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to get analytics: {str(e)}")
 
 @router.get("/analytics/performance", response_model=PerformanceMetrics)
@@ -74,16 +120,33 @@ async def get_performance_metrics() -> PerformanceMetrics:
         Performance metrics for the ML model
     """
     try:
-        # TODO: Implement actual performance calculation
-        # This is a placeholder response
+        from db.supabase_client import get_client
+        
+        sb = get_client()
+        
+        # Get all predictions
+        try:
+            all_predictions = sb.table("clip_predictions").select("score").execute()
+            predictions = all_predictions.data if all_predictions.data else []
+        except:
+            predictions = []
+        
+        # Calculate average confidence score
+        total_predictions = len(predictions)
+        if total_predictions > 0:
+            avg_score = sum(p.get("score", 0) for p in predictions) / total_predictions
+        else:
+            avg_score = 0.0
+        
         return PerformanceMetrics(
-            avg_confidence_score=0.87,
-            model_accuracy=0.82,
-            processing_time_avg=0.15,
-            total_predictions=1250
+            avg_confidence_score=round(avg_score, 3),
+            model_accuracy=None,  # Would need ground truth labels
+            processing_time_avg=None,  # Would need timing logs
+            total_predictions=total_predictions
         )
         
     except Exception as e:
+        print(f"Error getting performance metrics: {e}")
         raise HTTPException(status_code=500, detail=f"Failed to get performance metrics: {str(e)}")
 
 @router.get("/analytics/channels")

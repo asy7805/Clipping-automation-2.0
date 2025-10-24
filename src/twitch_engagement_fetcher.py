@@ -120,6 +120,122 @@ class TwitchEngagementFetcher:
             logger.error(f"❌ Failed to fetch engagement data for clip {clip_id}: {e}")
             return None
     
+    def get_stream_info(self, channel_name: str) -> Optional[Dict]:
+        """
+        Get live stream information for a channel.
+        
+        Args:
+            channel_name: Twitch channel username
+            
+        Returns:
+            Dict with stream info if live, None if offline or error
+        """
+        access_token = self._get_access_token()
+        if not access_token:
+            return None
+            
+        try:
+            # Get user ID first
+            user_url = "https://api.twitch.tv/helix/users"
+            headers = {
+                'Client-ID': self.client_id,
+                'Authorization': f'Bearer {access_token}'
+            }
+            params = {'login': channel_name.lower()}
+            
+            user_response = requests.get(user_url, headers=headers, params=params)
+            user_response.raise_for_status()
+            user_data = user_response.json()
+            
+            if not user_data.get('data'):
+                logger.warning(f"⚠️ User {channel_name} not found")
+                return None
+            
+            user_id = user_data['data'][0]['id']
+            
+            # Get stream info
+            stream_url = "https://api.twitch.tv/helix/streams"
+            stream_params = {'user_id': user_id}
+            
+            stream_response = requests.get(stream_url, headers=headers, params=stream_params)
+            stream_response.raise_for_status()
+            stream_data = stream_response.json()
+            
+            if stream_data.get('data') and len(stream_data['data']) > 0:
+                # Stream is live
+                stream = stream_data['data'][0]
+                return {
+                    'is_live': True,
+                    'viewer_count': stream.get('viewer_count', 0),
+                    'title': stream.get('title', ''),
+                    'game_name': stream.get('game_name', 'Unknown'),
+                    'game_id': stream.get('game_id', ''),
+                    'thumbnail_url': stream.get('thumbnail_url', '').replace('{width}', '320').replace('{height}', '180'),
+                    'started_at': stream.get('started_at', ''),
+                    'user_id': user_id,
+                    'user_name': stream.get('user_name', channel_name),
+                    'language': stream.get('language', 'en')
+                }
+            else:
+                # Stream is offline
+                return {
+                    'is_live': False,
+                    'user_id': user_id,
+                    'user_name': user_data['data'][0]['display_name']
+                }
+                
+        except Exception as e:
+            logger.error(f"❌ Failed to fetch stream info for {channel_name}: {e}")
+            return None
+    
+    def get_user_info(self, channel_name: str) -> Optional[Dict]:
+        """
+        Get user profile information.
+        
+        Args:
+            channel_name: Twitch channel username
+            
+        Returns:
+            Dict with user profile info or None if error
+        """
+        access_token = self._get_access_token()
+        if not access_token:
+            return None
+            
+        try:
+            url = "https://api.twitch.tv/helix/users"
+            headers = {
+                'Client-ID': self.client_id,
+                'Authorization': f'Bearer {access_token}'
+            }
+            params = {'login': channel_name.lower()}
+            
+            response = requests.get(url, headers=headers, params=params)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            if not data.get('data'):
+                logger.warning(f"⚠️ User {channel_name} not found")
+                return None
+            
+            user = data['data'][0]
+            
+            return {
+                'user_id': user.get('id'),
+                'display_name': user.get('display_name'),
+                'login': user.get('login'),
+                'profile_image_url': user.get('profile_image_url'),
+                'offline_image_url': user.get('offline_image_url'),
+                'broadcaster_type': user.get('broadcaster_type', ''),
+                'description': user.get('description', ''),
+                'created_at': user.get('created_at', '')
+            }
+            
+        except Exception as e:
+            logger.error(f"❌ Failed to fetch user info for {channel_name}: {e}")
+            return None
+    
     def get_clips_engagement_batch(self, clip_ids: List[str]) -> Dict[str, Dict]:
         """
         Get engagement data for multiple clips in batch.

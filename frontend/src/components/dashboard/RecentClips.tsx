@@ -66,10 +66,10 @@ export const RecentClips = () => {
       ) : (
         <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-thin">
           {clips.map((clip) => {
-            const score = clip.confidence_score;
-            const stars = getStarCount(score);
-            // Use real thumbnail from video first frame
-            const thumbnail = clip.thumbnail_url || clip.thumbnail || `https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=225&fit=crop&sig=${clip.id}`;
+            const score = clip.confidence_score || 0;
+            const stars = score ? getStarCount(score) : 0;
+            // Use gradient placeholder for MVP
+            const thumbnail = null; // No thumbnails for MVP
             const { gradient, initials } = getChannelAvatarProps(clip.channel_name);
             
             return (
@@ -79,17 +79,20 @@ export const RecentClips = () => {
                 onClick={() => openPlayer(clip)}
               >
                 <div className="relative">
-                  <img 
-                    src={thumbnail} 
-                    alt={clip.channel_name}
-                    className="w-full h-[158px] object-cover rounded-t-lg"
-                  />
+                  <div className={`w-full h-[158px] bg-gradient-to-br ${gradient} rounded-t-lg flex items-center justify-center`}>
+                    <div className="text-center text-white">
+                      <div className="text-2xl font-bold">{initials}</div>
+                      <div className="text-sm opacity-75">{clip.channel_name}</div>
+                    </div>
+                  </div>
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-t-lg">
                     <Play className="w-12 h-12 text-white" />
                   </div>
-                  <Badge className={`absolute top-2 right-2 ${getScoreColor(score)} bg-card/90 font-bold`}>
-                    {score.toFixed(2)}
-                  </Badge>
+                  {score > 0 && (
+                    <Badge className={`absolute top-2 right-2 ${getScoreColor(score)} bg-card/90 font-bold`}>
+                      {score.toFixed(2)}
+                    </Badge>
+                  )}
                   <div className="absolute top-2 right-2 mt-6 flex gap-0.5">
                     {[...Array(5)].map((_, i) => (
                       <Star
@@ -123,3 +126,4 @@ export const RecentClips = () => {
     </div>
   );
 };
+

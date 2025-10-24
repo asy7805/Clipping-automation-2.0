@@ -20,25 +20,20 @@ import {
   VolumeX,
   Maximize,
   Star,
-  X
+  X,
+  AlertCircle
 } from "lucide-react";
 import { AIScoreDisplay } from "@/components/AIScoreDisplay";
 import { cn } from "@/lib/utils";
 import { getChannelAvatarProps } from "@/lib/avatarUtils";
+import { Clip, ScoreBreakdown } from "@/hooks/useClips";
 
 interface VideoPlayerModalProps {
   clipId: string | null;
   onClose: () => void;
   onNext?: () => void;
   onPrevious?: () => void;
-  clipData?: {
-    id: string;
-    channel_name: string;
-    confidence_score: number;
-    transcript: string;
-    created_at: string;
-    storage_url?: string;
-  };
+  clipData?: Clip;
 }
 
 const getScoreColor = (score: number) => {
@@ -65,9 +60,11 @@ export function VideoPlayerModal({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     if (clipId && videoRef.current) {
+      setVideoError(false);
       // Auto-play when clip loads
       videoRef.current.play().catch(err => {
         console.log("Autoplay prevented:", err);
@@ -126,7 +123,7 @@ export function VideoPlayerModal({
     storageUrl: clipData.storage_url 
   });
 
-  const stars = getStarCount(clipData.confidence_score);
+  const stars = clipData.confidence_score ? getStarCount(clipData.confidence_score) : 0;
   const { gradient, initials } = getChannelAvatarProps(clipData.channel_name);
 
   return (
@@ -170,16 +167,39 @@ export function VideoPlayerModal({
             )}
 
             {/* Video Element */}
-            <video
-              ref={videoRef}
-              src={clipData.storage_url}
-              controls
-              loop
-              className="w-full h-full max-h-[70vh] object-contain"
-              onError={(e) => console.error("Video load error:", e)}
-            >
-              Your browser does not support video playback.
-            </video>
+            {videoError ? (
+              <div className="w-full h-full min-h-[50vh] flex flex-col items-center justify-center text-white space-y-4">
+                <AlertCircle className="w-16 h-16 text-red-500" />
+                <div className="text-center space-y-2">
+                  <p className="text-lg font-semibold">Unable to load video</p>
+                  <p className="text-sm text-gray-400">The video file may be unavailable or corrupted</p>
+                  {clipData.storage_url && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => window.open(clipData.storage_url, '_blank')}
+                      className="mt-4"
+                    >
+                      Try opening in new tab
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <video
+                ref={videoRef}
+                src={clipData.storage_url}
+                controls
+                loop
+                className="w-full h-full max-h-[70vh] object-contain"
+                onError={(e) => {
+                  console.error("Video load error:", e);
+                  setVideoError(true);
+                }}
+              >
+                Your browser does not support video playback.
+              </video>
+            )}
 
             {/* Overlay Controls */}
             <div className="absolute bottom-4 right-4 flex gap-2">
@@ -225,9 +245,11 @@ export function VideoPlayerModal({
 
               {/* Score Display */}
               <div className="flex items-center gap-2 mb-3">
-                <Badge className={cn("text-lg font-bold px-3 py-1", getScoreColor(clipData.confidence_score))}>
-                  {clipData.confidence_score.toFixed(2)}
-                </Badge>
+                {clipData.confidence_score && (
+                  <Badge className={cn("text-lg font-bold px-3 py-1", getScoreColor(clipData.confidence_score))}>
+                    {clipData.confidence_score.toFixed(2)}
+                  </Badge>
+                )}
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -235,7 +257,7 @@ export function VideoPlayerModal({
                       className={cn(
                         "w-4 h-4",
                         i < stars 
-                          ? `fill-current ${getScoreColor(clipData.confidence_score)}` 
+                          ? `fill-current ${clipData.confidence_score ? getScoreColor(clipData.confidence_score) : 'text-primary'}` 
                           : 'text-muted'
                       )}
                     />
@@ -244,17 +266,30 @@ export function VideoPlayerModal({
               </div>
 
               {/* AI Score Breakdown */}
-              <AIScoreDisplay
-                score={clipData.confidence_score}
-                breakdown={{
-                  audioEnergy: 0.75,
-                  pitchVariance: 0.60,
-                  emotionScore: 0.80,
-                  keywordBoost: 0.50
-                }}
-                size="sm"
-                showBreakdown={true}
-              />
+              {clipData.confidence_score && clipData.score_breakdown && (
+                <div className="space-y-3">
+                  <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider border-b border-border pb-2">
+                    Live Ingestion Score Breakdown
+                  </div>
+                  <AIScoreDisplay
+                    score={clipData.confidence_score}
+                    breakdown={{
+                      audioEnergy: clipData.score_breakdown.energy,
+                      pitchVariance: clipData.score_breakdown.pitch,
+                      emotionScore: clipData.score_breakdown.emotion,
+                      keywordBoost: clipData.score_breakdown.keyword
+                    }}
+                    size="sm"
+                    showBreakdown={true}
+                  />
+                  <div className="text-xs text-muted-foreground italic p-3 bg-muted/30 rounded-lg border border-border">
+                    <p className="font-semibold mb-1">Formula:</p>
+                    <p className="font-mono text-[10px] leading-relaxed">
+                      Score = (0.35 × Energy) + (0.25 × Pitch) + (0.40 × Emotion) + Keyword Boost
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Transcript */}

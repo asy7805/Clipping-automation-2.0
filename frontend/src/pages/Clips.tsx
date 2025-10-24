@@ -29,10 +29,19 @@ import {
 
 const Clips = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const urlChannel = searchParams.get('channel');
+  
+  // Safely get channel param with null check
+  const urlChannel = (() => {
+    try {
+      return searchParams.get('channel') || undefined;
+    } catch (e) {
+      console.warn('Failed to get search params:', e);
+      return undefined;
+    }
+  })();
   
   const [view, setView] = useState<"grid" | "list">("grid");
-  const [channelFilter, setChannelFilter] = useState<string | undefined>(urlChannel || undefined);
+  const [channelFilter, setChannelFilter] = useState<string | undefined>(urlChannel);
   const [timeFilter, setTimeFilter] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("newest");
   const [searchQuery, setSearchQuery] = useState("");
@@ -56,7 +65,7 @@ const Clips = () => {
 
   // Fetch clips with filters
   const { data: clips, isLoading, error, refetch } = useClips({
-    limit: 50,
+    limit: 100,
     channel_name: channelFilter,
   });
 
@@ -337,16 +346,21 @@ const Clips = () => {
                 );
 
                 return (
-                  <Accordion type="multiple" value={expandedChannels} onValueChange={setExpandedChannels}>
+                  <Accordion 
+                    type="multiple" 
+                    value={expandedChannels} 
+                    onValueChange={setExpandedChannels}
+                    className="space-y-2"
+                  >
                     {sortedChannels.map(([channel, channelClips]) => {
                       const isExpanded = expandedChannels.includes(channel);
-                      const highestScore = Math.max(...channelClips.map(c => c.confidence_score));
+                      const highestScore = Math.max(...channelClips.map(c => c.confidence_score || 0));
                       const { gradient, initials } = getChannelAvatarProps(channel);
                       
                       return (
                         <AccordionItem key={channel} value={channel} className="border-0">
-                          <AccordionTrigger className="hover:no-underline bg-card/50 hover:bg-card border border-border rounded-lg px-6 py-4 transition-all">
-                            <div className="flex items-center justify-between w-full pr-4">
+                          <AccordionTrigger className="hover:no-underline bg-card/50 hover:bg-card border border-border rounded-lg px-6 py-4 transition-all [&>svg]:hidden">
+                            <div className="flex items-center justify-between w-full">
                               <div className="flex items-center gap-4">
                                 <div 
                                   className={`w-10 h-10 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-bold text-sm ring-2 ring-primary/20`}
@@ -356,14 +370,17 @@ const Clips = () => {
                                 <div className="text-left">
                                   <h3 className="text-lg font-bold text-foreground">{channel}</h3>
                                   <p className="text-sm text-muted-foreground">
-                                    {channelClips.length} clip{channelClips.length !== 1 ? 's' : ''} • 
-                                    Best: {highestScore.toFixed(2)} ⭐
+                                    {channelClips.length} clip{channelClips.length !== 1 ? 's' : ''}
+                                    {highestScore > 0 && ` • Best: ${highestScore.toFixed(2)} ⭐`}
                                   </p>
                                 </div>
                               </div>
-                              <Badge variant="outline" className="mr-2">
-                                {isExpanded ? 'Collapse' : 'Expand'}
-                              </Badge>
+                              <div className="flex items-center gap-2">
+                                <Badge variant="outline" className="pointer-events-none">
+                                  {isExpanded ? 'Collapse' : 'Expand'}
+                                </Badge>
+                                <ChevronDown className={`w-5 h-5 transition-transform duration-200 flex-shrink-0 ${isExpanded ? '' : '-rotate-90'}`} />
+                              </div>
                             </div>
                           </AccordionTrigger>
                           <AccordionContent className="pt-6 pb-2">

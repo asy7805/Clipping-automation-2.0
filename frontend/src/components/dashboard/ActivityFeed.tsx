@@ -33,12 +33,10 @@ export const ActivityFeed = () => {
 
   // Transform clips to activity format
   const activities = clips?.map(clip => ({
-    icon: getActivityIcon(clip.confidence_score),
-    message: clip.confidence_score >= 0.7
-      ? `${clip.channel_name}: High-score clip captured (${clip.confidence_score.toFixed(2)})`
-      : `${clip.channel_name}: Clip uploaded (${clip.confidence_score.toFixed(2)})`,
+    icon: getActivityIcon(clip.confidence_score || 0),
+    message: `${clip.channel_name}: New clip captured`,
     time: getTimeAgo(clip.created_at),
-    color: getActivityColor(clip.confidence_score)
+    color: getActivityColor(clip.confidence_score || 0)
   })) || [];
   return (
     <div>

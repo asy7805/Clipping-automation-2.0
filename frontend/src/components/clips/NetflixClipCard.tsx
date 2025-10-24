@@ -1,9 +1,16 @@
-import { Play, Star } from "lucide-react";
+import { Play, Star, Zap, Music, SmilePlus, MessageSquare } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { useVideoPlayer } from "@/contexts/VideoPlayerContext";
 import { Clip } from "@/hooks/useClips";
+import { getChannelAvatarProps } from "@/lib/avatarUtils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface NetflixClipCardProps {
   clip: Clip;
@@ -47,7 +54,7 @@ const getTimeAgo = (dateString: string) => {
 
 export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) => {
   const { openPlayer } = useVideoPlayer();
-  const stars = getStarCount(clip.confidence_score);
+  const stars = clip.confidence_score ? getStarCount(clip.confidence_score) : 0;
   
   // Use real thumbnail from video first frame, fallback to placeholder
   const imagePool = [
@@ -59,21 +66,22 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
   const imageIndex = Math.abs(clip.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % imagePool.length;
   const fallbackImage = `https://images.unsplash.com/${imagePool[imageIndex]}?w=400&h=225&fit=crop`;
   
-  // Prefer real thumbnail, fallback to placeholder
-  const thumbnail = clip.thumbnail_url || clip.thumbnail || fallbackImage;
+  // Use gradient placeholder for MVP
+  const { gradient, initials } = getChannelAvatarProps(clip.channel_name);
 
   return (
     <div 
       className="group cursor-pointer w-full"
       onClick={() => openPlayer(clip)}
     >
-      {/* Thumbnail Container */}
+      {/* Gradient Placeholder Container */}
       <div className="relative aspect-video bg-muted rounded-md overflow-hidden mb-2">
-        <img 
-          src={thumbnail} 
-          alt={clip.channel_name}
-          className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
-        />
+        <div className={`w-full h-full bg-gradient-to-br ${gradient} flex items-center justify-center transition-all duration-300 group-hover:scale-110`}>
+          <div className="text-center text-white">
+            <div className="text-3xl font-bold">{initials}</div>
+            <div className="text-sm opacity-75 mt-1">{clip.channel_name}</div>
+          </div>
+        </div>
         
         {/* Dark overlay on hover */}
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300" />
@@ -98,9 +106,66 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
           <span className="font-medium text-sm text-foreground truncate group-hover:text-primary transition-colors">
             {clip.channel_name}
           </span>
-          <Badge className={cn("text-xs font-bold px-1.5 py-0 border shrink-0", getScoreBg(clip.confidence_score), getScoreColor(clip.confidence_score))}>
-            {clip.confidence_score.toFixed(2)}
-          </Badge>
+          {clip.confidence_score && (
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Badge className={cn("text-xs font-bold px-1.5 py-0 border shrink-0 cursor-help", getScoreBg(clip.confidence_score), getScoreColor(clip.confidence_score))}>
+                    {clip.confidence_score.toFixed(2)}
+                  </Badge>
+                </TooltipTrigger>
+                <TooltipContent side="left" className="p-3 bg-card border-border">
+                  <div className="space-y-2 min-w-[180px]">
+                    <div className="text-xs font-bold text-foreground border-b border-border pb-1.5 mb-2">
+                      Live Ingestion Score
+                    </div>
+                    {clip.score_breakdown ? (
+                      <>
+                        <div className="flex items-center justify-between text-xs">
+                          <div className="flex items-center gap-1.5">
+                            <Zap className="w-3 h-3 text-yellow-500" />
+                            <span className="text-muted-foreground">Energy</span>
+                          </div>
+                          <span className="font-mono font-bold text-foreground">{clip.score_breakdown.energy.toFixed(3)}</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <div className="flex items-center gap-1.5">
+                            <Music className="w-3 h-3 text-blue-500" />
+                            <span className="text-muted-foreground">Pitch</span>
+                          </div>
+                          <span className="font-mono font-bold text-foreground">{clip.score_breakdown.pitch.toFixed(3)}</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <div className="flex items-center gap-1.5">
+                            <SmilePlus className="w-3 h-3 text-pink-500" />
+                            <span className="text-muted-foreground">Emotion</span>
+                          </div>
+                          <span className="font-mono font-bold text-foreground">{clip.score_breakdown.emotion.toFixed(3)}</span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs">
+                          <div className="flex items-center gap-1.5">
+                            <MessageSquare className="w-3 h-3 text-purple-500" />
+                            <span className="text-muted-foreground">Keywords</span>
+                          </div>
+                          <span className="font-mono font-bold text-foreground">{clip.score_breakdown.keyword > 0 ? '+0.15' : '0.00'}</span>
+                        </div>
+                        <div className="border-t border-border pt-2 mt-2">
+                          <div className="flex items-center justify-between text-xs font-bold">
+                            <span className="text-foreground">Final Score</span>
+                            <span className={cn("font-mono", getScoreColor(clip.confidence_score))}>{clip.score_breakdown.final_score.toFixed(3)}</span>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="text-xs text-muted-foreground">
+                        Score breakdown not available
+                      </div>
+                    )}
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
         </div>
 
         {/* Stars and Time */}
@@ -112,7 +177,7 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
                 className={cn(
                   "w-2.5 h-2.5",
                   i < stars 
-                    ? `fill-current ${getScoreColor(clip.confidence_score)}` 
+                    ? `fill-current ${clip.confidence_score ? getScoreColor(clip.confidence_score) : 'text-primary'}` 
                     : 'text-muted-foreground/30'
                 )}
               />
@@ -126,4 +191,6 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
     </div>
   );
 };
+
+
 

@@ -61,9 +61,13 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-3xl font-bold gradient-text">{featuredClip.confidence_score.toFixed(2)}</div>
+                <div className="text-3xl font-bold gradient-text">
+                  {featuredClip.confidence_score ? featuredClip.confidence_score.toFixed(2) : 'N/A'}
+                </div>
                 <div className="text-xs text-muted-foreground">
-                  {featuredClip.confidence_score >= 0.7 ? 'Exceptional' : featuredClip.confidence_score >= 0.5 ? 'Great' : 'Good'}
+                  {featuredClip.confidence_score 
+                    ? (featuredClip.confidence_score >= 0.7 ? 'Exceptional' : featuredClip.confidence_score >= 0.5 ? 'Great' : 'Good')
+                    : 'No score yet'}
                 </div>
               </div>
             </div>
@@ -85,17 +89,19 @@ const Dashboard = () => {
                   </div>
                 </button>
               </div>
-              <AIScoreDisplay 
-                score={featuredClip.confidence_score}
-                breakdown={{
-                  audioEnergy: 0.88,
-                  pitchVariance: 0.72,
-                  emotionScore: 0.85,
-                  keywordBoost: 0.68
-                }}
-                size={isMobile ? "md" : "lg"}
-                showBreakdown={true}
-              />
+              {featuredClip.confidence_score && (
+                <AIScoreDisplay 
+                  score={featuredClip.confidence_score}
+                  breakdown={{
+                    audioEnergy: 0.88,
+                    pitchVariance: 0.72,
+                    emotionScore: 0.85,
+                    keywordBoost: 0.68
+                  }}
+                  size={isMobile ? "md" : "lg"}
+                  showBreakdown={true}
+                />
+              )}
             </div>
           </Card>
         )}

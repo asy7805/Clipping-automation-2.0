@@ -28,18 +28,18 @@ export const DashboardLayout = () => {
       <div className="fixed inset-0 mesh-gradient opacity-50 pointer-events-none" />
       
       {/* Sidebar - Hidden on mobile */}
-      <aside className="hidden md:flex w-64 glass-strong flex-col relative z-10 border-r border-white/10">
+      <aside className="hidden md:flex w-56 glass-strong flex-col relative z-10 border-r border-white/10 h-screen overflow-hidden">
         {/* Logo */}
-        <div className="p-6 border-b border-white/10">
+        <div className="p-4 border-b border-white/10">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary to-pink-500 rounded-xl blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
-              <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-primary via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-primary/50 group-hover:shadow-primary/70 transition-all">
-                <Film className="w-7 h-7 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary to-pink-500 rounded-lg blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
+              <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-primary via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-primary/50 group-hover:shadow-primary/70 transition-all">
+                <Film className="w-6 h-6 text-white" />
               </div>
             </div>
-            <div>
-              <h1 className="font-bold text-lg text-foreground group-hover:text-primary transition-colors">
+            <div className="min-w-0">
+              <h1 className="font-bold text-base text-foreground group-hover:text-primary transition-colors truncate">
                 Clipping Auto
               </h1>
               <p className="text-xs font-semibold bg-gradient-to-r from-primary to-pink-500 bg-clip-text text-transparent">
@@ -50,7 +50,7 @@ export const DashboardLayout = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-1">
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
@@ -60,7 +60,7 @@ export const DashboardLayout = () => {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "w-full justify-start gap-3 transition-all duration-200",
+                    "w-full justify-start gap-3 transition-all duration-200 text-base h-12",
                     isActive 
                       ? "bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary border border-primary/20" 
                       : "hover:bg-white/5 text-foreground/80 hover:text-foreground"
@@ -77,8 +77,8 @@ export const DashboardLayout = () => {
 
         {/* User Profile */}
         <div className="p-4 border-t border-white/10">
-          <div className="flex items-center gap-3 p-2 rounded-lg bg-muted/20">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-pink-500 flex items-center justify-center text-white font-bold">
+          <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/20">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-pink-500 flex items-center justify-center text-white font-bold text-sm">
               A
             </div>
             <div className="flex-1 min-w-0">

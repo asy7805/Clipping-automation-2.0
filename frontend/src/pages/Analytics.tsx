@@ -112,17 +112,47 @@ const Analytics = () => {
         <Card className="p-6 bg-card border-border col-span-2">
           <h3 className="text-lg font-semibold mb-6">Clips Over Time</h3>
           <div className="h-64 flex items-end justify-between gap-2">
-            {[42, 58, 45, 72, 88, 65, 93, 78, 95, 82, 110, 98, 115, 102].map((height, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                <div 
-                  className="w-full bg-gradient-to-t from-primary to-pink-500 rounded-t-sm hover:opacity-80 transition-opacity cursor-pointer"
-                  style={{ height: `${height}%` }}
-                />
-                <span className="text-xs text-muted-foreground">
-                  {i % 2 === 0 ? `${i + 1}` : ''}
-                </span>
-              </div>
-            ))}
+            {(() => {
+              // Get clips by date (last 14 days)
+              const today = new Date();
+              const last14Days = Array.from({ length: 14 }, (_, i) => {
+                const date = new Date(today);
+                date.setDate(date.getDate() - (13 - i));
+                return date.toISOString().split('T')[0];
+              });
+
+              // Count clips per day
+              const clipsByDate = analytics.clips.reduce((acc, clip) => {
+                const date = new Date(clip.created_at).toISOString().split('T')[0];
+                acc[date] = (acc[date] || 0) + 1;
+                return acc;
+              }, {} as Record<string, number>);
+
+              const dailyCounts = last14Days.map(date => clipsByDate[date] || 0);
+              const maxCount = Math.max(...dailyCounts, 1);
+
+              return dailyCounts.map((count, i) => {
+                const height = maxCount > 0 ? (count / maxCount) * 100 : 0;
+                const date = new Date(last14Days[i]);
+                const label = `${date.getMonth() + 1}/${date.getDate()}`;
+                
+                return (
+                  <div key={i} className="flex-1 flex flex-col items-center gap-2" title={`${label}: ${count} clips`}>
+                    <div 
+                      className="w-full bg-gradient-to-t from-primary to-pink-500 rounded-t-sm hover:opacity-80 transition-opacity cursor-pointer"
+                      style={{ height: count > 0 ? `${Math.max(height, 5)}%` : '2px' }}
+                    />
+                    <span className="text-xs text-muted-foreground">
+                      {i % 2 === 0 ? label : ''}
+                    </span>
+                  </div>
+                );
+              });
+            })()}
+          </div>
+          <div className="flex items-center justify-between mt-4 text-sm text-muted-foreground">
+            <span>Last 14 days</span>
+            <span>{analytics.clips.length} total clips</span>
           </div>
         </Card>
 

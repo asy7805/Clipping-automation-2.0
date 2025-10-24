@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Pause, Play, Settings, Square, Users, Loader2 } from "lucide-react";
+import { Eye, Pause, Play, Settings, Square, Users, Loader2, Wifi, Brain, Cloud, AlertTriangle, Cpu, HardDrive } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/lib/api";
 import { useMonitorStats } from "@/hooks/useMonitorStats";
+import { useMonitorHealth } from "@/hooks/useMonitorHealth";
+import { getChannelAvatarProps } from "@/lib/avatarUtils";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -53,13 +55,24 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
 
   const isLive = stream.status !== "paused";
 
-  // Fetch real-time stats for this monitor
+  // Fetch real-time stats and health for this monitor
   const { data: stats } = useMonitorStats(stream.channel, isLive);
+  const { data: health } = useMonitorHealth(stream.channel, isLive);
 
   // Use real stats if available, otherwise use stream defaults
   const displayClips = stats?.clips_captured ?? stream.clips;
   const displaySegments = stats?.segments_analyzed ?? stream.segments;
   const displayLastClip = stats?.last_clip_time ?? stream.lastClip;
+  
+  // Get real Twitch data from health check
+  const viewerCount = health?.viewer_count ?? stream.viewers;
+  const streamTitle = health?.stream_title ?? stream.title;
+  const gameName = health?.game_name ?? stream.category;
+  const isTwitchLive = health?.is_live ?? isLive;
+  const hasWarnings = health?.warnings && health.warnings.length > 0;
+  
+  // Get avatar props
+  const { gradient, initials } = getChannelAvatarProps(stream.channel);
 
   // Handle View button - navigate to clips filtered by channel
   const handleView = () => {
@@ -82,6 +95,17 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
       setShowStopDialog(false);
     } catch (err: any) {
       console.error('Failed to stop monitor:', err);
+      
+      // If monitor not found, it's already stopped - treat as success
+      if (err.message?.includes('Not Found') || err.message?.includes('not found')) {
+        console.log('Monitor already stopped, refreshing data...');
+        // Refresh the monitors list
+        queryClient.invalidateQueries({ queryKey: ['streams'] });
+        queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] });
+        setShowStopDialog(false);
+        return;
+      }
+      
       setError(err.message || 'Failed to stop monitor');
     } finally {
       setIsStopping(false);
@@ -126,71 +150,146 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
               </defs>
             </svg>
             
-            <Avatar className="w-12 h-12 ring-2 ring-white/10">
-              <AvatarImage src={stream.avatar} alt={stream.channel} />
-              <AvatarFallback>{stream.channel[0].toUpperCase()}</AvatarFallback>
-            </Avatar>
+            <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-bold text-lg ring-2 ring-white/10`}>
+              {initials}
+            </div>
             
             {/* Animated Live Indicator */}
-            {isLive && (
+            {isTwitchLive && (
               <>
                 <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-success rounded-full border-2 border-card animate-pulse" />
                 <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-success rounded-full animate-ping" />
               </>
             )}
+            {!isTwitchLive && isLive && (
+              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-destructive rounded-full border-2 border-card" />
+            )}
           </div>
-          <div>
-            <h3 className="font-bold text-foreground text-lg">{stream.channel}</h3>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="flex-1 min-w-0 mr-3">
+          <h3 className="font-bold text-foreground text-lg truncate">{stream.channel}</h3>
+          <p className="text-xs text-muted-foreground truncate max-w-[200px]">{streamTitle || stream.title}</p>
+          <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
+            <div className="flex items-center gap-1">
               <Users className="w-3.5 h-3.5" />
-              <span className="font-medium">{stream.viewers}</span>
+              <span className="font-medium">{viewerCount.toLocaleString()}</span>
             </div>
+            {gameName && (
+              <span className="text-xs truncate max-w-[120px]">• {gameName}</span>
+            )}
           </div>
         </div>
+        </div>
         
-        {/* Glowing Status Badge */}
-        <Badge className={cn(
-          "border relative",
-          statusColors[stream.status],
-          stream.status === "analyzing" && "shadow-[0_0_15px_rgba(16,185,129,0.5)]",
-          stream.status === "processing" && "shadow-[0_0_15px_rgba(245,158,11,0.5)]"
-        )}>
-          {stream.status === "analyzing" && (
-            <>
-              <span className="relative z-10">Analyzing</span>
+        {/* Live/Offline Status Badge */}
+        <div className="flex flex-col items-end gap-1 flex-shrink-0">
+          {isTwitchLive ? (
+            <Badge className="border relative bg-success/10 text-success border-success/20 shadow-[0_0_15px_rgba(16,185,129,0.5)]">
+              <span className="relative z-10">🔴 LIVE</span>
               <span className="absolute inset-0 bg-success/20 blur-sm rounded-full" />
-            </>
+            </Badge>
+          ) : (
+            <Badge className="border relative bg-muted text-muted-foreground border-border">
+              Offline
+            </Badge>
           )}
-          {stream.status === "processing" && (
-            <>
-              <span className="relative z-10">Processing</span>
-              <span className="absolute inset-0 bg-warning/20 blur-sm rounded-full" />
-            </>
+          {hasWarnings && (
+            <Badge 
+              variant="destructive" 
+              className="text-xs cursor-help whitespace-nowrap" 
+              title={health?.warnings.join(', ')}
+            >
+              <AlertTriangle className="w-3 h-3 mr-1" />
+              {health?.warnings.length} issue{health?.warnings.length !== 1 ? 's' : ''}
+            </Badge>
           )}
-          {stream.status === "paused" && "Offline"}
-        </Badge>
+        </div>
       </div>
 
       <div className="space-y-4">
-        <div>
-          <p className="text-sm text-foreground line-clamp-2 mb-2 leading-relaxed">{stream.title}</p>
-          <Badge variant="outline" className="text-xs text-info border-info/30 bg-info/10">
-            {stream.category}
-          </Badge>
-        </div>
+        {/* Stream Info Section */}
+        {health && (isTwitchLive || health.stream_title) && (
+          <div className="p-3 bg-muted/20 rounded-lg border border-border">
+            <p className="text-xs text-muted-foreground mb-1">Stream Info</p>
+            {health.stream_title && (
+              <p className="text-sm font-medium text-foreground line-clamp-2 mb-1 break-words">
+                {health.stream_title}
+              </p>
+            )}
+            <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
+              {health.game_name && (
+                <Badge variant="outline" className="text-xs flex-shrink-0">{health.game_name}</Badge>
+              )}
+              <span className="flex-shrink-0">•</span>
+              <span className="flex-shrink-0">Uptime: {health.uptime}</span>
+            </div>
+          </div>
+        )}
 
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div className="text-muted-foreground flex items-center gap-1">
-            <span className="text-base">⏱️</span> {stream.runtime}
+        {/* Health Indicators */}
+        {health && (
+          <div>
+            <p className="text-xs text-muted-foreground mb-2">System Health</p>
+            <div className="grid grid-cols-3 gap-2">
+              <div className={cn(
+                "flex flex-col items-center gap-1 px-2 py-2 rounded-md text-xs font-medium",
+                health.process_alive ? "bg-success/10 text-success" : "bg-destructive/10 text-destructive"
+              )}>
+                <Brain className="w-4 h-4" />
+                <span>AI</span>
+              </div>
+              <div className={cn(
+                "flex flex-col items-center gap-1 px-2 py-2 rounded-md text-xs font-medium",
+                isTwitchLive ? "bg-success/10 text-success" : "bg-muted/50 text-muted-foreground"
+              )}>
+                <Wifi className="w-4 h-4" />
+                <span>Stream</span>
+              </div>
+              <div className="flex flex-col items-center gap-1 px-2 py-2 rounded-md text-xs font-medium bg-success/10 text-success">
+                <Cloud className="w-4 h-4" />
+                <span>Upload</span>
+              </div>
+            </div>
           </div>
-          <div className="text-muted-foreground flex items-center gap-1">
-            <span className="text-base">📊</span> {displaySegments} segments
+        )}
+
+        {/* System Metrics */}
+        {health && health.process_alive && (
+          <div>
+            <p className="text-xs text-muted-foreground mb-2">Performance</p>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <div className="flex items-center justify-between px-3 py-2 bg-muted/30 rounded-md">
+                <div className="flex items-center gap-1.5">
+                  <Cpu className="w-3.5 h-3.5 text-primary" />
+                  <span>CPU</span>
+                </div>
+                <span className="font-mono font-bold">{health.cpu_percent}%</span>
+              </div>
+              <div className="flex items-center justify-between px-3 py-2 bg-muted/30 rounded-md">
+                <div className="flex items-center gap-1.5">
+                  <HardDrive className="w-3.5 h-3.5 text-primary" />
+                  <span>RAM</span>
+                </div>
+                <span className="font-mono font-bold">{health.memory_mb.toFixed(0)} MB</span>
+              </div>
+            </div>
           </div>
-          <div className="text-muted-foreground flex items-center gap-1">
-            <span className="text-base">📹</span> {displayClips} clips
-          </div>
-          <div className="text-muted-foreground text-xs self-center">
-            Last: {displayLastClip || 'analyzing...'}
+        )}
+
+        {/* Clip Stats */}
+        <div>
+          <p className="text-xs text-muted-foreground mb-2">Activity</p>
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <span className="text-base">📊</span>
+              <span>{displaySegments} segments</span>
+            </div>
+            <div className="flex items-center gap-1.5 text-muted-foreground">
+              <span className="text-base">📹</span>
+              <span>{displayClips} clips</span>
+            </div>
+            <div className="col-span-2 text-xs text-muted-foreground">
+              Last clip: {displayLastClip || 'analyzing...'}
+            </div>
           </div>
         </div>
 

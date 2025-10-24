@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Loader2, ExternalLink } from "lucide-react";
 import { apiClient } from "@/lib/api";
 import { useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 interface AddMonitorModalProps {
   open: boolean;
@@ -56,7 +57,10 @@ export function AddMonitorModal({ open, onOpenChange }: AddMonitorModalProps) {
       setTwitchUrl("");
       
       // Show success message
-      console.log("Monitor started:", response);
+      const channelName = response.channel_name || extractChannelName(twitchUrl);
+      toast.success(`Started monitoring ${channelName}`, {
+        description: "The stream is now being monitored for clip-worthy moments.",
+      });
     } catch (err: any) {
       setError(err.message || "Failed to start monitor. Please check the URL and try again.");
     } finally {

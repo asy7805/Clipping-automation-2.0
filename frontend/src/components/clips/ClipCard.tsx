@@ -80,12 +80,13 @@ export const ClipCard = ({ clip, view = "grid", rawClipData }: ClipCardProps) =>
         "relative overflow-hidden",
         view === "compact" ? "aspect-video" : "aspect-video"
       )}>
-        {/* Image with brightness effect */}
-        <img 
-          src={clip.thumbnail} 
-          alt={clip.channel}
-          className="w-full h-full object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-125"
-        />
+        {/* Gradient Placeholder */}
+        <div className="w-full h-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center transition-all duration-500 group-hover:scale-110">
+          <div className="text-center text-white">
+            <div className="text-2xl font-bold">{clip.channel.slice(0, 2).toUpperCase()}</div>
+            <div className="text-sm opacity-75">{clip.channel}</div>
+          </div>
+        </div>
         
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-opacity duration-300 group-hover:from-black/60" />
@@ -207,3 +208,4 @@ export const ClipCard = ({ clip, view = "grid", rawClipData }: ClipCardProps) =>
     </Card>
   );
 };
+

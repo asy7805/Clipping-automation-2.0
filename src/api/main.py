@@ -6,6 +6,7 @@ Provides REST API endpoints for clip management, analytics, and automation.
 
 import os
 import sys
+import asyncio
 from pathlib import Path
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Depends
@@ -20,20 +21,44 @@ load_dotenv()
 
 # Import API routers
 from .routers import clips, analytics, streams, health, monitors
+from .services.monitor_watchdog import MonitorWatchdog
+from twitch_engagement_fetcher import TwitchEngagementFetcher
+
+# Global watchdog instance
+watchdog_instance = None
+watchdog_task = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifespan manager for startup/shutdown events."""
+    global watchdog_instance, watchdog_task
+    
     # Startup
     print("🚀 Starting Clipping Automation API...")
     print(f"📡 Supabase URL: {os.getenv('SUPABASE_URL', 'Not configured')}")
     print(f"🤖 OpenAI API: {'✅ Configured' if os.getenv('OPENAI_API_KEY') else '❌ Missing'}")
     print(f"📺 Twitch API: {'✅ Configured' if os.getenv('TWITCH_CLIENT_ID') else '❌ Missing'}")
     
+    # Start monitor watchdog
+    print("🐕 Starting Monitor Watchdog...")
+    twitch_api = TwitchEngagementFetcher()
+    watchdog_instance = MonitorWatchdog(monitors.active_monitors, twitch_api)
+    watchdog_task = asyncio.create_task(watchdog_instance.run_watchdog_loop())
+    print("✅ Monitor Watchdog started (auto-restart enabled)")
+    
     yield
     
     # Shutdown
     print("🛑 Shutting down Clipping Automation API...")
+    if watchdog_instance:
+        watchdog_instance.stop()
+    if watchdog_task:
+        watchdog_task.cancel()
+        try:
+            await watchdog_task
+        except asyncio.CancelledError:
+            pass
+    print("✅ Shutdown complete")
 
 # Create FastAPI app
 app = FastAPI(

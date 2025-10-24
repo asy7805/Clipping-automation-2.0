@@ -108,9 +108,9 @@ export const StatsGrid = () => {
       <Card className="p-6 glass-strong border-white/10 hover:border-primary/30 transition-all group">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-muted-foreground mb-1">Avg AI Score</p>
+            <p className="text-sm text-muted-foreground mb-1">Total Segments</p>
             <p className="text-4xl font-bold text-foreground glow-text transition-all duration-500">
-              {displayStats.avgScore.toFixed(2)}
+              {displayStats.totalClips}
             </p>
             <div className="flex gap-0.5 mt-2">
               {[1, 2, 3, 4, 5].map((star) => (

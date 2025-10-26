@@ -17,10 +17,10 @@ from dotenv import load_dotenv
 sys.path.append(str(Path(__file__).parent.parent))
 
 # Load environment variables
-load_dotenv()
+load_dotenv(Path(__file__).parent.parent / '.env')
 
 # Import API routers
-from .routers import clips, analytics, streams, health, monitors
+from .routers import clips, analytics, streams, health, monitors, social
 from .services.monitor_watchdog import MonitorWatchdog
 from twitch_engagement_fetcher import TwitchEngagementFetcher
 
@@ -83,6 +83,7 @@ app.include_router(clips.router, prefix="/api/v1", tags=["clips"])
 app.include_router(analytics.router, prefix="/api/v1", tags=["analytics"])
 app.include_router(streams.router, prefix="/api/v1", tags=["streams"])
 app.include_router(monitors.router, prefix="/api/v1", tags=["monitors"])
+app.include_router(social.router, prefix="/api/v1", tags=["social"])
 
 @app.get("/")
 async def root():

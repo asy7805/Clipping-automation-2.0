@@ -1,6 +1,8 @@
-import { Play, Star, Zap, Music, SmilePlus, MessageSquare } from "lucide-react";
+import React, { useState } from "react";
+import { Play, Star, Zap, Music, SmilePlus, MessageSquare, Share } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useVideoPlayer } from "@/contexts/VideoPlayerContext";
 import { Clip } from "@/hooks/useClips";
@@ -11,6 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import PostSchedulerModal from "@/components/PostSchedulerModal";
 
 interface NetflixClipCardProps {
   clip: Clip;
@@ -54,6 +57,7 @@ const getTimeAgo = (dateString: string) => {
 
 export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) => {
   const { openPlayer } = useVideoPlayer();
+  const [showPostModal, setShowPostModal] = useState(false);
   const stars = clip.confidence_score ? getStarCount(clip.confidence_score) : 0;
   
   // Use real thumbnail from video first frame, fallback to placeholder
@@ -187,7 +191,31 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
             {getTimeAgo(clip.created_at)}
           </span>
         </div>
+
+        {/* Post to Social Button */}
+        <div className="pt-2">
+          <Button
+            size="sm"
+            variant="outline"
+            className="w-full text-xs"
+            onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
+              setShowPostModal(true);
+            }}
+          >
+            <Share className="w-3 h-3 mr-1" />
+            Post to Social
+          </Button>
+        </div>
       </div>
+
+      {/* Post Scheduler Modal */}
+      <PostSchedulerModal
+        clip={clip}
+        isOpen={showPostModal}
+        onClose={() => setShowPostModal(false)}
+      />
     </div>
   );
 };

@@ -11,7 +11,10 @@ import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Clips from "./pages/Clips";
 import Analytics from "./pages/Analytics";
+import SocialAccounts from "./pages/SocialAccounts";
 import Settings from "./pages/Settings";
+import TikTokCallback from "./pages/auth/TikTokCallback";
+import YouTubeCallback from "./pages/auth/YouTubeCallback";
 import NotFound from "./pages/NotFound";
 import { DashboardLayout } from "./components/DashboardLayout";
 
@@ -40,8 +43,13 @@ function AppContent() {
           <Route index element={<Dashboard />} />
           <Route path="clips" element={<Clips />} />
           <Route path="analytics" element={<Analytics />} />
+          <Route path="social" element={<SocialAccounts />} />
           <Route path="settings" element={<Settings />} />
         </Route>
+        
+        {/* OAuth callback routes */}
+        <Route path="/auth/tiktok/callback" element={<TikTokCallback />} />
+        <Route path="/auth/youtube/callback" element={<YouTubeCallback />} />
         
         {/* 404 page */}
         <Route path="*" element={<NotFound />} />

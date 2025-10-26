@@ -155,6 +155,73 @@ class APIClient {
   async getMonitorHealth(channelName: string) {
     return this.request(`/api/v1/monitors/${channelName}/health`);
   }
+
+  // Social Media
+  async getSocialAccounts() {
+    return this.request('/api/v1/social/accounts');
+  }
+
+  async initiateSocialAuth(platform: string) {
+    return this.request(`/api/v1/social/auth/${platform}/initiate`, {
+      method: 'POST',
+    });
+  }
+
+  async oauthCallback(platform: string, data: { code: string; state: string; platform: string; channel_id?: string }) {
+    return this.request(`/api/v1/social/auth/${platform}/callback`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async getYouTubeChannels(accessToken: string, refreshToken?: string) {
+    const params = new URLSearchParams({ access_token: accessToken });
+    if (refreshToken) params.set('refresh_token', refreshToken);
+    
+    return this.request(`/api/v1/social/youtube/channels?${params.toString()}`);
+  }
+
+  async unlinkSocialAccount(accountId: string) {
+    return this.request(`/api/v1/social/accounts/${accountId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  async schedulePost(clipId: string, accountIds: string[], scheduledAt?: string, caption?: string) {
+    return this.request('/api/v1/social/post', {
+      method: 'POST',
+      body: JSON.stringify({
+        clip_id: clipId,
+        account_ids: accountIds,
+        scheduled_at: scheduledAt,
+        caption: caption,
+      }),
+    });
+  }
+
+  async getPostingQueue(status?: string) {
+    const queryParams = new URLSearchParams();
+    if (status) queryParams.set('status', status);
+    
+    const query = queryParams.toString();
+    return this.request(`/api/v1/social/queue${query ? `?${query}` : ''}`);
+  }
+
+  async getNotifications() {
+    return this.request('/api/v1/social/notifications');
+  }
+
+  async retryQueueItem(queueId: string) {
+    return this.request(`/api/v1/social/queue/${queueId}/retry`, {
+      method: 'POST',
+    });
+  }
+
+  async cancelQueueItem(queueId: string) {
+    return this.request(`/api/v1/social/queue/${queueId}`, {
+      method: 'DELETE',
+    });
+  }
 }
 
 export const apiClient = new APIClient();

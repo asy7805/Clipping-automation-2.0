@@ -4,23 +4,29 @@ import {
   Film, 
   BarChart3, 
   Settings, 
-  ChevronRight
+  Share2,
+  ChevronRight,
+  Bell
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useState } from "react";
+import NotificationCenter from "@/components/NotificationCenter";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
   { icon: Film, label: "Clips Library", path: "/dashboard/clips" },
   { icon: BarChart3, label: "Analytics", path: "/dashboard/analytics" },
+  { icon: Share2, label: "Social Accounts", path: "/dashboard/social" },
   { icon: Settings, label: "Settings", path: "/dashboard/settings" },
 ];
 
 export const DashboardLayout = () => {
   const location = useLocation();
   const isMobile = useIsMobile();
+  const [showNotifications, setShowNotifications] = useState(false);
 
   return (
     <div className="min-h-screen bg-background flex relative">
@@ -103,6 +109,17 @@ export const DashboardLayout = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Notification Bell */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowNotifications(true)}
+              className="relative"
+            >
+              <Bell className="w-5 h-5" />
+              {/* Notification badge - you can add logic to show unread count */}
+            </Button>
+            
             <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/30">
               <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-pink-500 flex items-center justify-center text-white font-bold text-sm">
                 A
@@ -120,6 +137,12 @@ export const DashboardLayout = () => {
 
       {/* Mobile Bottom Navigation */}
       <MobileBottomNav />
+      
+      {/* Notification Center */}
+      <NotificationCenter 
+        isOpen={showNotifications} 
+        onClose={() => setShowNotifications(false)} 
+      />
     </div>
   );
 };

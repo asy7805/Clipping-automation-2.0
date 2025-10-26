@@ -29,3 +29,10 @@ env-*/
 *.ts
 *.m3u8
 *.mpd
+
+# Frontend (Node.js / React)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/build/
+frontend/.env.local

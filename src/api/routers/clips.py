@@ -162,10 +162,14 @@ def get_cached_clips():
 
 @router.get("/clips")
 async def get_clips(
-    limit: int = Query(10, ge=1, le=100),
+    limit: int = Query(20, ge=1, le=1000),
     offset: int = Query(0, ge=0),
     channel_name: Optional[str] = Query(None),
-    is_clip_worthy: Optional[bool] = Query(None)
+    is_clip_worthy: Optional[bool] = Query(None),
+    min_score: Optional[float] = Query(None, ge=0, le=5),
+    max_score: Optional[float] = Query(None, ge=0, le=5),
+    sort_by: Optional[str] = Query("newest", regex="^(newest|oldest|highest|lowest)$"),
+    search_query: Optional[str] = Query(None)
 ):
     try:
         print("=" * 80)
@@ -174,19 +178,9 @@ async def get_clips(
         # Get clips from cache
         storage_clips = get_cached_clips()
         
-        # Sort by created date (newest first)
-        storage_clips.sort(key=lambda x: x.get('created_at', ''), reverse=True)
-        
-        # Apply channel filter
-        if channel_name and isinstance(channel_name, str):
-            storage_clips = [c for c in storage_clips if channel_name.lower() in c['channel_name'].lower()]
-        
-        # Apply pagination
-        paginated_clips = storage_clips[offset:offset + limit]
-        
         # Build response with simulated scores based on live ingestion model
         clips = []
-        for clip in paginated_clips:
+        for clip in storage_clips:
             # Generate realistic score based on filename patterns
             import random
             import hashlib
@@ -232,11 +226,57 @@ async def get_clips(
                     'final_score': final_score
                 }
             }
-            print(f"DEBUG: Clip {clip['id'][:30]}... score={final_score}, has_breakdown={bool(clip_data.get('score_breakdown'))}")
             clips.append(clip_data)
         
-        print(f"DEBUG: Returning {len(clips)} clips with scores")
-        return clips
+        # Apply filters
+        filtered_clips = clips
+        
+        # Channel filter
+        if channel_name and isinstance(channel_name, str):
+            filtered_clips = [c for c in filtered_clips if channel_name.lower() in c['channel_name'].lower()]
+        
+        # Score filters
+        if min_score is not None:
+            filtered_clips = [c for c in filtered_clips if c['confidence_score'] >= min_score]
+        if max_score is not None:
+            filtered_clips = [c for c in filtered_clips if c['confidence_score'] <= max_score]
+        
+        # Search query filter
+        if search_query:
+            query_lower = search_query.lower()
+            filtered_clips = [c for c in filtered_clips if 
+                            query_lower in c['channel_name'].lower() or 
+                            query_lower in c.get('transcript', '').lower()]
+        
+        # Apply sorting
+        if sort_by == "newest":
+            filtered_clips.sort(key=lambda x: x.get('created_at', ''), reverse=True)
+        elif sort_by == "oldest":
+            filtered_clips.sort(key=lambda x: x.get('created_at', ''), reverse=False)
+        elif sort_by == "highest":
+            filtered_clips.sort(key=lambda x: x.get('confidence_score', 0), reverse=True)
+        elif sort_by == "lowest":
+            filtered_clips.sort(key=lambda x: x.get('confidence_score', 0), reverse=False)
+        
+        # Apply pagination
+        total_count = len(filtered_clips)
+        paginated_clips = filtered_clips[offset:offset + limit]
+        
+        print(f"DEBUG: Returning {len(paginated_clips)} clips out of {total_count} total")
+        
+        # Return paginated results with metadata
+        return {
+            "clips": paginated_clips,
+            "pagination": {
+                "total": total_count,
+                "page": (offset // limit) + 1,
+                "limit": limit,
+                "offset": offset,
+                "has_next": offset + limit < total_count,
+                "has_prev": offset > 0,
+                "total_pages": (total_count + limit - 1) // limit
+            }
+        }
         
     except Exception as e:
         print(f"Error fetching clips: {e}")

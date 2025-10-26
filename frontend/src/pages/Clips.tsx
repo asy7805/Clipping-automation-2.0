@@ -1,419 +1,210 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Search, Grid3x3, List, SlidersHorizontal, X, Loader2, ChevronDown, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { NetflixClipCard } from "@/components/clips/NetflixClipCard";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useClips } from "@/hooks/useClips";
-import { useSearchParams } from "react-router-dom";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { getChannelAvatarProps } from "@/lib/avatarUtils";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Search, Users, Calendar, Star, Play } from 'lucide-react';
+import { Button } from '../components/ui/button';
+import { Input } from '../components/ui/input';
+import { Card, CardContent } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { useClips } from '../hooks/useClips';
 
 const Clips = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  
-  // Safely get channel param with null check
-  const urlChannel = (() => {
-    try {
-      return searchParams.get('channel') || undefined;
-    } catch (e) {
-      console.warn('Failed to get search params:', e);
-      return undefined;
-    }
-  })();
-  
-  const [view, setView] = useState<"grid" | "list">("grid");
-  const [channelFilter, setChannelFilter] = useState<string | undefined>(urlChannel);
-  const [timeFilter, setTimeFilter] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<string>("newest");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isPulling, setIsPulling] = useState(false);
-  const [pullDistance, setPullDistance] = useState(0);
-  const [filtersOpen, setFiltersOpen] = useState(false);
-  const [expandedChannels, setExpandedChannels] = useState<string[]>([]);
-  const isMobile = useIsMobile();
-  const touchStartY = useRef(0);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState('');
 
-  // Count active filters
-  const activeFilterCount = [channelFilter, timeFilter !== "all"].filter(Boolean).length;
-
-  // Update filter when URL param changes
-  useEffect(() => {
-    if (urlChannel) {
-      setChannelFilter(urlChannel);
-    }
-  }, [urlChannel]);
-
-  // Fetch clips with filters
-  const { data: clips, isLoading, error, refetch } = useClips({
-    limit: 100,
-    channel_name: channelFilter,
+  // Fetch all clips to group by streamer
+  const { data: clipsData, isLoading, error } = useClips({
+    limit: 1000, // Get all clips to group by streamer
   });
 
-  // Filter by search query on client side
-  const filteredClips = clips?.filter(clip => {
-    if (!searchQuery) return true;
-    const query = searchQuery.toLowerCase();
-    return (
-      clip.transcript.toLowerCase().includes(query) ||
-      clip.channel_name.toLowerCase().includes(query)
-    );
-  }) || [];
+  const clips = clipsData?.clips || [];
 
-  // Auto-expand first channel and filtered channel
-  useEffect(() => {
-    if (filteredClips.length > 0) {
-      const channels = Object.keys(filteredClips.reduce((acc, clip) => {
-        acc[clip.channel_name] = true;
-        return acc;
-      }, {} as Record<string, boolean>));
-      
-      if (channelFilter && !expandedChannels.includes(channelFilter)) {
-        setExpandedChannels([channelFilter]);
-      } else if (expandedChannels.length === 0 && channels.length > 0) {
-        // Auto-expand first channel by default
-        setExpandedChannels([channels[0]]);
+  // Group clips by streamer and calculate stats
+  const streamerStats = useMemo(() => {
+    const grouped = clips.reduce((acc, clip) => {
+      const channelName = clip.channel_name;
+      if (!acc[channelName]) {
+        acc[channelName] = {
+          name: channelName,
+          totalClips: 0,
+          latestClip: null,
+          avgScore: 0,
+          clips: []
+        };
       }
-    }
-  }, [filteredClips, channelFilter]);
+      
+      acc[channelName].totalClips++;
+      acc[channelName].clips.push(clip);
+      
+      // Track latest clip
+      if (!acc[channelName].latestClip || new Date(clip.created_at) > new Date(acc[channelName].latestClip.created_at)) {
+        acc[channelName].latestClip = clip;
+      }
+      
+      return acc;
+    }, {} as Record<string, any>);
 
-  // Pull to refresh for mobile
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (!isMobile) return;
-    const scrollContainer = scrollContainerRef.current?.closest('main');
-    if (scrollContainer && scrollContainer.scrollTop === 0) {
-      touchStartY.current = e.touches[0].clientY;
-    }
+    // Calculate average scores
+    Object.values(grouped).forEach((streamer: any) => {
+      const totalScore = streamer.clips.reduce((sum: number, clip: any) => sum + (clip.confidence_score || 0), 0);
+      streamer.avgScore = streamer.totalClips > 0 ? totalScore / streamer.totalClips : 0;
+    });
+
+    return Object.values(grouped).sort((a: any, b: any) => b.totalClips - a.totalClips);
+  }, [clips]);
+
+  // Filter streamers based on search query
+  const filteredStreamers = useMemo(() => {
+    if (!searchQuery.trim()) return streamerStats;
+    
+    return streamerStats.filter((streamer: any) =>
+      streamer.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [streamerStats, searchQuery]);
+
+  // Handle streamer card click
+  const handleStreamerClick = (streamerName: string) => {
+    navigate(`/dashboard/clips/${encodeURIComponent(streamerName)}`);
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isMobile || touchStartY.current === 0) return;
-    
-    const currentY = e.touches[0].clientY;
-    const distance = currentY - touchStartY.current;
-    
-    if (distance > 0 && distance < 100) {
-      setPullDistance(distance);
-      setIsPulling(true);
-    }
+  // Get score category
+  const getScoreCategory = (score: number) => {
+    if (score >= 0.7) return { label: 'Top-tier', color: 'bg-green-500' };
+    if (score >= 0.5) return { label: 'Above avg', color: 'bg-yellow-500' };
+    return { label: 'Good', color: 'bg-blue-500' };
   };
 
-  const handleTouchEnd = () => {
-    if (!isMobile) return;
-    
-    if (pullDistance > 60) {
-      // Trigger refresh
-      refetch();
-    }
-    
-    setIsPulling(false);
-    setPullDistance(0);
-    touchStartY.current = 0;
+  // Format date
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
   };
+
+  if (error) {
+    return (
+      <div className="p-6">
+        <div className="text-center py-12">
+          <p className="text-muted-foreground">Error loading clips</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div 
-      ref={scrollContainerRef}
-      className="min-h-screen"
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      {/* Page Title */}
-      <div className="px-6 md:px-8 pt-6 pb-4">
-        <h1 className="text-3xl md:text-4xl font-bold mb-2">My Clips</h1>
-        <p className="text-muted-foreground">
-          {filteredClips.length} clip{filteredClips.length !== 1 ? 's' : ''} 
-          {channelFilter && ` from ${channelFilter}`}
-        </p>
+    <div className="p-6">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Clips Library</h1>
+        <p className="text-muted-foreground">Browse clips by streamer</p>
       </div>
 
-      <div className="px-6 md:px-8 pb-8 space-y-6">
-      {/* Pull to refresh indicator */}
-      {isMobile && isPulling && (
-        <div 
-          className="flex justify-center items-center text-primary transition-all duration-200"
-          style={{ 
-            height: `${pullDistance}px`,
-            opacity: pullDistance / 60 
-          }}
-        >
-          <div className="text-sm font-medium">
-            {pullDistance > 60 ? '↻ Release to refresh' : '↓ Pull to refresh'}
-          </div>
+      {/* Search Bar */}
+      <div className="mb-6">
+        <div className="relative max-w-md">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+          <Input
+            placeholder="Search streamers..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10"
+          />
         </div>
-      )}
-      {/* Netflix-style Clean Filter Bar */}
-      <div className="sticky top-0 z-30 bg-background/98 backdrop-blur-md py-4 border-b border-border/50">
-        <div className="flex items-center gap-3">
-          {/* Search Input */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-            <Input 
-              placeholder="Search clips..."
-              className="pl-10 h-12 bg-muted/50 border-0 focus-visible:ring-1 focus-visible:ring-primary text-base"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-
-          {/* Filters Popover */}
-          {!isMobile && (
-            <Popover open={filtersOpen} onOpenChange={setFiltersOpen}>
-              <PopoverTrigger asChild>
-                <Button variant="outline" className="h-12 gap-2">
-                  <SlidersHorizontal className="w-4 h-4" />
-                  Filters
-                  {activeFilterCount > 0 && (
-                    <Badge variant="secondary" className="ml-1 px-1.5 min-w-5 h-5">
-                      {activeFilterCount}
-                    </Badge>
-                  )}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-80 p-6" align="end">
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="font-semibold mb-3">Time Period</h4>
-                    <Select value={timeFilter} onValueChange={setTimeFilter}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="24h">Last 24 hours</SelectItem>
-                        <SelectItem value="7d">Last 7 days</SelectItem>
-                        <SelectItem value="30d">Last 30 days</SelectItem>
-                        <SelectItem value="all">All time</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <h4 className="font-semibold mb-3">Sort By</h4>
-                    <Select value={sortBy} onValueChange={setSortBy}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="newest">Newest First</SelectItem>
-                        <SelectItem value="highest">Highest Score</SelectItem>
-                        <SelectItem value="oldest">Oldest First</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {activeFilterCount > 0 && (
-                    <Button 
-                      variant="outline" 
-                      className="w-full"
-                      onClick={() => {
-                        setChannelFilter(undefined);
-                        setTimeFilter("all");
-                        setSortBy("newest");
-                      }}
-                    >
-                      Clear Filters
-                    </Button>
-                  )}
-                </div>
-              </PopoverContent>
-            </Popover>
-          )}
-
-          {/* View Toggle */}
-          {!isMobile && (
-            <div className="flex items-center gap-1 bg-muted/50 rounded-lg p-1">
-              <Button
-                variant={view === "grid" ? "secondary" : "ghost"}
-                size="sm"
-                className="h-10"
-                onClick={() => setView("grid")}
-              >
-                <Grid3x3 className="w-4 h-4" />
-              </Button>
-              <Button
-                variant={view === "list" ? "secondary" : "ghost"}
-                size="sm"
-                className="h-10"
-                onClick={() => setView("list")}
-              >
-                <List className="w-4 h-4" />
-              </Button>
-            </div>
-          )}
-        </div>
-
-        {/* Active Filters Display */}
-        {activeFilterCount > 0 && (
-          <div className="flex items-center gap-2 mt-3 flex-wrap">
-            {channelFilter && (
-              <Badge variant="secondary" className="gap-2 px-3 py-1">
-                Channel: {channelFilter}
-                <X 
-                  className="w-3 h-3 cursor-pointer hover:text-destructive" 
-                  onClick={() => setChannelFilter(undefined)}
-                />
-              </Badge>
-            )}
-            {timeFilter !== "all" && (
-              <Badge variant="secondary" className="gap-2 px-3 py-1">
-                {timeFilter === "24h" ? "Last 24 hours" : timeFilter === "7d" ? "Last 7 days" : "Last 30 days"}
-                <X 
-                  className="w-3 h-3 cursor-pointer hover:text-destructive" 
-                  onClick={() => setTimeFilter("all")}
-                />
-              </Badge>
-            )}
-          </div>
-        )}
       </div>
 
-      {/* Clips Feed - Mobile vertical feed, Desktop grid */}
+      {/* Streamer Cards Grid */}
       {isLoading ? (
-        <div className="flex flex-col items-center justify-center h-64 gap-3">
-          <Loader2 className="w-12 h-12 animate-spin text-primary" />
-          <p className="text-sm text-muted-foreground">Loading clips...</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <Card key={i} className="animate-pulse">
+              <CardContent className="p-6">
+                <div className="space-y-4">
+                  <div className="w-16 h-16 bg-muted rounded-full mx-auto" />
+                  <div className="space-y-2">
+                    <div className="h-4 bg-muted rounded w-3/4 mx-auto" />
+                    <div className="h-3 bg-muted rounded w-1/2 mx-auto" />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      ) : error ? (
-        <div className="flex flex-col items-center justify-center h-64">
-          <p className="text-destructive mb-4">Failed to load clips. Please try again.</p>
-          <Button onClick={() => refetch()}>Retry</Button>
-        </div>
-      ) : filteredClips.length === 0 ? (
-        <div className="flex flex-col items-center justify-center h-64">
-          <p className="text-muted-foreground mb-2">No clips found</p>
-          <p className="text-sm text-muted-foreground">
-            {searchQuery ? "Try adjusting your search or filters" : "Start monitoring streams to capture clips!"}
+      ) : filteredStreamers.length === 0 ? (
+        <div className="text-center py-12">
+          <Users className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
+          <p className="text-muted-foreground">
+            {searchQuery ? 'No streamers found matching your search' : 'No streamers found'}
           </p>
         </div>
       ) : (
-        <>
-          {/* Group clips by channel */}
-          {channelFilter ? (
-            // If filtered by channel, show as grid
-            <div className={`grid gap-6 ${
-              isMobile 
-                ? "grid-cols-1" 
-                : view === "grid" 
-                  ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" 
-                  : "grid-cols-1 max-w-3xl mx-auto"
-            }`}>
-              {filteredClips.map((clip, index) => (
-                <div
-                  key={clip.id}
-                  className="animate-in fade-in slide-in-from-bottom-4"
-                  style={{ animationDelay: `${(index % 12) * 30}ms` }}
-                >
-                  <NetflixClipCard clip={clip} view={view} />
-                </div>
-              ))}
-            </div>
-          ) : (
-            // Collapsible channel sections
-            <div className="space-y-4">
-              {(() => {
-                // Group clips by channel
-                const clipsByChannel = filteredClips.reduce((acc, clip) => {
-                  if (!acc[clip.channel_name]) {
-                    acc[clip.channel_name] = [];
-                  }
-                  acc[clip.channel_name].push(clip);
-                  return acc;
-                }, {} as Record<string, typeof filteredClips>);
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredStreamers.map((streamer: any) => {
+            const scoreCategory = getScoreCategory(streamer.avgScore);
+            return (
+              <Card
+                key={streamer.name}
+                className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg"
+                onClick={() => handleStreamerClick(streamer.name)}
+              >
+                <CardContent className="p-6 text-center">
+                  {/* Streamer Avatar */}
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center text-white font-bold text-xl">
+                    {streamer.name.charAt(0).toUpperCase()}
+                  </div>
 
-                // Sort channels by total clips (descending)
-                const sortedChannels = Object.entries(clipsByChannel).sort(
-                  (a, b) => b[1].length - a[1].length
-                );
+                  {/* Streamer Name */}
+                  <h3 className="font-semibold text-lg mb-2 capitalize">
+                    {streamer.name}
+                  </h3>
 
-                return (
-                  <Accordion 
-                    type="multiple" 
-                    value={expandedChannels} 
-                    onValueChange={setExpandedChannels}
-                    className="space-y-2"
-                  >
-                    {sortedChannels.map(([channel, channelClips]) => {
-                      const isExpanded = expandedChannels.includes(channel);
-                      const highestScore = Math.max(...channelClips.map(c => c.confidence_score || 0));
-                      const { gradient, initials } = getChannelAvatarProps(channel);
-                      
-                      return (
-                        <AccordionItem key={channel} value={channel} className="border-0">
-                          <AccordionTrigger className="hover:no-underline bg-card/50 hover:bg-card border border-border rounded-lg px-6 py-4 transition-all [&>svg]:hidden">
-                            <div className="flex items-center justify-between w-full">
-                              <div className="flex items-center gap-4">
-                                <div 
-                                  className={`w-10 h-10 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-bold text-sm ring-2 ring-primary/20`}
-                                >
-                                  {initials}
-                                </div>
-                                <div className="text-left">
-                                  <h3 className="text-lg font-bold text-foreground">{channel}</h3>
-                                  <p className="text-sm text-muted-foreground">
-                                    {channelClips.length} clip{channelClips.length !== 1 ? 's' : ''}
-                                    {highestScore > 0 && ` • Best: ${highestScore.toFixed(2)} ⭐`}
-                                  </p>
-                                </div>
-                              </div>
-                              <div className="flex items-center gap-2">
-                                <Badge variant="outline" className="pointer-events-none">
-                                  {isExpanded ? 'Collapse' : 'Expand'}
-                                </Badge>
-                                <ChevronDown className={`w-5 h-5 transition-transform duration-200 flex-shrink-0 ${isExpanded ? '' : '-rotate-90'}`} />
-                              </div>
-                            </div>
-                          </AccordionTrigger>
-                          <AccordionContent className="pt-6 pb-2">
-                            <div className={`grid gap-4 ${
-                              isMobile 
-                                ? "grid-cols-1" 
-                                : view === "grid"
-                                  ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
-                                  : "grid-cols-1 max-w-3xl mx-auto"
-                            }`}>
-                              {channelClips.map((clip, index) => (
-                                <div
-                                  key={clip.id}
-                                  className="animate-in fade-in slide-in-from-bottom-2"
-                                  style={{ animationDelay: `${index * 30}ms` }}
-                                >
-                                  <NetflixClipCard clip={clip} view={view} />
-                                </div>
-                              ))}
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      );
-                    })}
-                  </Accordion>
-                );
-              })()}
-            </div>
-          )}
+                  {/* Stats */}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                      <Play className="w-4 h-4" />
+                      <span>{streamer.totalClips} clips</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                      <Star className="w-4 h-4" />
+                      <span>Avg: {streamer.avgScore.toFixed(2)}</span>
+                    </div>
 
-        </>
+                    {streamer.latestClip && (
+                      <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                        <Calendar className="w-4 h-4" />
+                        <span>Latest: {formatDate(streamer.latestClip.created_at)}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Score Badge */}
+                  <Badge className={`${scoreCategory.color} text-white`}>
+                    {scoreCategory.label}
+                  </Badge>
+
+                  {/* Hover Effect */}
+                  <div className="mt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <Button variant="outline" size="sm" className="w-full">
+                      View Clips
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
       )}
-      </div>
+
+      {/* Summary Stats */}
+      {streamerStats.length > 0 && (
+        <div className="mt-8 p-4 bg-muted/50 rounded-lg">
+          <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <span>Total Streamers: {streamerStats.length}</span>
+            <span>Total Clips: {clips.length}</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

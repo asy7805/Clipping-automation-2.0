@@ -153,7 +153,7 @@ const fetchStats = async (): Promise<DashboardStats> => {
     
     // Get clips data for real metrics
     const clipsResponse = await apiClient.getClips({ limit: 100 });
-    const clips = clipsResponse || [];
+    const clips = clipsResponse?.clips || [];
     
     // Calculate real metrics from clips
     const today = new Date();

@@ -29,7 +29,10 @@ const getTimeAgo = (dateString: string) => {
 };
 
 export const ActivityFeed = () => {
-  const { data: clips, isLoading } = useClips({ limit: 10 });
+  const { data: clipsData, isLoading } = useClips({ limit: 10 });
+
+  // Extract clips array from paginated response
+  const clips = clipsData?.clips || [];
 
   // Transform clips to activity format
   const activities = clips?.map(clip => ({

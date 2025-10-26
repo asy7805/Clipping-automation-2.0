@@ -10,6 +10,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Clips from "./pages/Clips";
+import { StreamerClips } from "./pages/StreamerClips";
 import Analytics from "./pages/Analytics";
 import SocialAccounts from "./pages/SocialAccounts";
 import Settings from "./pages/Settings";
@@ -42,6 +43,7 @@ function AppContent() {
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="clips" element={<Clips />} />
+          <Route path="clips/:streamerName" element={<StreamerClips />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="social" element={<SocialAccounts />} />
           <Route path="settings" element={<Settings />} />

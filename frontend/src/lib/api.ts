@@ -92,15 +92,21 @@ class APIClient {
   async getClips(params?: {
     channel?: string;
     min_score?: number;
+    max_score?: number;
     limit?: number;
     offset?: number;
-  }): Promise<ClipResponse[]> {
+    sort_by?: "newest" | "oldest" | "highest" | "lowest";
+    search_query?: string;
+  }): Promise<any> {
     const queryParams = new URLSearchParams();
     // Backend expects 'channel_name', not 'channel'
     if (params?.channel) queryParams.set('channel_name', params.channel);
     if (params?.min_score !== undefined) queryParams.set('min_score', params.min_score.toString());
+    if (params?.max_score !== undefined) queryParams.set('max_score', params.max_score.toString());
     if (params?.limit) queryParams.set('limit', params.limit.toString());
     if (params?.offset) queryParams.set('offset', params.offset.toString());
+    if (params?.sort_by) queryParams.set('sort_by', params.sort_by);
+    if (params?.search_query) queryParams.set('search_query', params.search_query);
     
     const query = queryParams.toString();
     return this.request(`/api/v1/clips${query ? `?${query}` : ''}`);

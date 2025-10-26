@@ -38,8 +38,11 @@ const getTimeAgo = (dateString: string) => {
 };
 
 export const RecentClips = () => {
-  const { data: clips, isLoading, error } = useClips({ limit: 6 });
+  const { data: clipsData, isLoading, error } = useClips({ limit: 6 });
   const { openPlayer } = useVideoPlayer();
+  
+  // Extract clips array from paginated response
+  const clips = clipsData?.clips || [];
   return (
     <div>
       <div className="flex items-center justify-between mb-6">

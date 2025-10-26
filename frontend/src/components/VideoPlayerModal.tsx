@@ -128,7 +128,7 @@ export function VideoPlayerModal({
 
   return (
     <Dialog open={!!clipId} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-6xl p-0 gap-0 bg-background/95 backdrop-blur-xl border-white/10">
+      <DialogContent className="max-w-6xl w-[85vw] h-[70vh] p-0 gap-0 bg-background/95 backdrop-blur-xl border-white/10">
         {/* Accessibility: Hidden title and description for screen readers */}
         <VisuallyHidden>
           <DialogTitle>Clip from {clipData?.channel_name}</DialogTitle>
@@ -145,9 +145,9 @@ export function VideoPlayerModal({
           <X className="w-5 h-5" />
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
+        <div className="flex h-full">
           {/* Video Player Section */}
-          <div className="lg:col-span-2 bg-black relative">
+          <div className="flex-1 bg-black relative">
             {/* Navigation Arrows */}
             {onPrevious && (
               <button
@@ -168,7 +168,7 @@ export function VideoPlayerModal({
 
             {/* Video Element */}
             {videoError ? (
-              <div className="w-full h-full min-h-[50vh] flex flex-col items-center justify-center text-white space-y-4">
+              <div className="w-full h-full min-h-[40vh] flex flex-col items-center justify-center text-white space-y-4">
                 <AlertCircle className="w-16 h-16 text-red-500" />
                 <div className="text-center space-y-2">
                   <p className="text-lg font-semibold">Unable to load video</p>
@@ -191,7 +191,7 @@ export function VideoPlayerModal({
                 src={clipData.storage_url}
                 controls
                 loop
-                className="w-full h-full max-h-[70vh] object-contain"
+                className="w-full h-full max-h-[50vh] object-contain"
                 onError={(e) => {
                   console.error("Video load error:", e);
                   setVideoError(true);
@@ -228,25 +228,25 @@ export function VideoPlayerModal({
           </div>
 
           {/* Metadata Sidebar */}
-          <div className="p-6 space-y-6 bg-card/50 backdrop-blur">
+          <div className="w-72 p-3 space-y-2 bg-card/50 backdrop-blur overflow-y-auto flex-shrink-0">
             {/* Channel Info */}
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-bold text-lg ring-2 ring-primary/20`}>
+              <div className="flex items-center gap-2 mb-1">
+                <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${gradient} flex items-center justify-center text-white font-bold text-xs ring-2 ring-primary/20`}>
                   {initials}
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-lg">{clipData.channel_name}</h3>
-                  <p className="text-xs text-muted-foreground">
+                  <h3 className="font-bold text-sm leading-tight">{clipData.channel_name}</h3>
+                  <p className="text-[10px] text-muted-foreground">
                     {new Date(clipData.created_at).toLocaleString()}
                   </p>
                 </div>
               </div>
 
               {/* Score Display */}
-              <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-2 mb-1">
                 {clipData.confidence_score && (
-                  <Badge className={cn("text-lg font-bold px-3 py-1", getScoreColor(clipData.confidence_score))}>
+                  <Badge className={cn("text-xs font-bold px-2 py-0.5", getScoreColor(clipData.confidence_score))}>
                     {clipData.confidence_score.toFixed(2)}
                   </Badge>
                 )}
@@ -255,7 +255,7 @@ export function VideoPlayerModal({
                     <Star
                       key={i}
                       className={cn(
-                        "w-4 h-4",
+                        "w-2.5 h-2.5",
                         i < stars 
                           ? `fill-current ${clipData.confidence_score ? getScoreColor(clipData.confidence_score) : 'text-primary'}` 
                           : 'text-muted'
@@ -267,9 +267,9 @@ export function VideoPlayerModal({
 
               {/* AI Score Breakdown */}
               {clipData.confidence_score && clipData.score_breakdown && (
-                <div className="space-y-3">
-                  <div className="text-xs font-bold text-muted-foreground uppercase tracking-wider border-b border-border pb-2">
-                    Live Ingestion Score Breakdown
+                <div className="space-y-1.5">
+                  <div className="text-[10px] font-bold text-muted-foreground uppercase tracking-wide border-b border-border pb-0.5">
+                    Score Breakdown
                   </div>
                   <AIScoreDisplay
                     score={clipData.confidence_score}
@@ -282,10 +282,10 @@ export function VideoPlayerModal({
                     size="sm"
                     showBreakdown={true}
                   />
-                  <div className="text-xs text-muted-foreground italic p-3 bg-muted/30 rounded-lg border border-border">
-                    <p className="font-semibold mb-1">Formula:</p>
-                    <p className="font-mono text-[10px] leading-relaxed">
-                      Score = (0.35 × Energy) + (0.25 × Pitch) + (0.40 × Emotion) + Keyword Boost
+                  <div className="text-[10px] text-muted-foreground italic p-1.5 bg-muted/30 rounded border border-border">
+                    <p className="font-semibold mb-0.5 text-[9px]">Formula:</p>
+                    <p className="font-mono text-[9px] leading-tight">
+                      (0.35×E) + (0.25×P) + (0.40×Em) + KB
                     </p>
                   </div>
                 </div>
@@ -294,44 +294,47 @@ export function VideoPlayerModal({
 
             {/* Transcript */}
             <div>
-              <h4 className="text-sm font-semibold mb-2 text-muted-foreground">Transcript</h4>
-              <div className="bg-muted/50 rounded-lg p-3 max-h-32 overflow-y-auto">
-                <p className="text-sm leading-relaxed">
+              <h4 className="text-xs font-semibold mb-0.5 text-muted-foreground">Transcript</h4>
+              <div className="bg-muted/50 rounded p-1.5 max-h-20 overflow-y-auto">
+                <p className="text-xs leading-snug">
                   {clipData.transcript || "No transcript available"}
                 </p>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="space-y-2 pt-4 border-t border-border">
+            <div className="space-y-1.5 pt-1.5 border-t border-border">
               <Button
                 onClick={handleDownload}
-                className="w-full bg-primary hover:bg-primary/90"
+                size="sm"
+                className="w-full bg-primary hover:bg-primary/90 h-7 text-xs"
               >
-                <Download className="w-4 h-4 mr-2" />
-                Download Clip
+                <Download className="w-3 h-3 mr-1.5" />
+                Download
               </Button>
               <Button
                 onClick={handleShare}
                 variant="outline"
-                className="w-full"
+                size="sm"
+                className="w-full h-7 text-xs"
               >
-                <Share2 className="w-4 h-4 mr-2" />
+                <Share2 className="w-3 h-3 mr-1.5" />
                 Share
               </Button>
               <Button
                 variant="outline"
-                className="w-full text-destructive hover:text-destructive hover:bg-destructive/10"
+                size="sm"
+                className="w-full text-destructive hover:text-destructive hover:bg-destructive/10 h-7 text-xs"
               >
-                <Trash2 className="w-4 h-4 mr-2" />
+                <Trash2 className="w-3 h-3 mr-1.5" />
                 Delete
               </Button>
             </div>
 
             {/* Clip Info */}
-            <div className="text-xs text-muted-foreground space-y-1 pt-4 border-t border-border">
-              <p>Clip ID: <span className="font-mono">{clipData.id.slice(0, 20)}...</span></p>
-              <p>Duration: ~30 seconds</p>
+            <div className="text-[10px] text-muted-foreground space-y-0.5 pt-1.5 border-t border-border">
+              <p>ID: <span className="font-mono">{clipData.id.slice(0, 12)}...</span></p>
+              <p>Duration: ~30s</p>
             </div>
           </div>
         </div>

@@ -33,8 +33,8 @@ export const DashboardLayout = () => {
       {/* Animated background mesh */}
       <div className="fixed inset-0 mesh-gradient opacity-50 pointer-events-none" />
       
-      {/* Sidebar - Hidden on mobile */}
-      <aside className="hidden md:flex w-56 glass-strong flex-col relative z-10 border-r border-white/10 h-screen overflow-hidden">
+      {/* Sidebar - Fixed position, hidden on mobile */}
+      <aside className="hidden md:flex w-48 glass-strong flex-col fixed left-0 top-0 z-10 border-r border-white/10 h-screen overflow-hidden">
         {/* Logo */}
         <div className="p-4 border-b border-white/10">
           <Link to="/" className="flex items-center gap-3 group">
@@ -45,7 +45,7 @@ export const DashboardLayout = () => {
               </div>
             </div>
             <div className="min-w-0">
-              <h1 className="font-bold text-base text-foreground group-hover:text-primary transition-colors truncate">
+              <h1 className="font-bold text-sm text-foreground group-hover:text-primary transition-colors truncate">
                 Clipping Auto
               </h1>
               <p className="text-xs font-semibold bg-gradient-to-r from-primary to-pink-500 bg-clip-text text-transparent">
@@ -56,7 +56,7 @@ export const DashboardLayout = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+        <nav className="flex-1 p-3 space-y-2 overflow-y-auto">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
@@ -66,13 +66,13 @@ export const DashboardLayout = () => {
                 <Button
                   variant="ghost"
                   className={cn(
-                    "w-full justify-start gap-3 transition-all duration-200 text-base h-12",
+                    "w-full justify-start gap-2 transition-all duration-200 text-sm h-10",
                     isActive 
                       ? "bg-primary/10 text-primary hover:bg-primary/20 hover:text-primary border border-primary/20" 
                       : "hover:bg-white/5 text-foreground/80 hover:text-foreground"
                   )}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-4 h-4" />
                   {item.label}
                   {isActive && <ChevronRight className="w-4 h-4 ml-auto" />}
                 </Button>
@@ -95,8 +95,8 @@ export const DashboardLayout = () => {
         </div>
       </aside>
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col relative z-10">
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col relative z-10 md:ml-48">
         {/* Top Bar */}
         <header className="h-16 glass sticky top-0 z-40 flex items-center justify-between px-4 md:px-6 border-b border-white/10">
           <div className="flex-1">
@@ -104,6 +104,7 @@ export const DashboardLayout = () => {
               {location.pathname === "/dashboard" && "Dashboard"}
               {location.pathname === "/dashboard/clips" && "Clips Library"}
               {location.pathname === "/dashboard/analytics" && "Analytics"}
+              {location.pathname === "/dashboard/social" && "Social Accounts"}
               {location.pathname === "/dashboard/settings" && "Settings"}
             </h2>
           </div>

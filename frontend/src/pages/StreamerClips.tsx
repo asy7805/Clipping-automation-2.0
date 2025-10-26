@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useClips } from '../hooks/useClips';
-import { useVideoPlayer } from '../contexts/VideoPlayerContext';
 import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
 import { Slider } from '../components/ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { ArrowLeft, Filter, Play, Calendar, Star } from 'lucide-react';
+import { ArrowLeft, Filter, Calendar, Star } from 'lucide-react';
 import { NetflixClipCard } from '../components/clips/NetflixClipCard';
-import { VideoPlayerModal } from '../components/VideoPlayerModal';
 
 export const StreamerClips = () => {
   const { streamerName } = useParams<{ streamerName: string }>();
   const navigate = useNavigate();
-  const { openPlayer } = useVideoPlayer();
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,27 +38,6 @@ export const StreamerClips = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [scoreRange, sortBy]);
-
-  // Handle clip click
-  const handleClipClick = (clip: any) => {
-    openPlayer(clip);
-  };
-
-  // Get score category label
-  const getScoreCategory = (score: number) => {
-    if (score >= 0.7) return { label: 'Top-tier', color: 'bg-green-500' };
-    if (score >= 0.5) return { label: 'Above average', color: 'bg-yellow-500' };
-    return { label: 'Good', color: 'bg-blue-500' };
-  };
-
-  // Format date
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
 
   if (error) {
     return (
@@ -253,9 +228,7 @@ export const StreamerClips = () => {
           {isLoading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {Array.from({ length: 8 }).map((_, i) => (
-                <Card key={i} className="aspect-video animate-pulse">
-                  <CardContent className="p-0 h-full bg-muted" />
-                </Card>
+                <div key={i} className="aspect-video animate-pulse bg-muted rounded-lg" />
               ))}
             </div>
           ) : clips.length === 0 ? (
@@ -265,67 +238,12 @@ export const StreamerClips = () => {
           ) : (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                {clips.map((clip) => {
-                  const scoreCategory = getScoreCategory(clip.confidence_score || 0);
-                  return (
-                    <Card
-                      key={clip.id}
-                      className="group cursor-pointer transition-all duration-200 hover:scale-105 hover:shadow-lg"
-                      onClick={() => handleClipClick(clip)}
-                    >
-                      <CardContent className="p-0 relative">
-                        {/* Video Thumbnail */}
-                        <div className="aspect-video bg-muted relative overflow-hidden rounded-t-lg">
-                          <img
-                            src={clip.thumbnail_url || '/placeholder.svg'}
-                            alt={clip.title || 'Clip thumbnail'}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-200" />
-                          
-                          {/* Play Button Overlay */}
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                            <div className="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center">
-                              <Play className="w-6 h-6 text-black ml-1" />
-                            </div>
-                          </div>
-
-                          {/* Score Badge */}
-                          <div className="absolute top-2 right-2">
-                            <Badge className={`${scoreCategory.color} text-white`}>
-                              {scoreCategory.label}
-                            </Badge>
-                          </div>
-                        </div>
-
-                        {/* Clip Info */}
-                        <div className="p-3 space-y-2">
-                          <h3 className="font-medium text-sm line-clamp-2">
-                            {clip.title || 'Untitled Clip'}
-                          </h3>
-                          
-                          <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <div className="flex items-center gap-1">
-                              <Star className="w-3 h-3" />
-                              <span>{(clip.confidence_score || 0).toFixed(2)}</span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Calendar className="w-3 h-3" />
-                              <span>{formatDate(clip.created_at)}</span>
-                            </div>
-                          </div>
-
-                          {/* Transcript Preview */}
-                          {clip.transcript && (
-                            <p className="text-xs text-muted-foreground line-clamp-2">
-                              {clip.transcript}
-                            </p>
-                          )}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
+                {clips.map((clip) => (
+                  <NetflixClipCard
+                    key={clip.id}
+                    clip={clip}
+                  />
+                ))}
               </div>
 
               {/* Pagination Controls */}
@@ -363,9 +281,6 @@ export const StreamerClips = () => {
           )}
         </div>
       </div>
-
-      {/* Video Player Modal */}
-      <VideoPlayerModal />
     </div>
   );
 };

@@ -52,11 +52,26 @@ def upload_segment(sb, bucket: str, video_bytes: bytes, storage_prefix: str, cha
 
 def start_pipeline(channel: str, out_dir: Path):
     """Start streamlink -> ffmpeg pipeline with better segment handling."""
-    sl_cmd = ["streamlink", "--twitch-disable-ads", f"https://twitch.tv/{channel}", "best", "-O"]
+    sl_cmd = [
+        "streamlink", 
+        "--twitch-disable-ads", 
+        "--stream-segment-attempts", "3",  # Retry failed segments
+        "--stream-segment-threads", "1",  # Single thread for stability
+        "--hls-segment-timeout", "10",  # Timeout for segments
+        "--hls-timeout", "30",  # Overall timeout
+        f"https://twitch.tv/{channel}", 
+        "best", 
+        "-O"
+    ]
     seg_pattern = str(out_dir / "seg_%05d.mp4")
     
+    # Use the ffmpeg from WinGet installation
+    ffmpeg_path = os.path.expandvars(r"%LOCALAPPDATA%\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0-full_build\bin\ffmpeg.exe")
+    
     ff_cmd = [
-        "ffmpeg", "-hide_banner", "-loglevel", "warning",
+        ffmpeg_path, "-hide_banner", "-loglevel", "warning",
+        "-fflags", "+discardcorrupt+ignidx",  # Handle corrupted packets
+        "-err_detect", "ignore_err",  # Ignore errors and continue
         "-i", "pipe:0",
         "-c:v", "libx264", "-preset", "fast", "-crf", "23",
         "-c:a", "aac", "-b:a", "128k",
@@ -70,11 +85,17 @@ def start_pipeline(channel: str, out_dir: Path):
         "-avoid_negative_ts", "make_zero",
         "-break_non_keyframes", "1",  # Ensure segments break cleanly
         "-g", "60",  # Keyframe interval
+        "-force_key_frames", f"expr:gte(t,n_forced*{SEGMENT_SECONDS})",  # Force keyframes at segment boundaries
+        "-segment_time_metadata", "1",  # Add metadata to segments
+        "-write_tmcd", "0",  # Disable timecode track
+        "-max_muxing_queue_size", "1024",  # Increase buffer size
+        "-analyzeduration", "2000000",  # Analyze more data
+        "-probesize", "2000000",  # Probe more data
         seg_pattern
     ]
 
-    p_sl = subprocess.Popen(sl_cmd, stdout=subprocess.PIPE)
-    p_ff = subprocess.Popen(ff_cmd, stdin=p_sl.stdout)
+    p_sl = subprocess.Popen(sl_cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    p_ff = subprocess.Popen(ff_cmd, stdin=p_sl.stdout, stderr=subprocess.PIPE)
     p_sl.stdout.close()
     return p_sl, p_ff, seg_pattern
 def wait_for_file_complete(file_path: Path, stable_time: float = 8.0, check_interval: float = 0.5) -> bool:
@@ -105,7 +126,12 @@ def wait_for_file_complete(file_path: Path, stable_time: float = 8.0, check_inte
                             f.seek(0, 2)  # Seek to end
                             size_check = f.tell()
                             if size_check == curr_size:
-                                return True
+                                # Additional MP4 validation
+                                if validate_mp4_file(file_path):
+                                    return True
+                                else:
+                                    print(f"⚠️ Invalid MP4 file detected: {file_path.name}")
+                                    return False
                     except (OSError, PermissionError):
                         # File might still be in use, wait more
                         stable_counter = 0
@@ -121,6 +147,38 @@ def wait_for_file_complete(file_path: Path, stable_time: float = 8.0, check_inte
         except OSError:
             time.sleep(check_interval)
             continue
+
+def validate_mp4_file(file_path: Path) -> bool:
+    """Validate that the MP4 file is properly formatted."""
+    try:
+        with open(file_path, "rb") as f:
+            # Read first 32 bytes to check MP4 signature
+            header = f.read(32)
+            if len(header) < 32:
+                return False
+            
+            # Check for MP4 signature (ftyp atom)
+            if not (header.startswith(b'\x00\x00\x00') and b'ftyp' in header[:32]):
+                return False
+            
+            # Check file size - must be reasonable
+            file_size = file_path.stat().st_size
+            if file_size < 10000:  # At least 10KB
+                return False
+            
+            # Try to find moov atom - be more lenient
+            f.seek(0)
+            data = f.read(min(file_size, 1024*1024))  # Read up to 1MB
+            if b'moov' not in data:
+                # If not in first MB, check the end
+                f.seek(-min(file_size, 1024*1024), 2)
+                tail = f.read(min(file_size, 1024*1024))
+                if b'moov' not in tail:
+                    return False
+                
+            return True
+    except Exception:
+        return False
  
 
 def safe_delete(file_path: Path, retries: int = 10, delay: float = 0.3) -> bool:
@@ -204,40 +262,47 @@ def main():
             for file in sorted(out_dir.glob("seg_*.mp4")):
                 if file not in known and wait_for_file_complete(file):
                     print(f"Processing {file.name}...")
-                    if (detect_interest(file)):  # Call the function to process the segment
-                        interesting_buffer.append(Path(file))
-                        print(f"🔥 Added to buffer ({len(interesting_buffer)}/5): {file.name}")
+                    try:
+                        if (detect_interest(file)):  # Call the function to process the segment
+                            interesting_buffer.append(Path(file))
+                            print(f"🔥 Added to buffer ({len(interesting_buffer)}/5): {file.name}")
 
-                        # If 5 interesting clips collected
-                        if len(interesting_buffer) >= 5:
-                            try:
-                                merged_path = out_dir / f"merged_{int(time.time())}.mp4"
-                                top_segments = select_best_segments([str(p) for p in interesting_buffer], top_k=3)
-                                top_segment_paths = [Path(s[0]) for s in top_segments]
+                            # If 5 interesting clips collected
+                            if len(interesting_buffer) >= 5:
+                                try:
+                                    merged_path = out_dir / f"merged_{int(time.time())}.mp4"
+                                    top_segments = select_best_segments([str(p) for p in interesting_buffer], top_k=3)
+                                    top_segment_paths = [Path(s[0]) for s in top_segments]
 
-                                merge_segments(top_segment_paths, merged_path)
-                                video_bytes = read_file_safely(merged_path)
-                                key = upload_segment(sb, args.bucket, video_bytes, args.prefix, args.channel, stream_uid)
-                                print(f"⬆️ Uploaded merged clip: {key}")
+                                    merge_segments(top_segment_paths, merged_path)
+                                    video_bytes = read_file_safely(merged_path)
+                                    key = upload_segment(sb, args.bucket, video_bytes, args.prefix, args.channel, stream_uid)
+                                    print(f"⬆️ Uploaded merged clip: {key}")
 
-                                # Delete original 5 segments from Supabase + local
-                                for seg in interesting_buffer:
-                                    delete_from_supabase(sb, args.bucket, seg.name, args.prefix, args.channel, stream_uid)
-                                    safe_delete(seg)
-                                    if seg in known:
-                                        known.remove(seg)  # ✅ Remove from known
-                                interesting_buffer.clear()
-                                #safe_delete(merged_path)
-                                continue
+                                    # Delete original 5 segments from Supabase + local
+                                    for seg in interesting_buffer:
+                                        delete_from_supabase(sb, args.bucket, seg.name, args.prefix, args.channel, stream_uid)
+                                        safe_delete(seg)
+                                        if seg in known:
+                                            known.remove(seg)  # ✅ Remove from known
+                                    interesting_buffer.clear()
+                                    #safe_delete(merged_path)
+                                    continue
 
-                            except Exception as e:
-                                print(f"❌ Failed to merge batch: {e}")
-                                # Don't clear buffer if error, try next iteration
+                                except Exception as e:
+                                    print(f"❌ Failed to merge batch: {e}")
+                                    # Don't clear buffer if error, try next iteration
 
-                        known.add(file)
+                            known.add(file)
 
-                    else:
-                        print(f"⏭️ Skipped (not interesting): {file.name}")
+                        else:
+                            print(f"⏭️ Skipped (not interesting): {file.name}")
+                            known.add(file)
+                            safe_delete(file)
+                            
+                    except Exception as e:
+                        print(f"❌ Error processing {file.name}: {e}")
+                        print(f"🗑️ Deleting corrupted file: {file.name}")
                         known.add(file)
                         safe_delete(file)
             #delete_completed_batches(out_dir)
@@ -265,8 +330,15 @@ def main():
     print("✅ Live ingest ended.")
 
 if __name__ == "__main__":
-    for bin_name in ("streamlink", "ffmpeg"):
-        if not shutil.which(bin_name):
-            print(f"❌ {bin_name} not found. Please install it first.")
-            sys.exit(1)
+    # Check streamlink
+    if not shutil.which("streamlink"):
+        print("❌ streamlink not found. Please install it first.")
+        sys.exit(1)
+    
+    # Check ffmpeg in WinGet installation
+    ffmpeg_path = os.path.expandvars(r"%LOCALAPPDATA%\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0-full_build\bin\ffmpeg.exe")
+    if not os.path.exists(ffmpeg_path):
+        print(f"❌ ffmpeg not found at {ffmpeg_path}. Please install FFmpeg via winget.")
+        sys.exit(1)
+    
     main()

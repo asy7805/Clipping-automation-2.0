@@ -3,6 +3,8 @@
  * Connects to FastAPI server at http://localhost:8000
  */
 
+import { supabase } from './supabase';
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export interface StreamResponse {
@@ -51,16 +53,41 @@ class APIClient {
     const url = `${this.baseUrl}${endpoint}`;
     
     try {
+      // Get session token from Supabase (but don't fail if unavailable)
+      let authToken: string | undefined;
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        authToken = session?.access_token;
+      } catch (err) {
+        // Continue without auth token if Supabase fails
+        console.warn('Could not get auth session:', err);
+      }
+      
+      // Don't set Content-Type for FormData - let the browser set it with the boundary
+      const isFormData = options?.body instanceof FormData;
+      
       const response = await fetch(url, {
         ...options,
         headers: {
-          'Content-Type': 'application/json',
+          ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+          // Only include Authorization header if we have a valid token
+          ...(authToken && {
+            'Authorization': `Bearer ${authToken}`
+          }),
           ...options?.headers,
         },
       });
 
+      // Handle 401 responses - but only redirect if we're on a protected page
+      if (response.status === 401) {
+        console.warn('API returned 401 - authentication may be required');
+        // Don't auto-redirect for now, let the app handle it
+        // The backend doesn't have JWT verification yet anyway
+      }
+
       if (!response.ok) {
-        throw new Error(`API error: ${response.statusText}`);
+        const errorText = await response.text().catch(() => response.statusText);
+        throw new Error(`API error (${response.status}): ${errorText}`);
       }
 
       return response.json();
@@ -226,6 +253,122 @@ class APIClient {
   async cancelQueueItem(queueId: string) {
     return this.request(`/api/v1/social/queue/${queueId}`, {
       method: 'DELETE',
+    });
+  }
+
+  async createEditJob(fileId: string, edits: any) {
+    const formData = new FormData();
+    formData.append('file_id', fileId);
+    formData.append('edits', JSON.stringify(edits));
+    
+    return this.request('/api/v1/editor/edit', {
+      method: 'POST',
+      body: formData,
+    });
+  }
+
+  async getJobStatus(jobId: string) {
+    return this.request(`/api/v1/editor/job/${jobId}`);
+  }
+
+  async downloadEditedVideo(jobId: string) {
+    return this.request(`/api/v1/editor/download/${jobId}`, {
+      method: 'GET',
+    });
+  }
+
+  async listEditJobs() {
+    return this.request('/api/v1/editor/jobs');
+  }
+
+  async deleteEditJob(jobId: string) {
+    return this.request(`/api/v1/editor/job/${jobId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Video Editor API methods (new CapCut-style editor)
+  async getVideoProjects() {
+    return this.request('/api/v1/editor/projects', {
+      method: 'GET',
+    });
+  }
+
+  async createVideoProject(projectData: { name: string; source_clip_id?: string; source_file_url: string }) {
+    return this.request('/api/v1/editor/projects', {
+      method: 'POST',
+      body: JSON.stringify(projectData),
+    });
+  }
+
+  async getVideoProject(projectId: string) {
+    return this.request(`/api/v1/editor/projects/${projectId}`, {
+      method: 'GET',
+    });
+  }
+
+  async updateVideoProject(projectId: string, updateData: { name?: string; edit_state?: any }) {
+    return this.request(`/api/v1/editor/projects/${projectId}`, {
+      method: 'PUT',
+      body: JSON.stringify(updateData),
+    });
+  }
+
+  async deleteVideoProject(projectId: string) {
+    return this.request(`/api/v1/editor/projects/${projectId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  async duplicateVideoProject(projectId: string) {
+    return this.request(`/api/v1/editor/projects/${projectId}/duplicate`, {
+      method: 'POST',
+    });
+  }
+
+  async startVideoExport(projectId: string) {
+    return this.request(`/api/v1/editor/projects/${projectId}/export`, {
+      method: 'POST',
+    });
+  }
+
+  async getVideoExports() {
+    return this.request('/api/v1/editor/exports', {
+      method: 'GET',
+    });
+  }
+
+  async getVideoExportStatus(exportId: string) {
+    return this.request(`/api/v1/editor/exports/${exportId}`, {
+      method: 'GET',
+    });
+  }
+
+  async downloadVideoExport(exportId: string) {
+    return this.request(`/api/v1/editor/exports/${exportId}/download`, {
+      method: 'GET',
+    });
+  }
+
+  async getTextTemplates() {
+    return this.request('/api/v1/editor/templates/text', {
+      method: 'GET',
+    });
+  }
+
+  async getFullTemplates() {
+    return this.request('/api/v1/editor/templates/full', {
+      method: 'GET',
+    });
+  }
+
+  async uploadVideo(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    return this.request('/api/v1/editor/upload', {
+      method: 'POST',
+      body: formData,
     });
   }
 }

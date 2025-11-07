@@ -1,0 +1,2298 @@
+{
+  "timestamp": "20251106_202008",
+  "total_clips": 191,
+  "clips": [
+    {
+      "id": "b857e6e4-7c67-45ca-b6df-bb36abf07a82",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760761828.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "551d087b-32f3-412f-a192-73b5f8df14a4",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760761853.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "339cbab9-0802-4274-aab8-01819e4e4c59",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760761873.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "2ed6ad00-c651-4482-9ed6-64f3c9aef699",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760761901.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "4d331720-f0aa-4930-85e9-6929c70f9712",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760761930.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "9fd2f4ec-0a1f-41ab-bde5-0befcdd77b0f",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760761970.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "22778a69-5d58-4973-9b95-16dd5250e296",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760761996.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "1bd75509-1839-4efb-9cc1-2691eb52cff4",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760762013.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "df3cf4f9-390b-447f-96d4-2e00e9e5c245",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760762058.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "40633b78-6f1f-441d-ba81-d296afb5ba7b",
+      "storage_path": "raw/Kenji/live-Kenji-1760761735/20251018/segment_1760762099.mp4",
+      "channel_name": "Kenji",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "e100b7ed-4c47-437d-983f-a63021ced37e",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760837524.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "1d13a630-738e-4f9a-9fc8-6bca4a846dd7",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760837671.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "ca1b924e-a62a-4be4-a0ec-52841b5af18d",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760837849.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "c8b9dd91-c887-44a4-8eb3-29c46b48177e",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760837996.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "37c90773-e72e-47e5-b67f-b618aaa0ac9c",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760838152.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "344c0178-4a97-484d-941a-2f9b8325660a",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760838297.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "9348133c-3e72-41f8-bedb-a1543fd835d3",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760838446.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "eaa076a5-5fd0-414c-895c-b84b68c560cf",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760838594.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "87545e59-a5d0-468a-a93c-b67232d5079b",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760838749.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "c0ec78d1-732f-4200-9881-9162a8104d25",
+      "storage_path": "raw/asspizza730/live-asspizza730-1760837287/20251018/segment_1760838898.mp4",
+      "channel_name": "asspizza730",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "d24d5d4d-2b63-4c2f-95ac-8ea5e350525e",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00002.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "dccd102a-cced-49b3-8cd9-4e04c3a5b153",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00003.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "cf4c06b9-e3d7-4027-8a06-4622a4785934",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00004.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "9f23fb76-24d3-40ad-ae0d-c0314ea94fab",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00005.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "0d3e3963-02f9-473a-b2eb-81511037a0eb",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00006.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "147c2373-5812-4da6-bb39-baa21d267fa7",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00007.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "d984aa0f-59b4-4090-85b3-038ac35001ab",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00008.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "3ba17b88-b27d-4cda-86b2-13bcf98226b6",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00009.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "3e3298e4-b417-4629-af4a-6fb1be0617d0",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00010.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "7a5c470c-a844-44de-9278-e3f64f90764c",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760838934/20251018/seg_00011.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "2a3e7be1-5f43-4542-923c-8c97246321bc",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00000.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "746d4309-3e51-450a-beef-ecb9fffca878",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00001.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "06423274-34e7-4544-8513-63c49d2bb021",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00002.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "f5ef06a4-7c4d-4e6c-9b22-6ef6184720b8",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00003.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "2881595e-0018-4037-9891-c8bbee57f2f4",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00004.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "8208e39b-6785-4f99-af43-adc1524ec97c",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00005.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "b7d6ceea-2096-4a92-8f2b-da419f9162e2",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00007.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "c5b3c46a-1217-416a-a06f-a75f7773d037",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00008.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "c7d9028c-7485-45ad-81fa-33ebaf5d159e",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00009.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "eb5522d1-437b-4523-bfa4-872f5ad3969e",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00010.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "0af4f7dd-59c4-4164-b078-a4429a241e48",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00011.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "e9586384-dc2e-4140-bf41-ddae3d2b9585",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00012.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "1fd6ab27-a175-4a3d-8460-f39356939556",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00013.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "26435546-39ce-41ae-a82e-eab3d132afe3",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00014.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "38f8fc6a-64d9-4038-a570-9a136fa4b6c8",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00015.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "260078d9-07e1-4688-a05a-4adaa4afdbe5",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00016.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "c34eb939-9c8d-4ae2-bc0e-edea6e3c69ad",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00017.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "3990b2d1-6561-4c4d-96fc-098ad53e111a",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00018.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "a057da44-b729-422e-9cd2-87bcb9e84515",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00019.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "a5265e67-aba6-4e6a-85a0-b8291aff0d73",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00020.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "b002c985-a2a4-4ad5-9ca2-14b6eafffbe2",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00021.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "ef07cd5f-ea21-4241-b761-14e149bff6ca",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00022.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "bce4b373-c19b-48e8-a48c-4ef4a715fb98",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00023.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "1a094bce-1d28-49fd-84ec-c1a642010c9e",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00024.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "f673cdc0-5f40-4c0a-88e0-d76d8e59f4b0",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00025.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "050b2a8c-ae60-49cd-91e8-7f1182aa74bf",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00026.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "86de7df2-4b29-4087-b843-22763ea9bf78",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00027.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "3c2f76f1-761d-429b-92e5-1ec016ca74b9",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00028.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "7a285ed1-da0f-4206-b392-6b0224f475d4",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00029.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "15bea085-451a-465d-9b33-1c071108ae19",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00030.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "f322340a-f3e6-4425-8f20-ba08f8a616fc",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00031.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "e376b2f1-621b-4a0d-9dfb-6541f4ec8306",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00032.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "21b5b4c3-2f88-4b72-bbe1-0694a975220d",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251018/seg_00033.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "c5eb9e8b-aace-429f-9260-cad792a0e217",
+      "storage_path": "raw/caseoh247/live-caseoh247-1760839667/20251019/seg_00035.mp4",
+      "channel_name": "caseoh247",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "84af6feb-7956-45ad-8ab3-12f66b15de12",
+      "storage_path": "raw/edwardkso/live-edwardkso-1761608685/20251027/segment_1761608850.mp4",
+      "channel_name": "edwardkso",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "242b19f4-9a49-426d-aaae-86ea26f9142f",
+      "storage_path": "raw/edwardkso/live-edwardkso-1761609009/20251027/segment_1761609181.mp4",
+      "channel_name": "edwardkso",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "68f60cf9-117f-49bb-9c8a-30dc6cb5f7be",
+      "storage_path": "raw/edwardkso/live-edwardkso-1761609009/20251027/segment_1761609326.mp4",
+      "channel_name": "edwardkso",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "95791f9a-ba76-49f7-ac1d-f57c19fe8146",
+      "storage_path": "raw/edwardkso/live-edwardkso-1761609009/20251027/segment_1761609476.mp4",
+      "channel_name": "edwardkso",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "55050296-dca2-4c26-b5a1-612ae7465ff8",
+      "storage_path": "raw/edwardkso/live-edwardkso-1761609009/20251027/segment_1761609685.mp4",
+      "channel_name": "edwardkso",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "0a6e587b-d3ff-4939-94a7-f0f9cb474429",
+      "storage_path": "raw/edwardkso/live-edwardkso-1761609009/20251027/segment_1761609865.mp4",
+      "channel_name": "edwardkso",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "737ecdc2-b22a-48a5-b7d0-27fe07026f37",
+      "storage_path": "raw/jasontheween/demo-jasontheween-1760810784/20251018/clip_1_1760810785.mp4",
+      "channel_name": "jasontheween",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "b0d7429d-c737-4fa1-a0c8-bf666c64aa38",
+      "storage_path": "raw/jasontheween/demo-jasontheween-1760810784/20251018/clip_2_1760810787.mp4",
+      "channel_name": "jasontheween",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "129ac351-74ce-4574-92df-186493b9a40e",
+      "storage_path": "raw/jasontheween/live-jasontheween-1761023980/20251021/segment_1761024170.mp4",
+      "channel_name": "jasontheween",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "ac30e466-fd74-4959-8954-ee4a8418b35f",
+      "storage_path": "raw/jasontheween/live-jasontheween-1761268803/20251023/segment_1761269008.mp4",
+      "channel_name": "jasontheween",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "4d84e69f-8ee1-4b73-b059-e7052a3f014f",
+      "storage_path": "raw/jasontheween/live-jasontheween-1761269274/20251023/segment_1761269476.mp4",
+      "channel_name": "jasontheween",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "537a2628-10fe-456c-8fc8-c598dfe56f02",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1760920612/20251019/segment_1760920788.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "8661aad5-03ee-4cad-9f22-7bac58d61b54",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761407120/20251025/segment_1761407285.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "fe0600e9-4d9b-49b9-9f23-5a9e3efaaf22",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761407120/20251025/segment_1761407427.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "791b2903-b24b-41e6-affa-3468ffdcbb9e",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761407120/20251025/segment_1761407583.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "9153339c-eaab-425d-a5f4-b5e02a313808",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761407678/20251025/segment_1761408315.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "7d833413-20f8-47c7-9764-d00959df184b",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761407678/20251025/segment_1761408757.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "52254a7a-09a2-4db1-88f1-db835d97805c",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761408907/20251025/segment_1761409142.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "6fb3c46d-ec1c-442b-b72d-0fc2dcbc7467",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761408907/20251025/segment_1761409291.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "fbec8b35-9444-439e-a315-9ba9992743aa",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761408907/20251025/segment_1761409469.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "8146f58f-4957-40df-8672-bb0a3a05d6cb",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761408907/20251025/segment_1761409646.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "ca5f7507-5a11-4d97-9f85-bf670c4258db",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761408907/20251025/segment_1761409827.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "df1be394-a0f1-4f05-b8a7-aaf139fe866e",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761410103/20251025/segment_1761410276.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "ad5bd827-7bf0-4538-91e2-4dcc9fcace18",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761410103/20251025/segment_1761410432.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "b60fb942-bd02-47c0-a399-97e541aea3a9",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760837899/20251018/seg_00011.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "f9f9f398-bb60-47e0-aede-29e40e1ceca6",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761410103/20251025/segment_1761410587.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "37d5e547-353f-46b5-81f7-65c793d120f3",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761410103/20251025/segment_1761410734.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "32b7cd6c-804b-4d59-96dd-b88bf46bec24",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761410103/20251025/segment_1761410878.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "2e2d41eb-9679-4b05-b94a-c19af6c02abc",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761410103/20251025/segment_1761411033.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "2df01102-212c-4009-98bc-15a3b574a785",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761410103/20251025/segment_1761411185.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "9b49d95b-cd50-4cad-8378-4f48df58c68e",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761410103/20251025/segment_1761411330.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "37778ffb-5bd2-4275-b823-3685e5e8c9c7",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761411482/20251025/segment_1761411658.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "78ea78b4-d202-4062-8add-9b90300fce2e",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761411909/20251025/segment_1761412084.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "e2fbfc0e-86f8-47f7-9604-c0c2fdf534fa",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761411909/20251025/segment_1761412225.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "44c832f2-6cc9-4520-b716-9c2ce0743611",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761453883/20251026/segment_1761454050.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "55831925-5f56-4d77-83f2-85cb99bc6bd3",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761453883/20251026/segment_1761454200.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "4cdf8353-a660-4c65-90a8-b8935ead4522",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761453883/20251026/segment_1761454349.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "63569bd3-9760-4049-8a35-ec8731702304",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761453883/20251026/segment_1761454499.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "68873ea7-8bca-4c37-adfc-453a863bf412",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761453883/20251026/segment_1761454654.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "4a6ecfc0-d31c-4e06-9ad8-d13373f629d7",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761453883/20251026/segment_1761454797.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "1507347a-26d8-414e-9666-25f5e88ff1f8",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761453883/20251026/segment_1761454953.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "8e353eb1-61e6-4ed9-ad5f-bf13566cd515",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760837899/20251018/seg_00012.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "76ecb399-2e6c-4dcf-8820-c7e7f1872257",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761455079/20251026/segment_1761455256.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "1d2ed0bf-5144-44ed-8177-a743d0b07d94",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761455079/20251026/segment_1761455398.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "3d87dabe-8980-4a09-a5c1-9de2b39f3a25",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761455079/20251026/segment_1761455548.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "a72b31d2-b6bd-4b07-8f99-1dd26d045ed2",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761455079/20251026/segment_1761455699.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "652d04ae-a1b1-49e0-a79a-79f0beb9f736",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761532021/20251026/segment_1761532197.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "9d4798ec-36ea-4030-a623-10676925314f",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761532021/20251026/segment_1761532341.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "f3108784-d014-46aa-8768-de3ebbf1cb26",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761532021/20251026/segment_1761532504.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "1cebc6e5-0e21-4bf8-9865-a291b3e39be1",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761533620/20251026/segment_1761533785.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "e4906606-4c7d-4141-a369-e0e499d0b722",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761533620/20251026/segment_1761533942.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "35133bb4-691b-4096-9888-81a1397a75c8",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761533620/20251026/segment_1761534101.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "7013b6dd-09b8-4a59-84e1-4562e46780e1",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761533620/20251026/segment_1761534243.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "f191158f-cdd8-4024-9451-c6fc8b268df2",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761534348/20251026/segment_1761534505.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "19a46c39-afbc-468b-b17a-19237018ca16",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761534348/20251026/segment_1761534660.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "ba375a15-b842-4398-bfa1-26dd39107e74",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761534348/20251026/segment_1761534809.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "7b7d833b-8c62-4f05-927c-198c8849660c",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761534348/20251026/segment_1761534987.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "eb2b26f4-3230-4e64-8bd3-8a7a23f49a71",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761534348/20251026/segment_1761535139.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "1020b984-651b-42fe-9862-2315b021542c",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760837899/20251018/seg_00013.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "d6759765-62dc-4fed-ace1-229771654653",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761534348/20251026/segment_1761535286.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "29163bfd-7e29-471d-ad3e-118d13df3984",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761534348/20251026/segment_1761535431.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "82e4d544-569d-4775-9c9d-6df3eab50a75",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761535656/20251026/segment_1761535824.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "f0df79ae-19fb-4798-8d8f-0954fd280d5c",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761535656/20251026/segment_1761535977.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "76be134d-0949-4f61-a1c7-d9897ed2ff63",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761535656/20251026/segment_1761536133.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "57c40d9d-7a89-42f8-9873-84fd86e54c10",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761535656/20251026/segment_1761536274.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "6e454257-3b2d-489a-bece-d1a5b14fea2c",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761535656/20251026/segment_1761536430.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "6d0d5253-f05f-475f-9051-e40d4aaeeb77",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1761535656/20251026/segment_1761536577.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "6632600a-c81a-4401-88bc-d799c7d44e79",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1762134484/20251102/segment_1762134663.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "de293c27-9bb4-4be3-98c6-3466eba183c0",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1762134484/20251102/segment_1762134810.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "7b815136-14ba-49d7-85a3-edd71cac72bd",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1762134484/20251102/segment_1762134958.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "fae5ecdc-2884-4fd2-b049-e208e20c741f",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1762134484/20251102/segment_1762135112.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "eda8e0dd-d67b-4247-8603-9710d69f616d",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1762134484/20251102/segment_1762135258.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "97354b62-45e5-4777-9288-07600c698693",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1762134484/20251102/segment_1762135423.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "62f7a161-d175-4113-8944-05be69719519",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1762134484/20251102/segment_1762135574.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "ac69dc98-ef63-491e-a1ef-46797464ee4c",
+      "storage_path": "raw/jordanbentley/live-jordanbentley-1762135606/20251102/segment_1762135763.mp4",
+      "channel_name": "jordanbentley",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "540d4c97-0772-41c5-826c-0107bbe81845",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760837899/20251018/seg_00010.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "aad689a8-2db4-43dc-9f3e-943c49444e6f",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760838038/20251018/seg_00005.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "bf62b73a-f459-478e-8659-a503100f18e4",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760838038/20251018/seg_00006.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "bdb61f30-7b52-4134-9b41-f83bf58a10f3",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760838038/20251018/seg_00007.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "d70f224b-c8b1-41b9-a09e-31c3263d6093",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760838038/20251018/seg_00008.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "c6d6bc95-71e4-4624-a062-6f422504bab3",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760838038/20251018/seg_00009.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "3502de31-e423-45bb-af7b-c4f2144e5e6e",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760838120/20251018/seg_00003.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "4c3d75dd-9c3c-40c2-a7a9-8e03083da7cc",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760838120/20251018/seg_00004.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "4b6313be-7e6a-42fc-93fe-5d0d692e532b",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760838120/20251018/seg_00005.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "d5adf64c-d0e0-4b1f-bdc2-ad37de373dc0",
+      "storage_path": "raw/kiyoon/live-kiyoon-1760838120/20251018/seg_00006.mp4",
+      "channel_name": "kiyoon",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "a7693ffa-c63d-4725-995b-26ece56001da",
+      "storage_path": "raw/midbeast/live-midbeast-1760938254/20251020/seg_00000.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "178b632b-2fe2-4b1a-8cd7-84e55f4e1aa3",
+      "storage_path": "raw/midbeast/live-midbeast-1760938254/20251020/seg_00001.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "b0443ff2-ff4e-4414-8a2b-99e21193cad3",
+      "storage_path": "raw/midbeast/live-midbeast-1760938254/20251020/seg_00002.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "6ee23338-4a5f-4fc8-9286-bfd026e0dd99",
+      "storage_path": "raw/midbeast/live-midbeast-1760938254/20251020/seg_00003.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "37b571db-f3e0-4f75-b5e0-e913e59f001b",
+      "storage_path": "raw/midbeast/live-midbeast-1760938271/20251020/seg_00000.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "b306257d-779a-4484-a8e9-1c36367437a0",
+      "storage_path": "raw/midbeast/live-midbeast-1760938271/20251020/seg_00001.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "afdb24ea-eb0d-4136-9231-eaed09353467",
+      "storage_path": "raw/midbeast/live-midbeast-1760938271/20251020/seg_00002.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "98f97719-3ca4-41f9-b905-a4a71fd5b03a",
+      "storage_path": "raw/midbeast/live-midbeast-1760938839/20251020/seg_00000.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "206d4a5b-928b-4c77-9ab6-b9c6ede743ae",
+      "storage_path": "raw/midbeast/live-midbeast-1760938839/20251020/seg_00001.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "46c92fe1-5e11-4a94-a718-9cf40b0e714b",
+      "storage_path": "raw/midbeast/live-midbeast-1760938839/20251020/seg_00002.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "263b652b-e3e7-4413-8345-5f11dceeccbf",
+      "storage_path": "raw/midbeast/live-midbeast-1760938839/20251020/seg_00003.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "33826df8-4aaf-4be0-90e6-8c4d164e09a8",
+      "storage_path": "raw/midbeast/live-midbeast-1760938839/20251020/seg_00004.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "b2a4fdbf-bb71-47a8-bfd6-42500e69222b",
+      "storage_path": "raw/midbeast/live-midbeast-1760938839/20251020/seg_00005.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "ceae3e02-de4b-4862-b7a4-5d3b5c8dcfa0",
+      "storage_path": "raw/midbeast/live-midbeast-1760939172/20251020/segment_1760939831.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "dbe7b7a9-467d-4aed-ac1b-f461b95f0b24",
+      "storage_path": "raw/midbeast/live-midbeast-1760939172/20251020/segment_1760940808.mp4",
+      "channel_name": "midbeast",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "a763a152-5a16-46a5-b72a-24e6b8e3ab11",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761373107.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "dcc23d67-ee91-41e6-ae55-f82a1d0704bb",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761373283.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "4d9b6845-e1f3-4afa-9dc6-4334da3473d6",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761373445.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "e22a330b-c1cc-4655-930a-7cf3f9324b99",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761373595.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "cc46f45c-df72-4e79-91c4-67deed778d08",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761373736.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "d3a34431-e652-460e-91d8-66bd8a53af43",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761373885.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "63f9e256-a757-4598-8489-c3de0f35f483",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761374081.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "c91fb014-fd60-4f6b-8e80-c3195437e221",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761374277.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "40b79ebe-d39a-4ae2-9bf0-2b6204fd2a20",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761374490.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "f77b62db-6b82-4416-9412-8e37b5f2ca62",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761374654.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "430f2d83-13a3-4b3e-b580-979ceb30d252",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761374836.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "a7586fd3-8282-4aac-8ae5-7fc0fe83e593",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761374976.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "b249c3ef-2483-411b-9d3c-e1d04eb59f5d",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761375159.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "ca78e47d-f4ee-4646-b80d-541e1053ef93",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761375322.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "e3f7684f-6ec6-42ef-a787-7269bf66ce57",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761375539.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "57cf0a51-0089-4eb9-b773-d5e173ccde0f",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761375923.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "e8f54667-27e7-44b3-9b4f-092dd6262e49",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761376169.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "88a3d7f7-aaa8-495e-ac36-1bcc78329cc1",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761376349.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "7e5b9e03-6caa-42af-92d4-b36e7b8f0ac7",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761376530.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "1f20cba2-c6a6-4b4d-b897-97ddd9d6d439",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761376681.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "a772e449-4d42-4e8e-8cd2-3aadfc34cade",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761376833.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "c3df009f-fdb3-421b-85d7-8b7179529155",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761376973.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "90952ad1-9fc7-46b5-a788-57ff80dffdc1",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761377142.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "048ff646-4eb2-48bf-9ef0-c2645f8675e4",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761377274.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "e6a2075f-fc17-4241-8859-687d4ee915b9",
+      "storage_path": "raw/nater4l/live-nater4l-1761372920/20251025/segment_1761377425.mp4",
+      "channel_name": "nater4l",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "bfd3fb8b-e019-4f3d-a6f7-bbce31cd116c",
+      "storage_path": "raw/stableronaldo/demo-stableronaldo-1760828761/20251018/clip_1_1760828767.mp4",
+      "channel_name": "stableronaldo",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    },
+    {
+      "id": "64419e86-2a40-4902-b837-c52430d387bf",
+      "storage_path": "raw/stableronaldo/demo-stableronaldo-1760828761/20251018/clip_2_1760828772.mp4",
+      "channel_name": "stableronaldo",
+      "confidence_score": 0.65,
+      "score_breakdown": {
+        "pitch": 0.45,
+        "energy": 0.59,
+        "emotion": 0.52,
+        "keyword": 0.0
+      }
+    }
+  ]
+}

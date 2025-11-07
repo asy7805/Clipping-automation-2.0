@@ -128,7 +128,7 @@ export function VideoPlayerModal({
 
   return (
     <Dialog open={!!clipId} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-6xl w-[85vw] h-[70vh] p-0 gap-0 bg-background/95 backdrop-blur-xl border-white/10">
+      <DialogContent className="max-w-7xl w-[90vw] h-[85vh] p-0 gap-0 bg-background/95 backdrop-blur-xl border-white/10">
         {/* Accessibility: Hidden title and description for screen readers */}
         <VisuallyHidden>
           <DialogTitle>Clip from {clipData?.channel_name}</DialogTitle>
@@ -136,18 +136,10 @@ export function VideoPlayerModal({
             Video clip player showing content from {clipData?.channel_name}
           </DialogDescription>
         </VisuallyHidden>
-        
-        {/* Close button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 hover:bg-black/70 text-white transition-colors"
-        >
-          <X className="w-5 h-5" />
-        </button>
 
         <div className="flex h-full">
           {/* Video Player Section */}
-          <div className="flex-1 bg-black relative">
+          <div className="flex-1 bg-black relative flex items-center justify-center">
             {/* Navigation Arrows */}
             {onPrevious && (
               <button
@@ -191,7 +183,8 @@ export function VideoPlayerModal({
                 src={clipData.storage_url}
                 controls
                 loop
-                className="w-full h-full max-h-[50vh] object-contain"
+                className="w-full h-full object-contain"
+                style={{ width: '100%', height: '100%' }}
                 onError={(e) => {
                   console.error("Video load error:", e);
                   setVideoError(true);
@@ -228,7 +221,7 @@ export function VideoPlayerModal({
           </div>
 
           {/* Metadata Sidebar */}
-          <div className="w-72 p-3 space-y-2 bg-card/50 backdrop-blur overflow-y-auto flex-shrink-0">
+          <div className="w-80 p-4 space-y-3 bg-card/50 backdrop-blur overflow-y-auto flex-shrink-0">
             {/* Channel Info */}
             <div>
               <div className="flex items-center gap-2 mb-1">

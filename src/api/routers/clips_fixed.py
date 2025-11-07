@@ -193,3 +193,5 @@ async def get_clip(clip_id: str = PathParam(...)) -> ClipResponse:
         raise HTTPException(status_code=500, detail=f"Failed to fetch clip: {str(e)}")
 
 
+
+

@@ -33,9 +33,9 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link to="/dashboard">
+            <Link to="/login">
               <Button variant="hero" size="lg" className="text-base px-8">
-                View Dashboard
+                Get Started Free
               </Button>
             </Link>
             <Button variant="ghost-hero" size="lg" className="text-base px-8">

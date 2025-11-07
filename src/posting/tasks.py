@@ -4,16 +4,22 @@ Handles background video uploads and scheduled posts.
 """
 
 import os
+import sys
 import tempfile
 import logging
 import asyncio
+from pathlib import Path
 from datetime import datetime, timedelta
 from typing import Dict, Any, Optional
 from celery import current_task
+
+# Add src to path for imports
+sys.path.append(str(Path(__file__).parent.parent))
+
 from .celery_app import celery_app
 from .tiktok_publisher import TikTokPublisher
 from .youtube_publisher import YouTubePublisher
-from ..db.supabase_client import get_client
+from db.supabase_client import get_client
 
 logger = logging.getLogger(__name__)
 

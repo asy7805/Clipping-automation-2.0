@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Infinity } from "lucide-react";
 
@@ -22,7 +23,14 @@ const Navigation = () => {
             <a href="#contact" className="text-sm hover:text-primary transition-colors">Contact</a>
           </div>
 
-          <Button variant="hero">Get Started for Free</Button>
+          <div className="flex items-center gap-3">
+            <Link to="/login">
+              <Button variant="ghost" size="sm">Sign In</Button>
+            </Link>
+            <Link to="/signup">
+              <Button variant="hero">Get Started Free</Button>
+            </Link>
+          </div>
         </div>
       </div>
     </nav>

@@ -13,13 +13,16 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const Dashboard = () => {
   const { isFetching: streamsFetching } = useStreams();
   const { isFetching: statsFetching } = useDashboardStats();
-  const { data: clips } = useClips({ limit: 50 }); // Fetch all clips to find highest score
+  const { data: clipsData } = useClips({ limit: 50 }); // Fetch all clips to find highest score
   const { openPlayer } = useVideoPlayer();
   const isUpdating = streamsFetching || statsFetching;
   const isMobile = useIsMobile();
 
+  // Extract clips array from paginated response
+  const clips = clipsData?.clips || [];
+
   // Find the highest scoring clip
-  const featuredClip = clips && clips.length > 0
+  const featuredClip = clips.length > 0
     ? clips.reduce((highest, current) => 
         current.confidence_score > highest.confidence_score ? current : highest
       )

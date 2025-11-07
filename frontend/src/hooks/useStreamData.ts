@@ -59,7 +59,9 @@ const fetchStreams = async (): Promise<StreamData[]> => {
   try {
     // Fetch active monitors instead of streams table
     const response = await apiClient.getMonitors();
+    console.log('✅ Monitors API response:', response);
     const monitors = response.monitors || [];
+    console.log(`📊 Found ${monitors.length} monitors:`, monitors);
     
     // Transform monitors to StreamData format with real data
     const streamDataPromises = monitors.map(async (monitor: any) => {
@@ -137,9 +139,11 @@ const fetchStreams = async (): Promise<StreamData[]> => {
       }
     });
     
-    return await Promise.all(streamDataPromises);
+    const result = await Promise.all(streamDataPromises);
+    console.log('✨ Transformed stream data:', result);
+    return result;
   } catch (error) {
-    console.error('Failed to fetch monitors:', error);
+    console.error('❌ Failed to fetch monitors:', error);
     // Return empty array on error, let React Query handle retries
     return [];
   }

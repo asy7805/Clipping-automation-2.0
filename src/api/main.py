@@ -9,9 +9,11 @@ import sys
 import asyncio
 from pathlib import Path
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Request, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
+import logging
 
 # Add src to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
@@ -20,9 +22,11 @@ sys.path.append(str(Path(__file__).parent.parent))
 load_dotenv(Path(__file__).parent.parent / '.env')
 
 # Import API routers
-from .routers import clips, analytics, streams, health, monitors, social
+from .routers import clips, analytics, streams, health, monitors, social, editor, video_editor, admin
 from .services.monitor_watchdog import MonitorWatchdog
 from twitch_engagement_fetcher import TwitchEngagementFetcher
+
+logger = logging.getLogger(__name__)
 
 # Global watchdog instance
 watchdog_instance = None
@@ -75,7 +79,29 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"]
 )
+
+# Exception handlers for auth errors
+@app.exception_handler(HTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    """Handle HTTP exceptions with proper formatting."""
+    if exc.status_code in [401, 403]:
+        logger.warning(f"Auth error {exc.status_code}: {exc.detail} for {request.url}")
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"detail": exc.detail, "type": "http_exception"},
+        headers=exc.headers
+    )
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    """Handle unexpected errors."""
+    logger.error(f"Unexpected error for {request.url}: {exc}", exc_info=True)
+    return JSONResponse(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content={"detail": "Internal server error", "type": "server_error"}
+    )
 
 # Include API routers
 app.include_router(health.router, prefix="/api/v1", tags=["health"])
@@ -84,6 +110,9 @@ app.include_router(analytics.router, prefix="/api/v1", tags=["analytics"])
 app.include_router(streams.router, prefix="/api/v1", tags=["streams"])
 app.include_router(monitors.router, prefix="/api/v1", tags=["monitors"])
 app.include_router(social.router, prefix="/api/v1", tags=["social"])
+app.include_router(editor.router, prefix="/api/v1", tags=["video-editor"])
+app.include_router(video_editor.router, prefix="/api/v1", tags=["video-editor"])
+app.include_router(admin.router, prefix="/api/v1", tags=["admin"])
 
 @app.get("/")
 async def root():

@@ -2,22 +2,32 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { VideoPlayerProvider } from "./contexts/VideoPlayerContext";
+import { FFmpegProvider } from "./contexts/FFmpegContext";
+import { AuthProvider } from "./contexts/AuthContext";
 import { VideoPlayerModal } from "./components/VideoPlayerModal";
 import { useVideoPlayer } from "./contexts/VideoPlayerContext";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Clips from "./pages/Clips";
+import VideoEditor from "./pages/VideoEditor";
+import VideoEditorProjects from "./pages/VideoEditorProjects";
 import { StreamerClips } from "./pages/StreamerClips";
 import Analytics from "./pages/Analytics";
 import SocialAccounts from "./pages/SocialAccounts";
 import Settings from "./pages/Settings";
+import Admin from "./pages/Admin";
 import TikTokCallback from "./pages/auth/TikTokCallback";
 import YouTubeCallback from "./pages/auth/YouTubeCallback";
+import Login from "./pages/auth/Login";
+import SignUp from "./pages/auth/SignUp";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 import NotFound from "./pages/NotFound";
 import { DashboardLayout } from "./components/DashboardLayout";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +40,10 @@ const queryClient = new QueryClient({
 
 function AppContent() {
   const { currentClip, isOpen, closePlayer } = useVideoPlayer();
+  const location = useLocation();
+  
+  // Don't show VideoPlayerModal when in VideoEditor
+  const shouldShowVideoPlayer = isOpen && currentClip && !location.pathname.includes('/editor/');
   
   return (
     <>
@@ -39,14 +53,29 @@ function AppContent() {
         {/* Landing page without dashboard layout */}
         <Route path="/" element={<Index />} />
         
-        {/* Dashboard routes with layout */}
-        <Route path="/dashboard" element={<DashboardLayout />}>
+        {/* Auth routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        
+        {/* Dashboard routes with layout - Protected */}
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <DashboardLayout />
+          </ProtectedRoute>
+        }>
           <Route index element={<Dashboard />} />
           <Route path="clips" element={<Clips />} />
+          {/* Redirect old editor route to new projects page */}
+          <Route path="editor" element={<Navigate to="/dashboard/editor/projects" replace />} />
+          <Route path="editor/projects" element={<VideoEditorProjects />} />
+          <Route path="editor/project/:projectId" element={<VideoEditor />} />
           <Route path="clips/:streamerName" element={<StreamerClips />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="social" element={<SocialAccounts />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="admin" element={<Admin />} />
         </Route>
         
         {/* OAuth callback routes */}
@@ -57,8 +86,8 @@ function AppContent() {
         <Route path="*" element={<NotFound />} />
       </Routes>
 
-      {/* Global Video Player Modal */}
-      {isOpen && currentClip && (
+      {/* Global Video Player Modal - Only show when not in VideoEditor */}
+      {shouldShowVideoPlayer && (
         <VideoPlayerModal
           clipId={currentClip.id}
           onClose={closePlayer}
@@ -73,13 +102,17 @@ function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <VideoPlayerProvider>
-              <AppContent />
-            </VideoPlayerProvider>
-          </TooltipProvider>
-        </QueryClientProvider>
+        <AuthProvider>
+          <QueryClientProvider client={queryClient}>
+            <TooltipProvider>
+              <FFmpegProvider>
+                <VideoPlayerProvider>
+                  <AppContent />
+                </VideoPlayerProvider>
+              </FFmpegProvider>
+            </TooltipProvider>
+          </QueryClientProvider>
+        </AuthProvider>
       </BrowserRouter>
     </ErrorBoundary>
   );

@@ -9,13 +9,20 @@ import logging
 from datetime import datetime, timedelta
 from typing import List, Optional, Dict, Any
 from pathlib import Path
+import sys
 from fastapi import APIRouter, HTTPException, Depends, Query
 from pydantic import BaseModel, Field
 from dotenv import load_dotenv
-from ...db.supabase_client import get_client
-from ...posting.tiktok_publisher import TikTokPublisher
-from ...posting.youtube_publisher import YouTubePublisher
-from ...posting.tasks import post_to_social_media
+
+# Add project root to path for imports
+project_root = str(Path(__file__).parent.parent.parent.parent)
+sys.path.insert(0, project_root)
+
+from src.db.supabase_client import get_client
+from src.posting.tiktok_publisher import TikTokPublisher
+from src.posting.youtube_publisher import YouTubePublisher
+from src.posting.tasks import post_to_social_media
+from ..dependencies import get_current_user_id
 
 # Load environment variables
 load_dotenv(Path(__file__).parent.parent.parent.parent / '.env')
@@ -171,9 +178,13 @@ async def clear_oauth_states():
 
 
 @router.post("/auth/{platform}/initiate")
-async def initiate_oauth(platform: str):
+async def initiate_oauth(
+    platform: str,
+    user_id: str = Depends(get_current_user_id)
+):
     """
     Generate OAuth URL for platform authorization.
+    Requires authentication.
     
     Args:
         platform: Social media platform (tiktok, youtube)

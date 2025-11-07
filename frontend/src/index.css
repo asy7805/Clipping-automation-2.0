@@ -89,11 +89,34 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    overflow-x: hidden;
+    width: 100%;
+    zoom: 1;
+    transform: scale(1);
+  }
+
+  #root {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Ensure proper box sizing */
+  * {
+    box-sizing: border-box;
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
     background: linear-gradient(135deg, hsl(var(--gradient-start)) 0%, hsl(var(--gradient-mid)) 50%, hsl(var(--gradient-end)) 100%);
     background-attachment: fixed;
     position: relative;
+    overflow-x: hidden;
+    min-height: 100vh;
+    width: 100%;
+    zoom: 1;
+    transform: scale(1);
   }
 
   body::before {
@@ -262,5 +285,111 @@ All colors MUST be HSL.
   .score-badge-blue {
     background: linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%);
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
+  }
+
+  /* Video Editor Layout - Reorganized */
+  .video-editor-container {
+    zoom: 1;
+    transform: scale(1);
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Video Preview - Smaller and Centered */
+  video {
+    max-width: 560px !important;
+    max-height: 315px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+
+  canvas {
+    max-width: 560px !important;
+    max-height: 315px !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Video Preview Container - Centered */
+  .video-preview-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .video-preview-container video,
+  .video-preview-container canvas {
+    display: block;
+    margin: 0 auto;
+    object-fit: contain;
+    max-width: 560px !important;
+    max-height: 315px !important;
+  }
+
+  /* Timeline - Compact and Concise */
+  .timeline-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    min-height: 0;
+    max-height: 280px;
+  }
+
+  /* Sidebars - Fixed, Non-scrollable Pages */
+  .right-panel {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .left-sidebar {
+    overflow: hidden;
+  }
+
+  .left-sidebar > div {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Main layout fills space correctly */
+  .main-layout {
+    min-height: 0;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* Timeline content scrolls horizontally */
+  .timeline-content {
+    min-width: max-content;
+  }
+
+  /* Custom scrollbar for video editor panels */
+  .video-editor-container ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .video-editor-container ::-webkit-scrollbar-track {
+    background: #1f2937;
+  }
+
+  .video-editor-container ::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 4px;
+  }
+
+  .video-editor-container ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
   }
 }

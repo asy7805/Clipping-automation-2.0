@@ -156,7 +156,7 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
                         <div className="border-t border-border pt-2 mt-2">
                           <div className="flex items-center justify-between text-xs font-bold">
                             <span className="text-foreground">Final Score</span>
-                            <span className={cn("font-mono", getScoreColor(clip.confidence_score))}>{clip.score_breakdown.final_score.toFixed(3)}</span>
+                            <span className={cn("font-mono", getScoreColor(clip.confidence_score))}>{(clip.confidence_score || 0).toFixed(3)}</span>
                           </div>
                         </div>
                       </>

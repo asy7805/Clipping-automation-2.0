@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clear Authentication Data</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+    .container {
+      background: #1e293b;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    h1 { color: #8b5cf6; margin-top: 0; }
+    button {
+      background: #8b5cf6;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 10px 5px;
+    }
+    button:hover { background: #7c3aed; }
+    .success { color: #10b981; margin-top: 15px; }
+    .info { 
+      background: #1e40af20;
+      border-left: 4px solid #3b82f6;
+      padding: 15px;
+      margin: 15px 0;
+    }
+    code {
+      background: #0f172a;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔧 Clear Authentication Data</h1>
+    
+    <div class="info">
+      <p><strong>Use this if you're experiencing:</strong></p>
+      <ul>
+        <li><code>ERR_INTERNET_DISCONNECTED</code> errors</li>
+        <li>Failed to refresh token errors</li>
+        <li>Can't sign in or sign up</li>
+        <li>Stuck in authentication loops</li>
+      </ul>
+    </div>
+
+    <p>This will clear all Supabase authentication data from your browser:</p>
+
+    <button onclick="clearAuthData()">Clear Auth Data</button>
+    <button onclick="window.location.href='/'">Go to Home</button>
+    
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function clearAuthData() {
+      try {
+        // Clear all Supabase-related items from localStorage
+        const keysToRemove = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const key = localStorage.key(i);
+          if (key && key.includes('supabase')) {
+            keysToRemove.push(key);
+          }
+        }
+
+        keysToRemove.forEach(key => {
+          localStorage.removeItem(key);
+          console.log('Removed:', key);
+        });
+
+        // Clear sessionStorage too
+        for (let i = 0; i < sessionStorage.length; i++) {
+          const key = sessionStorage.key(i);
+          if (key && key.includes('supabase')) {
+            sessionStorage.removeItem(key);
+            console.log('Removed from session:', key);
+          }
+        }
+
+        // Clear cookies (if any)
+        document.cookie.split(";").forEach(function(c) { 
+          document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+        });
+
+        document.getElementById('result').innerHTML = `
+          <div class="success">
+            <h3>✅ Success!</h3>
+            <p>Cleared ${keysToRemove.length} authentication items.</p>
+            <p><strong>Next steps:</strong></p>
+            <ol>
+              <li>Close all browser tabs for this site</li>
+              <li>Open a new incognito/private window</li>
+              <li>Go to <a href="/" style="color: #8b5cf6;">http://localhost:8080</a></li>
+              <li>Try signing up or signing in again</li>
+            </ol>
+          </div>
+        `;
+      } catch (error) {
+        document.getElementById('result').innerHTML = `
+          <div style="color: #ef4444;">
+            <h3>❌ Error</h3>
+            <p>${error.message}</p>
+          </div>
+        `;
+      }
+    }
+  </script>
+</body>
+</html>
+

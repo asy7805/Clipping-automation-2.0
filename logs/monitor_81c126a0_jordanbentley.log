@@ -1,0 +1,15 @@
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 272, in <module>
+    main()
+    ~~~~^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 188, in main
+    sb = get_client()
+  File "/Users/aidanyap/Clipping-automation-2.0/src/db/supabase_client.py", line 46, in get_client
+    cfg = _load_config()
+  File "/Users/aidanyap/Clipping-automation-2.0/src/db/supabase_client.py", line 31, in _load_config
+    os.getenv("SUPABASE_SERVICE_ROLE_KEY").strip()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'strip'

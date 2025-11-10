@@ -19,7 +19,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 load_dotenv()
 
 # Import API routers
-from .routers import clips, analytics, streams, health
+from .routers import clips, analytics, streams, health, captions
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -29,6 +29,7 @@ async def lifespan(app: FastAPI):
     print(f"📡 Supabase URL: {os.getenv('SUPABASE_URL', 'Not configured')}")
     print(f"🤖 OpenAI API: {'✅ Configured' if os.getenv('OPENAI_API_KEY') else '❌ Missing'}")
     print(f"📺 Twitch API: {'✅ Configured' if os.getenv('TWITCH_CLIENT_ID') else '❌ Missing'}")
+    print(f"🎬 Captions AI: {'✅ Configured' if os.getenv('CAPTIONS_AI_API_KEY') else '❌ Missing'}")
     
     yield
     
@@ -57,6 +58,7 @@ app.include_router(health.router, prefix="/api/v1", tags=["health"])
 app.include_router(clips.router, prefix="/api/v1", tags=["clips"])
 app.include_router(analytics.router, prefix="/api/v1", tags=["analytics"])
 app.include_router(streams.router, prefix="/api/v1", tags=["streams"])
+app.include_router(captions.router, prefix="/api/v1", tags=["captions"])
 
 @app.get("/")
 async def root():

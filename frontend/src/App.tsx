@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { VideoPlayerProvider } from "./contexts/VideoPlayerContext";
 import { FFmpegProvider } from "./contexts/FFmpegContext";
 import { AuthProvider } from "./contexts/AuthContext";
@@ -12,6 +12,8 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Clips from "./pages/Clips";
+import VideoEditor from "./pages/VideoEditor";
+import VideoEditorProjects from "./pages/VideoEditorProjects";
 import { StreamerClips } from "./pages/StreamerClips";
 import Analytics from "./pages/Analytics";
 import SocialAccounts from "./pages/SocialAccounts";
@@ -65,6 +67,10 @@ function AppContent() {
         }>
           <Route index element={<Dashboard />} />
           <Route path="clips" element={<Clips />} />
+          {/* Redirect old editor route to new projects page */}
+          <Route path="editor" element={<Navigate to="/dashboard/editor/projects" replace />} />
+          <Route path="editor/projects" element={<VideoEditorProjects />} />
+          <Route path="editor/project/:projectId" element={<VideoEditor />} />
           <Route path="clips/:streamerName" element={<StreamerClips />} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="social" element={<SocialAccounts />} />

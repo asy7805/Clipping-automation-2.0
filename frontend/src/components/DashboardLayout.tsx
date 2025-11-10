@@ -7,6 +7,7 @@ import {
   Share2,
   ChevronRight,
   Bell,
+  Scissors,
   LogOut,
   User,
   Shield
@@ -31,6 +32,7 @@ import { useAuth } from "@/contexts/AuthContext";
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
   { icon: Film, label: "Clips Library", path: "/dashboard/clips" },
+  { icon: Scissors, label: "Video Editor", path: "/dashboard/editor/projects" },
   { icon: BarChart3, label: "Analytics", path: "/dashboard/analytics" },
   { icon: Share2, label: "Social Accounts", path: "/dashboard/social" },
   { icon: Settings, label: "Settings", path: "/dashboard/settings" },
@@ -165,6 +167,7 @@ export const DashboardLayout = () => {
             <h2 className="text-lg font-semibold text-foreground">
               {location.pathname === "/dashboard" && "Dashboard"}
               {location.pathname === "/dashboard/clips" && "Clips Library"}
+              {location.pathname.startsWith("/dashboard/editor") && "Video Editor"}
               {location.pathname === "/dashboard/analytics" && "Analytics"}
               {location.pathname === "/dashboard/social" && "Social Accounts"}
               {location.pathname === "/dashboard/settings" && "Settings"}

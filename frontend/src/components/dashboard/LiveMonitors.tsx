@@ -22,7 +22,7 @@ export const LiveMonitors = () => {
     <>
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl md:text-2xl font-bold flex items-center gap-2">
+          <h2 className="text-xl md:text-2xl font-semibold flex items-center gap-2">
             <span className="w-3 h-3 rounded-full bg-success animate-pulse" />
             Live Monitors
           </h2>

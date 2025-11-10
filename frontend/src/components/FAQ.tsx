@@ -31,7 +31,7 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="py-24 px-6 relative overflow-hidden">
+    <section id="faq" className="py-24 px-6 relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute bottom-1/4 right-1/3 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
       </div>

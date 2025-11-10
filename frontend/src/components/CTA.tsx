@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 const CTA = () => {
   const stats = [
-    { value: "80%", label: "Growth Users" },
-    { value: "5k+", label: "Workflows Made" },
-    { value: "40+", label: "Integrations" },
-    { value: "70+", label: "Countries" }
+    { value: "10K+", label: "Clips Captured" },
+    { value: "500+", label: "Streamers" },
+    { value: "24/7", label: "Monitoring" },
+    { value: "95%", label: "Accuracy" }
   ];
 
   return (
@@ -19,17 +20,26 @@ const CTA = () => {
       <div className="container mx-auto relative z-10">
         <Card className="glass border-border/50 p-12 md:p-16 text-center max-w-4xl mx-auto">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            Ready to Supercharge Your Productivity with AI?
+            Ready to Never Miss a Viral Moment?
           </h2>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            With AI-powered workflows, real-time project management, and automated follow-ups, your team gets clarity, speed, and focus
+            Join hundreds of streamers who use AI to automatically capture their best moments. Start your free trial today.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+            <Link to="/signup">
             <Button variant="hero" size="lg" className="text-base px-8">
               Get Started For Free
             </Button>
-            <Button variant="ghost-hero" size="lg" className="text-base px-8">
+            </Link>
+            <Button 
+              variant="ghost-hero" 
+              size="lg" 
+              className="text-base px-8"
+              onClick={() => {
+                window.location.href = 'mailto:support@clippingautomation.com?subject=Demo Request';
+              }}
+            >
               Ask for a Demo
             </Button>
           </div>

@@ -60,13 +60,13 @@ All colors MUST be HSL.
     --success: 160 84% 39%;
     --warning: 38 92% 50%;
     --info: 217 91% 60%;
-    
+
     /* Score colors */
     --score-gold: 43 96% 56%;
     --score-green: 160 84% 39%;
     --score-blue: 217 91% 60%;
     --score-gray: 215 14% 54%;
-    
+
     /* Chart gradients */
     --chart-1: 262 83% 58%;
     --chart-2: 300 76% 62%;
@@ -78,9 +78,16 @@ All colors MUST be HSL.
     --gradient-start: 263 70% 8%;
     --gradient-mid: 270 60% 20%;
     --gradient-end: 280 50% 15%;
-    
+
     --glow-primary: 263 100% 70%;
     --glow-accent: 280 100% 75%;
+  }
+  .theme {
+    --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+    --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+    --animate-shine: shine var(--duration) infinite linear;
+    --animate-marquee: marquee var(--duration) infinite linear;
+    --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
   }
 }
 
@@ -94,6 +101,7 @@ All colors MUST be HSL.
     width: 100%;
     zoom: 1;
     transform: scale(1);
+    scroll-behavior: smooth;
   }
 
   #root {
@@ -391,5 +399,63 @@ All colors MUST be HSL.
 
   .video-editor-container ::-webkit-scrollbar-thumb:hover {
     background: #6b7280;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@theme inline {
+  @keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+    }
+  }
+  @keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+    }
+  15%, 35% {
+    transform: translateZ(0) rotate(90deg);
+    }
+  65%, 85% {
+    transform: translateZ(0) rotate(270deg);
+    }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+    }
+  }
+  @keyframes shine {
+  0% {
+    background-position: 0% 0%;
+    }
+  50% {
+    background-position: 100% 100%;
+    }
+  to {
+    background-position: 0% 0%;
+    }
+  }
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
   }
 }

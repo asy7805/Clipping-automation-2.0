@@ -1,67 +1,49 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Workflow, Brain, LineChart, Grid, MessageSquare, BarChart3, Layout, Clock, Tag } from "lucide-react";
+import { Tv, Sparkles, TrendingUp, Video, Clock, Users } from "lucide-react";
 
 const Features = () => {
   const features = [
     {
-      icon: Workflow,
-      title: "Smart Workflow Builder",
-      description: "Automate growth & marketing with drag-and-drop ease.",
+      icon: Clock,
+      title: "24/7 Stream Monitoring",
+      description: "AI watches your Twitch streams around the clock, never missing a moment.",
       category: "Automation"
     },
     {
-      icon: Brain,
-      title: "AI Project Manager",
-      description: "Auto-assign tasks, set deadlines, and unblock your team.",
+      icon: Sparkles,
+      title: "Smart Clip Detection",
+      description: "Automatically identifies viral-worthy moments using advanced audio analysis.",
       category: "AI"
     },
     {
-      icon: LineChart,
-      title: "Real-Time Analytics",
-      description: "Track campaign performance and team KPIs in one view.",
-      category: "Analytics"
-    },
-    {
-      icon: Grid,
-      title: "Cross-Tool Integrations",
-      description: "Connect Slack, Notion, Jira, HubSpot, Zapier & more.",
-      category: "Integration"
-    },
-    {
-      icon: MessageSquare,
-      title: "Autonomous Follow-Ups",
-      description: "Let AI chase updates so you don't have to.",
+      icon: TrendingUp,
+      title: "AI Confidence Scoring",
+      description: "Each clip gets rated for viral potential so you know what to post first.",
       category: "AI"
     },
     {
-      icon: BarChart3,
-      title: "Advanced Analytics",
-      description: "Visualize key metrics to make better, data-driven decisions.",
-      category: "Analytics"
-    },
-    {
-      icon: Layout,
-      title: "Customizable Dashboards",
-      description: "Personalize your dashboard with flexible options for styling.",
-      category: "Customization"
-    },
-    {
-      icon: Clock,
-      title: "Simplified Time Trackers",
-      description: "Log work hours directly within the platform.",
-      category: "Productivity"
-    },
-    {
-      icon: Tag,
-      title: "Real Time Task Tags",
-      description: "Organize tasks with customizable tags for quick filtering.",
+      icon: Video,
+      title: "Searchable Clip Library",
+      description: "All captured moments organized and ready to review in one place.",
       category: "Organization"
+    },
+    {
+      icon: Users,
+      title: "Multi-Stream Support",
+      description: "Monitor multiple Twitch channels simultaneously from one dashboard.",
+      category: "Monitoring"
+    },
+    {
+      icon: Tv,
+      title: "Live Dashboard",
+      description: "See exactly what's being monitored and captured in real-time.",
+      category: "Monitoring"
     }
   ];
 
   return (
-    <section className="py-24 px-6 relative overflow-hidden">
+    <section id="features" className="py-24 px-6 relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
@@ -71,10 +53,10 @@ const Features = () => {
         <div className="text-center mb-16">
           <Badge variant="outline" className="mb-4">Features</Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Everything You Need to Scale
+            Everything You Need to Go Viral
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            All the tools you need to run projects, grow faster, and keep your team in sync powered by AI.
+            All the tools you need to capture, edit, and share your best streaming moments—powered by AI.
           </p>
         </div>
 

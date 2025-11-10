@@ -12,6 +12,7 @@ import {
   User,
   Shield
 } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -65,15 +66,15 @@ export const DashboardLayout = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-primary to-pink-500 rounded-lg blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
               <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-primary via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-primary/50 group-hover:shadow-primary/70 transition-all">
-                <Film className="w-6 h-6 text-white" />
+                <Logo size="sm" showText={false} className="w-6 h-6" />
               </div>
             </div>
             <div className="min-w-0">
               <h1 className="font-bold text-sm text-foreground group-hover:text-primary transition-colors truncate">
-                Clipping Auto
+                Prism
               </h1>
               <p className="text-xs font-semibold bg-gradient-to-r from-primary to-pink-500 bg-clip-text text-transparent">
-                AI-Powered 2.0
+                AI-Powered Clipping
               </p>
             </div>
           </Link>

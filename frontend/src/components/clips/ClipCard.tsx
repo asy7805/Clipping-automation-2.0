@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
+import { cn, clampScore } from "@/lib/utils";
 import { AIScoreDisplay } from "@/components/AIScoreDisplay";
 import { useVideoPlayer } from "@/contexts/VideoPlayerContext";
 import { Clip } from "@/hooks/useClips";
@@ -57,7 +57,8 @@ const emotionEmojis: Record<string, string> = {
 };
 
 export const ClipCard = ({ clip, view = "grid", rawClipData }: ClipCardProps) => {
-  const stars = getStarCount(clip.score);
+  const clampedScore = clampScore(clip.score);
+  const stars = getStarCount(clampedScore);
   const { openPlayer } = useVideoPlayer();
 
   const handlePlayClick = () => {
@@ -111,13 +112,13 @@ export const ClipCard = ({ clip, view = "grid", rawClipData }: ClipCardProps) =>
         <div className="absolute top-3 right-3">
           <Badge className={cn(
             "font-bold text-base px-3 py-1 shadow-lg transition-all duration-300",
-            getScoreColor(clip.score),
-            getScoreBg(clip.score),
-            clip.score >= 0.7 && "group-hover:shadow-score-gold/50",
-            clip.score >= 0.5 && clip.score < 0.7 && "group-hover:shadow-score-green/50",
-            clip.score >= 0.3 && clip.score < 0.5 && "group-hover:shadow-score-blue/50"
+            getScoreColor(clampedScore),
+            getScoreBg(clampedScore),
+            clampedScore >= 0.7 && "group-hover:shadow-score-gold/50",
+            clampedScore >= 0.5 && clampedScore < 0.7 && "group-hover:shadow-score-green/50",
+            clampedScore >= 0.3 && clampedScore < 0.5 && "group-hover:shadow-score-blue/50"
           )}>
-            {clip.score.toFixed(2)}
+            {clampedScore.toFixed(2)}
           </Badge>
           <div className="flex gap-0.5 mt-1 justify-end">
             {[...Array(5)].map((_, i) => (
@@ -126,7 +127,7 @@ export const ClipCard = ({ clip, view = "grid", rawClipData }: ClipCardProps) =>
                 className={cn(
                   "w-3 h-3 transition-all duration-300",
                   i < stars 
-                    ? `fill-current ${getScoreColor(clip.score)} group-hover:scale-110` 
+                    ? `fill-current ${getScoreColor(clampedScore)} group-hover:scale-110` 
                     : 'text-muted'
                 )}
               />

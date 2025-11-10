@@ -12,7 +12,7 @@ from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from predict import is_clip_worthy_by_model
+from predict import is_clip_worthy_by_model_with_score
 from db.supabase_client import get_client
 from ..dependencies import get_current_user_id
 from ..middleware.auth import get_current_user, User
@@ -67,14 +67,14 @@ async def predict_clip_worthiness(request: ClipPredictionRequest) -> ClipPredict
     No authentication required (utility endpoint).
     """
     try:
-        is_worthy = is_clip_worthy_by_model(
+        is_worthy, confidence_score = is_clip_worthy_by_model_with_score(
             request.transcript, 
             model_version=request.model_version
         )
         
         return ClipPredictionResponse(
             is_clip_worthy=is_worthy,
-            confidence_score=0.85,
+            confidence_score=confidence_score,
             model_version=request.model_version or "latest",
             reasoning="ML model prediction based on transcript analysis"
         )

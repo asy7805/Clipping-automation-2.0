@@ -6,9 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { apiClient } from "@/lib/api";
 import { supabase } from "@/lib/supabase";
-import { useAuth } from "@/contexts/AuthContext";
+import { clampScore } from "@/lib/utils";
 import { Navigate } from "react-router-dom";
 import { Users, Video, Database, Activity } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface AdminStats {
   total_users: number;
@@ -253,9 +254,9 @@ const Admin = () => {
                         </p>
                       </div>
                       <Badge
-                        variant={(clip.confidence_score || 0) >= 3.5 ? "default" : "secondary"}
+                        variant={clampScore(clip.confidence_score) >= 0.7 ? "default" : "secondary"}
                       >
-                        Score: {(clip.confidence_score || 0).toFixed(2)}
+                        Score: {clampScore(clip.confidence_score).toFixed(2)}
                       </Badge>
                     </div>
                   ))}

@@ -65,6 +65,104 @@ def log_prediction_to_supabase(clip_id, transcript, score, triggered, model_vers
         print(f"❌ Error logging prediction to Supabase: {e}")
         return False
 
+def is_clip_worthy_by_model_with_score(transcript_text, clip_id=None, model_version=None):
+    """
+    Predict whether a clip is worthy based on its transcript text and return the confidence score.
+    
+    Args:
+        transcript_text: The full transcript string to evaluate
+        clip_id: Optional clip ID for logging (if None, will use timestamp)
+        model_version: Version of the model being used (if None, will use latest from registry)
+        
+    Returns:
+        Tuple[bool, float]: (is_clip_worthy, confidence_score)
+    """
+    # Generate clip_id if not provided (for realtime/simulation use)
+    if clip_id is None:
+        clip_id = f"pred_{datetime.datetime.now().strftime('%Y%m%d_%H%M%S_%f')}"
+    else:
+        # Ensure we're using the actual Twitch clip ID when provided
+        print(f"📋 Using provided clip ID: {clip_id}")
+    
+    # 1. Load the trained classifier from model registry or fallback to local file
+    classifier = None
+    actual_model_version = model_version
+    
+    try:
+        # Try to get model from registry first
+        if model_version is None:
+            # Get latest model from registry
+            supabase_url = os.getenv("SUPABASE_URL")
+            supabase_key = os.getenv("SUPABASE_ANON_KEY") or os.getenv("SUPABASE_KEY")
+            
+            if supabase_url and supabase_key:
+                supabase = create_client(supabase_url, supabase_key)
+                response = supabase.table("model_registry").select("*").order("created_at", desc=True).limit(1).execute()
+                
+                if response.data:
+                    latest_model = response.data[0]
+                    model_path = latest_model.get("file_path")
+                    actual_model_version = latest_model.get("version", "v1.0")
+                    
+                    if model_path and os.path.exists(model_path):
+                        classifier = joblib.load(model_path)
+                        print(f"✅ Loaded model from registry: {actual_model_version}")
+                    else:
+                        print(f"⚠️  Model file not found: {model_path}, falling back to local file")
+                else:
+                    print("⚠️  No models in registry, falling back to local file")
+        
+        # Fallback to local file if registry failed
+        if classifier is None:
+            classifier = joblib.load(Path(MODEL_DIR) / "clip_classifier.pkl")
+            actual_model_version = actual_model_version or "v1.0"
+            print(f"✅ Loaded model from local file: {actual_model_version}")
+            
+    except Exception as e:
+        print(f"❌ Error loading model from registry: {e}")
+        # Final fallback to local file
+        try:
+            classifier = joblib.load(Path(MODEL_DIR) / "clip_classifier.pkl")
+            actual_model_version = actual_model_version or "v1.0"
+            print(f"✅ Loaded model from local file (fallback): {actual_model_version}")
+        except Exception as e2:
+            print(f"❌ Failed to load model: {e2}")
+            return False, 0.0
+    
+    # 2. Set up OpenAI API key from environment variable
+    openai.api_key = os.getenv("OPENAI_API_KEY")
+    if not openai.api_key:
+        raise ValueError("OPENAI_API_KEY environment variable is required. Please set it before running this script.")
+    
+    # 3. Convert the transcript into an embedding using OpenAI
+    try:
+        response = openai.embeddings.create(
+            model="text-embedding-ada-002",
+            input=transcript_text
+        )
+        embedding = np.array([response.data[0].embedding])
+    except Exception as e:
+        print(f"❌ Error generating embedding: {e}")
+        return False, 0.0
+    
+    # 4. Pass the embedding to the classifier's .predict() method
+    prediction = classifier.predict(embedding)[0]
+    
+    # 5. Get probability scores for logging
+    prob = classifier.predict_proba(embedding)[0][1]  # Probability of class 1 (clip-worthy)
+    
+    # 6. Determine if clip is triggered (worthy)
+    triggered = prediction == 1
+    
+    # 7. Log the prediction to local file
+    log_prediction(transcript_text, prob)
+    
+    # 8. Log the prediction to Supabase
+    log_prediction_to_supabase(clip_id, transcript_text, prob, triggered, actual_model_version)
+    
+    # 9. Return both the boolean and the confidence score
+    return triggered, prob
+
 def is_clip_worthy_by_model(transcript_text, clip_id=None, model_version=None):
     """
     Predict whether a clip is worthy based on its transcript text.

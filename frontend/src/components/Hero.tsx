@@ -1,15 +1,22 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Infinity } from "lucide-react";
+import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import { cn } from "@/lib/utils";
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/30 rounded-full blur-3xl animate-float" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/30 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
-      </div>
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <AnimatedGridPattern
+        numSquares={30}
+        maxOpacity={0.1}
+        duration={3}
+        className={cn(
+          "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]",
+          "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
+        )}
+      />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-5xl mx-auto space-y-8">
@@ -33,19 +40,24 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link to="/login">
-              <Button variant="hero" size="lg" className="text-base px-8">
-                Get Started Free
-              </Button>
+            <Link to="/signup">
+              <ShimmerButton className="shadow-2xl">
+                <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white dark:from-white dark:to-slate-900/10 lg:text-lg">
+                  Get Started Free
+                </span>
+              </ShimmerButton>
             </Link>
-            <Button variant="ghost-hero" size="lg" className="text-base px-8">
+            <Button 
+              variant="ghost-hero" 
+              size="lg" 
+              className="text-base px-8"
+              onClick={() => {
+                document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               See How It Works
             </Button>
           </div>
-
-          <p className="text-sm text-muted-foreground pt-8">
-            🎬 16 clips already captured • 5 streamers monitored • 100% automated
-          </p>
         </div>
       </div>
     </section>

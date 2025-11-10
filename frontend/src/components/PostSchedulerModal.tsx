@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { apiClient } from "@/lib/api";
 import { toast } from "sonner";
+import { clampScore } from "@/lib/utils";
 import { Clip } from "@/hooks/useClips";
 
 interface SocialAccount {
@@ -179,7 +180,7 @@ const PostSchedulerModal: React.FC<PostSchedulerModalProps> = ({
                 <div className="flex-1">
                   <div className="font-medium truncate">{clip.channel_name}</div>
                   <div className="text-sm text-muted-foreground">
-                    {clip.confidence_score ? `Score: ${clip.confidence_score.toFixed(2)}` : 'No score available'}
+                    {clip.confidence_score ? `Score: ${clampScore(clip.confidence_score).toFixed(2)}` : 'No score available'}
                   </div>
                 </div>
                 <Badge variant="outline">

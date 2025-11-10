@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { useClips } from "@/hooks/useClips";
 import { Loader2 } from "lucide-react";
+import { clampScore } from "@/lib/utils";
 
 const getActivityIcon = (score: number) => {
   if (score >= 0.7) return "🎉";
@@ -35,16 +36,19 @@ export const ActivityFeed = () => {
   const clips = clipsData?.clips || [];
 
   // Transform clips to activity format
-  const activities = clips?.map(clip => ({
-    icon: getActivityIcon(clip.confidence_score || 0),
-    message: `${clip.channel_name}: New clip captured`,
-    time: getTimeAgo(clip.created_at),
-    color: getActivityColor(clip.confidence_score || 0)
-  })) || [];
+  const activities = clips?.map(clip => {
+    const clampedScore = clampScore(clip.confidence_score);
+    return {
+      icon: getActivityIcon(clampedScore),
+      message: `${clip.channel_name}: New clip captured`,
+      time: getTimeAgo(clip.created_at),
+      color: getActivityColor(clampedScore)
+    };
+  }) || [];
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">📊 Live Activity</h2>
-      <Card className="p-4 bg-card border-border">
+      <h2 className="text-xl md:text-2xl font-semibold mb-6">📊 Live Activity</h2>
+      <Card className="p-4 md:p-5 bg-card border-border rounded-2xl shadow-lg shadow-primary/5">
         {isLoading ? (
           <div className="flex items-center justify-center h-40">
             <Loader2 className="w-6 h-6 animate-spin text-primary" />
@@ -54,14 +58,14 @@ export const ActivityFeed = () => {
             <p className="text-sm text-muted-foreground">No recent activity</p>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {activities.map((activity, index) => (
               <div 
                 key={index} 
-                className="flex items-start gap-3 pb-4 border-b border-border last:border-0 last:pb-0 animate-in fade-in slide-in-from-right-2"
+                className="flex items-start gap-3 pb-3 border-b border-border last:border-0 last:pb-0 animate-in fade-in slide-in-from-right-2"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <span className="text-xl">{activity.icon}</span>
+                <span className="text-lg flex-shrink-0">{activity.icon}</span>
                 <div className="flex-1 min-w-0">
                   <p className={`text-sm ${activity.color} font-medium`}>
                     {activity.message}

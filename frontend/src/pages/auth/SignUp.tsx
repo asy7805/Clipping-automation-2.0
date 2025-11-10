@@ -5,7 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Film, Loader2, ArrowLeft, Check, X } from "lucide-react";
+import { Loader2, ArrowLeft, Check, X } from "lucide-react";
+import { Logo } from "@/components/Logo";
 import { useAuth } from "@/contexts/AuthContext";
 
 const SignUp = () => {
@@ -121,17 +122,12 @@ const SignUp = () => {
         <Card className="p-8 glass-strong border-white/10 card-hover">
           {/* Logo and header */}
           <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary to-pink-500 rounded-lg blur-md opacity-50" />
-                <div className="relative w-12 h-12 rounded-lg bg-gradient-to-br from-primary via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-primary/50">
-                  <Film className="w-7 h-7 text-white" />
-                </div>
-              </div>
+            <div className="flex items-center justify-center mb-4">
+              <Logo size="lg" showText={true} />
             </div>
             <h1 className="text-2xl font-bold mb-2">Create Your Account</h1>
             <p className="text-sm text-muted-foreground">
-              Start capturing viral moments automatically
+              Start capturing viral moments automatically with Prism
             </p>
           </div>
 

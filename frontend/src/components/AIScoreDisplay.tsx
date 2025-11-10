@@ -1,6 +1,6 @@
 import { Star, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn, clampScore } from "@/lib/utils";
 
 interface AIScoreDisplayProps {
   score: number;
@@ -41,14 +41,15 @@ export const AIScoreDisplay = ({
   size = "md",
   showBreakdown = false 
 }: AIScoreDisplayProps) => {
+  const clampedScore = clampScore(score);
   const [animated, setAnimated] = useState(false);
   const [displayScore, setDisplayScore] = useState(0);
   
   const circumference = 2 * Math.PI * 45; // radius = 45
   const offset = circumference - (displayScore / 1) * circumference;
   
-  const stars = getStarCount(score);
-  const isHighScore = score >= 0.7;
+  const stars = getStarCount(clampedScore);
+  const isHighScore = clampedScore >= 0.7;
 
   const sizeClasses = {
     sm: "w-24 h-24",
@@ -69,13 +70,13 @@ export const AIScoreDisplay = ({
     // Animate score counting up
     const duration = 1500;
     const steps = 60;
-    const increment = score / steps;
+    const increment = clampedScore / steps;
     let current = 0;
     
     const timer = setInterval(() => {
       current += increment;
-      if (current >= score) {
-        setDisplayScore(score);
+      if (current >= clampedScore) {
+        setDisplayScore(clampedScore);
         clearInterval(timer);
       } else {
         setDisplayScore(current);
@@ -83,7 +84,7 @@ export const AIScoreDisplay = ({
     }, duration / steps);
 
     return () => clearInterval(timer);
-  }, [score]);
+  }, [clampedScore]);
 
   return (
     <div className="space-y-6">
@@ -133,7 +134,7 @@ export const AIScoreDisplay = ({
             />
             <defs>
               <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" className={cn("transition-colors", getScoreColor(score))} style={{ stopColor: `hsl(var(--${score >= 0.7 ? 'score-gold' : score >= 0.5 ? 'score-green' : score >= 0.3 ? 'score-blue' : 'score-gray'}))` }} />
+                <stop offset="0%" className={cn("transition-colors", getScoreColor(clampedScore))} style={{ stopColor: `hsl(var(--${clampedScore >= 0.7 ? 'score-gold' : clampedScore >= 0.5 ? 'score-green' : clampedScore >= 0.3 ? 'score-blue' : 'score-gray'}))` }} />
                 <stop offset="100%" className="text-pink-500" style={{ stopColor: 'hsl(330, 81%, 60%)' }} />
               </linearGradient>
             </defs>
@@ -144,7 +145,7 @@ export const AIScoreDisplay = ({
             <span className={cn(
               "font-bold tabular-nums",
               textSizes[size],
-              getScoreColor(score),
+              getScoreColor(clampedScore),
               isHighScore && "animate-pulse"
             )}>
               {displayScore.toFixed(2)}
@@ -156,7 +157,7 @@ export const AIScoreDisplay = ({
                   className={cn(
                     "w-3 h-3 transition-all duration-500",
                     i < stars 
-                      ? `fill-current ${getScoreColor(score)} ${isHighScore && 'animate-pulse'}` 
+                      ? `fill-current ${getScoreColor(clampedScore)} ${isHighScore && 'animate-pulse'}` 
                       : 'text-muted',
                     animated && i < stars && "scale-100",
                     !animated && "scale-0"

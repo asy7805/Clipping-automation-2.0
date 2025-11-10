@@ -1,4 +1,4 @@
-import { Infinity } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 const Footer = () => {
   const footerLinks = {
@@ -13,14 +13,11 @@ const Footer = () => {
       <div className="container mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           <div className="col-span-2 md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                <Infinity className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold">Stryve</span>
+            <div className="mb-4">
+              <Logo size="md" showText={true} />
             </div>
             <p className="text-sm text-muted-foreground">
-              One platform for infinite growth.
+              AI-powered Twitch clipping automation for streamers.
             </p>
           </div>
 
@@ -45,7 +42,7 @@ const Footer = () => {
 
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2025 Stryve. All rights reserved.
+            © 2025 Prism. All rights reserved.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">

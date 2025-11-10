@@ -3,7 +3,7 @@ import { Play, Star, Zap, Music, SmilePlus, MessageSquare, Share } from "lucide-
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, clampScore } from "@/lib/utils";
 import { useVideoPlayer } from "@/contexts/VideoPlayerContext";
 import { Clip } from "@/hooks/useClips";
 import { getChannelAvatarProps } from "@/lib/avatarUtils";
@@ -58,7 +58,8 @@ const getTimeAgo = (dateString: string) => {
 export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) => {
   const { openPlayer } = useVideoPlayer();
   const [showPostModal, setShowPostModal] = useState(false);
-  const stars = clip.confidence_score ? getStarCount(clip.confidence_score) : 0;
+  const clampedScore = clampScore(clip.confidence_score);
+  const stars = clampedScore > 0 ? getStarCount(clampedScore) : 0;
   
   // Use real thumbnail from video first frame, fallback to placeholder
   const imagePool = [
@@ -110,12 +111,12 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
           <span className="font-medium text-sm text-foreground truncate group-hover:text-primary transition-colors">
             {clip.channel_name}
           </span>
-          {clip.confidence_score && (
+          {clampedScore > 0 && (
             <TooltipProvider delayDuration={200}>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Badge className={cn("text-xs font-bold px-1.5 py-0 border shrink-0 cursor-help", getScoreBg(clip.confidence_score), getScoreColor(clip.confidence_score))}>
-                    {clip.confidence_score.toFixed(2)}
+                  <Badge className={cn("text-xs font-bold px-1.5 py-0 border shrink-0 cursor-help", getScoreBg(clampedScore), getScoreColor(clampedScore))}>
+                    {clampedScore.toFixed(2)}
                   </Badge>
                 </TooltipTrigger>
                 <TooltipContent side="left" className="p-3 bg-card border-border">
@@ -156,7 +157,7 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
                         <div className="border-t border-border pt-2 mt-2">
                           <div className="flex items-center justify-between text-xs font-bold">
                             <span className="text-foreground">Final Score</span>
-                            <span className={cn("font-mono", getScoreColor(clip.confidence_score))}>{(clip.confidence_score || 0).toFixed(3)}</span>
+                            <span className={cn("font-mono", getScoreColor(clampedScore))}>{clampedScore.toFixed(3)}</span>
                           </div>
                         </div>
                       </>
@@ -181,7 +182,7 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
                 className={cn(
                   "w-2.5 h-2.5",
                   i < stars 
-                    ? `fill-current ${clip.confidence_score ? getScoreColor(clip.confidence_score) : 'text-primary'}` 
+                    ? `fill-current ${clampedScore > 0 ? getScoreColor(clampedScore) : 'text-primary'}` 
                     : 'text-muted-foreground/30'
                 )}
               />

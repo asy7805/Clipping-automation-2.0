@@ -1,43 +1,43 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Plug, Settings, Zap } from "lucide-react";
+import { Tv, Brain, Video } from "lucide-react";
 
 const Process = () => {
   const steps = [
     {
       step: "Step 1",
-      icon: Plug,
-      title: "Connect Your Tools",
-      description: "Seamlessly bring in projects, campaigns, and data from every platform you use — all in just a few clicks."
+      icon: Tv,
+      title: "Connect Your Twitch",
+      description: "Link your Twitch channel in under 2 minutes. No complex setup, just simple authentication."
     },
     {
       step: "Step 2",
-      icon: Settings,
-      title: "Build Your Workflows",
-      description: "Create growth loops, automate task assignments, and set up detailed reporting dashboards that run themselves."
+      icon: Brain,
+      title: "AI Watches Automatically",
+      description: "Our AI monitors every stream in real-time, detecting viral moments using advanced audio analysis."
     },
     {
       step: "Step 3",
-      icon: Zap,
-      title: "Let AI Take Over",
-      description: "Sit back as AI keeps your team on track, hitting deadlines, staying ahead of KPIs, and catching issues before they snowball."
+      icon: Video,
+      title: "Get Clips Delivered",
+      description: "Review your AI-scored highlights, edit them with our built-in tools, and post to social media."
     }
   ];
 
   return (
-    <section className="py-24 px-6 relative overflow-hidden">
+    <section id="how-it-works" className="py-24 px-6 relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto relative z-10">
         <div className="text-center mb-16">
-          <Badge variant="outline" className="mb-4">Process</Badge>
+          <Badge variant="outline" className="mb-4">How It Works</Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            From Chaos to Clarity in 3 Steps
+            From Stream to Viral Clip in 3 Steps
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Getting started is fast, easy, and doesn't disrupt your workflow.
+            Getting started is fast, easy, and takes less than 5 minutes to set up.
           </p>
         </div>
 

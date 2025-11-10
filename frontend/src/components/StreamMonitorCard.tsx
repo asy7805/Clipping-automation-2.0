@@ -113,10 +113,10 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
   };
 
   return (
-    <Card className="p-6 glass-strong border-white/10 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 group">
-      <div className="flex items-start justify-between mb-4">
-        <div className="flex items-center gap-3">
-          <div className="relative">
+    <Card className="p-5 md:p-6 glass-strong border-white/10 hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/20 transition-all duration-300 group rounded-2xl shadow-lg shadow-primary/5">
+      <div className="flex items-start justify-between mb-5">
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          <div className="relative flex-shrink-0">
             {/* Circular Progress Ring */}
             <svg className="absolute -inset-1 w-[56px] h-[56px] -rotate-90">
               {/* Background circle */}
@@ -166,9 +166,9 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
             )}
           </div>
         <div className="flex-1 min-w-0 mr-3">
-          <h3 className="font-bold text-foreground text-lg truncate">{stream.channel}</h3>
-          <p className="text-xs text-muted-foreground truncate max-w-[200px]">{streamTitle || stream.title}</p>
-          <div className="flex items-center gap-3 text-sm text-muted-foreground mt-1">
+          <h3 className="font-bold text-foreground text-base md:text-lg truncate mb-1">{stream.channel}</h3>
+          <p className="text-xs text-muted-foreground truncate max-w-[200px] mb-2">{streamTitle || stream.title}</p>
+          <div className="flex items-center gap-3 text-xs text-muted-foreground">
             <div className="flex items-center gap-1">
               <Users className="w-3.5 h-3.5" />
               <span className="font-medium">{viewerCount.toLocaleString()}</span>
@@ -181,7 +181,7 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
         </div>
         
         {/* Live/Offline Status Badge */}
-        <div className="flex flex-col items-end gap-1 flex-shrink-0">
+        <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
           {isTwitchLive ? (
             <Badge className="border relative bg-success/10 text-success border-success/20 shadow-[0_0_15px_rgba(16,185,129,0.5)]">
               <span className="relative z-10">🔴 LIVE</span>
@@ -209,9 +209,9 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
         {/* Stream Info Section */}
         {health && (isTwitchLive || health.stream_title) && (
           <div className="p-3 bg-muted/20 rounded-lg border border-border">
-            <p className="text-xs text-muted-foreground mb-1">Stream Info</p>
+            <p className="text-xs text-muted-foreground mb-1.5 font-medium">Stream Info</p>
             {health.stream_title && (
-              <p className="text-sm font-medium text-foreground line-clamp-2 mb-1 break-words">
+              <p className="text-sm font-medium text-foreground line-clamp-2 mb-1.5 break-words">
                 {health.stream_title}
               </p>
             )}
@@ -228,7 +228,7 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
         {/* Health Indicators */}
         {health && (
           <div>
-            <p className="text-xs text-muted-foreground mb-2">System Health</p>
+            <p className="text-xs text-muted-foreground mb-2 font-medium">System Health</p>
             <div className="grid grid-cols-3 gap-2">
               <div className={cn(
                 "flex flex-col items-center gap-1 px-2 py-2 rounded-md text-xs font-medium",
@@ -255,7 +255,7 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
         {/* System Metrics */}
         {health && health.process_alive && (
           <div>
-            <p className="text-xs text-muted-foreground mb-2">Performance</p>
+            <p className="text-xs text-muted-foreground mb-2 font-medium">Performance</p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               <div className="flex items-center justify-between px-3 py-2 bg-muted/30 rounded-md">
                 <div className="flex items-center gap-1.5">
@@ -277,7 +277,7 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
 
         {/* Clip Stats */}
         <div>
-          <p className="text-xs text-muted-foreground mb-2">Activity</p>
+          <p className="text-xs text-muted-foreground mb-2 font-medium">Activity</p>
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="flex items-center gap-1.5 text-muted-foreground">
               <span className="text-base">📊</span>
@@ -300,7 +300,7 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
             </span>
             <span className="text-primary font-bold">{Math.round(stream.bufferProgress * 100)}%</span>
           </div>
-          <div className="w-full bg-muted/30 rounded-full h-2.5 overflow-hidden">
+          <div className="w-full bg-muted/30 rounded-full h-2 overflow-hidden">
             <div 
               className="h-full rounded-full bg-gradient-to-r from-primary via-pink-500 to-primary bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] transition-all duration-500"
               style={{ width: `${stream.bufferProgress * 100}%` }}
@@ -308,7 +308,7 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
           </div>
         </div>
 
-        <div className="flex items-center gap-2 pt-2 border-t border-white/10">
+        <div className="flex items-center gap-2 pt-3 border-t border-white/10">
           <Button 
             size="sm" 
             variant="outline" 

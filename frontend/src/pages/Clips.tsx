@@ -6,6 +6,7 @@ import { Input } from '../components/ui/input';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { useClips } from '../hooks/useClips';
+import { clampScore } from '../lib/utils';
 
 const Clips = () => {
   const navigate = useNavigate();
@@ -45,8 +46,8 @@ const Clips = () => {
 
     // Calculate average scores
     Object.values(grouped).forEach((streamer: any) => {
-      const totalScore = streamer.clips.reduce((sum: number, clip: any) => sum + (clip.confidence_score || 0), 0);
-      streamer.avgScore = streamer.totalClips > 0 ? totalScore / streamer.totalClips : 0;
+      const totalScore = streamer.clips.reduce((sum: number, clip: any) => sum + clampScore(clip.confidence_score), 0);
+      streamer.avgScore = streamer.totalClips > 0 ? clampScore(totalScore / streamer.totalClips) : 0;
     });
 
     return Object.values(grouped).sort((a: any, b: any) => b.totalClips - a.totalClips);

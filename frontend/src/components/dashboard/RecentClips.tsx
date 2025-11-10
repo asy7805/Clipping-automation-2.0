@@ -12,7 +12,7 @@ export const RecentClips = () => {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">📹 Recent Clips</h2>
+        <h2 className="text-xl md:text-2xl font-semibold">📹 Recent Clips</h2>
         <Link to="/dashboard/clips">
           <Button variant="ghost" className="text-primary hover:text-primary/90">
             View All <ArrowRight className="w-4 h-4 ml-2" />

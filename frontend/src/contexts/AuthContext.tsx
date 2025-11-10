@@ -15,6 +15,10 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const ADMIN_CHECK_ENABLED =
+  import.meta.env.VITE_ENABLE_ADMIN_CHECK !== "false" &&
+  import.meta.env.VITE_ENABLE_ADMIN_CHECK !== "0";
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -25,6 +29,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Function to check admin status from backend (non-blocking)
   const checkAdminStatus = useCallback(async (userId: string) => {
+    if (!ADMIN_CHECK_ENABLED) {
+      setIsAdmin(false);
+      return;
+    }
+
     const now = Date.now();
     if (adminCheckInProgress.current) {
       console.debug('⏳ Admin check already in progress, skipping duplicate call');
@@ -50,6 +59,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     adminCheckInProgress.current = true;
 
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.access_token) {
@@ -60,8 +71,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       // Add timeout to prevent hanging
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => {
-        console.log('⏱️ Admin check timed out after 5 seconds');
+      timeoutId = setTimeout(() => {
+        console.warn('⏱️ Admin check timed out after 5 seconds');
         controller.abort();
       }, 5000); // 5 second timeout
 
@@ -69,7 +80,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const startTime = performance.now();
       
       // Use the faster /admin/check endpoint instead of /admin/stats
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/admin/check`, {
+      const response = await fetch(`${apiBaseUrl}/api/v1/admin/check`, {
         headers: {
           Authorization: `Bearer ${session.access_token}`,
         },
@@ -94,10 +105,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (error instanceof Error && error.name !== 'AbortError') {
         console.error('❌ Error checking admin status:', error);
       } else {
-        console.warn('❌ Admin check aborted (timeout)');
+        console.debug('ℹ️ Admin check skipped (timeout or abort)');
       }
-      setIsAdmin(false);
     } finally {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
       adminCheckInProgress.current = false;
     }
   }, []);

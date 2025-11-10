@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback, ReactNode, useRef } from 'react';
 import { User } from '@supabase/supabase-js';
 import { supabase } from '@/lib/supabase';
 import { toast } from 'sonner';
@@ -19,10 +19,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const adminCheckInProgress = useRef(false);
+  const lastAdminCheckRef = useRef<number>(0);
+  const ADMIN_CHECK_COOLDOWN_MS = 10000;
 
   // Function to check admin status from backend (non-blocking)
   const checkAdminStatus = useCallback(async (userId: string) => {
+    const now = Date.now();
+    if (adminCheckInProgress.current) {
+      console.debug('⏳ Admin check already in progress, skipping duplicate call');
+      return;
+    }
+
+    if (now - lastAdminCheckRef.current < ADMIN_CHECK_COOLDOWN_MS) {
+      console.debug('🛑 Admin check skipped due to cooldown');
+      return;
+    }
+
+    lastAdminCheckRef.current = now;
+
     console.log('🔍 Checking admin status for user:', userId);
+
+    const apiBaseUrl = import.meta.env.VITE_API_URL;
+    if (!apiBaseUrl) {
+      console.warn('⚠️ VITE_API_URL not set, skipping admin check');
+      setIsAdmin(false);
+      adminCheckInProgress.current = false;
+      return;
+    }
+
+    adminCheckInProgress.current = true;
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session?.access_token) {
@@ -67,9 +94,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (error instanceof Error && error.name !== 'AbortError') {
         console.error('❌ Error checking admin status:', error);
       } else {
-        console.log('❌ Admin check aborted (timeout)');
+        console.warn('❌ Admin check aborted (timeout)');
       }
       setIsAdmin(false);
+    } finally {
+      adminCheckInProgress.current = false;
     }
   }, []);
 

@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,10 +20,11 @@ const SignUp = () => {
   const [error, setError] = useState("");
 
   // Redirect if already authenticated
-  if (isAuthenticated) {
-    navigate("/dashboard");
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   // Password strength checker
   const getPasswordStrength = (pwd: string) => {

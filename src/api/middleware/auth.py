@@ -189,13 +189,17 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(o
             headers={"WWW-Authenticate": "Bearer"},
         )
     
-    # Check if user is admin
+    # Check if user is admin (use admin client to bypass RLS)
+    # If admin check fails, default to False but don't break authentication
+    is_admin_user = False
     try:
-        sb = get_client()
+        from db.supabase_client import get_admin_client
+        sb = get_admin_client()
         admin_result = sb.table("admin_users").select("user_id").eq("user_id", user_id).execute()
         is_admin_user = len(admin_result.data) > 0
     except Exception as e:
-        logger.error(f"Error checking admin status: {e}")
-        is_admin_user = False
+        # Log error but don't fail authentication if admin check fails
+        logger.warning(f"Admin check failed for user {user_id[:8]}... (non-fatal): {e}")
+        # Continue with is_admin_user = False
     
     return User(id=user_id, email=user_email, is_admin=is_admin_user)

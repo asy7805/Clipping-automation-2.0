@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import { NetflixClipCard } from "@/components/clips/NetflixClipCard";
 
 export const RecentClips = () => {
-  const { data: clipsData, isLoading, error } = useClips({ limit: 6 });
+  const { data: clipsData, isLoading, error } = useClips({ 
+    limit: 6,
+    sort_by: "newest",
+    refetchInterval: 10000 // Refresh every 10 seconds for live updates
+  });
   
   // Extract clips array from paginated response
   const clips = clipsData?.clips || [];

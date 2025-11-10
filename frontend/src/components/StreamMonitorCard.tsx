@@ -69,7 +69,9 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
   const streamTitle = health?.stream_title ?? stream.title;
   const gameName = health?.game_name ?? stream.category;
   const isTwitchLive = health?.is_live ?? isLive;
-  const hasWarnings = health?.warnings && health.warnings.length > 0;
+  // Filter out "Stream is offline" warnings (expected behavior, not an issue)
+  const actualWarnings = health?.warnings?.filter((w: string) => !w.includes("Stream is offline")) || [];
+  const hasWarnings = actualWarnings.length > 0;
   
   // Get avatar props
   const { gradient, initials } = getChannelAvatarProps(stream.channel);
@@ -87,22 +89,34 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
     try {
       await apiClient.stopMonitor(stream.channel);
       
-      // Refresh the monitors list
-      queryClient.invalidateQueries({ queryKey: ['streams'] });
-      queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] });
-      
-      // Close dialog
+      // Close dialog first
       setShowStopDialog(false);
+      
+      // Wait a moment for backend to update, then refresh the monitors list
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Invalidate and refetch queries to remove the stopped monitor from UI
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ['streams'] }),
+        queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] }),
+        queryClient.refetchQueries({ queryKey: ['streams'] }),
+        queryClient.refetchQueries({ queryKey: ['dashboard-stats'] })
+      ]);
     } catch (err: any) {
       console.error('Failed to stop monitor:', err);
       
       // If monitor not found, it's already stopped - treat as success
       if (err.message?.includes('Not Found') || err.message?.includes('not found')) {
         console.log('Monitor already stopped, refreshing data...');
-        // Refresh the monitors list
-        queryClient.invalidateQueries({ queryKey: ['streams'] });
-        queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] });
         setShowStopDialog(false);
+        
+        // Refresh the monitors list
+        await Promise.all([
+          queryClient.invalidateQueries({ queryKey: ['streams'] }),
+          queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] }),
+          queryClient.refetchQueries({ queryKey: ['streams'] }),
+          queryClient.refetchQueries({ queryKey: ['dashboard-stats'] })
+        ]);
         return;
       }
       
@@ -196,10 +210,10 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
             <Badge 
               variant="destructive" 
               className="text-xs cursor-help whitespace-nowrap" 
-              title={health?.warnings.join(', ')}
+              title={actualWarnings.join(', ')}
             >
               <AlertTriangle className="w-3 h-3 mr-1" />
-              {health?.warnings.length} issue{health?.warnings.length !== 1 ? 's' : ''}
+              {actualWarnings.length} issue{actualWarnings.length !== 1 ? 's' : ''}
             </Badge>
           )}
         </div>

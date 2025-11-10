@@ -18,6 +18,7 @@ class SupabaseConfig:
 
 
 _client: Optional[Client] = None  # lazy singleton
+_admin_client: Optional[Client] = None  # admin client with service role key
 
 
 def _load_config() -> SupabaseConfig:
@@ -25,13 +26,16 @@ def _load_config() -> SupabaseConfig:
     if missing:
         raise RuntimeError(f"Missing required env vars: {', '.join(missing)}")
 
-    url = os.getenv("SUPABASE_URL", "").strip()
+    url = os.getenv("SUPABASE_URL") or ""
+    url = url.strip() if url else ""
+    
     # Prefer service role when explicitly enabled (server env only).
-    key = (
-        os.getenv("SUPABASE_SERVICE_ROLE_KEY").strip()
-        if os.getenv("USE_SERVICE_ROLE", "false").lower() == "true"
-        else os.getenv("SUPABASE_ANON_KEY", "").strip()
-    )
+    if os.getenv("USE_SERVICE_ROLE", "false").lower() == "true":
+        service_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY") or ""
+        key = service_key.strip() if service_key else ""
+    else:
+        anon_key = os.getenv("SUPABASE_ANON_KEY") or ""
+        key = anon_key.strip() if anon_key else ""
 
     if not url or not key:
         raise RuntimeError("Supabase URL or API key is empty. Check your .env.")
@@ -46,6 +50,30 @@ def get_client() -> Client:
         cfg = _load_config()
         _client = create_client(cfg.url, cfg.key)
     return _client
+
+def get_admin_client() -> Client:
+    """
+    Return a Supabase client with service role key (bypasses RLS).
+    Use this for admin operations that need to access protected tables.
+    """
+    global _admin_client
+    if _admin_client is None:
+        url = os.getenv("SUPABASE_URL") or ""
+        service_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY") or ""
+        
+        # Strip whitespace if values exist
+        url = url.strip() if url else ""
+        service_key = service_key.strip() if service_key else ""
+        
+        if not url or not service_key:
+            raise RuntimeError(
+                "SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY required for admin client. "
+                "Admin operations need service role key to bypass RLS. "
+                f"URL: {'set' if url else 'missing'}, Service Key: {'set' if service_key else 'missing'}"
+            )
+        
+        _admin_client = create_client(url, service_key)
+    return _admin_client
 
 
 # ---------- Convenience helpers (optional but handy) ----------

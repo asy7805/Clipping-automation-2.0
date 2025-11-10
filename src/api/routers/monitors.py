@@ -29,6 +29,16 @@ twitch_api = TwitchEngagementFetcher()
 # In-memory cache of active monitors (synced with database)
 active_monitors: Dict[str, Dict[str, Any]] = {}
 
+def is_process_running(pid: int) -> bool:
+    """Check if a process is still running (excludes zombies)."""
+    try:
+        process = psutil.Process(pid)
+        if process.status() == psutil.STATUS_ZOMBIE:
+            return False
+        return process.is_running()
+    except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+        return False
+
 def sync_monitors_from_db():
     """
     Sync in-memory monitor cache with database.
@@ -45,6 +55,7 @@ def sync_monitors_from_db():
         
         # Discover running processes
         running_pids = {}
+        valid_pids = set()
         for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
             try:
                 cmdline = proc.info.get('cmdline', [])
@@ -53,8 +64,64 @@ def sync_monitors_from_db():
                         channel_idx = cmdline.index('--channel')
                         if channel_idx + 1 < len(cmdline):
                             channel_name = cmdline[channel_idx + 1].lower()
-                            running_pids[channel_name] = proc.pid
+                            pid = proc.pid
+                            running_pids[channel_name] = pid
+                            valid_pids.add(pid)
             except (psutil.NoSuchProcess, psutil.AccessDenied, IndexError):
+                continue
+        
+        # Get all valid PIDs from database
+        db_pids = set()
+        for monitor in db_monitors.data or []:
+            pid = monitor.get('process_id')
+            if pid:
+                db_pids.add(pid)
+        
+        # Kill orphaned processes (running but not in database)
+        orphaned_pids = valid_pids - db_pids
+        for pid in orphaned_pids:
+            try:
+                process = psutil.Process(pid)
+                print(f"⚠️ Killing orphaned process PID {pid} (not in database)")
+                process.terminate()
+                try:
+                    process.wait(timeout=5)
+                except psutil.TimeoutExpired:
+                    process.kill()
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass
+        
+        # Also kill orphaned FFmpeg processes (whose parent Python process is not in database)
+        for proc in psutil.process_iter(['pid', 'name', 'ppid', 'cmdline']):
+            try:
+                cmdline = proc.info.get('cmdline', [])
+                name = proc.info.get('name', '').lower()
+                if 'ffmpeg' in name and 'seg_' in ' '.join(cmdline):
+                    ppid = proc.info.get('ppid')
+                    # Check if parent is a valid monitor process
+                    if ppid and ppid not in db_pids:
+                        try:
+                            parent = psutil.Process(ppid)
+                            parent_cmd = ' '.join(parent.cmdline()) if parent.cmdline() else ''
+                            if 'live_ingest' in parent_cmd:
+                                print(f"⚠️ Killing orphaned FFmpeg PID {proc.pid} (parent PID {ppid} not in database)")
+                                proc.terminate()
+                                try:
+                                    proc.wait(timeout=2)
+                                except psutil.TimeoutExpired:
+                                    proc.kill()
+                        except (psutil.NoSuchProcess, psutil.AccessDenied):
+                            # Parent already dead, kill this FFmpeg
+                            try:
+                                print(f"⚠️ Killing orphaned FFmpeg PID {proc.pid} (parent dead)")
+                                proc.terminate()
+                                try:
+                                    proc.wait(timeout=2)
+                                except psutil.TimeoutExpired:
+                                    proc.kill()
+                            except:
+                                pass
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
                 continue
         
         # Update cache and database
@@ -132,42 +199,36 @@ def extract_channel_from_url(url: str) -> str:
     
     return url
 
-def is_process_running(pid: int) -> bool:
-    """Check if a process is still running (excludes zombies)."""
-    try:
-        process = psutil.Process(pid)
-        if process.status() == psutil.STATUS_ZOMBIE:
-            return False
-        return process.is_running()
-    except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-        return False
-
 @router.post("/monitors/start", response_model=MonitorResponse)
 async def start_monitor(
     request: StartMonitorRequest,
-    user_id: str = Depends(get_current_user_id)
+    current_user: User = Depends(get_current_user)
 ) -> MonitorResponse:
     """
     Start monitoring a Twitch stream.
     Requires authentication.
+    - Regular users can only monitor ONE stream at a time
+    - Admin users can monitor multiple streams
     """
     try:
         sb = get_client()
+        user_id = current_user.id
+        is_admin = current_user.is_admin
         
         # Extract channel name from URL
         channel_name = extract_channel_from_url(request.twitch_url)
         
-        # Check if this user is already monitoring this channel
+        # Check if this user already has a monitor for this channel (any status)
         existing = sb.table('monitors')\
             .select('*')\
             .eq('user_id', user_id)\
             .eq('channel_name', channel_name)\
-            .eq('status', 'running')\
             .execute()
         
+        # If monitor exists and is running, check if process is actually running
         if existing.data and len(existing.data) > 0:
             monitor = existing.data[0]
-            if is_process_running(monitor.get('process_id', 0)):
+            if monitor['status'] == 'running' and is_process_running(monitor.get('process_id', 0)):
                 return MonitorResponse(
                     id=str(monitor['id']),
                     channel_name=channel_name,
@@ -176,9 +237,36 @@ async def start_monitor(
                     process_id=monitor.get('process_id'),
                     message=f"Already monitoring {channel_name}"
                 )
+            # If monitor exists but is stopped, we'll update it instead of inserting
+        
+        # For non-admin users: Check if they already have a running monitor
+        if not is_admin:
+            running_monitors = sb.table('monitors')\
+                .select('*')\
+                .eq('user_id', user_id)\
+                .eq('status', 'running')\
+                .execute()
+            
+            # Check if any of the running monitors actually have a live process
+            active_count = 0
+            for monitor in running_monitors.data or []:
+                pid = monitor.get('process_id')
+                if pid and is_process_running(pid):
+                    active_count += 1
+            
+            # If user already has an active monitor, prevent starting a new one
+            if active_count > 0:
+                raise HTTPException(
+                    status_code=403,
+                    detail="You can only monitor one stream at a time."
+                )
         
         # Start the monitoring process
         script_path = Path(__file__).parent.parent.parent.parent / "scripts" / "live_ingest.py"
+        # Resolve to absolute path to avoid issues with working directory
+        script_path = script_path.resolve()
+        if not script_path.exists():
+            raise FileNotFoundError(f"Monitoring script not found at {script_path}")
         python_executable = sys.executable
         env = os.environ.copy()
         
@@ -196,24 +284,46 @@ async def start_monitor(
             stdout=log_handle,
             stderr=subprocess.STDOUT,
             env=env,
-            start_new_session=True
+            start_new_session=True,
+            bufsize=1  # Line buffered for immediate output
         )
         
         print(f"📝 Monitor logs: {log_file}")
         
-        # Save to database
+        # Prepare monitor data
         monitor_data = {
-            'user_id': user_id,
-            'channel_name': channel_name,
             'process_id': process.pid,
             'status': 'running',
-            'started_at': datetime.utcnow().isoformat()
+            'started_at': datetime.utcnow().isoformat(),
+            'stopped_at': None  # Clear stopped_at if it exists
         }
         
-        result = sb.table('monitors').insert(monitor_data).execute()
+        # If monitor exists (stopped), update it; otherwise insert new
+        if existing.data and len(existing.data) > 0:
+            # Update existing monitor
+            monitor_id = existing.data[0]['id']
+            result = sb.table('monitors')\
+                .update(monitor_data)\
+                .eq('id', monitor_id)\
+                .execute()
+            
+            if result.data and len(result.data) > 0:
+                monitor = result.data[0]
+            else:
+                # If update didn't return data, fetch it
+                fetch_result = sb.table('monitors')\
+                    .select('*')\
+                    .eq('id', monitor_id)\
+                    .execute()
+                monitor = fetch_result.data[0] if fetch_result.data else None
+        else:
+            # Insert new monitor
+            monitor_data['user_id'] = user_id
+            monitor_data['channel_name'] = channel_name
+            result = sb.table('monitors').insert(monitor_data).execute()
+            monitor = result.data[0] if result.data and len(result.data) > 0 else None
         
-        if result.data and len(result.data) > 0:
-            monitor = result.data[0]
+        if monitor:
             active_monitors[channel_name] = monitor
             
             return MonitorResponse(
@@ -231,6 +341,9 @@ async def start_monitor(
         raise HTTPException(status_code=400, detail=f"Invalid Twitch URL: {str(e)}")
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="Monitoring script not found")
+    except HTTPException:
+        # Re-raise HTTPExceptions (like our 403 error) without modification
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to start monitor: {str(e)}")
 
@@ -295,6 +408,9 @@ async def list_monitors(current_user: User = Depends(get_current_user)):
     - Admin users see ALL monitors from all users
     """
     try:
+        # Sync monitors from DB first to detect dead processes
+        sync_monitors_from_db()
+        
         user_id = current_user.id
         is_admin = current_user.is_admin
         
@@ -401,6 +517,7 @@ async def get_monitor_health(
         # Get system metrics
         cpu_percent = 0.0
         memory_mb = 0.0
+        total_cpu_percent = 0.0  # Include child processes (FFmpeg)
         
         if pid and process_alive:
             try:
@@ -408,6 +525,18 @@ async def get_monitor_health(
                 if process.status() != psutil.STATUS_ZOMBIE:
                     cpu_percent = process.cpu_percent(interval=0.1)
                     memory_mb = process.memory_info().rss / (1024 * 1024)
+                    total_cpu_percent = cpu_percent
+                    
+                    # Add CPU from child processes (FFmpeg)
+                    try:
+                        children = process.children(recursive=True)
+                        for child in children:
+                            try:
+                                total_cpu_percent += child.cpu_percent(interval=0.1)
+                            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                                pass
+                    except:
+                        pass
                 else:
                     process_alive = False
             except (psutil.ZombieProcess, psutil.NoSuchProcess):
@@ -430,9 +559,12 @@ async def get_monitor_health(
             warnings.append("Process not running")
         if twitch_info and not twitch_info.get('is_live', False):
             warnings.append("Stream is offline")
-        if cpu_percent > 80:
-            warnings.append(f"High CPU usage: {cpu_percent}%")
-        if memory_mb > 1000:
+        # Use total CPU (including FFmpeg child processes) for warning threshold
+        # Video encoding can use high CPU, so threshold is higher (150% for multi-core)
+        if total_cpu_percent > 150:
+            warnings.append(f"Very high CPU usage: {total_cpu_percent:.1f}%")
+        # Memory threshold increased for video processing (2GB is reasonable)
+        if memory_mb > 2000:
             warnings.append(f"High memory usage: {memory_mb:.0f} MB")
         
         return {
@@ -446,7 +578,7 @@ async def get_monitor_health(
             "game_name": twitch_info.get('game_name', '') if twitch_info else '',
             "thumbnail_url": twitch_info.get('thumbnail_url', '') if twitch_info else '',
             "stream_started_at": twitch_info.get('started_at', '') if twitch_info else '',
-            "cpu_percent": round(cpu_percent, 1),
+            "cpu_percent": round(total_cpu_percent, 1),  # Return total CPU including children
             "memory_mb": round(memory_mb, 1),
             "healthy": process_alive and (twitch_info.get('is_live', False) if twitch_info else True),
             "warnings": warnings

@@ -20,12 +20,6 @@ const Hero = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="text-center max-w-5xl mx-auto space-y-8">
-          <Badge variant="hero" className="mb-4">
-            <span className="text-xs font-semibold">🤖 AI-Powered</span>
-            <span className="mx-2 text-muted-foreground">•</span>
-            <span className="text-xs">Fully Automated</span>
-          </Badge>
-
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold leading-tight">
             Never Miss
             <br />

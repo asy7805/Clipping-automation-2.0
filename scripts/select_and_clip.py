@@ -236,6 +236,14 @@ def detect_interest(video_path: str):
         
         print(f"✅ Interesting: {result}")
         return result
+    except RuntimeError as e:
+        # FFmpeg failed - file is likely corrupted or incomplete
+        print(f"⚠️ Skipping corrupted/incomplete file {video_path}: {e}")
+        return False
+    except Exception as e:
+        # Any other error - log and skip
+        print(f"⚠️ Error processing {video_path}: {e}")
+        return False
     finally:
         # cleanup temporary wav if it exists
         wav_path = str(video_path).rsplit(".", 1)[0] + ".wav"

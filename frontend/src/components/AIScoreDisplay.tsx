@@ -15,15 +15,15 @@ interface AIScoreDisplayProps {
 }
 
 const getScoreColor = (score: number) => {
-  if (score >= 0.7) return "text-score-gold";
-  if (score >= 0.5) return "text-score-green";
+  if (score >= 0.7) return "text-score-green";
+  if (score >= 0.5) return "text-yellow-500";
   if (score >= 0.3) return "text-score-blue";
   return "text-score-gray";
 };
 
 const getScoreGradient = (score: number) => {
-  if (score >= 0.7) return "from-score-gold via-yellow-400 to-score-gold";
-  if (score >= 0.5) return "from-score-green via-emerald-400 to-score-green";
+  if (score >= 0.7) return "from-score-green via-emerald-400 to-score-green";
+  if (score >= 0.5) return "from-yellow-500 via-yellow-400 to-yellow-500";
   if (score >= 0.3) return "from-score-blue via-blue-400 to-score-blue";
   return "from-score-gray via-gray-400 to-score-gray";
 };
@@ -129,12 +129,12 @@ export const AIScoreDisplay = ({
               strokeLinecap="round"
               className="transition-all duration-1500 ease-out"
               style={{
-                filter: isHighScore ? 'drop-shadow(0 0 8px hsl(var(--score-gold)))' : 'none'
+                filter: isHighScore ? 'drop-shadow(0 0 8px hsl(var(--score-green)))' : 'none'
               }}
             />
             <defs>
               <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" className={cn("transition-colors", getScoreColor(clampedScore))} style={{ stopColor: `hsl(var(--${clampedScore >= 0.7 ? 'score-gold' : clampedScore >= 0.5 ? 'score-green' : clampedScore >= 0.3 ? 'score-blue' : 'score-gray'}))` }} />
+                <stop offset="0%" className={cn("transition-colors", getScoreColor(clampedScore))} style={{ stopColor: `hsl(var(--${clampedScore >= 0.7 ? 'score-green' : clampedScore >= 0.5 ? 'yellow-500' : clampedScore >= 0.3 ? 'score-blue' : 'score-gray'}))` }} />
                 <stop offset="100%" className="text-pink-500" style={{ stopColor: 'hsl(330, 81%, 60%)' }} />
               </linearGradient>
             </defs>

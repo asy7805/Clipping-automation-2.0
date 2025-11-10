@@ -1,13 +1,13 @@
 Device set to use mps:0
 🧠 Loading Whisper and Emotion model...
 ✅ Models loaded.
-📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_jordanbentley_m9fbmjv3
-🗂 Using streams row id=396d66e1-7f22-43c1-a653-3a1aa28484c1 twitch_stream_id=live-jordanbentley-1762763285
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_edwardkso_crup98sz
+🗂 Using streams row id=9f928ea6-6440-4290-b2b5-36620d7d9a3a twitch_stream_id=live-edwardkso-1762763285
 ▶️ Recording... (Ctrl+C to stop)
-[cli][info] Found matching plugin twitch for URL https://twitch.tv/jordanbentley
+[cli][info] Found matching plugin twitch for URL https://twitch.tv/edwardkso
 [warnings][streamlinkdeprecation] The --twitch-disable-ads plugin argument has been disabled and will be removed in the future
-error: No playable streams found on this URL: https://twitch.tv/jordanbentley
-[in#0 @ 0x11cf045c0] Error opening input: Invalid data found when processing input
+error: No playable streams found on this URL: https://twitch.tv/edwardkso
+[in#0 @ 0x13c104490] Error opening input: Invalid data found when processing input
 Error opening input file pipe:0.
 Error opening input files: Invalid data found when processing input
 🔄 Iteration 10: 0 segments processed, 0 in buffer

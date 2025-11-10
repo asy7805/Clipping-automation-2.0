@@ -6,7 +6,6 @@ import {
   Settings, 
   Share2,
   ChevronRight,
-  Bell,
   LogOut,
   User,
   Shield
@@ -24,9 +23,8 @@ import {
 import { cn } from "@/lib/utils";
 import { MobileBottomNav } from "@/components/MobileBottomNav";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useState } from "react";
-import NotificationCenter from "@/components/NotificationCenter";
 import { useAuth } from "@/contexts/AuthContext";
+import { NotificationDropdown } from "@/components/NotificationDropdown";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
@@ -40,7 +38,6 @@ export const DashboardLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
-  const [showNotifications, setShowNotifications] = useState(false);
   const { user, signOut, isAdmin } = useAuth();
 
   const handleLogout = async () => {
@@ -172,16 +169,8 @@ export const DashboardLayout = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Notification Bell */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowNotifications(true)}
-              className="relative"
-            >
-              <Bell className="w-5 h-5" />
-              {/* Notification badge - you can add logic to show unread count */}
-            </Button>
+            {/* Notification Dropdown */}
+            <NotificationDropdown />
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -222,12 +211,6 @@ export const DashboardLayout = () => {
 
       {/* Mobile Bottom Navigation */}
       <MobileBottomNav />
-      
-      {/* Notification Center */}
-      <NotificationCenter 
-        isOpen={showNotifications} 
-        onClose={() => setShowNotifications(false)} 
-      />
     </div>
   );
 };

@@ -101,11 +101,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setIsAdmin(false);
       }
     } catch (error) {
-      // Don't log timeout errors as they're expected
-      if (error instanceof Error && error.name !== 'AbortError') {
-        console.error('❌ Error checking admin status:', error);
+      // Always set isAdmin to false on error
+      setIsAdmin(false);
+      
+      // Log errors for debugging
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.warn('⏱️ Admin check timed out after 5 seconds - backend may be slow or unreachable');
       } else {
-        console.debug('ℹ️ Admin check skipped (timeout or abort)');
+        console.error('❌ Error checking admin status:', error);
       }
     } finally {
       if (timeoutId) {

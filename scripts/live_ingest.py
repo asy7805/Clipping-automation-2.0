@@ -2,9 +2,15 @@
 import argparse, os, sys, time, tempfile, subprocess, shutil
 from pathlib import Path
 from typing import Optional
+from datetime import datetime, timezone
 from dotenv import load_dotenv
 from select_and_clip import detect_interest  # Import the function from select_and_clip.py
 from process import merge_segments, delete_from_supabase,select_best_segments
+
+# Force unbuffered output for real-time logging
+sys.stdout.reconfigure(line_buffering=True)
+sys.stderr.reconfigure(line_buffering=True)
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -27,11 +33,34 @@ def ensure_streams_row(sb, channel_name: str, twitch_stream_id: Optional[str], u
         "channel_name": channel_name,
         "title": f"Live capture: {channel_name}",
         "category": None,
-        "started_at": time.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "started_at": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z'),
         "ended_at": None,
         "viewer_count": 0,
     }
     return insert_row("streams", payload)
+
+def compress_video(input_path: Path, output_path: Path, target_size_mb: float = 40):
+    """Compress video to target size using FFmpeg."""
+    import subprocess
+    
+    # Calculate target bitrate (rough estimate: bitrate = size * 8 / duration)
+    # Assume ~90 seconds for 3 segments
+    duration = 90
+    target_bitrate_kbps = int((target_size_mb * 8 * 1024) / duration)
+    
+    cmd = [
+        "ffmpeg", "-y", "-i", str(input_path),
+        "-c:v", "libx264", "-preset", "fast", "-crf", "28",  # Higher CRF = smaller file
+        "-maxrate", f"{target_bitrate_kbps}k", "-bufsize", f"{target_bitrate_kbps * 2}k",
+        "-c:a", "aac", "-b:a", "96k",  # Lower audio bitrate
+        "-movflags", "+faststart",
+        str(output_path)
+    ]
+    
+    result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    if result.returncode != 0:
+        raise RuntimeError(f"FFmpeg compression failed: {result.stderr.decode()}")
+    return output_path
 
 def upload_segment(sb, bucket: str, video_bytes: bytes, storage_prefix: str, channel: str, stream_uid: str):
     day = time.strftime("%Y%m%d")
@@ -58,7 +87,7 @@ def start_pipeline(channel: str, out_dir: Path):
     ff_cmd = [
         "ffmpeg", "-hide_banner", "-loglevel", "warning",
         "-i", "pipe:0",
-        "-c:v", "libx264", "-preset", "fast", "-crf", "23",
+        "-c:v", "libx264", "-preset", "ultrafast", "-crf", "23",  # Changed from "fast" to "ultrafast" for lower CPU
         "-c:a", "aac", "-b:a", "128k",
         "-f", "segment",
         "-segment_time", str(SEGMENT_SECONDS),
@@ -70,6 +99,7 @@ def start_pipeline(channel: str, out_dir: Path):
         "-avoid_negative_ts", "make_zero",
         "-break_non_keyframes", "1",  # Ensure segments break cleanly
         "-g", "60",  # Keyframe interval
+        "-threads", "2",  # Limit FFmpeg threads to reduce CPU usage
         seg_pattern
     ]
 
@@ -198,50 +228,128 @@ def main():
 
     known = set()
     interesting_buffer=[]
+    iteration_count = 0
     try:
         while True:
-            print("Iteration happening")
+            iteration_count += 1
+            if iteration_count % 10 == 0:  # Log every 10 iterations
+                print(f"🔄 Iteration {iteration_count}: {len(known)} segments processed, {len(interesting_buffer)} in buffer", flush=True)
+            
             for file in sorted(out_dir.glob("seg_*.mp4")):
                 if file not in known and wait_for_file_complete(file):
-                    print(f"Processing {file.name}...")
-                    if (detect_interest(file)):  # Call the function to process the segment
-                        interesting_buffer.append(Path(file))
-                        print(f"🔥 Added to buffer ({len(interesting_buffer)}/5): {file.name}")
+                    print(f"📹 Processing {file.name}...", flush=True)
+                    try:
+                        is_interesting = detect_interest(file)
+                        if is_interesting:  # Call the function to process the segment
+                            interesting_buffer.append(Path(file))
+                            print(f"🔥 Added to buffer ({len(interesting_buffer)}/5): {file.name}", flush=True)
+                        else:
+                            print(f"⏭️ Skipped (not interesting): {file.name}", flush=True)
+                            known.add(file)
+                            safe_delete(file)
+                    except Exception as e:
+                        print(f"❌ Error processing {file.name}: {e}", flush=True)
+                        import traceback
+                        traceback.print_exc()
+                        known.add(file)  # Mark as processed even on error
+                        continue
+                    
+                    known.add(file)
+                    
+                    # If 5 interesting clips collected
+                    if len(interesting_buffer) >= 5:
+                        try:
+                            merged_path = out_dir / f"merged_{int(time.time())}.mp4"
+                            top_segments = select_best_segments([str(p) for p in interesting_buffer], top_k=3)
+                            top_segment_paths = [Path(s[0]) for s in top_segments]
 
-                        # If 5 interesting clips collected
-                        if len(interesting_buffer) >= 5:
+                            merge_segments(top_segment_paths, merged_path)
+                            video_bytes = read_file_safely(merged_path)
+                            
+                            # Check file size before upload (Supabase limit is ~50-100MB)
+                            file_size_mb = len(video_bytes) / (1024 * 1024)
+                            if file_size_mb > 45:  # Safety margin below 50MB limit
+                                print(f"⚠️ Merged clip too large ({file_size_mb:.1f} MB), compressing...", flush=True)
+                                # Re-encode with lower bitrate to reduce size
+                                compressed_path = out_dir / f"compressed_{int(time.time())}.mp4"
+                                compress_video(merged_path, compressed_path, target_size_mb=40)
+                                video_bytes = read_file_safely(compressed_path)
+                                merged_path = compressed_path
+                                print(f"✅ Compressed to {len(video_bytes) / (1024 * 1024):.1f} MB", flush=True)
+                            
+                            key = upload_segment(sb, args.bucket, video_bytes, args.prefix, args.channel, stream_uid)
+                            print(f"⬆️ Uploaded merged clip: {key}", flush=True)
+                            
+                            # Insert clip into clips_metadata table
                             try:
-                                merged_path = out_dir / f"merged_{int(time.time())}.mp4"
-                                top_segments = select_best_segments([str(p) for p in interesting_buffer], top_k=3)
-                                top_segment_paths = [Path(s[0]) for s in top_segments]
+                                user_id = os.getenv('MONITOR_USER_ID') or args.user_id
+                                if not user_id:
+                                    print("⚠️ No user_id found, skipping database insert", flush=True)
+                                else:
+                                    # Get storage URL
+                                    storage_url = sb.storage.from_(args.bucket).get_public_url(key)
+                                    
+                                    # Calculate average confidence score from top segments
+                                    avg_score = sum(s[1] for s in top_segments) / len(top_segments) if top_segments else 0.5
+                                    
+                                    # Get transcript from segments (combine all transcripts)
+                                    transcript = " ".join([s[2] for s in top_segments if s[2]]).strip()
+                                    
+                                    # Insert into clips_metadata
+                                    clip_data = {
+                                        'user_id': user_id,
+                                        'channel_name': args.channel,
+                                        'stream_id': stream_uid,
+                                        'storage_url': storage_url,
+                                        'storage_path': key,
+                                        'file_size': len(video_bytes),
+                                        'confidence_score': avg_score,
+                                        'transcript': transcript or f"Clip from {args.channel}",
+                                        'created_at': datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+                                    }
+                                    
+                                    result = sb.table('clips_metadata').insert(clip_data).execute()
+                                    if result.data:
+                                        print(f"✅ Inserted clip into database: {result.data[0].get('id')}", flush=True)
+                                    else:
+                                        print("⚠️ Failed to insert clip into database", flush=True)
+                            except Exception as e:
+                                print(f"⚠️ Error inserting clip into database: {e}", flush=True)
+                                import traceback
+                                traceback.print_exc()
+                                # Continue even if DB insert fails
 
-                                merge_segments(top_segment_paths, merged_path)
-                                video_bytes = read_file_safely(merged_path)
-                                key = upload_segment(sb, args.bucket, video_bytes, args.prefix, args.channel, stream_uid)
-                                print(f"⬆️ Uploaded merged clip: {key}")
+                            # Delete original 5 segments from Supabase + local
+                            for seg in interesting_buffer:
+                                delete_from_supabase(sb, args.bucket, seg.name, args.prefix, args.channel, stream_uid)
+                                safe_delete(seg)
+                                if seg in known:
+                                    known.remove(seg)  # ✅ Remove from known
+                            interesting_buffer.clear()
+                            #safe_delete(merged_path)
+                            continue
 
-                                # Delete original 5 segments from Supabase + local
-                                for seg in interesting_buffer:
-                                    delete_from_supabase(sb, args.bucket, seg.name, args.prefix, args.channel, stream_uid)
+                        except Exception as e:
+                            print(f"❌ Failed to merge batch: {e}", flush=True)
+                            import traceback
+                            traceback.print_exc()
+                            # Clear buffer even on failure to prevent accumulation
+                            # Keep only the most recent 2 segments to retry next time
+                            if len(interesting_buffer) > 2:
+                                for seg in interesting_buffer[:-2]:
                                     safe_delete(seg)
                                     if seg in known:
-                                        known.remove(seg)  # ✅ Remove from known
-                                interesting_buffer.clear()
-                                #safe_delete(merged_path)
-                                continue
-
-                            except Exception as e:
-                                print(f"❌ Failed to merge batch: {e}")
-                                # Don't clear buffer if error, try next iteration
-
-                        known.add(file)
-
-                    else:
-                        print(f"⏭️ Skipped (not interesting): {file.name}")
-                        known.add(file)
-                        safe_delete(file)
-            #delete_completed_batches(out_dir)
-            time.sleep(2)  # Increased from 1 second
+                                        known.remove(seg)
+                                interesting_buffer = interesting_buffer[-2:]
+                                print(f"⚠️ Cleared buffer, keeping last 2 segments for retry", flush=True)
+                            # Don't clear buffer if error, try next iteration
+                            
+            # Adaptive sleep: longer when no segments found, shorter when processing
+            segments_found = len([f for f in out_dir.glob("seg_*.mp4") if f not in known])
+            if segments_found == 0:
+                time.sleep(5)  # Longer sleep when idle (5s instead of 2s) - reduces CPU usage
+            else:
+                time.sleep(2)  # Normal sleep when segments are being created
 
     except KeyboardInterrupt:
         print("\n⏹ Stopping...")

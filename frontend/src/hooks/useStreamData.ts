@@ -60,8 +60,11 @@ const fetchStreams = async (): Promise<StreamData[]> => {
     // Fetch active monitors instead of streams table
     const response = await apiClient.getMonitors();
     console.log('✅ Monitors API response:', response);
-    const monitors = response.monitors || [];
-    console.log(`📊 Found ${monitors.length} monitors:`, monitors);
+    const allMonitors = response.monitors || [];
+    
+    // Filter out stopped monitors - they should not appear in the UI
+    const monitors = allMonitors.filter((monitor: any) => monitor.status !== 'stopped');
+    console.log(`📊 Found ${allMonitors.length} total monitors, ${monitors.length} active:`, monitors);
     
     // Transform monitors to StreamData format with real data
     const streamDataPromises = monitors.map(async (monitor: any) => {

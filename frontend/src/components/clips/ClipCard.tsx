@@ -29,15 +29,15 @@ interface ClipCardProps {
 }
 
 const getScoreColor = (score: number) => {
-  if (score >= 0.7) return "text-score-gold";
-  if (score >= 0.5) return "text-score-green";
+  if (score >= 0.7) return "text-score-green";
+  if (score >= 0.5) return "text-yellow-500";
   if (score >= 0.3) return "text-score-blue";
   return "text-score-gray";
 };
 
 const getScoreBg = (score: number) => {
-  if (score >= 0.7) return "bg-score-gold/10";
-  if (score >= 0.5) return "bg-score-green/10";
+  if (score >= 0.7) return "bg-score-green/10";
+  if (score >= 0.5) return "bg-yellow-500/10";
   if (score >= 0.3) return "bg-score-blue/10";
   return "bg-score-gray/10";
 };
@@ -114,8 +114,8 @@ export const ClipCard = ({ clip, view = "grid", rawClipData }: ClipCardProps) =>
             "font-bold text-base px-3 py-1 shadow-lg transition-all duration-300",
             getScoreColor(clampedScore),
             getScoreBg(clampedScore),
-            clampedScore >= 0.7 && "group-hover:shadow-score-gold/50",
-            clampedScore >= 0.5 && clampedScore < 0.7 && "group-hover:shadow-score-green/50",
+            clampedScore >= 0.7 && "group-hover:shadow-score-green/50",
+            clampedScore >= 0.5 && clampedScore < 0.7 && "group-hover:shadow-yellow-500/50",
             clampedScore >= 0.3 && clampedScore < 0.5 && "group-hover:shadow-score-blue/50"
           )}>
             {clampedScore.toFixed(2)}

@@ -21,15 +21,15 @@ interface NetflixClipCardProps {
 }
 
 const getScoreColor = (score: number) => {
-  if (score >= 0.7) return "text-yellow-400";
-  if (score >= 0.5) return "text-green-400";
+  if (score >= 0.7) return "text-green-400";
+  if (score >= 0.5) return "text-yellow-400";
   if (score >= 0.3) return "text-blue-400";
   return "text-gray-400";
 };
 
 const getScoreBg = (score: number) => {
-  if (score >= 0.7) return "bg-yellow-400/10 border-yellow-400/30";
-  if (score >= 0.5) return "bg-green-400/10 border-green-400/30";
+  if (score >= 0.7) return "bg-green-400/10 border-green-400/30";
+  if (score >= 0.5) return "bg-yellow-400/10 border-yellow-400/30";
   if (score >= 0.3) return "bg-blue-400/10 border-blue-400/30";
   return "bg-gray-400/10 border-gray-400/30";
 };

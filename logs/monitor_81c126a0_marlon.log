@@ -1,0 +1,17 @@
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_qii2ktmp
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 380, in <module>
+    main()
+    ~~~~^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 222, in main
+    streams_row = ensure_streams_row(sb, args.channel, args.stream_id, args.user_id)
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 40, in ensure_streams_row
+    return insert_row("streams", payload)
+  File "/Users/aidanyap/Clipping-automation-2.0/src/db/supabase_client.py", line 87, in insert_row
+    resp = sb.table(table).insert(data).execute()
+  File "/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/postgrest/_sync/request_builder.py", line 53, in execute
+    raise APIError(dict(json_obj))
+postgrest.exceptions.APIError: {'message': 'duplicate key value violates unique constraint "streams_twitch_stream_id_key"', 'code': '23505', 'hint': None, 'details': 'Key (twitch_stream_id)=(live-marlon-1762763285) already exists.'}

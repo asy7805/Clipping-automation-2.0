@@ -38,8 +38,8 @@ interface VideoPlayerModalProps {
 }
 
 const getScoreColor = (score: number) => {
-  if (score >= 0.7) return "text-score-gold";
-  if (score >= 0.5) return "text-score-green";
+  if (score >= 0.7) return "text-score-green";
+  if (score >= 0.5) return "text-yellow-500";
   if (score >= 0.3) return "text-score-blue";
   return "text-score-gray";
 };

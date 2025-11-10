@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 
 from ..middleware.admin import require_admin, get_user_role
 from ..dependencies import get_current_user_id
-from db.supabase_client import get_client
+from db.supabase_client import get_client, get_admin_client
 import logging
 
 logger = logging.getLogger(__name__)
@@ -16,23 +16,24 @@ logger = logging.getLogger(__name__)
 router = APIRouter()
 
 @router.get("/admin/check")
-async def check_admin_status(user_id: str = Depends(get_current_user_id)) -> Dict:
+async def check_admin_status(user_role: Dict = Depends(get_user_role)) -> Dict:
     """
     Quick endpoint to check if user is admin.
     Returns immediately without heavy computations.
+    Uses get_user_role for consistent admin checking.
     """
     try:
-        sb = get_client()
-        result = sb.table("admin_users").select("user_id").eq("user_id", user_id).execute()
-        is_admin = len(result.data) > 0
-        
         return {
-            "is_admin": is_admin,
-            "user_id": user_id
+            "user_id": user_role['user_id'],
+            "is_admin": user_role['is_admin']
         }
     except Exception as e:
-        logger.error(f"Error checking admin status: {e}")
-        return {"is_admin": False, "user_id": user_id}
+        logger.error(f"Error in admin check endpoint: {e}")
+        # Return safe default on error
+        return {
+            "user_id": user_role.get('user_id', 'unknown'),
+            "is_admin": False
+        }
 
 @router.get("/admin/stats")
 async def get_system_stats(user_id: str = Depends(require_admin)) -> Dict:
@@ -41,7 +42,8 @@ async def get_system_stats(user_id: str = Depends(require_admin)) -> Dict:
     Admin only.
     """
     try:
-        sb = get_client()
+        # Use admin client to bypass RLS for admin operations
+        sb = get_admin_client()
         
         # Get total counts using admin helper functions
         total_users = sb.rpc('get_user_count').execute().data
@@ -89,7 +91,8 @@ async def list_all_users(
     Admin only.
     """
     try:
-        sb = get_client()
+        # Use admin client to bypass RLS for admin operations
+        sb = get_admin_client()
         
         # Use admin helper function to get users with stats
         users = sb.rpc('get_users_with_stats', {'limit_val': limit, 'offset_val': offset}).execute()
@@ -113,7 +116,8 @@ async def get_user_details(
     Admin only.
     """
     try:
-        sb = get_client()
+        # Use admin client to bypass RLS for admin operations
+        sb = get_admin_client()
         
         # Use admin helper function
         user_info = sb.rpc('get_user_info', {'target_user_id': target_user_id}).execute()
@@ -158,7 +162,8 @@ async def list_all_clips(
     Admin only.
     """
     try:
-        sb = get_client()
+        # Use admin client to bypass RLS for admin operations
+        sb = get_admin_client()
         
         query = sb.table('clips_metadata')\
             .select('*')\
@@ -188,7 +193,8 @@ async def delete_clip(
     Admin only.
     """
     try:
-        sb = get_client()
+        # Use admin client to bypass RLS for admin operations
+        sb = get_admin_client()
         
         # Get clip info first
         clip = sb.table('clips_metadata')\
@@ -232,7 +238,8 @@ async def list_all_monitors(user_id: str = Depends(require_admin)) -> Dict:
     Admin only.
     """
     try:
-        sb = get_client()
+        # Use admin client to bypass RLS for admin operations
+        sb = get_admin_client()
         
         monitors = sb.table('monitors')\
             .select('*')\
@@ -258,13 +265,12 @@ async def grant_admin(
     Admin only.
     """
     try:
-        sb = get_client()
+        # Use admin client to bypass RLS for admin operations
+        sb = get_admin_client()
         
-        # Check if user exists
-        user = sb.table('auth.users')\
-            .select('id')\
-            .eq('id', target_user_id)\
-            .execute()
+        # Note: auth.users is a system table, may not be directly accessible
+        # We'll proceed with granting admin access - if user doesn't exist, 
+        # the foreign key constraint will fail anyway
         
         # Insert admin record
         admin_record = {
@@ -297,7 +303,8 @@ async def revoke_admin(
     Admin only.
     """
     try:
-        sb = get_client()
+        # Use admin client to bypass RLS for admin operations
+        sb = get_admin_client()
         
         # Don't allow self-revocation
         if target_user_id == user_id:
@@ -321,14 +328,4 @@ async def revoke_admin(
         logger.error(f"Error revoking admin: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/admin/check")
-async def check_admin_status(user_role: Dict = Depends(get_user_role)) -> Dict:
-    """
-    Check if current user is an admin.
-    Authenticated users only.
-    """
-    return {
-        "user_id": user_role['user_id'],
-        "is_admin": user_role['is_admin']
-    }
 

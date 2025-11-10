@@ -11,7 +11,7 @@ const getActivityIcon = (score: number) => {
 
 const getActivityColor = (score: number) => {
   if (score >= 0.7) return "text-success";
-  if (score >= 0.5) return "text-primary";
+  if (score >= 0.5) return "text-yellow-500";
   return "text-info";
 };
 
@@ -30,7 +30,11 @@ const getTimeAgo = (dateString: string) => {
 };
 
 export const ActivityFeed = () => {
-  const { data: clipsData, isLoading } = useClips({ limit: 10 });
+  const { data: clipsData, isLoading } = useClips({ 
+    limit: 10,
+    sort_by: "newest",
+    refetchInterval: 10000 // Refresh every 10 seconds for live updates
+  });
 
   // Extract clips array from paginated response
   const clips = clipsData?.clips || [];

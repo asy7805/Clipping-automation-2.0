@@ -1,0 +1,13 @@
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_yusuf7n_wqdf245a
+🗂 Using streams row id=244c16bd-aa74-425c-ada7-a2d29911fe7f twitch_stream_id=live-yusuf7n-1762763285
+▶️ Recording... (Ctrl+C to stop)
+[cli][info] Found matching plugin twitch for URL https://twitch.tv/yusuf7n
+[warnings][streamlinkdeprecation] The --twitch-disable-ads plugin argument has been disabled and will be removed in the future
+error: No playable streams found on this URL: https://twitch.tv/yusuf7n
+[in#0 @ 0x12fe04dd0] Error opening input: Invalid data found when processing input
+Error opening input file pipe:0.
+Error opening input files: Invalid data found when processing input
+🔄 Iteration 10: 0 segments processed, 0 in buffer

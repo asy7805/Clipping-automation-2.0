@@ -12,6 +12,7 @@ import os
 import signal
 import psutil
 import sys
+import time
 from pathlib import Path
 
 # Add src to path for imports
@@ -125,6 +126,7 @@ def sync_monitors_from_db():
                 continue
         
         # Update cache and database
+        dead_monitor_ids = []
         for monitor in db_monitors.data or []:
             channel = monitor['channel_name']
             process_id = monitor.get('process_id')
@@ -143,14 +145,16 @@ def sync_monitors_from_db():
                 monitor['process_id'] = new_pid
                 active_monitors[channel] = monitor
             else:
-                # Process not running, mark as stopped in database
-                sb.table('monitors')\
-                    .update({
-                        'status': 'stopped',
-                        'stopped_at': datetime.utcnow().isoformat()
-                    })\
-                    .eq('id', monitor['id'])\
-                    .execute()
+                # Process not running - delete from database (zombie cleanup)
+                dead_monitor_ids.append(monitor['id'])
+        
+        # Delete dead monitors from database
+        if dead_monitor_ids:
+            sb.table('monitors')\
+                .delete()\
+                .in_('id', dead_monitor_ids)\
+                .execute()
+            print(f"🗑️ Deleted {len(dead_monitor_ids)} dead monitor(s) during sync")
         
         return len(active_monitors)
     except Exception as e:
@@ -224,6 +228,29 @@ async def start_monitor(
             .eq('user_id', user_id)\
             .eq('channel_name', channel_name)\
             .execute()
+        
+        # If multiple monitors exist for this channel, clean up duplicates
+        # Keep only the most recent one (or the running one if any)
+        if existing.data and len(existing.data) > 1:
+            # Find the monitor to keep (prefer running, then most recent)
+            monitors_to_keep = [m for m in existing.data if m['status'] == 'running' and is_process_running(m.get('process_id', 0))]
+            if not monitors_to_keep:
+                # No running monitors, keep the most recent one
+                monitors_to_keep = [max(existing.data, key=lambda m: m.get('started_at', ''))]
+            
+            monitor_to_keep = monitors_to_keep[0]
+            monitor_ids_to_delete = [m['id'] for m in existing.data if m['id'] != monitor_to_keep['id']]
+            
+            # Delete duplicate monitors
+            if monitor_ids_to_delete:
+                sb.table('monitors')\
+                    .delete()\
+                    .in_('id', monitor_ids_to_delete)\
+                    .execute()
+                print(f"🧹 Cleaned up {len(monitor_ids_to_delete)} duplicate monitor(s) for {channel_name}")
+            
+            # Update existing to only contain the monitor we're keeping
+            existing.data = [monitor_to_keep]
         
         # If monitor exists and is running, check if process is actually running
         if existing.data and len(existing.data) > 0:
@@ -357,34 +384,47 @@ async def stop_monitor(
         sb = get_client()
         channel_name = channel_name.lower()
         
-        # Get monitor from database (user-specific)
+        # Get monitor from database (user-specific) - check all statuses, not just running
+        # This allows stopping monitors that are already stopped (cleanup) or running
         monitor_result = sb.table('monitors')\
             .select('*')\
             .eq('user_id', user_id)\
             .eq('channel_name', channel_name)\
-            .eq('status', 'running')\
             .execute()
         
         if not monitor_result.data or len(monitor_result.data) == 0:
             raise HTTPException(status_code=404, detail=f"Monitor for {channel_name} not found")
         
-        monitor = monitor_result.data[0]
-        pid = monitor.get('process_id')
+        # Collect monitor IDs to delete
+        monitor_ids_to_delete = []
         
-        if pid and is_process_running(pid):
-            try:
-                os.kill(pid, signal.SIGTERM)
-            except ProcessLookupError:
-                pass
+        # If multiple monitors exist, stop all of them (shouldn't happen after deduplication, but handle it)
+        for monitor in monitor_result.data:
+            pid = monitor.get('process_id')
+            
+            # Kill process if it's running
+            if pid and is_process_running(pid):
+                try:
+                    os.kill(pid, signal.SIGTERM)
+                    # Wait a moment for graceful shutdown
+                    time.sleep(0.5)
+                    # Force kill if still running
+                    if is_process_running(pid):
+                        os.kill(pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    # Process already dead
+                    pass
+            
+            # Collect monitor ID for deletion
+            monitor_ids_to_delete.append(monitor['id'])
         
-        # Update database
-        sb.table('monitors')\
-            .update({
-                'status': 'stopped',
-                'stopped_at': datetime.utcnow().isoformat()
-            })\
-            .eq('id', monitor['id'])\
-            .execute()
+        # Delete monitors from database (not just mark as stopped)
+        if monitor_ids_to_delete:
+            sb.table('monitors')\
+                .delete()\
+                .in_('id', monitor_ids_to_delete)\
+                .execute()
+            print(f"🗑️ Deleted {len(monitor_ids_to_delete)} monitor(s) for {channel_name}")
         
         # Remove from cache
         if channel_name in active_monitors:
@@ -393,7 +433,7 @@ async def stop_monitor(
         return {
             "status": "stopped",
             "channel_name": channel_name,
-            "message": f"Successfully stopped monitoring {channel_name}"
+            "message": f"Successfully stopped and removed monitoring for {channel_name}"
         }
     except HTTPException:
         raise
@@ -429,21 +469,64 @@ async def list_monitors(current_user: User = Depends(get_current_user)):
                 .order('started_at', desc=True)\
                 .execute()
         
-        # Update status for each monitor
+        # Update status for each monitor - only hide if PROCESS is dead, not if streamer is offline
+        active_monitors_list = []
+        
+        # First pass: Group monitors by channel and clean up duplicates in database
+        channel_groups = {}
         for monitor in monitors.data or []:
+            channel_name = monitor['channel_name'].lower()
+            if channel_name not in channel_groups:
+                channel_groups[channel_name] = []
+            channel_groups[channel_name].append(monitor)
+        
+        # Delete duplicate monitors from database (keep only most recent per channel)
+        monitors_to_process = []
+        for channel_name, channel_monitors in channel_groups.items():
+            if len(channel_monitors) > 1:
+                # Sort by started_at descending, keep the first (most recent)
+                sorted_monitors = sorted(channel_monitors, key=lambda m: m.get('started_at', ''), reverse=True)
+                monitor_to_keep = sorted_monitors[0]
+                duplicates_to_delete = [m['id'] for m in sorted_monitors[1:]]
+                
+                if duplicates_to_delete:
+                    sb.table('monitors')\
+                        .delete()\
+                        .in_('id', duplicates_to_delete)\
+                        .execute()
+                    print(f"🧹 Cleaned up {len(duplicates_to_delete)} duplicate monitor(s) for {channel_name}")
+                
+                # Only process the monitor we kept
+                monitors_to_process.append(monitor_to_keep)
+            else:
+                monitors_to_process.extend(channel_monitors)
+        
+        # Second pass: Process monitors and filter dead processes
+        dead_monitor_ids = []
+        for monitor in monitors_to_process:
             pid = monitor.get('process_id')
+            
+            # Check if process is actually running
             if monitor['status'] == 'running' and pid:
                 if not is_process_running(pid):
-                    # Update database if process died
-                    monitor['status'] = 'stopped'
-                    sb.table('monitors')\
-                        .update({'status': 'stopped', 'stopped_at': datetime.utcnow().isoformat()})\
-                        .eq('id', monitor['id'])\
-                        .execute()
+                    # Process died - delete from database instead of marking as stopped
+                    dead_monitor_ids.append(monitor['id'])
+                    continue
+            
+            # Include monitor (already deduplicated in first pass)
+            active_monitors_list.append(monitor)
+        
+        # Delete dead processes from database
+        if dead_monitor_ids:
+            sb.table('monitors')\
+                .delete()\
+                .in_('id', dead_monitor_ids)\
+                .execute()
+            print(f"🗑️ Deleted {len(dead_monitor_ids)} dead monitor process(es)")
         
         return {
-            "monitors": monitors.data or [],
-            "total": len(monitors.data) if monitors.data else 0
+            "monitors": active_monitors_list,
+            "total": len(active_monitors_list)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to list monitors: {str(e)}")
@@ -471,13 +554,13 @@ async def get_monitor_status(
         monitor = monitor_result.data[0]
         pid = monitor.get('process_id')
         
-        # Update status if process is not running
+        # Delete monitor if process is dead (zombie cleanup)
         if monitor['status'] == 'running' and pid and not is_process_running(pid):
-            monitor['status'] = 'stopped'
             sb.table('monitors')\
-                .update({'status': 'stopped', 'stopped_at': datetime.utcnow().isoformat()})\
+                .delete()\
                 .eq('id', monitor['id'])\
                 .execute()
+            raise HTTPException(status_code=404, detail=f"Monitor for {channel_name} not found (process died)")
         
         return monitor
     except HTTPException:

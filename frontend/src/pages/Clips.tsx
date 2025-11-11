@@ -7,14 +7,18 @@ import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { useClips } from '../hooks/useClips';
 import { clampScore } from '../lib/utils';
+import { useAuth } from '../contexts/AuthContext';
 
 const Clips = () => {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
+  const { isAdmin } = useAuth();
 
-  // Fetch all clips to group by streamer
+  // Fetch clips to group by streamer
+  // Admin accounts fetch more clips to see all streamers
   const { data: clipsData, isLoading, error } = useClips({
-    limit: 1000, // Get all clips to group by streamer
+    limit: isAdmin ? 1000 : 100, // Admins get 1000 clips to see all streamers
+    sort_by: "newest",
   });
 
   const clips = clipsData?.clips || [];

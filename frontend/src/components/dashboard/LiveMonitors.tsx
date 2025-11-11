@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import { StreamMonitorCard } from "@/components/StreamMonitorCard";
 import { useStreams } from "@/hooks/useStreamData";
@@ -47,7 +48,13 @@ export const LiveMonitors = () => {
             ))}
             {isLoading && !streams && [1, 2, 3].map((i) => (
               <CarouselItem key={i} className="pl-4">
-                <div className="p-6 glass-strong border-white/10 rounded-lg shimmer h-64" />
+                <Card className="p-6 animate-pulse">
+                  <div className="space-y-4">
+                    <div className="h-6 bg-muted rounded w-1/2" />
+                    <div className="h-4 bg-muted rounded w-3/4" />
+                    <div className="h-20 bg-muted rounded" />
+                  </div>
+                </Card>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -67,10 +74,13 @@ export const LiveMonitors = () => {
           
           {/* Loading skeleton */}
           {isLoading && !streams && [1, 2, 3].map((i) => (
-            <div 
-              key={i}
-              className="p-6 glass-strong border-white/10 rounded-lg shimmer h-64"
-            />
+            <Card key={i} className="p-6 animate-pulse">
+              <div className="space-y-4">
+                <div className="h-6 bg-muted rounded w-1/2" />
+                <div className="h-4 bg-muted rounded w-3/4" />
+                <div className="h-20 bg-muted rounded" />
+              </div>
+            </Card>
           ))}
         </div>
       )}

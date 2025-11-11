@@ -263,6 +263,47 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
                 <span>Upload</span>
               </div>
             </div>
+            
+            {/* Show restart warning when AI process is dead */}
+            {!health.process_alive && (
+              <div className="mt-3 p-3 bg-destructive/10 border border-destructive/30 rounded-lg">
+                <div className="flex items-start gap-2 mb-2">
+                  <AlertTriangle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-destructive">Monitor Process Stopped</p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      The AI monitoring process has stopped. Restart it to continue capturing clips.
+                    </p>
+                  </div>
+                </div>
+                <Button 
+                  size="sm" 
+                  className="w-full bg-primary hover:bg-primary/90"
+                  onClick={async () => {
+                    try {
+                      // Stop existing monitor first (cleanup)
+                      await apiClient.stopMonitor(stream.channel);
+                      await new Promise(resolve => setTimeout(resolve, 500));
+                      
+                      // Start new monitor
+                      await apiClient.startMonitor(`https://twitch.tv/${stream.channel}`);
+                      
+                      // Refresh data
+                      await Promise.all([
+                        queryClient.invalidateQueries({ queryKey: ['streams'] }),
+                        queryClient.invalidateQueries({ queryKey: ['dashboard-stats'] }),
+                      ]);
+                    } catch (err: any) {
+                      console.error('Failed to restart monitor:', err);
+                      setError(err.message || 'Failed to restart monitor');
+                    }
+                  }}
+                >
+                  <Play className="w-4 h-4 mr-2" />
+                  Restart Monitor
+                </Button>
+              </div>
+            )}
           </div>
         )}
 

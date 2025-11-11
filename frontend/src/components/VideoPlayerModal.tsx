@@ -137,13 +137,13 @@ export function VideoPlayerModal({
               transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
               className="flex h-full gap-6"
             >
-              {/* Accessibility: Hidden title and description for screen readers */}
-              <VisuallyHidden>
+        {/* Accessibility: Hidden title and description for screen readers */}
+        <VisuallyHidden>
                 <DialogTitle>Clip from {clipData.channel_name}</DialogTitle>
-                <DialogDescription>
+          <DialogDescription>
                   Video clip player showing content from {clipData.channel_name}
-                </DialogDescription>
-              </VisuallyHidden>
+          </DialogDescription>
+        </VisuallyHidden>
           {/* Video Player Section - Better sizing */}
           <div className="flex-1 bg-black relative flex items-center justify-center min-w-0">
             {/* Navigation Arrows */}
@@ -330,9 +330,9 @@ export function VideoPlayerModal({
             </div>
           </div>
             </motion.div>
-          </DialogContent>
+      </DialogContent>
         )}
-      </Dialog>
+    </Dialog>
     </AnimatePresence>
   );
 }

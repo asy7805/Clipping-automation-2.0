@@ -81,7 +81,8 @@ def upload_segment(sb, bucket: str, video_bytes: bytes, storage_prefix: str, cha
 
 def start_pipeline(channel: str, out_dir: Path):
     """Start streamlink -> ffmpeg pipeline with better segment handling."""
-    sl_cmd = ["streamlink", "--twitch-disable-ads", f"https://twitch.tv/{channel}", "best", "-O"]
+    # Removed deprecated --twitch-disable-ads flag (causes PersistedQueryNotFound error)
+    sl_cmd = ["streamlink", f"https://twitch.tv/{channel}", "best", "-O"]
     seg_pattern = str(out_dir / "seg_%05d.mp4")
     
     ff_cmd = [
@@ -103,20 +104,63 @@ def start_pipeline(channel: str, out_dir: Path):
         seg_pattern
     ]
 
-    p_sl = subprocess.Popen(sl_cmd, stdout=subprocess.PIPE)
-    p_ff = subprocess.Popen(ff_cmd, stdin=p_sl.stdout)
+    # Create log files for debugging
+    log_dir = Path(__file__).parent.parent / "logs"
+    log_dir.mkdir(exist_ok=True)
+    sl_log = log_dir / f"streamlink_{channel}.log"
+    ff_log = log_dir / f"ffmpeg_{channel}.log"
+    
+    print(f"🔧 Starting pipeline for {channel}...", flush=True)
+    print(f"📝 Streamlink log: {sl_log}", flush=True)
+    print(f"📝 FFmpeg log: {ff_log}", flush=True)
+    
+    # Open log files for writing
+    sl_log_handle = open(sl_log, 'a')
+    ff_log_handle = open(ff_log, 'a')
+    
+    p_sl = subprocess.Popen(
+        sl_cmd, 
+        stdout=subprocess.PIPE,
+        stderr=sl_log_handle,
+        bufsize=1
+    )
+    p_ff = subprocess.Popen(
+        ff_cmd, 
+        stdin=p_sl.stdout,
+        stderr=ff_log_handle,
+        bufsize=1
+    )
     p_sl.stdout.close()
+    
+    # Give processes a moment to start
+    time.sleep(1)
+    
+    # Check if processes started successfully
+    if p_sl.poll() is not None:
+        print(f"❌ Streamlink died immediately with exit code {p_sl.poll()}", flush=True)
+        raise RuntimeError(f"Streamlink failed to start. Check {sl_log}")
+    if p_ff.poll() is not None:
+        print(f"❌ FFmpeg died immediately with exit code {p_ff.poll()}", flush=True)
+        raise RuntimeError(f"FFmpeg failed to start. Check {ff_log}")
+    
+    print(f"✅ Pipeline started: streamlink PID {p_sl.pid}, ffmpeg PID {p_ff.pid}", flush=True)
     return p_sl, p_ff, seg_pattern
-def wait_for_file_complete(file_path: Path, stable_time: float = 8.0, check_interval: float = 0.5) -> bool:
-    """Wait for file to be completely written by checking multiple indicators."""
+def wait_for_file_complete(file_path: Path, stable_time: float = 8.0, check_interval: float = 0.5, max_wait: float = 60.0) -> bool:
+    """Wait for file to be completely written by checking multiple indicators, with a timeout."""
     if not file_path.exists():
         return False
     
+    start_time = time.time()
     last_size = -1
     last_mtime = -1
     stable_counter = 0
     
     while True:
+        elapsed = time.time() - start_time
+        if elapsed > max_wait:
+            print(f"⚠️ Timeout ({max_wait}s) waiting for {file_path.name} to stabilize", flush=True)
+            return False
+        
         try:
             stat = file_path.stat()
             curr_size = stat.st_size
@@ -224,7 +268,10 @@ def main():
     print(f"🗂 Using streams row id={streams_row['id']} twitch_stream_id={stream_uid}")
 
     p_sl, p_ff, seg_pattern = start_pipeline(args.channel, out_dir)
-    print("▶️ Recording... (Ctrl+C to stop)")
+    print("▶️ Recording... (Ctrl+C to stop)", flush=True)
+    print(f"📁 Segment pattern: {seg_pattern}", flush=True)
+    print(f"📁 Output directory: {out_dir}", flush=True)
+    print(f"🔍 Streamlink PID: {p_sl.pid}, FFmpeg PID: {p_ff.pid}", flush=True)
 
     known = set()
     interesting_buffer=[]
@@ -236,7 +283,7 @@ def main():
                 print(f"🔄 Iteration {iteration_count}: {len(known)} segments processed, {len(interesting_buffer)} in buffer", flush=True)
             
             for file in sorted(out_dir.glob("seg_*.mp4")):
-                if file not in known and wait_for_file_complete(file):
+                if file not in known and wait_for_file_complete(file, max_wait=60.0):
                     print(f"📹 Processing {file.name}...", flush=True)
                     try:
                         is_interesting = detect_interest(file)
@@ -346,7 +393,22 @@ def main():
                             
             # Adaptive sleep: longer when no segments found, shorter when processing
             segments_found = len([f for f in out_dir.glob("seg_*.mp4") if f not in known])
+            all_segments = list(out_dir.glob("seg_*.mp4"))
             if segments_found == 0:
+                # Check if streamlink/ffmpeg processes are still alive
+                sl_status = p_sl.poll()
+                ff_status = p_ff.poll()
+                if sl_status is not None or ff_status is not None:
+                    print(f"⚠️ Streamlink or FFmpeg process died! streamlink={sl_status}, ffmpeg={ff_status}", flush=True)
+                    # Restart pipeline
+                    print("🔄 Restarting pipeline...", flush=True)
+                    p_sl, p_ff, seg_pattern = start_pipeline(args.channel, out_dir)
+                    known.clear()  # Reset known files
+                    interesting_buffer.clear()  # Reset buffer
+                elif iteration_count % 100 == 0:  # Log diagnostics every 100 iterations
+                    print(f"🔍 Diagnostics: {len(all_segments)} total segments in {out_dir}, {len(known)} known, {segments_found} new", flush=True)
+                    if len(all_segments) > 0:
+                        print(f"📹 Sample segments: {[f.name for f in all_segments[:3]]}", flush=True)
                 time.sleep(5)  # Longer sleep when idle (5s instead of 2s) - reduces CPU usage
             else:
                 time.sleep(2)  # Normal sleep when segments are being created

@@ -55,6 +55,16 @@ const transformStreamData = (stream: StreamResponse): StreamData => {
   };
 };
 
+// Helper function to add timeout to promises
+const fetchWithTimeout = async <T,>(promise: Promise<T>, timeout: number, fallback: T): Promise<T> => {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => 
+      setTimeout(() => reject(new Error('Timeout')), timeout)
+    )
+  ]).catch(() => fallback);
+};
+
 const fetchStreams = async (): Promise<StreamData[]> => {
   try {
     // Fetch active monitors instead of streams table
@@ -62,25 +72,35 @@ const fetchStreams = async (): Promise<StreamData[]> => {
     console.log('✅ Monitors API response:', response);
     const allMonitors = response.monitors || [];
     
-    // Filter out stopped monitors - they should not appear in the UI
-    const monitors = allMonitors.filter((monitor: any) => monitor.status !== 'stopped');
-    console.log(`📊 Found ${allMonitors.length} total monitors, ${monitors.length} active:`, monitors);
+    // Don't filter out stopped monitors - they should stay visible
+    // Backend already filters out dead processes, so all monitors here are valid
+    const monitors = allMonitors; // Keep all monitors (offline streamers stay visible)
+    console.log(`📊 Found ${monitors.length} monitors (including offline streamers):`, monitors);
     
     // Transform monitors to StreamData format with real data
+    // Add timeout to prevent hanging on slow monitors
     const streamDataPromises = monitors.map(async (monitor: any) => {
       try {
-        // Fetch monitor stats and health for real data
+        // Fetch monitor stats and health with 3 second timeout each
         const [stats, health] = await Promise.all([
-          apiClient.getMonitorStats(monitor.channel_name).catch(() => ({
-            segments_analyzed: 0,
-            clips_captured: 0,
-            last_clip_time: null
-          })),
-          apiClient.getMonitorHealth(monitor.channel_name).catch(() => ({
-            healthy: false,
-            viewer_count: 0,
-            is_live: false
-          }))
+          fetchWithTimeout(
+            apiClient.getMonitorStats(monitor.channel_name),
+            3000,
+            {
+              segments_analyzed: 0,
+              clips_captured: 0,
+              last_clip_time: null
+            }
+          ),
+          fetchWithTimeout(
+            apiClient.getMonitorHealth(monitor.channel_name),
+            3000,
+            {
+              healthy: false,
+              viewer_count: 0,
+              is_live: false
+            }
+          )
         ]);
         
         const startTime = new Date(monitor.started_at);
@@ -90,21 +110,35 @@ const fetchStreams = async (): Promise<StreamData[]> => {
         const minutes = runtime % 60;
         const runtimeStr = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
 
-        // Determine status based on monitor state
+        // Determine status based on monitor state and streamer status
+        // Monitor stays visible even when streamer is offline - it will resume automatically
         let displayStatus: "analyzing" | "processing" | "paused";
+        let title: string;
+        
         if (monitor.status === "stopped") {
+          // Monitor was manually stopped
           displayStatus = "paused";
+          title = `Stopped: ${monitor.channel_name}`;
         } else if (monitor.status === "running") {
-          displayStatus = "analyzing";
+          // Monitor is running - check if streamer is live
+          if (health.is_live) {
+            displayStatus = "analyzing";
+            title = `Live monitoring ${monitor.channel_name}`;
+          } else {
+            // Streamer is offline but monitor is waiting - show as paused but keep visible
+            displayStatus = "paused";
+            title = `Waiting for ${monitor.channel_name} to go live`;
+          }
         } else {
           displayStatus = "paused";
+          title = `Monitoring ${monitor.channel_name}`;
         }
 
         return {
-          id: monitor.channel_name,
+          id: monitor.id || `${monitor.channel_name}-${monitor.started_at}`, // Use database ID for uniqueness
           channel: monitor.channel_name,
           avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${monitor.channel_name}`,
-          title: monitor.status === "stopped" ? `Stopped: ${monitor.channel_name}` : `Live monitoring ${monitor.channel_name}`,
+          title: title,
           category: "Live Stream",
           viewers: health.viewer_count || 0,
           status: displayStatus,
@@ -125,7 +159,7 @@ const fetchStreams = async (): Promise<StreamData[]> => {
         const runtimeStr = hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
         
         return {
-          id: monitor.channel_name,
+          id: monitor.id || `${monitor.channel_name}-${monitor.started_at}`, // Use database ID for uniqueness
           channel: monitor.channel_name,
           avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${monitor.channel_name}`,
           title: `Live monitoring ${monitor.channel_name}`,
@@ -205,9 +239,11 @@ export const useStreams = (): UseQueryResult<StreamData[], Error> => {
   return useQuery({
     queryKey: ["streams"],
     queryFn: fetchStreams,
-    refetchInterval: 10000, // Refetch every 10 seconds for live updates
-    staleTime: 5000, // Consider data stale after 5 seconds
-    retry: 3, // Retry failed requests
+    refetchInterval: 15000, // Refetch every 15 seconds (reduced frequency)
+    staleTime: 10000, // Consider data stale after 10 seconds
+    retry: 1, // Reduced retries for faster failure
+    retryDelay: 500, // Faster retry delay
+    placeholderData: (previousData) => previousData, // Show cached data immediately
   });
 };
 
@@ -215,8 +251,10 @@ export const useDashboardStats = (): UseQueryResult<DashboardStats, Error> => {
   return useQuery({
     queryKey: ["dashboard-stats"],
     queryFn: fetchStats,
-    refetchInterval: 10000,
-    staleTime: 5000,
-    retry: 3,
+    refetchInterval: 30000, // Refetch every 30 seconds (stats don't need frequent updates)
+    staleTime: 20000, // Consider data stale after 20 seconds
+    retry: 1,
+    retryDelay: 500,
+    placeholderData: (previousData) => previousData,
   });
 };

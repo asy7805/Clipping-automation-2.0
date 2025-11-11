@@ -49,7 +49,7 @@ class APIClient {
     this.baseUrl = baseUrl;
   }
 
-  private async request<T>(endpoint: string, options?: RequestInit): Promise<T> {
+  private async request<T>(endpoint: string, options?: RequestInit, timeout: number = 10000): Promise<T> {
     const url = `${this.baseUrl}${endpoint}`;
     
     try {
@@ -66,17 +66,25 @@ class APIClient {
       // Don't set Content-Type for FormData - let the browser set it with the boundary
       const isFormData = options?.body instanceof FormData;
       
-      const response = await fetch(url, {
-        ...options,
-        headers: {
-          ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
-          // Only include Authorization header if we have a valid token
-          ...(authToken && {
-            'Authorization': `Bearer ${authToken}`
-          }),
-          ...options?.headers,
-        },
-      });
+      // Create AbortController for timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), timeout);
+      
+      try {
+        const response = await fetch(url, {
+          ...options,
+          signal: controller.signal,
+          headers: {
+            ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+            // Only include Authorization header if we have a valid token
+            ...(authToken && {
+              'Authorization': `Bearer ${authToken}`
+            }),
+            ...options?.headers,
+          },
+        });
+        
+        clearTimeout(timeoutId);
 
       // Handle 401 responses - but only redirect if we're on a protected page
       if (response.status === 401) {
@@ -85,12 +93,19 @@ class APIClient {
         // The backend doesn't have JWT verification yet anyway
       }
 
-      if (!response.ok) {
-        const errorText = await response.text().catch(() => response.statusText);
-        throw new Error(`API error (${response.status}): ${errorText}`);
-      }
+        if (!response.ok) {
+          const errorText = await response.text().catch(() => response.statusText);
+          throw new Error(`API error (${response.status}): ${errorText}`);
+        }
 
-      return response.json();
+        return response.json();
+      } catch (error: any) {
+        clearTimeout(timeoutId);
+        if (error.name === 'AbortError') {
+          throw new Error(`Request timeout after ${timeout}ms: ${endpoint}`);
+        }
+        throw error;
+      }
     } catch (error) {
       console.error(`API request failed: ${endpoint}`, error);
       throw error;

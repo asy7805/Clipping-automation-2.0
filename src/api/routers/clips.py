@@ -13,7 +13,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
 from predict import is_clip_worthy_by_model_with_score
-from db.supabase_client import get_client
+from db.supabase_client import get_client, get_admin_client
 from ..dependencies import get_current_user_id
 from ..middleware.auth import get_current_user, User
 
@@ -105,7 +105,11 @@ async def get_clips(
         
         print(f"🎯 GET /clips called for user: {user_id[:8]}... (admin: {is_admin})")
         
-        sb = get_client()
+        # Use admin client for admins to bypass RLS, regular client for normal users
+        if is_admin:
+            sb = get_admin_client()
+        else:
+            sb = get_client()
         
         # Build query - admins see all clips, regular users see only their own
         if is_admin:
@@ -190,21 +194,36 @@ async def get_clips(
 @router.get("/clips/{clip_id}", response_model=ClipResponse)
 async def get_clip(
     clip_id: str = PathParam(...),
-    user_id: str = Depends(get_current_user_id)
+    current_user: User = Depends(get_current_user)
 ) -> ClipResponse:
     """
     Get a specific clip by ID.
-    Requires authentication - users can only access their own clips.
+    Requires authentication.
+    - Regular users can only access their own clips
+    - Admin users can access ALL clips
     """
     try:
-        sb = get_client()
+        user_id = current_user.id
+        is_admin = current_user.is_admin
         
-        # Query with user filter for security
-        result = sb.table('clips_metadata')\
-            .select('*')\
-            .eq('id', clip_id)\
-            .eq('user_id', user_id)\
-            .execute()
+        # Use admin client for admins to bypass RLS
+        if is_admin:
+            sb = get_admin_client()
+        else:
+            sb = get_client()
+        
+        # Build query - admins can access any clip, regular users only their own
+        if is_admin:
+            result = sb.table('clips_metadata')\
+                .select('*')\
+                .eq('id', clip_id)\
+                .execute()
+        else:
+            result = sb.table('clips_metadata')\
+                .select('*')\
+                .eq('id', clip_id)\
+                .eq('user_id', user_id)\
+                .execute()
         
         if not result.data or len(result.data) == 0:
             raise HTTPException(status_code=404, detail=f"Clip {clip_id} not found")

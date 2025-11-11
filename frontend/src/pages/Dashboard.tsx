@@ -13,20 +13,18 @@ import { clampScore } from "@/lib/utils";
 const Dashboard = () => {
   const { isFetching: streamsFetching } = useStreams();
   const { isFetching: statsFetching } = useDashboardStats();
-  const { data: clipsData } = useClips({ limit: 50 }); // Fetch all clips to find highest score
+  // Only fetch top clip for featured section (much faster)
+  const { data: clipsData } = useClips({ 
+    limit: 1, 
+    sort_by: "highest" // Get highest scoring clip directly
+  });
   const { openPlayer } = useVideoPlayer();
   const isUpdating = streamsFetching || statsFetching;
   const isMobile = useIsMobile();
 
   // Extract clips array from paginated response
   const clips = clipsData?.clips || [];
-
-  // Find the highest scoring clip
-  const featuredClip = clips.length > 0
-    ? clips.reduce((highest, current) => 
-        clampScore(current.confidence_score) > clampScore(highest.confidence_score) ? current : highest
-      )
-    : null;
+  const featuredClip = clips.length > 0 ? clips[0] : null;
 
   return (
     <div className="min-h-screen bg-background">

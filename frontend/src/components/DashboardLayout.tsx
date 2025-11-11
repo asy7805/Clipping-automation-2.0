@@ -49,12 +49,12 @@ export const DashboardLayout = () => {
   const userInitial = user?.email?.charAt(0).toUpperCase() || "U";
 
   return (
-    <div className="min-h-screen bg-background flex relative">
+    <div className="h-screen bg-background flex relative overflow-hidden">
       {/* Animated background mesh */}
       <div className="fixed inset-0 mesh-gradient opacity-50 pointer-events-none" />
       
       {/* Sidebar - Fixed position, hidden on mobile */}
-      <aside className="hidden md:flex w-48 glass-strong flex-col fixed left-0 top-0 z-10 border-r border-white/10 h-screen overflow-hidden">
+      <aside className="hidden md:flex w-48 glass-strong flex-col fixed left-0 top-0 z-10 border-r border-white/10 h-screen">
         {/* Logo */}
         <div className="p-4 border-b border-white/10 flex-shrink-0">
           <Link to="/" className="flex items-center gap-3 group">
@@ -76,7 +76,7 @@ export const DashboardLayout = () => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 p-3 space-y-2 overflow-hidden min-h-0">
+        <nav className="flex-1 p-3 space-y-2 overflow-y-auto min-h-0">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
@@ -155,7 +155,7 @@ export const DashboardLayout = () => {
       </aside>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col relative z-10 md:ml-48">
+        <div className="flex-1 flex flex-col relative z-10 md:ml-48 h-screen overflow-hidden">
         {/* Top Bar */}
         <header className="h-16 glass sticky top-0 z-40 flex items-center justify-between px-4 md:px-6 border-b border-white/10">
           <div className="flex-1">
@@ -204,7 +204,7 @@ export const DashboardLayout = () => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto pb-20 md:pb-0">
+        <main className="flex-1 overflow-y-auto pb-20 md:pb-0">
           <Outlet />
         </main>
       </div>

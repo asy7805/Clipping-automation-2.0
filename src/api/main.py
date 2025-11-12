@@ -22,7 +22,7 @@ sys.path.append(str(Path(__file__).parent.parent))
 load_dotenv(Path(__file__).parent.parent / '.env')
 
 # Import API routers
-from .routers import clips, analytics, streams, health, monitors, social, admin
+from .routers import clips, analytics, streams, health, monitors, social, admin, captions
 from .services.monitor_watchdog import MonitorWatchdog
 from twitch_engagement_fetcher import TwitchEngagementFetcher
 
@@ -42,6 +42,7 @@ async def lifespan(app: FastAPI):
     print(f"📡 Supabase URL: {os.getenv('SUPABASE_URL', 'Not configured')}")
     print(f"🤖 OpenAI API: {'✅ Configured' if os.getenv('OPENAI_API_KEY') else '❌ Missing'}")
     print(f"📺 Twitch API: {'✅ Configured' if os.getenv('TWITCH_CLIENT_ID') else '❌ Missing'}")
+    print(f"🎬 Captions AI: {'✅ Configured' if os.getenv('CAPTIONS_AI_API_KEY') else '❌ Missing'}")
     
     # Start monitor watchdog
     print("🐕 Starting Monitor Watchdog...")
@@ -111,6 +112,7 @@ app.include_router(streams.router, prefix="/api/v1", tags=["streams"])
 app.include_router(monitors.router, prefix="/api/v1", tags=["monitors"])
 app.include_router(social.router, prefix="/api/v1", tags=["social"])
 app.include_router(admin.router, prefix="/api/v1", tags=["admin"])
+app.include_router(captions.router, prefix="/api/v1", tags=["captions"])
 
 @app.get("/")
 async def root():

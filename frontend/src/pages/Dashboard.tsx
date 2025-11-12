@@ -7,7 +7,6 @@ import { LoadingIndicator } from "@/components/LoadingIndicator";
 import { useStreams, useDashboardStats } from "@/hooks/useStreamData";
 import { useClips } from "@/hooks/useClips";
 import { useVideoPlayer } from "@/contexts/VideoPlayerContext";
-import { useIsMobile } from "@/hooks/use-mobile";
 import { clampScore } from "@/lib/utils";
 
 const Dashboard = () => {
@@ -20,7 +19,6 @@ const Dashboard = () => {
   });
   const { openPlayer } = useVideoPlayer();
   const isUpdating = streamsFetching || statsFetching;
-  const isMobile = useIsMobile();
 
   // Extract clips array from paginated response
   const clips = clipsData?.clips || [];

@@ -19,7 +19,6 @@ const Index = lazy(() => import("./pages/Index"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Clips = lazy(() => import("./pages/Clips"));
 const StreamerClips = lazy(() => import("./pages/StreamerClips"));
-const Analytics = lazy(() => import("./pages/Analytics"));
 const SocialAccounts = lazy(() => import("./pages/SocialAccounts"));
 const Settings = lazy(() => import("./pages/Settings"));
 const Admin = lazy(() => import("./pages/Admin"));
@@ -83,7 +82,6 @@ function AppContent() {
             <Route index element={<Dashboard />} />
             <Route path="clips" element={<Clips />} />
             <Route path="clips/:streamerName" element={<StreamerClips />} />
-            <Route path="analytics" element={<Analytics />} />
             <Route path="social" element={<SocialAccounts />} />
             <Route path="settings" element={<Settings />} />
             <Route path="admin" element={<Admin />} />

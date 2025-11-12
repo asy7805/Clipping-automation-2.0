@@ -67,13 +67,115 @@ async def get_system_stats(user_id: str = Depends(require_admin)) -> Dict:
             .execute()
         active_monitors = active_monitors_result.count if active_monitors_result.count is not None else 0
         
+        # Get clips today
+        today_start = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
+        clips_today_result = sb.table('clips_metadata')\
+            .select('id', count='exact')\
+            .gte('created_at', today_start)\
+            .execute()
+        clips_today = clips_today_result.count if clips_today_result.count is not None else 0
+        
+        # Get clips this week
+        week_start = (datetime.utcnow() - timedelta(days=7)).replace(hour=0, minute=0, second=0, microsecond=0).isoformat()
+        clips_week_result = sb.table('clips_metadata')\
+            .select('id', count='exact')\
+            .gte('created_at', week_start)\
+            .execute()
+        clips_this_week = clips_week_result.count if clips_week_result.count is not None else 0
+        
+        # Calculate average clips per user
+        avg_clips_per_user = round(total_clips / total_users, 2) if total_users > 0 else 0
+        
+        # Calculate average score
+        avg_score_result = sb.table('clips_metadata')\
+            .select('confidence_score')\
+            .execute()
+        if avg_score_result.data and len(avg_score_result.data) > 0:
+            scores = [float(c.get('confidence_score', 0)) for c in avg_score_result.data if c.get('confidence_score') is not None]
+            avg_score = round(sum(scores) / len(scores), 2) if scores else 0.0
+        else:
+            avg_score = 0.0
+        
+        # Convert storage bytes to GB
+        storage_used_gb = round((total_storage or 0) / (1024 ** 3), 2)
+        
+        # Get historical data for the last 30 days (optimized - fetch all data once)
+        user_growth_data = []
+        monitor_activity_data = []
+        
+        # Fetch all clips and monitors data once
+        thirty_days_ago = (datetime.utcnow() - timedelta(days=30)).isoformat()
+        
+        all_clips = sb.table('clips_metadata')\
+            .select('user_id,created_at')\
+            .gte('created_at', thirty_days_ago)\
+            .execute()
+        
+        all_monitors = sb.table('monitors')\
+            .select('user_id,started_at,status')\
+            .gte('started_at', thirty_days_ago)\
+            .execute()
+        
+        # Process data for each day
+        for i in range(30, -1, -1):  # Last 30 days including today
+            date = (datetime.utcnow() - timedelta(days=i)).replace(hour=0, minute=0, second=0, microsecond=0)
+            date_end = (date + timedelta(days=1)).isoformat()
+            date_str = date.strftime("%Y-%m-%d")
+            
+            # Count cumulative users up to this date
+            all_user_ids = set()
+            if all_clips.data:
+                for clip in all_clips.data:
+                    clip_date = clip.get('created_at', '')
+                    if clip_date and clip_date <= date_end:
+                        user_id = clip.get('user_id')
+                        if user_id:
+                            all_user_ids.add(user_id)
+            
+            if all_monitors.data:
+                for monitor in all_monitors.data:
+                    monitor_date = monitor.get('started_at', '')
+                    if monitor_date and monitor_date <= date_end:
+                        user_id = monitor.get('user_id')
+                        if user_id:
+                            all_user_ids.add(user_id)
+            
+            user_count = len(all_user_ids)
+            
+            # Count active monitors on this date
+            active_monitor_count = 0
+            if all_monitors.data:
+                for monitor in all_monitors.data:
+                    monitor_date = monitor.get('started_at', '')
+                    monitor_status = monitor.get('status', '')
+                    # Check if monitor was started before or on this date and is running
+                    if monitor_date and monitor_date <= date_end and monitor_status == 'running':
+                        active_monitor_count += 1
+            
+            user_growth_data.append({
+                "date": date_str,
+                "users": user_count
+            })
+            
+            monitor_activity_data.append({
+                "date": date_str,
+                "active": active_monitor_count
+            })
+        
         return {
             "total_users": total_users or 0,
             "total_clips": total_clips,
             "total_monitors": total_monitors,
             "active_monitors": active_monitors,
             "storage_used_bytes": total_storage or 0,
+            "storage_used_gb": storage_used_gb,
             "new_users_this_week": new_users_week or 0,
+            "clips_today": clips_today,
+            "clips_this_week": clips_this_week,
+            "avg_clips_per_user": avg_clips_per_user,
+            "avg_score": avg_score,
+            "user_growth": user_growth_data,
+            "monitor_activity": monitor_activity_data,
             "timestamp": datetime.utcnow().isoformat()
         }
     except Exception as e:
@@ -94,13 +196,70 @@ async def list_all_users(
         # Use admin client to bypass RLS for admin operations
         sb = get_admin_client()
         
-        # Use admin helper function to get users with stats
-        users = sb.rpc('get_users_with_stats', {'limit_val': limit, 'offset_val': offset}).execute()
+        # Get users from auth.users table (via admin client)
+        # Note: We'll query auth.users directly, but if that's not accessible, we'll use a workaround
+        try:
+            # Try to get users with stats via RPC if it exists
+            users_result = sb.rpc('get_users_with_stats', {'limit_val': limit, 'offset_val': offset}).execute()
+            users_list = users_result.data or []
+            # Normalize user data to ensure 'id' field exists
+            for user in users_list:
+                if 'id' not in user or not user.get('id'):
+                    # Try to get id from other possible field names
+                    user['id'] = user.get('user_id') or user.get('uid') or user.get('id')
+                    if not user.get('id'):
+                        logger.warning(f"User object missing id field: {user}")
+        except Exception as rpc_error:
+            logger.warning(f"RPC get_users_with_stats failed, falling back to manual query: {rpc_error}")
+            # Fallback: Get users from auth.users (if accessible) or from a users table
+            # For now, we'll query clips_metadata to get unique user_ids and build user list
+            clips_result = sb.table('clips_metadata')\
+                .select('user_id')\
+                .order('created_at', desc=True)\
+                .execute()
+            
+            # Get unique user IDs
+            unique_user_ids = list(set([c.get('user_id') for c in (clips_result.data or []) if c.get('user_id')]))
+            
+            # Also get user IDs from monitors
+            monitors_result = sb.table('monitors')\
+                .select('user_id')\
+                .execute()
+            monitor_user_ids = list(set([m.get('user_id') for m in (monitors_result.data or []) if m.get('user_id')]))
+            unique_user_ids.extend(monitor_user_ids)
+            unique_user_ids = list(set(unique_user_ids))
+            
+            # Build user list with stats
+            users_list = []
+            for uid in unique_user_ids[offset:offset + limit]:
+                # Count clips for this user
+                clip_count_result = sb.table('clips_metadata')\
+                    .select('id', count='exact')\
+                    .eq('user_id', uid)\
+                    .execute()
+                clip_count = clip_count_result.count if clip_count_result.count is not None else 0
+                
+                # Count monitors for this user
+                monitor_count_result = sb.table('monitors')\
+                    .select('id', count='exact')\
+                    .eq('user_id', uid)\
+                    .execute()
+                monitor_count = monitor_count_result.count if monitor_count_result.count is not None else 0
+                
+                users_list.append({
+                    'id': uid,
+                    'email': uid[:8] + '...',  # Placeholder since we can't access auth.users email directly
+                    'monitor_count': monitor_count,
+                    'clip_count': clip_count,
+                    'created_at': None,  # Would need auth.users access
+                    'last_sign_in_at': None  # Would need auth.users access
+                })
         
         return {
-            "users": users.data or [],
+            "users": users_list,
             "limit": limit,
-            "offset": offset
+            "offset": offset,
+            "total": len(users_list)
         }
     except Exception as e:
         logger.error(f"Error fetching users: {e}")
@@ -265,12 +424,24 @@ async def grant_admin(
     Admin only.
     """
     try:
+        # Validate target_user_id
+        if not target_user_id or target_user_id == 'undefined' or target_user_id.strip() == '':
+            raise HTTPException(status_code=400, detail="Invalid user ID provided")
+        
         # Use admin client to bypass RLS for admin operations
         sb = get_admin_client()
         
-        # Note: auth.users is a system table, may not be directly accessible
-        # We'll proceed with granting admin access - if user doesn't exist, 
-        # the foreign key constraint will fail anyway
+        # Check if user already has admin access
+        existing_admin = sb.table('admin_users')\
+            .select('*')\
+            .eq('user_id', target_user_id)\
+            .execute()
+        
+        if existing_admin.data and len(existing_admin.data) > 0:
+            return {
+                "success": True,
+                "message": f"User {target_user_id} already has admin access"
+            }
         
         # Insert admin record
         admin_record = {
@@ -289,6 +460,8 @@ async def grant_admin(
             "success": True,
             "message": f"Admin access granted to user {target_user_id}"
         }
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Error granting admin: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -303,12 +476,28 @@ async def revoke_admin(
     Admin only.
     """
     try:
+        # Validate target_user_id
+        if not target_user_id or target_user_id == 'undefined' or target_user_id.strip() == '':
+            raise HTTPException(status_code=400, detail="Invalid user ID provided")
+        
         # Use admin client to bypass RLS for admin operations
         sb = get_admin_client()
         
         # Don't allow self-revocation
         if target_user_id == user_id:
             raise HTTPException(status_code=400, detail="Cannot revoke your own admin access")
+        
+        # Check if user has admin access
+        existing_admin = sb.table('admin_users')\
+            .select('*')\
+            .eq('user_id', target_user_id)\
+            .execute()
+        
+        if not existing_admin.data or len(existing_admin.data) == 0:
+            return {
+                "success": True,
+                "message": f"User {target_user_id} does not have admin access"
+            }
         
         # Delete admin record
         sb.table('admin_users')\

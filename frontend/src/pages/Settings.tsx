@@ -4,14 +4,31 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Database, HardDrive, Settings2, Zap, Bell, Brain } from "lucide-react";
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { useDashboardStats } from "@/hooks/useStreamData";
+import { useClips } from "@/hooks/useClips";
+import { useMemo } from "react";
 
 const Settings = () => {
-  const { data: analytics, isLoading } = useAnalytics();
+  const { data: stats, isLoading: statsLoading } = useDashboardStats();
+  const { data: clipsData } = useClips({ limit: 1000 });
 
-  const storageUsedGB = analytics?.storageUsedGB || 0;
-  const storageQuotaGB = 10; // Supabase free tier
-  const storagePercent = Math.min(100, (storageUsedGB / storageQuotaGB) * 100);
+  const { storageUsedGB, storageQuotaGB, totalClips, avgClipSizeMB, storagePercent } = useMemo(() => {
+    const used = stats?.storageUsed ?? 0;
+    const quota = stats?.storageTotal ?? 10;
+    const clips = clipsData?.clips ?? [];
+    const totalSizeBytes = clips.reduce((sum, clip) => sum + (clip.file_size || 0), 0);
+    const averageMB = clips.length ? (totalSizeBytes / clips.length) / (1024 * 1024) : 0;
+
+    return {
+      storageUsedGB: Math.round(used * 100) / 100,
+      storageQuotaGB: quota,
+      totalClips: clips.length,
+      avgClipSizeMB: Math.round(averageMB),
+      storagePercent: Math.min(100, quota ? (used / quota) * 100 : 0)
+    };
+  }, [stats, clipsData]);
+
+  const isLoading = statsLoading;
 
   return (
     <div className="container mx-auto px-6 py-8 max-w-5xl space-y-8">
@@ -117,15 +134,11 @@ const Settings = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="p-3 bg-muted/30 rounded-lg">
               <p className="text-xs text-muted-foreground mb-1">Total Clips</p>
-              <p className="text-2xl font-bold">{analytics?.totalClips || 0}</p>
+              <p className="text-2xl font-bold">{totalClips}</p>
             </div>
             <div className="p-3 bg-muted/30 rounded-lg">
               <p className="text-xs text-muted-foreground mb-1">Avg Clip Size</p>
-              <p className="text-2xl font-bold">
-                {analytics?.totalClips 
-                  ? ((storageUsedGB * 1024) / analytics.totalClips).toFixed(0) 
-                  : 0} MB
-              </p>
+              <p className="text-2xl font-bold">{avgClipSizeMB} MB</p>
             </div>
           </div>
 

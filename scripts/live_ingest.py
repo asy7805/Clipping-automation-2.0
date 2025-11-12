@@ -82,23 +82,40 @@ def upload_segment(sb, bucket: str, video_bytes: bytes, storage_prefix: str, cha
 def start_pipeline(channel: str, out_dir: Path):
     """Start streamlink -> ffmpeg pipeline with better segment handling."""
     # Removed deprecated --twitch-disable-ads flag (causes PersistedQueryNotFound error)
-    sl_cmd = ["streamlink", f"https://twitch.tv/{channel}", "best", "-O"]
+    # Enhanced streamlink options for better reliability
+    sl_cmd = [
+        "streamlink",
+        "--stream-segment-attempts", "3",  # Retry failed segments
+        "--stream-segment-threads", "1",  # Single thread for stability
+        "--hls-segment-timeout", "10",  # Timeout for segments
+        "--hls-timeout", "30",  # Overall timeout
+        f"https://twitch.tv/{channel}", 
+        "best", 
+        "-O"
+    ]
     seg_pattern = str(out_dir / "seg_%05d.mp4")
     
     ff_cmd = [
         "ffmpeg", "-hide_banner", "-loglevel", "warning",
         "-i", "pipe:0",
+        "-fflags", "+discardcorrupt+ignidx",  # Handle corrupted packets
+        "-err_detect", "ignore_err",  # Ignore errors to continue processing
         "-c:v", "libx264", "-preset", "ultrafast", "-crf", "23",  # Changed from "fast" to "ultrafast" for lower CPU
+        "-force_key_frames", "expr:gte(t,n_forced*30)",  # Force keyframes every 30 seconds
         "-c:a", "aac", "-b:a", "128k",
         "-f", "segment",
         "-segment_time", str(SEGMENT_SECONDS),
         "-segment_format", "mp4",
         "-segment_list_flags", "+live",
         "-segment_atclocktime", "1",
+        "-segment_time_metadata", "1",  # Add metadata for better seeking
         "-reset_timestamps", "1",
         "-movflags", "+faststart+frag_keyframe+empty_moov",
         "-avoid_negative_ts", "make_zero",
         "-break_non_keyframes", "1",  # Ensure segments break cleanly
+        "-max_muxing_queue_size", "1024",  # Increase queue size for better handling
+        "-analyzeduration", "2000000",  # Analyze more data for better format detection
+        "-probesize", "2000000",  # Probe more data
         "-g", "60",  # Keyframe interval
         "-threads", "2",  # Limit FFmpeg threads to reduce CPU usage
         seg_pattern
@@ -196,6 +213,38 @@ def wait_for_file_complete(file_path: Path, stable_time: float = 8.0, check_inte
             time.sleep(check_interval)
             continue
  
+
+def validate_mp4_file(file_path: Path) -> bool:
+    """Validate that the MP4 file is properly formatted."""
+    try:
+        with open(file_path, "rb") as f:
+            # Read first 32 bytes to check MP4 signature
+            header = f.read(32)
+            if len(header) < 32:
+                return False
+            
+            # Check for MP4 signature (ftyp atom)
+            if not (header.startswith(b'\x00\x00\x00') and b'ftyp' in header[:32]):
+                return False
+            
+            # Check file size - must be reasonable
+            file_size = file_path.stat().st_size
+            if file_size < 10000:  # At least 10KB
+                return False
+            
+            # Try to find moov atom - be more lenient
+            f.seek(0)
+            data = f.read(min(file_size, 1024*1024))  # Read up to 1MB
+            if b'moov' not in data:
+                # If not in first MB, check the end
+                f.seek(-min(file_size, 1024*1024), 2)
+                tail = f.read(min(file_size, 1024*1024))
+                if b'moov' not in tail:
+                    return False
+                
+            return True
+    except Exception:
+        return False
 
 def safe_delete(file_path: Path, retries: int = 10, delay: float = 0.3) -> bool:
     for _ in range(retries):

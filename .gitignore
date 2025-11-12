@@ -26,9 +26,13 @@ env-*/
 *.ckpt
 
 # Audio/video processing
-*.ts
+# Only ignore .ts video segment files, not TypeScript source files
 *.m3u8
 *.mpd
+# Ignore .ts files in data/segments directories but not in frontend/src/
+/data/**/*.ts
+/segments/**/*.ts
+*.segment.ts
 
 # Frontend (Node.js / React)
 frontend/node_modules/

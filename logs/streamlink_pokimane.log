@@ -1,3 +1,0 @@
-[cli][info] Found matching plugin twitch for URL https://twitch.tv/pokimane
-[plugins.twitch][info] Using cached client-integrity token
-error: Error: PersistedQueryNotFound

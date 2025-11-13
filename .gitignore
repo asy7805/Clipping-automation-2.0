@@ -40,3 +40,6 @@ frontend/dist/
 frontend/.vite/
 frontend/build/
 frontend/.env.local
+
+# Log files
+logs/*.log

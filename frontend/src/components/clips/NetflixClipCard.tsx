@@ -152,7 +152,7 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
                             <MessageSquare className="w-3 h-3 text-purple-500" />
                             <span className="text-muted-foreground">Keywords</span>
                           </div>
-                          <span className="font-mono font-bold text-foreground">{clip.score_breakdown.keyword > 0 ? '+0.15' : '0.00'}</span>
+                          <span className="font-mono font-bold text-foreground">{clip.score_breakdown.keyword.toFixed(3)}</span>
                         </div>
                         <div className="border-t border-border pt-2 mt-2">
                           <div className="flex items-center justify-between text-xs font-bold">

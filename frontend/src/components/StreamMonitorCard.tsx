@@ -281,9 +281,16 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
                   className="w-full bg-primary hover:bg-primary/90"
                   onClick={async () => {
                     try {
-                      // Stop existing monitor first (cleanup)
-                      await apiClient.stopMonitor(stream.channel);
-                      await new Promise(resolve => setTimeout(resolve, 500));
+                      // Try to stop existing monitor first (cleanup) - but don't fail if it doesn't exist
+                      try {
+                        await apiClient.stopMonitor(stream.channel);
+                        await new Promise(resolve => setTimeout(resolve, 500));
+                      } catch (stopErr: any) {
+                        // If monitor doesn't exist (404), that's fine - just continue to start
+                        if (!stopErr.message?.includes('404') && !stopErr.message?.includes('not found')) {
+                          console.warn('Failed to stop monitor (non-fatal):', stopErr);
+                        }
+                      }
                       
                       // Start new monitor
                       await apiClient.startMonitor(`https://twitch.tv/${stream.channel}`);

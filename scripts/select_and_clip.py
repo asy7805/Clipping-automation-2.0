@@ -6,6 +6,10 @@ import librosa
 import numpy as np
 import soundfile as sf
 from dotenv import load_dotenv
+
+# Fix tokenizer parallelism warning BEFORE importing transformers
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+
 from transformers import pipeline
 from faster_whisper import WhisperModel
 from typing import List, Tuple
@@ -20,25 +24,56 @@ load_dotenv()
 _whisper_model = None
 _sentiment_pipeline = None
 
+# ------------------ CONFIG (Optimized for Performance) ------------------
+# Using smaller models to reduce CPU/GPU usage while maintaining accuracy
+WHISPER_MODEL_NAME = "base"  # Balanced: better than tiny, faster than small (74M vs 244M params)
+EMOTION_MODEL_NAME = "j-hartmann/emotion-english-distilroberta-base"  # Smaller, faster than RoBERTa-base
+SAMPLE_RATE = 16000
+MIN_AUDIO_THRESHOLD = 0.01   # Skip low volume segments
+ENERGY_WEIGHT = 0.35
+PITCH_WEIGHT = 0.25
+EMOTION_WEIGHT = 0.4
+KEYWORD_BOOST = 0.15
+# Performance optimizations
+USE_FAST_PITCH = True  # Use faster pitch estimation instead of librosa.pyin
+PITCH_SKIP_THRESHOLD = 0.02  # Skip pitch analysis if energy is too low
+
+# Common hype words (from past backend)
+HYPE_WORDS = [
+    "wow", "no way", "omg", "let's go", "wtf", "oh my god", "unbelievable",
+    "insane", "noooo", "what", "brooo", "crazy", "bro", "woah", "damn"
+]
+HYPE_REGEX = re.compile(r"\b(" + "|".join([re.escape(w) for w in HYPE_WORDS]) + r")\b", re.I)
+# ------------------------------------------------------------
+
 
 def get_whisper_model():
     global _whisper_model
     if _whisper_model is None:
-        print("🔊 Loading Whisper model (small)...")
-        _whisper_model = WhisperModel("tiny", device="cpu", compute_type="int8")  
+        print(f"🔊 Loading Whisper model ({WHISPER_MODEL_NAME})...")
+        # Use CPU with int8 for lower memory usage (faster than float32, less memory than float16)
+        _whisper_model = WhisperModel(
+            WHISPER_MODEL_NAME, 
+            device="cpu", 
+            compute_type="int8",
+            cpu_threads=1,  # Reduced to 1 thread to minimize CPU usage
+            num_workers=1    # Single worker for lower memory
+        )  
     return _whisper_model
 
 
 def get_sentiment_pipeline():
     global _sentiment_pipeline
     if _sentiment_pipeline is None:
-        print("🧠 Loading DistilBERT emotion model...")
+        print(f"🧠 Loading emotion model ({EMOTION_MODEL_NAME})...")
         _sentiment_pipeline = pipeline(
-            "sentiment-analysis",
-            model="bhadresh-savani/distilbert-base-uncased-emotion",
-            batch_size=16,
+            "text-classification",
+            model=EMOTION_MODEL_NAME,
+            top_k=1,  # Get top emotion only for speed
+            device=-1,  # Use CPU (device=-1), avoid GPU/MPS for lower power
+            batch_size=1,  # Process one at a time to reduce memory
             truncation=True,
-            top_k=None,
+            max_length=128  # Limit input length for faster processing
         )
     return _sentiment_pipeline
 
@@ -177,47 +212,153 @@ def detect_audio_spikes(
 
 
 # -----------------------------------------
-# 🎯 Interest Detection (Hybrid)
+# 🎯 Advanced Audio Feature Extraction (Past Backend)
 # -----------------------------------------
 
-def get_emotion_excitement(text):
-    sentiment = get_sentiment_pipeline()
-    results = sentiment(text)
-
-    # Normalize list-of-lists output
-    if isinstance(results, list):
-        if len(results) > 0 and isinstance(results[0], list):
-            results = results[0]
-        results = results[0]
-
-    label = results["label"]
-    score = results["score"]
-
-    # Map excitement-like emotions higher
-    if label in ["joy", "excitement", "surprise", "anger"]:
-        return score
-    else:
-        return 0.0
-
-
-def is_interesting_segment(file_path: str, min_audio_spike_time: float = 1.5) -> bool:
+def extract_audio_features(file_path: str):
+    """Return RMS energy and pitch variance of audio segment (optimized for performance)."""
     try:
-        spikes = detect_audio_spikes(file_path)
-        total_spike_time = sum(e - s for s, e in spikes)
-        print(f"🎧 Spike duration: {total_spike_time:.2f}s")
+        y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+    except Exception as e:
+        print(f"❌ Error loading audio {file_path}: {e}")
+        return 0.0, 0.0
+    
+    if len(y) == 0:
+        return 0.0, 0.0
+    
+    # RMS Energy (fast)
+    rms = np.mean(librosa.feature.rms(y=y))
+    
+    # Skip expensive pitch analysis if energy is too low
+    if rms < PITCH_SKIP_THRESHOLD:
+        return float(rms), 0.0
+    
+    # Pitch Variance (optimized - use faster method if enabled)
+    pitch_var = 0.0
+    if USE_FAST_PITCH:
+        # Faster pitch estimation using autocorrelation (much faster than pyin)
+        try:
+            # Use autocorrelation-based pitch detection (faster than pyin)
+            pitches = librosa.yin(y, fmin=80, fmax=400, sr=sr)
+            # Filter out NaN values
+            valid_pitches = pitches[~np.isnan(pitches)]
+            if len(valid_pitches) > 0:
+                pitch_var = np.std(valid_pitches)
+        except Exception as e:
+            # Fallback to simple zero-crossing rate variance (very fast)
+            zcr = librosa.feature.zero_crossing_rate(y)[0]
+            pitch_var = np.std(zcr) * 100  # Scale to similar range
+    else:
+        # Original pyin method (more accurate but much slower)
+        try:
+            pitch, _, _ = librosa.pyin(y, fmin=80, fmax=400, sr=sr)
+            pitch_var = np.nanstd(pitch)
+            if np.isnan(pitch_var):
+                pitch_var = 0.0
+        except Exception as e:
+            print(f"⚠️ Pitch analysis failed: {e}")
+            pitch_var = 0.0
+    
+    return float(rms), float(pitch_var)
 
-        if total_spike_time < 0.3:
-            print("😴 Very low energy — not interesting.")
-            return False
 
-        transcript = obtain_transcript(file_path)
-        excitement = peaks_in_transcript(transcript)
-        normalized_energy = min(total_spike_time / 4.0, 1.0)
+def transcribe_and_emotion(file_path: str):
+    """Transcribe audio and get emotion intensity score (Past Backend)."""
+    transcript = obtain_transcript(file_path)
+    
+    if not transcript or len(transcript.strip()) < 3:
+        return transcript, 0.0
+    
+    sentiment = get_sentiment_pipeline()
+    try:
+        emotions = sentiment(transcript)
+        
+        # Handle different output formats
+        if emotions and isinstance(emotions, list) and len(emotions) > 0:
+            # RoBERTa outputs [[{label, score}]]
+            if isinstance(emotions[0], list):
+                score = emotions[0][0]["score"]
+            else:
+                score = emotions[0]["score"]
+        else:
+            score = 0.0
+    except Exception as e:
+        print(f"⚠️ Emotion detection failed: {e}")
+        score = 0.0
+    
+    return transcript, float(score)
 
-        final_score = 0.5 * normalized_energy + 0.5 * excitement
-        print(f"🔎 Energy={normalized_energy:.2f}, Excitement={excitement:.2f}, Final={final_score:.2f}")
 
-        return final_score > 0.3 or excitement > 0.4
+def compute_interest_score(file_path: str):
+    """
+    Compute final interest score for the segment (Past Backend Algorithm).
+    Returns: (score, transcript, details_dict)
+    All breakdown scores are normalized to 0-1 range.
+    """
+    energy, pitch_var = extract_audio_features(file_path)
+
+    # Normalize energy to 0-1 (RMS typically 0-0.1, multiply by 10 to get 0-1)
+    normalized_energy = min(energy * 10, 1.0)
+    
+    # Normalize pitch variance to 0-1 (assuming max variance of ~50 Hz for human voice)
+    # Pitch variance from librosa can be 0-100+ Hz, normalize to 0-1
+    normalized_pitch = min(pitch_var / 50.0, 1.0) if pitch_var > 0 else 0.0
+
+    # Skip if audio is too quiet
+    if energy < MIN_AUDIO_THRESHOLD:
+        return 0.0, "", {
+            "energy": round(normalized_energy, 4),
+            "pitch": round(normalized_pitch, 4),
+            "emotion": 0.0,
+            "keyword": 0.0
+        }
+
+    transcript, emotion_score = transcribe_and_emotion(file_path)
+
+    # Normalize emotion score to 0-1 (clamp to ensure it's in range)
+    normalized_emotion = min(max(emotion_score, 0.0), 1.0)
+
+    # Keyword excitement boost (from past backend)
+    keyword_boost = 0
+    keyword_detected = False
+    if HYPE_REGEX.search(transcript):
+        keyword_boost = KEYWORD_BOOST
+        keyword_detected = True
+        print(f"🔥 Hype keywords detected!")
+    
+    # Normalize keyword to 0-1 (1.0 if detected, 0.0 if not)
+    normalized_keyword = 1.0 if keyword_detected else 0.0
+
+    # Past Backend's Weighted Scoring Formula (using normalized values)
+    final_score = (
+        ENERGY_WEIGHT * normalized_energy +      # 35% - normalized energy
+        PITCH_WEIGHT * normalized_pitch +        # 25% - normalized pitch variance
+        EMOTION_WEIGHT * normalized_emotion +    # 40% - normalized emotion intensity
+        keyword_boost                            # 15% - keyword boost (raw value for scoring)
+    )
+
+    # Return normalized breakdown scores (all 0-1)
+    details = {
+        "energy": round(normalized_energy, 4),
+        "pitch": round(normalized_pitch, 4),
+        "emotion": round(normalized_emotion, 4),
+        "keyword": round(normalized_keyword, 4)
+    }
+    
+    return final_score, transcript, details
+
+
+def is_interesting_segment(file_path: str, min_score: float = 0.3) -> bool:
+    """
+    Determine if segment is interesting using past backend's sophisticated algorithm.
+    """
+    try:
+        score, transcript, details = compute_interest_score(file_path)
+        
+        snippet = transcript[:80] if transcript else "No transcript"
+        print(f"🎧 Score: {score:.3f} | {details} | {snippet}...")
+        
+        return score >= min_score
 
     except Exception as e:
         print(f"⚠️ Error analyzing {file_path}: {e}")

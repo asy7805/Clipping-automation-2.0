@@ -25,7 +25,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { AIScoreDisplay } from "@/components/AIScoreDisplay";
-import { cn, clampScore } from "@/lib/utils";
+import { cn, clampScore, parseScoreBreakdown } from "@/lib/utils";
 import { getChannelAvatarProps } from "@/lib/avatarUtils";
 import { Clip, ScoreBreakdown } from "@/hooks/useClips";
 
@@ -98,7 +98,7 @@ export function VideoPlayerModal({
       try {
         await navigator.share({
           title: `Clip from ${clipData?.channel_name}`,
-          text: clipData?.transcript.slice(0, 100),
+          text: cleanTranscript.slice(0, 100) || clipData?.transcript?.slice(0, 100) || "",
           url: shareUrl,
         });
       } catch (err) {
@@ -112,6 +112,10 @@ export function VideoPlayerModal({
     }
   };
 
+  // Parse breakdown from transcript if it's embedded (do this early so it's available everywhere)
+  const { breakdown: parsedBreakdown, cleanTranscript } = parseScoreBreakdown(clipData?.transcript);
+  const displayBreakdown = clipData?.score_breakdown || parsedBreakdown;
+  
   const clampedScore = clampScore(clipData?.confidence_score);
   const stars = clampedScore > 0 ? getStarCount(clampedScore) : 0;
   const { gradient, initials } = clipData ? getChannelAvatarProps(clipData.channel_name) : { gradient: 'from-purple-500 to-blue-500', initials: 'NA' };
@@ -264,7 +268,7 @@ export function VideoPlayerModal({
               </div>
 
               {/* AI Score Breakdown */}
-              {clampedScore > 0 && clipData.score_breakdown && (
+              {clampedScore > 0 && displayBreakdown && (
                 <div className="space-y-2">
                   <div className="text-xs font-bold text-muted-foreground uppercase tracking-wide border-b border-border pb-1">
                     Score Breakdown
@@ -272,10 +276,10 @@ export function VideoPlayerModal({
                   <AIScoreDisplay
                     score={clampedScore}
                     breakdown={{
-                      audioEnergy: clipData.score_breakdown.energy,
-                      pitchVariance: clipData.score_breakdown.pitch,
-                      emotionScore: clipData.score_breakdown.emotion,
-                      keywordBoost: clipData.score_breakdown.keyword
+                      audioEnergy: displayBreakdown.energy,
+                      pitchVariance: displayBreakdown.pitch,
+                      emotionScore: displayBreakdown.emotion,
+                      keywordBoost: displayBreakdown.keyword
                     }}
                     size="sm"
                     showBreakdown={true}
@@ -289,7 +293,7 @@ export function VideoPlayerModal({
               <h4 className="text-sm font-semibold mb-2 text-muted-foreground">Transcript</h4>
               <div className="bg-muted/50 rounded-lg p-3 max-h-32 overflow-y-auto">
                 <p className="text-sm leading-relaxed">
-                  {clipData.transcript || "No transcript available"}
+                  {cleanTranscript || clipData.transcript || "No transcript available"}
                 </p>
               </div>
             </div>

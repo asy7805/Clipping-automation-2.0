@@ -28,6 +28,11 @@ class MonitorWatchdog:
         self.check_interval = 30  # Check every 30 seconds
         self.running = False
         self.last_check_times = {}
+        # Track restart attempts to prevent infinite loops
+        self.last_restart_times = {}  # channel -> datetime of last restart
+        self.consecutive_restart_counts = {}  # channel -> count of consecutive restarts
+        self.max_consecutive_restarts = 3  # Stop after 3 consecutive restarts
+        self.restart_cooldown_seconds = 120  # Don't restart again for 2 minutes after a restart
         
     def is_process_running(self, pid: int) -> bool:
         """Check if a process is still running (excludes zombies)"""
@@ -84,11 +89,31 @@ class MonitorWatchdog:
                 issues.append(f"Process is a zombie (terminated but not cleaned up)")
                 return {"healthy": False, "issues": issues, "action": "restart"}
             
-            cpu_percent = process.cpu_percent(interval=0.1)
+            # Check CPU usage - use a longer interval for more accurate reading
+            # Video processing can legitimately use high CPU, so we need multiple samples
+            cpu_samples = []
+            for _ in range(3):
+                cpu_samples.append(process.cpu_percent(interval=0.2))
+                await asyncio.sleep(0.1)  # Small delay between samples
+            
+            avg_cpu = sum(cpu_samples) / len(cpu_samples)
             memory_mb = process.memory_info().rss / (1024 * 1024)
             
-            if cpu_percent > 95:
-                issues.append(f"Critically high CPU usage: {cpu_percent}%")
+            # Only flag CPU as critical if it's consistently very high (>250% for multi-core)
+            # Video processing + AI models can legitimately use high CPU during processing
+            # Further increased threshold to prevent false positives during model inference
+            if avg_cpu > 250:  # Increased from 200% to 250% - AI models can spike during inference
+                issues.append(f"Critically high CPU usage: {avg_cpu:.1f}%")
+                # Only trigger restart if CPU is extremely high AND process has been running for a while
+                # New processes can have high CPU during startup (model loading)
+                try:
+                    process_create_time = datetime.fromtimestamp(process.create_time())
+                    process_age = (datetime.utcnow() - process_create_time.replace(tzinfo=None)).total_seconds()
+                    if process_age > 120:  # Increased from 60s to 120s - give more time for model loading
+                        return {"healthy": False, "issues": issues, "action": "restart"}
+                except:
+                    pass
+            
             if memory_mb > 2048:  # 2GB
                 issues.append(f"High memory usage: {memory_mb:.0f} MB")
         except psutil.NoSuchProcess:
@@ -114,7 +139,28 @@ class MonitorWatchdog:
         Args:
             channel: Channel name to restart
         """
-        logger.warning(f"🔄 Attempting to restart monitor for {channel}")
+        # Check if we're in a restart cooldown period
+        last_restart = self.last_restart_times.get(channel)
+        if last_restart:
+            time_since_restart = (datetime.utcnow() - last_restart).total_seconds()
+            if time_since_restart < self.restart_cooldown_seconds:
+                remaining_cooldown = int(self.restart_cooldown_seconds - time_since_restart)
+                logger.warning(f"⏸️ Monitor {channel} in restart cooldown ({remaining_cooldown}s remaining). Skipping restart.")
+                return
+        
+        # Check consecutive restart limit
+        consecutive_count = self.consecutive_restart_counts.get(channel, 0)
+        if consecutive_count >= self.max_consecutive_restarts:
+            logger.error(f"🛑 Monitor {channel} has failed {consecutive_count} consecutive restarts. Stopping auto-restart to prevent infinite loop.")
+            logger.error(f"   Please investigate the root cause manually. Monitor will remain stopped.")
+            # Mark monitor as stopped to prevent further restart attempts
+            monitor = self.active_monitors.get(channel)
+            if monitor:
+                monitor['status'] = 'stopped'
+                monitor['auto_restart_disabled'] = True
+            return
+        
+        logger.warning(f"🔄 Attempting to restart monitor for {channel} (attempt {consecutive_count + 1}/{self.max_consecutive_restarts})")
         
         monitor = self.active_monitors.get(channel)
         if not monitor:
@@ -174,10 +220,16 @@ class MonitorWatchdog:
             monitor['restarted_at'] = datetime.utcnow().isoformat()
             monitor['restart_count'] = monitor.get('restart_count', 0) + 1
             
+            # Track restart time and increment consecutive count
+            self.last_restart_times[channel] = datetime.utcnow()
+            self.consecutive_restart_counts[channel] = consecutive_count + 1
+            
             logger.info(f"✅ Restarted monitor for {channel} with new PID: {process.pid}")
             
         except Exception as e:
             logger.error(f"❌ Failed to restart monitor for {channel}: {e}")
+            # Increment consecutive count even on failure
+            self.consecutive_restart_counts[channel] = consecutive_count + 1
     
     async def run_watchdog_loop(self):
         """Main watchdog loop that checks all monitors"""
@@ -189,6 +241,10 @@ class MonitorWatchdog:
                 # Check each active monitor
                 for channel in list(self.active_monitors.keys()):
                     monitor = self.active_monitors[channel]
+                    
+                    # Skip monitors that have auto-restart disabled
+                    if monitor.get('auto_restart_disabled', False):
+                        continue
                     
                     # Perform health check
                     health_status = await self.check_monitor_health(channel, monitor)
@@ -212,6 +268,12 @@ class MonitorWatchdog:
                         elif action == "warn":
                             # Issues but not critical - just log warnings
                             logger.warning(f"⚠️ Monitor {channel} has warnings: {issues_str}")
+                    else:
+                        # Monitor is healthy - reset consecutive restart count
+                        if channel in self.consecutive_restart_counts:
+                            if self.consecutive_restart_counts[channel] > 0:
+                                logger.info(f"✅ Monitor {channel} is now healthy. Resetting restart counter.")
+                            self.consecutive_restart_counts[channel] = 0
                     
                     # Update last check time
                     self.last_check_times[channel] = datetime.utcnow()

@@ -133,7 +133,12 @@ def compute_interest_score(file_path: str):
 # ------------------ TOP-K SELECTION ------------------
 
 def select_best_segments(segment_paths, top_k=5, min_score=0.3):
-    """Return top_k segments with highest interest score."""
+    """
+    Return top_k segments with highest interest score.
+    Now uses the updated scoring from select_and_clip.py
+    """
+    from select_and_clip import compute_interest_score
+    
     scored_segments = []
     for path in segment_paths:
         score, transcript, detail = compute_interest_score(path)

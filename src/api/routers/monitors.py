@@ -145,7 +145,20 @@ def sync_monitors_from_db():
                 monitor['process_id'] = new_pid
                 active_monitors[channel] = monitor
             else:
-                # Process not running - delete from database (zombie cleanup)
+                # Process not running - but check if monitor is newly created
+                # Give new monitors a 30 second grace period to start up
+                try:
+                    started_at = datetime.fromisoformat(monitor['started_at'].replace('Z', '+00:00'))
+                    age_seconds = (datetime.utcnow().replace(tzinfo=started_at.tzinfo) - started_at).total_seconds()
+                    
+                    if age_seconds < 30:
+                        # Monitor is less than 30 seconds old, give it time to start
+                        active_monitors[channel] = monitor
+                        continue
+                except:
+                    pass
+                
+                # Process not running and not newly created - delete from database (zombie cleanup)
                 dead_monitor_ids.append(monitor['id'])
         
         # Delete dead monitors from database
@@ -306,8 +319,16 @@ async def start_monitor(
         log_file = log_dir / f"monitor_{user_id[:8]}_{channel_name}.log"
         log_handle = open(log_file, 'a')
         
+        # Use optimized defaults: best quality and auto-detect encoder (will use hardware if available)
+        # FFmpeg will downscale to 1280px width anyway, so we get "best" from Twitch then downscale
         process = subprocess.Popen(
-            [python_executable, str(script_path), "--channel", channel_name],
+            [
+                python_executable, 
+                str(script_path), 
+                "--channel", channel_name,
+                "--quality", "best",  # Get best available (will be downscaled by FFmpeg)
+                "--encoder", "auto",  # Auto-detect best encoder (hardware if available)
+            ],
             stdout=log_handle,
             stderr=subprocess.STDOUT,
             env=env,
@@ -509,7 +530,19 @@ async def list_monitors(current_user: User = Depends(get_current_user)):
             # Check if process is actually running
             if monitor['status'] == 'running' and pid:
                 if not is_process_running(pid):
-                    # Process died - delete from database instead of marking as stopped
+                    # Check if monitor is newly created (grace period)
+                    try:
+                        started_at = datetime.fromisoformat(monitor['started_at'].replace('Z', '+00:00'))
+                        age_seconds = (datetime.utcnow().replace(tzinfo=started_at.tzinfo) - started_at).total_seconds()
+                        
+                        if age_seconds < 30:
+                            # Monitor is less than 30 seconds old, give it time to start
+                            active_monitors_list.append(monitor)
+                            continue
+                    except:
+                        pass
+                    
+                    # Process died and not newly created - delete from database instead of marking as stopped
                     dead_monitor_ids.append(monitor['id'])
                     continue
             
@@ -554,8 +587,20 @@ async def get_monitor_status(
         monitor = monitor_result.data[0]
         pid = monitor.get('process_id')
         
-        # Delete monitor if process is dead (zombie cleanup)
+        # Delete monitor if process is dead (zombie cleanup) - but with grace period for new monitors
         if monitor['status'] == 'running' and pid and not is_process_running(pid):
+            # Check if monitor is newly created (grace period)
+            try:
+                started_at = datetime.fromisoformat(monitor['started_at'].replace('Z', '+00:00'))
+                age_seconds = (datetime.utcnow().replace(tzinfo=started_at.tzinfo) - started_at).total_seconds()
+                
+                if age_seconds < 30:
+                    # Monitor is less than 30 seconds old, give it time to start
+                    return monitor
+            except:
+                pass
+            
+            # Process is dead and not newly created - delete it
             sb.table('monitors')\
                 .delete()\
                 .eq('id', monitor['id'])\
@@ -585,8 +630,23 @@ async def get_monitor_health(
             .eq('channel_name', channel_name)\
             .execute()
         
+        # If monitor doesn't exist, return offline status instead of 404
         if not monitor_result.data or len(monitor_result.data) == 0:
-            raise HTTPException(status_code=404, detail=f"Monitor for {channel_name} not found")
+            # Still check if stream is live on Twitch
+            twitch_info = twitch_api.get_stream_info(channel_name)
+            return {
+                "healthy": False,
+                "process_alive": False,
+                "is_live": twitch_info.get('is_live', False) if twitch_info else False,
+                "viewer_count": twitch_info.get('viewer_count', 0) if twitch_info else 0,
+                "stream_title": twitch_info.get('title', '') if twitch_info else '',
+                "cpu_percent": 0.0,
+                "memory_mb": 0.0,
+                "total_cpu_percent": 0.0,
+                "uptime": "Not running",
+                "warnings": ["Monitor is not active"],
+                "monitor_status": "inactive"
+            }
         
         monitor = monitor_result.data[0]
         pid = monitor.get('process_id')
@@ -681,15 +741,33 @@ async def get_monitor_stats(
         sb = get_client()
         channel_name = channel_name.lower()
         
-        # Verify user owns this monitor
+        # Check if monitor exists (active or inactive)
         monitor_result = sb.table('monitors')\
             .select('id')\
             .eq('user_id', user_id)\
             .eq('channel_name', channel_name)\
             .execute()
         
+        # If monitor doesn't exist, check if user has any clips for this channel
+        # (monitor may have been removed but clips still exist)
         if not monitor_result.data or len(monitor_result.data) == 0:
-            raise HTTPException(status_code=404, detail=f"Monitor for {channel_name} not found")
+            clips_check = sb.table('clips_metadata')\
+                .select('id')\
+                .eq('user_id', user_id)\
+                .eq('channel_name', channel_name)\
+                .limit(1)\
+                .execute()
+            
+            # If no clips exist either, return empty stats instead of 404
+            if not clips_check.data or len(clips_check.data) == 0:
+                return {
+                    "clips_captured": 0,
+                    "segments_analyzed": 0,
+                    "last_clip_time": "No clips yet",
+                    "total_size_mb": 0,
+                    "monitor_status": "inactive"
+                }
+            # Has clips but monitor is inactive, continue to show stats
         
         # Get clip statistics from database
         clips_result = sb.table('clips_metadata')\
@@ -721,11 +799,14 @@ async def get_monitor_stats(
             except:
                 last_clip_str = "recently"
         
+        monitor_active = bool(monitor_result.data and len(monitor_result.data) > 0)
+        
         return {
             "clips_captured": len(clips),
             "segments_analyzed": len(clips) * 3,
-            "last_clip_time": last_clip_str,
-            "total_size_mb": round(total_size / (1024 * 1024), 1)
+            "last_clip_time": last_clip_str or "No clips yet",
+            "total_size_mb": round(total_size / (1024 * 1024), 1),
+            "monitor_status": "active" if monitor_active else "inactive"
         }
     except HTTPException:
         raise
@@ -734,6 +815,7 @@ async def get_monitor_stats(
         return {
             "clips_captured": 0,
             "segments_analyzed": 0,
-            "last_clip_time": None,
-            "total_size_mb": 0
+            "last_clip_time": "Error loading stats",
+            "total_size_mb": 0,
+            "monitor_status": "error"
         }

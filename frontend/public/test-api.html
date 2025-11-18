@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Test</title>
+  <style>
+    body {
+      font-family: monospace;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+    button {
+      background: #8b5cf6;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover { background: #7c3aed; }
+    pre {
+      background: #1e293b;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+    .success { color: #10b981; }
+    .error { color: #ef4444; }
+    .section { margin: 20px 0; border: 1px solid #334155; padding: 15px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>🧪 API Diagnostics</h1>
+  
+  <div class="section">
+    <h2>Quick Tests</h2>
+    <button onclick="testHealth()">Test Health</button>
+    <button onclick="testStreams()">Test Streams</button>
+    <button onclick="testClips()">Test Clips</button>
+    <button onclick="testMonitors()">Test Monitors</button>
+    <button onclick="testAll()">Test All</button>
+  </div>
+
+  <div id="results"></div>
+
+  <script>
+    const API_BASE = 'http://localhost:8000';
+    const results = document.getElementById('results');
+
+    function log(title, data, isError = false) {
+      const section = document.createElement('div');
+      section.className = 'section';
+      section.innerHTML = `
+        <h3 class="${isError ? 'error' : 'success'}">${title}</h3>
+        <pre>${JSON.stringify(data, null, 2)}</pre>
+      `;
+      results.appendChild(section);
+      results.scrollTop = results.scrollHeight;
+    }
+
+    async function testEndpoint(name, url) {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        
+        if (!response.ok) {
+          log(`❌ ${name} (${response.status})`, data, true);
+          return;
+        }
+        
+        log(`✅ ${name}`, {
+          status: response.status,
+          dataLength: Array.isArray(data) ? data.length : 'N/A',
+          sample: Array.isArray(data) ? data[0] : data
+        });
+      } catch (error) {
+        log(`❌ ${name} Error`, { error: error.message }, true);
+      }
+    }
+
+    async function testHealth() {
+      results.innerHTML = '';
+      await testEndpoint('Health Check', `${API_BASE}/api/v1/health`);
+    }
+
+    async function testStreams() {
+      results.innerHTML = '';
+      await testEndpoint('Streams', `${API_BASE}/api/v1/streams`);
+    }
+
+    async function testClips() {
+      results.innerHTML = '';
+      await testEndpoint('Clips', `${API_BASE}/api/v1/clips?limit=5`);
+    }
+
+    async function testMonitors() {
+      results.innerHTML = '';
+      await testEndpoint('Monitors List', `${API_BASE}/api/v1/monitors/list`);
+    }
+
+    async function testAll() {
+      results.innerHTML = '<h2>Running all tests...</h2>';
+      await testHealth();
+      await testStreams();
+      await testClips();
+      await testMonitors();
+      
+      // Test dashboard stats
+      await testEndpoint('Dashboard Stats', `${API_BASE}/api/v1/analytics/dashboard`);
+    }
+
+    // Auto-run on load
+    window.onload = () => {
+      log('🚀 API Diagnostics Ready', { 
+        apiBase: API_BASE,
+        instructions: 'Click buttons above to test endpoints'
+      });
+    };
+  </script>
+</body>
+</html>
+

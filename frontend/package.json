@@ -54,6 +54,7 @@
     "input-otp": "^1.4.2",
     "lucide-react": "^0.462.0",
     "motion": "^12.23.24",
+    "next-themes": "^0.4.4",
     "react": "^18.3.1",
     "react-day-picker": "^8.10.1",
     "react-dom": "^18.3.1",
@@ -84,6 +85,7 @@
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0",
+    "vercel": "^48.10.3",
     "vite": "^5.4.19"
   }
 }

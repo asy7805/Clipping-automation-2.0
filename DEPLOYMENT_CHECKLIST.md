@@ -5,22 +5,26 @@ Quick checklist to deploy AscensionClips to production.
 ## ✅ Pre-Deployment
 
 - [ ] Vercel is configured (already done ✅)
+- [ ] Poetry configuration files created (`pyproject.toml`, `Procfile`, `railway.json`) ✅
 - [ ] Production branch has all frontend code
 - [ ] All environment variables documented
+- [ ] Test Poetry setup locally (optional): `poetry install && poetry shell`
 
 ---
 
 ## 📋 Step-by-Step Checklist
 
-### 1. Deploy Backend API
+### 1. Deploy Backend API (Railway + Poetry)
 
-- [ ] Choose hosting platform (Render/Railway/Fly.io)
-- [ ] Create account and connect GitHub
-- [ ] Create new web service from `production` branch
-- [ ] Configure build command: `pip install -r requirements.txt`
-- [ ] Configure start command: `cd src/api && python -m uvicorn main:app --host 0.0.0.0 --port $PORT`
+- [ ] Verify `pyproject.toml`, `Procfile`, and `railway.json` are in repository root
+- [ ] Sign up/login to [Railway.app](https://railway.app)
+- [ ] Create new project → Deploy from GitHub repo
+- [ ] Select your repository and `production` branch
+- [ ] Railway will auto-detect Poetry from `pyproject.toml`
+- [ ] Verify build command (should be auto-detected): `poetry install --no-dev`
+- [ ] Verify start command (from Procfile): `cd src/api && poetry run uvicorn main:app --host 0.0.0.0 --port $PORT`
 - [ ] Deploy backend
-- [ ] Save backend URL: `https://your-backend-url...`
+- [ ] Save backend URL: `https://your-app.up.railway.app`
 
 ### 2. Configure Backend Environment Variables
 

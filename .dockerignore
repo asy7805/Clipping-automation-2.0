@@ -1,0 +1,71 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.venv-ml/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+
+# Frontend (not needed for backend deployment)
+frontend/
+node_modules/
+bun.lockb
+package-lock.json
+
+# Data files
+data/
+*.mp4
+*.mkv
+*.wav
+*.webm
+*.srt
+
+# Model files
+*.bin
+*.safetensors
+*.pth
+*.pt
+*.ckpt
+
+# Temporary files
+*.tmp
+temp/
+tmp/
+.DS_Store
+
+# Documentation (optional - can be excluded)
+docs/*.md
+*.md
+
+# Vercel
+.vercel/
+

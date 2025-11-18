@@ -6,9 +6,35 @@ Complete guide to deploy AscensionClips to production.
 
 Your deployment consists of:
 1. **Frontend** (Vite/React) → Deployed on **Vercel** ✅ (Already configured)
-2. **Backend** (FastAPI) → Needs deployment on **Render**, **Railway**, or **Fly.io**
+2. **Backend** (FastAPI) → Deployed on **Railway** using **Poetry** for dependency management ✅
 3. **Database** (Supabase) → Already configured ✅
 4. **Domain** → Connect to Vercel
+
+## Pre-Deployment Setup (Local)
+
+This project uses **Poetry** for Python dependency management. To set up locally:
+
+1. **Install Poetry** (if not already installed):
+   ```bash
+   curl -sSL https://install.python-poetry.org | python3 -
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   poetry install
+   ```
+
+3. **Activate Poetry shell**:
+   ```bash
+   poetry shell
+   ```
+
+4. **Run the API locally**:
+   ```bash
+   cd src/api && poetry run uvicorn main:app --reload
+   ```
+
+**Note**: Railway will automatically use Poetry when it detects `pyproject.toml` in your repository.
 
 ---
 
@@ -45,7 +71,7 @@ Choose one of these hosting platforms for your FastAPI backend:
 
 5. **Click "Create Web Service"**
 
-### Option B: Railway
+### Option B: Railway (Recommended - Using Poetry) ⭐
 
 1. **Sign up/Login** to [Railway.app](https://railway.app)
 
@@ -54,16 +80,26 @@ Choose one of these hosting platforms for your FastAPI backend:
    - Branch: `production`
 
 3. **Configure the service:**
-   - Railway will auto-detect Python
-   - Add `requirements.txt` at root (already exists)
-   - Set start command:
+   - Railway will auto-detect Python and Poetry (via `pyproject.toml`)
+   - If using `Procfile`, Railway will automatically use it
+   - If using `railway.json`, it will be detected automatically
+   - **Build Command** (auto-detected, but you can verify):
      ```bash
-     cd src/api && python -m uvicorn main:app --host 0.0.0.0 --port $PORT
+     poetry install --no-dev
+     ```
+   - **Start Command** (from `Procfile` or `railway.json`):
+     ```bash
+     cd src/api && poetry run uvicorn main:app --host 0.0.0.0 --port $PORT
      ```
 
 4. **Environment Variables** (see Step 3 below)
 
-5. **Deploy**
+5. **Deploy** - Railway will automatically:
+   - Detect Poetry from `pyproject.toml`
+   - Run `poetry install --no-dev` to install dependencies
+   - Start your FastAPI server using the Procfile or railway.json config
+
+**Note**: Make sure `pyproject.toml`, `Procfile`, and/or `railway.json` are in your repository root.
 
 ### Option C: Fly.io
 

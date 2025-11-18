@@ -1,0 +1,803 @@
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_ahqsvsgq
+🗂 Using streams row id=0abe682c-3208-4d3e-a69e-31fec71dbc90 twitch_stream_id=live-arky-1763101998
+🔧 Starting pipeline for arky...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_arky.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_arky.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+✅ Pipeline started: streamlink PID 79874, ffmpeg PID 79875
+▶️ Recording... (Ctrl+C to stop)
+📁 Segment pattern: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_ahqsvsgq/seg_%05d.mp4
+📁 Output directory: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_ahqsvsgq
+🔍 Streamlink PID: 79874, FFmpeg PID: 79875
+📹 Processing seg_00000.mp4...
+🔊 Loading Whisper model (small)...
+Hey, where'd you go? Who's strong? Hi. Why did you come out tonight to say it? Wait, where's your piece? I'm the piece of this. This is me. This is me.
+🧠 Loading emotion model (SamLowe/roberta-base-go_emotions)...
+Device set to use mps:0
+🎧 Score: 0.817 | {'energy': 0.169, 'pitch': 2.5375, 'emotion': 0.5434, 'keyword': 0} | Hey, where'd you go? Who's strong? Hi. Why did you come out tonight to say it? W...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00000.mp4
+📹 Processing seg_00001.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-79862-0j0we032'}
+  warnings.warn(
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_gxmh4440
+🗂 Using streams row id=e5f00b72-f030-44cb-854f-e6e9e9592eeb twitch_stream_id=live-arky-1763102354
+🔧 Starting pipeline for arky...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_arky.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_arky.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+✅ Pipeline started: streamlink PID 80398, ffmpeg PID 80399
+▶️ Recording... (Ctrl+C to stop)
+📁 Segment pattern: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_gxmh4440/seg_%05d.mp4
+📁 Output directory: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_gxmh4440
+🔍 Streamlink PID: 80398, FFmpeg PID: 80399
+📹 Processing seg_00000.mp4...
+🔊 Loading Whisper model (small)...
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-80396-yqx4ru_6'}
+  warnings.warn(
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_1sv0_g_t
+🗂 Using streams row id=b5c3fc53-c47c-4013-a7fc-9b498be6193a twitch_stream_id=live-arky-1763102554
+🔧 Starting pipeline for arky...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_arky.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_arky.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+✅ Pipeline started: streamlink PID 80705, ffmpeg PID 80706
+▶️ Recording... (Ctrl+C to stop)
+📁 Segment pattern: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_1sv0_g_t/seg_%05d.mp4
+📁 Output directory: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_1sv0_g_t
+🔍 Streamlink PID: 80705, FFmpeg PID: 80706
+📹 Processing seg_00000.mp4...
+🔊 Loading Whisper model (small)...
+We gotta get a shot, bro. Let's go! You're too strong, bro! Hey, I'm waiting for you, brother. Oh, brother. I'm waiting for you. Hey, life is good, bro. It is what it is, man. Life is great. Hey, cheers! No, you're already getting drunk, bro. Slow down. Don't drink too much. Don't drink too much. Yeah, yeah. You're dope!
+🧠 Loading emotion model (SamLowe/roberta-base-go_emotions)...
+Device set to use mps:0
+🔥 Hype keywords detected!
+🎧 Score: 1.016 | {'energy': 0.1551, 'pitch': 40.3798, 'emotion': 0.6645, 'keyword': 0.15} | We gotta get a shot, bro. Let's go! You're too strong, bro! Hey, I'm waiting for...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00000.mp4
+📹 Processing seg_00001.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+You're the heart. No, no, no, no, no, baby, friday, now. Slow down, bro, drink some water. Make sure to get some water. Give us some water. Sorry, are you?
+🔥 Hype keywords detected!
+🎧 Score: 0.929 | {'energy': 0.1582, 'pitch': 92.4193, 'emotion': 0.4465, 'keyword': 0.15} | You're the heart. No, no, no, no, no, baby, friday, now. Slow down, bro, drink s...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00001.mp4
+📹 Processing seg_00002.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+I'm sorry, I'm gonna have to give you a ticket.
+🎧 Score: 0.927 | {'energy': 0.1771, 'pitch': 20.8224, 'emotion': 0.8178, 'keyword': 0} | I'm sorry, I'm gonna have to give you a ticket....
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00002.mp4
+📹 Processing seg_00003.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+I'm gonna have to give you a ticket. Your ticket is one second. Hold on, I'm gonna go on my tickets. Your ticket. Now, read the other side. You look great. Your ticket.
+🎧 Score: 0.952 | {'energy': 0.1757, 'pitch': 22.8424, 'emotion': 0.8802, 'keyword': 0} | I'm gonna have to give you a ticket. Your ticket is one second. Hold on, I'm gon...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00003.mp4
+📹 Processing seg_00004.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+good It's getting hot in here
+🎧 Score: 0.915 | {'energy': 0.1864, 'pitch': 40.5414, 'emotion': 0.7879, 'keyword': 0} | good It's getting hot in here...
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00004.mp4
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:202: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+We gotta get a shot, bro. Let's go! You're too strong, bro! Hey, I'm waiting for you, brother. Oh, brother. I'm waiting for you. Hey, life is good, bro. It is what it is, man. Life is great. Hey, cheers! No, you're already getting drunk, bro. Slow down. Don't drink too much. Don't drink too much. Yeah, yeah. You're dope! No! No!
+🔥 Hype keywords detected!
+🎧 seg_00000.mp4 | Score: 0.944 | {'energy': 0.1551, 'pitch': 40.3798, 'emotion': 0.4854, 'keyword': 0.15} | We gotta get a shot, bro. Let's go! You're too strong, bro! ...
+You're the heart. No, no, no, no, no, baby, try deadhead. Slow down, bro, drink some water. Make sure to get some water. Sebi, give us some water. Sorry, are you?
+🔥 Hype keywords detected!
+🎧 seg_00001.mp4 | Score: 0.962 | {'energy': 0.1583, 'pitch': 92.4215, 'emotion': 0.5297, 'keyword': 0.15} | You're the heart. No, no, no, no, no, baby, try deadhead. Sl...
+I'm sorry, I'm gonna have to give you a ticket.
+🎧 seg_00002.mp4 | Score: 0.927 | {'energy': 0.1771, 'pitch': 20.8224, 'emotion': 0.8178, 'keyword': 0} | I'm sorry, I'm gonna have to give you a ticket....
+I'm gonna have to give you a ticket. Your ticket is one second. Hold on, I'm gonna go on my tickets. Your ticket. Now, read the other side. You look great. Your ticket.
+🎧 seg_00003.mp4 | Score: 0.952 | {'energy': 0.1757, 'pitch': 22.8381, 'emotion': 0.8802, 'keyword': 0} | I'm gonna have to give you a ticket. Your ticket is one seco...
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-80701-rmqzbhr9'}
+  warnings.warn(
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_i8l5fmti
+🗂 Using streams row id=a4964faa-5a5d-4c88-a64a-f08ec8326ea3 twitch_stream_id=live-arky-1763102819
+🔧 Starting pipeline for arky...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_arky.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_arky.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+✅ Pipeline started: streamlink PID 81197, ffmpeg PID 81198
+▶️ Recording... (Ctrl+C to stop)
+📁 Segment pattern: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_i8l5fmti/seg_%05d.mp4
+📁 Output directory: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_i8l5fmti
+🔍 Streamlink PID: 81197, FFmpeg PID: 81198
+📹 Processing seg_00000.mp4...
+🔊 Loading Whisper model (base)...
+I got nervous!
+🧠 Loading emotion model (j-hartmann/emotion-english-distilroberta-base)...
+Device set to use cpu
+🎧 Score: 0.995 | {'energy': 0.1918, 'pitch': 65.2892, 'emotion': 0.988, 'keyword': 0} | I got nervous!...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00000.mp4
+📹 Processing seg_00001.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Wait He's good
+🎧 Score: 0.950 | {'energy': 0.1981, 'pitch': 52.236, 'emotion': 0.8748, 'keyword': 0} | Wait He's good...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00001.mp4
+📹 Processing seg_00002.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Like girls on the invite list That's like how you like I'm okay shit It's just like a million fucking girls like three guys That's already derasio That should was so funny
+🎧 Score: 0.742 | {'energy': 0.1921, 'pitch': 64.145, 'emotion': 0.3558, 'keyword': 0} | Like girls on the invite list That's like how you like I'm okay shit It's just l...
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00002.mp4
+📹 Processing seg_00003.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Now get to the earliest hype in up in a minute. At least the Emily's about to do it. A lot of places are honkies. That doesn't be mine. I'm gonna fuck you. I'm gonna fuck you. I'm gonna check that video. I'm gonna check that video. I'm ending this video. I'm tired of that. I'm tired of this. Oh! Oh! Oh! Hey! Hey! Hey! I know that you're not here.
+🎧 Score: 0.736 | {'energy': 0.189, 'pitch': 69.6483, 'emotion': 0.341, 'keyword': 0} | Now get to the earliest hype in up in a minute. At least the Emily's about to do...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00003.mp4
+📹 Processing seg_00004.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+You know why you need me so do what I need I'm a wonder I don't feel better You need me my wonder I need you now You need me to know how I'm dating And I'm just being with you It's out to see you I need you I'm just out of this I'm with you I need you But I can't So I need you I need you What's the reason No doubt I miss you I've already been with you But I can't I don't have enough for you to show for
+🔥 Hype keywords detected!
+🎧 Score: 1.019 | {'energy': 0.1931, 'pitch': 72.8728, 'emotion': 0.6737, 'keyword': 0.15} | You know why you need me so do what I need I'm a wonder I don't feel better You ...
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00004.mp4
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:217: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+I got nervous, I got nervous! Oh my god! Oh my god! Oh my god! Get up, get up! Yeah, you have to try it! Oh my god! I don't drink anything! I don't drink anything! Oh my god! Oh shit! Oh my god! Oh my god! Oh shit! Oh no!
+🔥 Hype keywords detected!
+🎧 seg_00000.mp4 | Score: 1.012 | {'energy': 0.1918, 'pitch': 65.2894, 'emotion': 0.6558, 'keyword': 0.15} | I got nervous, I got nervous! Oh my god! Oh my god! Oh my go...
+Wait He's good But I'm always a hey kind of thing This guy this guy host of earth that I've never seen so many
+🎧 seg_00001.mp4 | Score: 0.790 | {'energy': 0.1981, 'pitch': 52.2358, 'emotion': 0.4749, 'keyword': 0} | Wait He's good But I'm always a hey kind of thing This guy t...
+Like girls on the invite list That's like how you like I'm okay shit It's just like a million fucking girls like three guys That's already derasio That should was so funny
+🎧 seg_00002.mp4 | Score: 0.742 | {'energy': 0.1922, 'pitch': 64.1498, 'emotion': 0.3558, 'keyword': 0} | Like girls on the invite list That's like how you like I'm o...
+Now get to the earliest hype in up in a minute. At least the Emily's about to do it. A lot of places are honkies. That doesn't be mine. I'm gonna fuck you. I'm gonna fuck you. I'm gonna check that video. I'm gonna check that video. I'm ending this video. I'm tired of that. I'm tired of this. Oh! Oh! Oh! Hey! Hey! Hey! I know that you're not here.
+🎧 seg_00003.mp4 | Score: 0.736 | {'energy': 0.189, 'pitch': 69.6479, 'emotion': 0.341, 'keyword': 0} | Now get to the earliest hype in up in a minute. At least the...
+You know why you need me so do what I need I'm a wonder I don't feel better You need me my wonder I need you now You need me to know how I'm dating And I'm just being with you It's out to see you I need you I'm just out of this I'm with you I need you But I can't So I need you I need you What's the reason No doubt I miss you I've already been with you But I can't You know I'm not the only one You can show me
+🔥 Hype keywords detected!
+🎧 seg_00004.mp4 | Score: 1.063 | {'energy': 0.1931, 'pitch': 72.8671, 'emotion': 0.7819, 'keyword': 0.15} | You know why you need me so do what I need I'm a wonder I do...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x12c623ce0] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_i8l5fmti/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 2652 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720, 2524 kb/s, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_i8l5fmti/merged_1763102984.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 2524 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x12d20a370] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x12d20a370] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x12d20a370] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x12d20a370] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x12c624e70] video:27586KiB audio:1405KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.344047%
+frame= 5380 fps=0.0 q=-1.0 Lsize=   29091KiB time=00:01:29.71 bitrate=2656.3kbits/s speed=1.81e+03x    
+⬆️ Uploaded merged clip: raw/arky/live-arky-1763102819/20251114/segment_1763102999.mp4
+
+🎧 Clip created | Score: 0.955 | {'energy': 0.1943, 'pitch': 63.4641, 'emotion': 0.6375, 'keyword': 0.1} 🔥
+   Transcript: You know why you need me so do what I need I'm a wonder I don't feel better You ...
+
+✅ Inserted clip into database: 429e6630-3d26-4df7-b3a1-62431d03f00e
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763102819/20251114/seg_00000.mp4
+🗑️ Deleted seg_00000.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763102819/20251114/seg_00001.mp4
+🗑️ Deleted seg_00001.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763102819/20251114/seg_00002.mp4
+🗑️ Deleted seg_00002.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763102819/20251114/seg_00003.mp4
+🗑️ Deleted seg_00003.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763102819/20251114/seg_00004.mp4
+🗑️ Deleted seg_00004.mp4
+📹 Processing seg_00005.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+⚠️ Skipping corrupted/incomplete file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_i8l5fmti/seg_00005.mp4: FFmpeg failed on /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_i8l5fmti/seg_00005.mp4: ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x15d022d10] moov atom not found
+[in#0 @ 0x15bf07b20] Error opening input: Invalid data found when processing input
+Error opening input file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_i8l5fmti/seg_00005.mp4.
+Error opening input files: Invalid data found when processing input
+
+⏭️ Skipped (not interesting): seg_00005.mp4
+🗑️ Deleted seg_00005.mp4
+🔄 Iteration 10: 1 segments processed, 0 in buffer
+🔄 Iteration 20: 1 segments processed, 0 in buffer
+📹 Processing seg_00006.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+Oh, what about that? Oh, what about that? Oh, what about that?
+🔥 Hype keywords detected!
+🎧 Score: 0.955 | {'energy': 0.2017, 'pitch': 36.324, 'emotion': 0.5113, 'keyword': 0.15} | Oh, what about that? Oh, what about that? Oh, what about that?...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00006.mp4
+📹 Processing seg_00007.mp4...
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-81191-q8egjxlb'}
+  warnings.warn(
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_8w5p3te6
+🗂 Using streams row id=e26b4918-8b37-4693-abea-9e319518cc14 twitch_stream_id=live-arky-1763103308
+🔧 Starting pipeline for arky...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_arky.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_arky.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+✅ Pipeline started: streamlink PID 82211, ffmpeg PID 82212
+▶️ Recording... (Ctrl+C to stop)
+📁 Segment pattern: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_8w5p3te6/seg_%05d.mp4
+📁 Output directory: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_8w5p3te6
+🔍 Streamlink PID: 82211, FFmpeg PID: 82212
+📹 Processing seg_00000.mp4...
+🔊 Loading Whisper model (base)...
+Oh
+🎧 Score: 0.600 | {'energy': 0.1823, 'pitch': 65.6704, 'emotion': 0.0, 'keyword': 0} | Oh...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00000.mp4
+📹 Processing seg_00001.mp4...
+Right then when we fly in high, Or we go down low and down low And I'll try and bring you to hell We'll be staying, staying and staying Now you're not on.
+🧠 Loading emotion model (j-hartmann/emotion-english-distilroberta-base)...
+Device set to use cpu
+🎧 Score: 0.796 | {'energy': 0.1844, 'pitch': 66.8253, 'emotion': 0.4907, 'keyword': 0} | Right then when we fly in high, Or we go down low and down low And I'll try and ...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00001.mp4
+📹 Processing seg_00002.mp4...
+
+🎧 Score: 0.600 | {'energy': 0.1813, 'pitch': 84.6781, 'emotion': 0.0, 'keyword': 0} | No transcript...
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00002.mp4
+📹 Processing seg_00003.mp4...
+but our um uh uh me i I'm not gonna talk about it in a second.
+🎧 Score: 0.769 | {'energy': 0.1738, 'pitch': 72.7418, 'emotion': 0.4232, 'keyword': 0} | but our um uh uh me i I'm not gonna talk about it in a second....
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00003.mp4
+📹 Processing seg_00004.mp4...
+
+🎧 Score: 0.600 | {'energy': 0.1839, 'pitch': 96.8707, 'emotion': 0.0, 'keyword': 0} | No transcript...
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00004.mp4
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:221: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+Oh
+🎧 seg_00000.mp4 | Score: 0.600 | {'energy': 0.1823, 'pitch': 65.7056, 'emotion': 0.0, 'keyword': 0} | Oh...
+per 4 and
+🎧 seg_00001.mp4 | Score: 0.961 | {'energy': 0.1845, 'pitch': 66.8284, 'emotion': 0.9016, 'keyword': 0} | per 4 and...
+
+🎧 seg_00002.mp4 | Score: 0.600 | {'energy': 0.1813, 'pitch': 84.8421, 'emotion': 0.0, 'keyword': 0} | ...
+we won't let you down. We won't let you down.
+🎧 seg_00003.mp4 | Score: 0.842 | {'energy': 0.1738, 'pitch': 72.7343, 'emotion': 0.6062, 'keyword': 0} | we won't let you down. We won't let you down....
+
+🎧 seg_00004.mp4 | Score: 0.600 | {'energy': 0.1839, 'pitch': 96.8025, 'emotion': 0.0, 'keyword': 0} | ...
+ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x11d231250] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_8w5p3te6/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 2649 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720, 2520 kb/s, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_8w5p3te6/merged_1763103474.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 2520 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x11d231210] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x11d231210] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x11c6054d0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x11c6054d0] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x11c606960] video:25737KiB audio:1309KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.344399%
+frame= 5019 fps=0.0 q=-1.0 Lsize=   27139KiB time=00:01:23.68 bitrate=2656.8kbits/s speed=1.56e+03x    
+⬆️ Uploaded merged clip: raw/arky/live-arky-1763103308/20251114/segment_1763103533.mp4
+
+🎧 Clip created | Score: 0.801 | {'energy': 0.1802, 'pitch': 68.4228, 'emotion': 0.5026, 'keyword': 0.0}
+   Transcript: per 4 and we won't let you down. We won't let you down. Oh...
+
+✅ Inserted clip into database: 6ae292bd-f090-4994-b561-e6275ee7e9f1
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103308/20251114/seg_00000.mp4
+🗑️ Deleted seg_00000.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103308/20251114/seg_00001.mp4
+🗑️ Deleted seg_00001.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103308/20251114/seg_00002.mp4
+🗑️ Deleted seg_00002.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103308/20251114/seg_00003.mp4
+🗑️ Deleted seg_00003.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103308/20251114/seg_00004.mp4
+🗑️ Deleted seg_00004.mp4
+📹 Processing seg_00005.mp4...
+I'm gonna put my business like a windy angel feelin' Just a smile, killin' that Just gotta smile, baby As long as you're not far Just gonna be around Can I still walk? I'll tell you, I'll tell you I'm in a pain Just hold me, feelin' I'll take it I'll take it I'll know I know Now's my time Everyone, stop on the beat drop Stop on the beat drop Someone on the beat drop, Nero Oh, what am I?
+🔥 Hype keywords detected!
+🎧 Score: 0.935 | {'energy': 0.1873, 'pitch': 86.5371, 'emotion': 0.463, 'keyword': 0.15} | I'm gonna put my business like a windy angel feelin' Just a smile, killin' that ...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00005.mp4
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-82204-miwc_ozr'}
+  warnings.warn(
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_3t5y5m6p
+🔄 Pre-loading AI models...
+🔊 Loading Whisper model (base)...
+🧠 Loading emotion model (j-hartmann/emotion-english-distilroberta-base)...
+Device set to use cpu
+✅ Models pre-loaded and cached
+🗂 Using streams row id=a889363e-e0bb-4aa4-8e27-a5806a105ee3 twitch_stream_id=live-arky-1763103574
+🔧 Starting pipeline for arky...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_arky.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_arky.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+✅ Pipeline started: streamlink PID 82823, ffmpeg PID 82824
+▶️ Recording... (Ctrl+C to stop)
+📁 Segment pattern: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_3t5y5m6p/seg_%05d.mp4
+📁 Output directory: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_3t5y5m6p
+🔍 Streamlink PID: 82823, FFmpeg PID: 82824
+📹 Processing seg_00000.mp4...
+I got red shoes, I got blue
+🎧 Score: 0.837 | {'energy': 0.1944, 'pitch': 84.5261, 'emotion': 0.5917, 'keyword': 0} | I got red shoes, I got blue...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00000.mp4
+📹 Processing seg_00001.mp4...
+We're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all right, we're all
+🎧 Score: 0.800 | {'energy': 0.1893, 'pitch': 73.1334, 'emotion': 0.501, 'keyword': 0} | We're all right, we're all right, we're all right, we're all right, we're all ri...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00001.mp4
+📹 Processing seg_00002.mp4...
+I know
+🎧 Score: 0.871 | {'energy': 0.1985, 'pitch': 52.5173, 'emotion': 0.6772, 'keyword': 0} | I know...
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00002.mp4
+📹 Processing seg_00003.mp4...
+He has no body, no pain! He has no body, no pain! He has no body, no comrades! And I fucked it's true! But I made it so! Don't, now what i fucked i句o I don't know, nigga! Cash, what the fuck, dick?! D weniger? Cash blood rocks make it! Ah, Miller's hand knows me well. I better say a little... God, what I saw? Yes, what I saw? Yes, you are so much more than me No, better don't be okay You know what it's to the hell, it's to the hell
+🔥 Hype keywords detected!
+🎧 Score: 0.978 | {'energy': 0.2041, 'pitch': 81.9177, 'emotion': 0.5693, 'keyword': 0.15} | He has no body, no pain! He has no body, no pain! He has no body, no comrades! A...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00003.mp4
+📹 Processing seg_00004.mp4...
+
+🎧 Score: 0.600 | {'energy': 0.199, 'pitch': 54.909, 'emotion': 0.0, 'keyword': 0} | No transcript...
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00004.mp4
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:221: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+I got red shoulders, I got blue
+🎧 seg_00000.mp4 | Score: 0.833 | {'energy': 0.1945, 'pitch': 84.5234, 'emotion': 0.5823, 'keyword': 0} | I got red shoulders, I got blue...
+We don't run for the loop, we'll be running for the loop We don't run for the loop, we'll be running for the loop
+🎧 seg_00001.mp4 | Score: 0.978 | {'energy': 0.1893, 'pitch': 73.1343, 'emotion': 0.9439, 'keyword': 0} | We don't run for the loop, we'll be running for the loop We ...
+I'm tired of you, I'm tired of you
+🎧 seg_00002.mp4 | Score: 0.923 | {'energy': 0.1985, 'pitch': 52.6138, 'emotion': 0.8069, 'keyword': 0} | I'm tired of you, I'm tired of you...
+I am drawn to my heart and it'll hit I'm sure it will tie I know I am Come on! Let's run and fuck it's so Let us run and fuck us No ! What the fuckin' studio Hello Naga The studio is so closed Naga ! Just let us Brow shit you know we do God ! what I told do We're gonna fool, okay? if you want to just Champion Oh man Oh you can't give away I should have named how it is to me.
+🔥 Hype keywords detected!
+🎧 seg_00003.mp4 | Score: 0.924 | {'energy': 0.2041, 'pitch': 81.9183, 'emotion': 0.4358, 'keyword': 0.15} | I am drawn to my heart and it'll hit I'm sure it will tie I ...
+
+🎧 seg_00004.mp4 | Score: 0.600 | {'energy': 0.1992, 'pitch': 54.8006, 'emotion': 0.0, 'keyword': 0} | ...
+ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x130a046f0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x130a046f0] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_3t5y5m6p/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 2647 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720, 2518 kb/s, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_3t5y5m6p/merged_1763103731.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 2518 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x13081f430] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x13081f430] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x12fe0b370] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x12fe0b370] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x130b0d750] video:27593KiB audio:1410KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.344259%
+frame= 5381 fps=0.0 q=-1.0 Lsize=   29102KiB time=00:01:30.02 bitrate=2648.3kbits/s speed= 682x    
+⬆️ Uploaded merged clip: raw/arky/live-arky-1763103574/20251114/segment_1763103792.mp4
+
+🎧 Clip created | Score: 0.942 | {'energy': 0.1973, 'pitch': 69.2221, 'emotion': 0.7289, 'keyword': 0.05} 🔥
+   Transcript: We don't run for the loop, we'll be running for the loop We don't run for the lo...
+
+✅ Inserted clip into database: 7c72a815-e35d-4a7e-8adb-318966aba348
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00000.mp4
+🗑️ Deleted seg_00000.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00001.mp4
+🗑️ Deleted seg_00001.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00002.mp4
+🗑️ Deleted seg_00002.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00003.mp4
+🗑️ Deleted seg_00003.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00004.mp4
+🗑️ Deleted seg_00004.mp4
+📹 Processing seg_00005.mp4...
+Oh, that's so weird. I'm not gonna let you go. I'm not gonna let you go. I'm not gonna let you go. You're supposed to go to the other cars? Yes, so I like to go to like one, but the... ...forbodies. Yeah. I thought somebody was like black on it. And I asked him, I could just get to the other car. Even though I just got a warning. Okay, okay. These are what the other ones look like. 10 gifted? Yeah, I'm not gonna let you go.
+🔥 Hype keywords detected!
+🎧 Score: 1.056 | {'energy': 0.1737, 'pitch': 53.7011, 'emotion': 0.7647, 'keyword': 0.15} | Oh, that's so weird. I'm not gonna let you go. I'm not gonna let you go. I'm not...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00005.mp4
+📹 Processing seg_00006.mp4...
+This is what's up with Jason Oh, Arki, a Haconate trip This is where we see this array of spoilers you can see from that Array? Array, is a good one And then you know sometimes it's a hug, you know, just a friend And then you know, and then a TikTok And that's it Yeah, but yeah, but you're in this video Oh, and I have your hair called, you want me to give you a later? We run it out
+🔥 Hype keywords detected!
+🎧 Score: 1.069 | {'energy': 0.1708, 'pitch': 68.2058, 'emotion': 0.7982, 'keyword': 0.15} | This is what's up with Jason Oh, Arki, a Haconate trip This is where we see this...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00006.mp4
+📹 Processing seg_00007.mp4...
+Are you ready later? Yeah Yeah, I'm standing up, have fun I'm trying to cut my breath for a second Yeah, I'm good Let me know if you need anything Okay Fuck I'm tired of shit I got too many layers I'm gonna That was a green That was a green Whoever said make that You're a genius That's it
+🎧 Score: 0.798 | {'energy': 0.1771, 'pitch': 80.3348, 'emotion': 0.4953, 'keyword': 0} | Are you ready later? Yeah Yeah, I'm standing up, have fun I'm trying to cut my b...
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00007.mp4
+📹 Processing seg_00008.mp4...
+You're the one Hey, I'm ready to go back out there get lit. All right. Wait. I need another drink. I need my second shot Okay, I'm not broke it's book right now, but Abra. I love you, bro. I love you
+🔥 Hype keywords detected!
+🎧 Score: 0.886 | {'energy': 0.1795, 'pitch': 72.1601, 'emotion': 0.3405, 'keyword': 0.15} | You're the one Hey, I'm ready to go back out there get lit. All right. Wait. I n...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00008.mp4
+📹 Processing seg_00009.mp4...
+My outfit is finished. Who are you good? And you how to go? Oh, I don't know what you're saying. Oh, I'm going to go. Oh, I'm going to go. Oh, I'm going to go. Oh, I'm going to go. Oh, I'm going to go. Go, delays were delays. Did that make it good? Oh, anyone more trouble? Anyone more trouble?
+🔥 Hype keywords detected!
+🎧 Score: 0.855 | {'energy': 0.1721, 'pitch': 76.6789, 'emotion': 0.2624, 'keyword': 0.15} | My outfit is finished. Who are you good? And you how to go? Oh, I don't know wha...
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00009.mp4
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:221: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+I'm gonna go there and do it. I'm gonna go there and do it. I'm gonna go there and do it. I'm gonna do it. You're supposed to go in the right place. Yes, so I'm going to go in the right place. The provides. Yeah. I thought somebody was like black on the... And I asked him, I should just get to the right place. Even though I just got a warning. Okay, okay. These are what the other ones look like. 10 gifted? Yeah. Yeah.
+🔥 Hype keywords detected!
+🎧 seg_00005.mp4 | Score: 0.965 | {'energy': 0.1737, 'pitch': 53.7026, 'emotion': 0.5384, 'keyword': 0.15} | I'm gonna go there and do it. I'm gonna go there and do it. ...
+This is what's up with Jason Oh, Arki, a Haconate trip This is where we see this array of spoilers you can see from that Array? Array, is a good one And then you know sometimes it's a hug, you know, just a friend And then you know, and then a TikTok And that's it Yeah, but yeah, but you're in this video Oh, and I have your hair called, you want me to give you a later? We run it out
+🔥 Hype keywords detected!
+🎧 seg_00006.mp4 | Score: 1.069 | {'energy': 0.1708, 'pitch': 68.2062, 'emotion': 0.7982, 'keyword': 0.15} | This is what's up with Jason Oh, Arki, a Haconate trip This ...
+Are you ready later? Yeah Yeah, I'm standing up, have fun I'm trying to cut my breath for a second Yeah, I'm good Let me know if you need anything Okay Fuck I'm tired of shit I got too many layers I'm gonna That was a green That was a green Whoever said make that You're a genius That's it
+🎧 seg_00007.mp4 | Score: 0.798 | {'energy': 0.1771, 'pitch': 80.3325, 'emotion': 0.4953, 'keyword': 0} | Are you ready later? Yeah Yeah, I'm standing up, have fun I'...
+You're the one Hey, I'm not I'm ready to go back out there. Get lit. All right. Wait. I need another drink. I need my second shot Okay, I'm not broke it's book right now But I love y'all bro. I love y'all bro
+🔥 Hype keywords detected!
+🎧 seg_00008.mp4 | Score: 0.867 | {'energy': 0.1797, 'pitch': 72.1544, 'emotion': 0.292, 'keyword': 0.15} | You're the one Hey, I'm not I'm ready to go back out there. ...
+My outfit is finished. Who are you good? And you how to go? Well the laser delays did that make it good? Anyone more? Anyone more trouble?
+🎧 seg_00009.mp4 | Score: 0.768 | {'energy': 0.1721, 'pitch': 76.6789, 'emotion': 0.4212, 'keyword': 0} | My outfit is finished. Who are you good? And you how to go? ...
+ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x142e08930] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x142e08930] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_3t5y5m6p/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 2647 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720, 2518 kb/s, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_3t5y5m6p/merged_1763103887.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 2518 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1440049d0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1440049d0] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x142e19db0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x142e19db0] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x142e1a110] video:27583KiB audio:1410KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.344435%
+frame= 5381 fps=0.0 q=-1.0 Lsize=   29093KiB time=00:01:30.01 bitrate=2647.7kbits/s speed=2.12e+03x    
+⬆️ Uploaded merged clip: raw/arky/live-arky-1763103574/20251114/segment_1763103912.mp4
+
+🎧 Clip created | Score: 0.967 | {'energy': 0.1747, 'pitch': 64.6877, 'emotion': 0.5429, 'keyword': 0.15} 🔥
+   Transcript: This is what's up with Jason Oh, Arki, a Haconate trip This is where we see this...
+
+✅ Inserted clip into database: 5491abe8-f0f2-4ca7-bf9d-4fe1f3554790
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00005.mp4
+🗑️ Deleted seg_00005.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00006.mp4
+🗑️ Deleted seg_00006.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00007.mp4
+🗑️ Deleted seg_00007.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00008.mp4
+🗑️ Deleted seg_00008.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00009.mp4
+🗑️ Deleted seg_00009.mp4
+🔄 Iteration 10: 0 segments processed, 0 in buffer
+📹 Processing seg_00010.mp4...
+or drink. I need more drinks. More alcohol. Momma, I got a lot of money by people who can ask for old. Thank you. You're a sleepy man. You're a sleepy man. Good. Yes. You just tap me. Be careful. My pillow. Fine. I don't drink in fuckin' hell. Oh, I don't drink in such a drink. Oh, you, you, I love you. I love you. I love you. et ok, et ok? You're a sleepy man. You, it's not working. It's not working. I just want to go to the queue.
+🎧 Score: 0.783 | {'energy': 0.1974, 'pitch': 77.6965, 'emotion': 0.4568, 'keyword': 0} | or drink. I need more drinks. More alcohol. Momma, I got a lot of money by peopl...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00010.mp4
+📹 Processing seg_00011.mp4...
+I'm not gonna do it. This is my first time seeing J.S. in a way. I'm not gonna do it. You're my friend. I love you. Thank you to everyone. I feel like we need to be high enough. I feel like we need to be high enough. When the wife and all she's are talking is true. She's me. She's me. She's so nice to me. She's one of my friends. She's me. She's so nice to me.
+🎧 Score: 0.892 | {'energy': 0.1952, 'pitch': 62.7771, 'emotion': 0.7312, 'keyword': 0} | I'm not gonna do it. This is my first time seeing J.S. in a way. I'm not gonna d...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00011.mp4
+📹 Processing seg_00012.mp4...
+I don't want to be a 5-1-7. I don't want to be a 5-1-7. Where is the 5-1-7? That apple, dude. What is that? Look at the whole of stone. Look at that. I need to get up. Let me get down. I'm down. I'm thinking of looking at the tree. Right now. You're going to go 5. You're going 5? Yes. I'm going to go 20. I'm going to go 20. Are you good? Yes.
+🔥 Hype keywords detected!
+🎧 Score: 0.891 | {'energy': 0.1969, 'pitch': 66.3244, 'emotion': 0.3519, 'keyword': 0.15} | I don't want to be a 5-1-7. I don't want to be a 5-1-7. Where is the 5-1-7? That...
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00012.mp4
+📹 Processing seg_00013.mp4...
+I'm a big fan of him I'm on the come up What about the bunch I thought he was geeked out He was like You all can let me on the bus I eat the world
+🔥 Hype keywords detected!
+🎧 Score: 0.985 | {'energy': 0.1867, 'pitch': 66.1031, 'emotion': 0.587, 'keyword': 0.15} | I'm a big fan of him I'm on the come up What about the bunch I thought he was ge...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00013.mp4
+📹 Processing seg_00014.mp4...
+Oh
+🎧 Score: 0.600 | {'energy': 0.1816, 'pitch': 54.845, 'emotion': 0.0, 'keyword': 0} | Oh...
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00014.mp4
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:221: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+or drink. I need more drinks. I got some 25 people cast for all. Thank you. You're so slippy. You did? Yes. You just tapped me. Being here for money fell off. I don't want to drink fucker now. I love you. I love you. I love you. I love you. I love you. I love you. I love you. I love you. I love you. I love you. I love you. I love you. I love you. I love you. I love you.
+🎧 seg_00010.mp4 | Score: 0.948 | {'energy': 0.1974, 'pitch': 77.6961, 'emotion': 0.8708, 'keyword': 0} | or drink. I need more drinks. I got some 25 people cast for ...
+I'm not gonna do it. This is my first time seeing J.S. in a way. I'm not gonna do it. You're my friend. I love you. Thank you to everyone. I feel like we need to be high enough. I feel like we need to be high enough. When the wife and all she's are talking is true. She's me. She's me. She's so nice to me. She's one of my friends. She's me. She's so nice to me.
+🎧 seg_00011.mp4 | Score: 0.892 | {'energy': 0.1952, 'pitch': 62.7771, 'emotion': 0.7312, 'keyword': 0} | I'm not gonna do it. This is my first time seeing J.S. in a ...
+I don't want to be a 5-1-7. I don't want to be a 5-1-7. Where is the 5-1-7? That apple, dude. What is that? Look at the whole of stone. Look at that. I need to get up. Let me get down. I'm down. I'm thinking of looking at the tree. Right now. You're going to go 5. You're going 5? Yes. I'm going to go 20. I'm going to go 20. Are you good? Yes.
+🔥 Hype keywords detected!
+🎧 seg_00012.mp4 | Score: 0.891 | {'energy': 0.1969, 'pitch': 66.3244, 'emotion': 0.3519, 'keyword': 0.15} | I don't want to be a 5-1-7. I don't want to be a 5-1-7. Wher...
+I'm a big fan of him I'm on the come up What about the bunch I thought he was geeked out He was like You all can let me on the bus I eat the world
+🔥 Hype keywords detected!
+🎧 seg_00013.mp4 | Score: 0.985 | {'energy': 0.1867, 'pitch': 66.1014, 'emotion': 0.587, 'keyword': 0.15} | I'm a big fan of him I'm on the come up What about the bunch...
+I'm really going! Oh! Oh! Lay! You're going to try to jump that? I'm going to jump that! You live right now? Yeah! Yeah! Hey! You're going to play with me too. I'm going to play with you too! I'm going to play with you too! I'm going to play with you too! I'm going to play with you too!
+🎧 seg_00014.mp4 | Score: 0.769 | {'energy': 0.1816, 'pitch': 54.9435, 'emotion': 0.4213, 'keyword': 0} | I'm really going! Oh! Oh! Lay! You're going to try to jump t...
+ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x132706c00] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x132706c00] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_3t5y5m6p/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 2649 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720, 2520 kb/s, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_arky_3t5y5m6p/merged_1763104030.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 2520 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1338070a0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1338070a0] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x132633fa0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x132633fa0] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x1326320c0] video:27596KiB audio:1410KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.344341%
+frame= 5383 fps=0.0 q=-1.0 Lsize=   29106KiB time=00:01:30.04 bitrate=2648.0kbits/s speed=2.24e+03x    
+⬆️ Uploaded merged clip: raw/arky/live-arky-1763103574/20251114/segment_1763104051.mp4
+
+🎧 Clip created | Score: 0.942 | {'energy': 0.1931, 'pitch': 68.8582, 'emotion': 0.7297, 'keyword': 0.05} 🔥
+   Transcript: I'm a big fan of him I'm on the come up What about the bunch I thought he was ge...
+
+✅ Inserted clip into database: 00eff114-83a2-4e25-8b70-6c190d809650
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00010.mp4
+🗑️ Deleted seg_00010.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00011.mp4
+🗑️ Deleted seg_00011.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00012.mp4
+🗑️ Deleted seg_00012.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00013.mp4
+🗑️ Deleted seg_00013.mp4
+🗑️ Deleted from Supabase: raw/arky/live-arky-1763103574/20251114/seg_00014.mp4
+🗑️ Deleted seg_00014.mp4
+📹 Processing seg_00015.mp4...
+Yeah I don't like it. I'm the one being myself. I'm happy for it. Hey! Hey! Okay, I'm okay. I was okay. I'm okay. Yeah, I'm okay. Hey, look at the present. I'm sweating my ass off. Oh, what the fuck is it? Yeah! Yeah! Where's the premium?
+🔥 Hype keywords detected!
+🎧 Score: 0.937 | {'energy': 0.1768, 'pitch': 84.1251, 'emotion': 0.4678, 'keyword': 0.15} | Yeah I don't like it. I'm the one being myself. I'm happy for it. Hey! Hey! Okay...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00015.mp4
+📹 Processing seg_00016.mp4...
+You're a good guy, aren't you? Come on up. You better let go! I'm not here, I'm here, you're a good guy. Yeah, proud of you, J. How can I be home, I'm so good! I'll pay you this day. With money, I'll talk to you, I'll talk to you, I'll see when I stick with you. I'll be my brother, as I say that I love him. I don't swing that way. I'll sell every idiot, I'll store running on Christmas Day. I'll come up here.
+🎧 Score: 0.864 | {'energy': 0.1756, 'pitch': 66.1285, 'emotion': 0.6596, 'keyword': 0} | You're a good guy, aren't you? Come on up. You better let go! I'm not here, I'm ...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00016.mp4
+📹 Processing seg_00017.mp4...
+I'm gonna do my drink. You wanna drink? Good? Okay.
+🎧 Score: 0.732 | {'energy': 0.1662, 'pitch': 64.7738, 'emotion': 0.3305, 'keyword': 0} | I'm gonna do my drink. You wanna drink? Good? Okay....
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00017.mp4
+📹 Processing seg_00018.mp4...
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-82806-ec_4vhb_'}
+  warnings.warn(

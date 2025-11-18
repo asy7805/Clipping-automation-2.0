@@ -2,7 +2,7 @@
 
 ## What Was Implemented
 
-The Captions.ai API integration has been successfully added to the AscensionClips system. This provides professional AI-powered video captioning, translation, and AI video generation capabilities.
+The Captions.ai API integration has been successfully added to the Clipping Automation 2.0 system. This provides professional AI-powered video captioning, translation, and AI video generation capabilities.
 
 ### Changes Made
 
@@ -74,7 +74,7 @@ python scripts/start_api.py
 Once the API server is running, you should see in the startup logs:
 
 ```
-[STARTUP] Starting AscensionClips API...
+[STARTUP] Starting Clipping Automation API...
 [CONFIG] Supabase URL: https://mpcvgknfjcxsalbtxabk.supabase.co/
 [CONFIG] OpenAI API: Configured
 [CONFIG] Twitch API: Configured

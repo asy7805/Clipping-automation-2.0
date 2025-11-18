@@ -1,0 +1,4 @@
+usage: streamlink [OPTIONS] <URL> [STREAM]
+streamlink: error: unrecognized arguments: --hls-segment-timeout --hls-timeout https://twitch.tv/aceu best
+usage: streamlink [OPTIONS] <URL> [STREAM]
+streamlink: error: unrecognized arguments: --hls-segment-timeout --hls-timeout https://twitch.tv/aceu best

@@ -1,0 +1,4 @@
+1
+00:00:02,883 --> 00:00:29,242
+You think Swiftie is okay here? Is he here again?
+

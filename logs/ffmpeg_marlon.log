@@ -1,0 +1,6 @@
+[mpegts @ 0x15af05490] Packet corrupt (stream = 1, dts = 1023452910).
+[in#0/mpegts @ 0x15af05240] corrupt input packet in stream 1
+[aist#0:0/aac @ 0x15b9220c0] timestamp discontinuity (stream id=256): 59584001, new offset= -59584001
+[mpegts @ 0x15af05490] Packet corrupt (stream = 1, dts = 1056881970).
+[in#0/mpegts @ 0x15af05240] corrupt input packet in stream 1
+[aist#0:0/aac @ 0x15b9220c0] timestamp discontinuity (stream id=256): 181994667, new offset= -241578668

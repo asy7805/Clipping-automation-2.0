@@ -1,0 +1,66 @@
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_jordanbentley_1eozkibl
+🗂 Using streams row id=f34ffca8-8e41-4293-ad3b-70a31ab6c1d8 twitch_stream_id=live-jordanbentley-1762827292
+🔧 Starting pipeline for jordanbentley...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_jordanbentley.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_jordanbentley.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+❌ Streamlink died immediately with exit code 1
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 442, in <module>
+    main()
+    ~~~~^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 270, in main
+    p_sl, p_ff, seg_pattern = start_pipeline(args.channel, out_dir)
+                              ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 141, in start_pipeline
+    raise RuntimeError(f"Streamlink failed to start. Check {sl_log}")
+RuntimeError: Streamlink failed to start. Check /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_jordanbentley.log
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_jordanbentley_32dyr1_3
+🗂 Using streams row id=8691bccb-15d9-4149-9484-a8ee4c261d3c twitch_stream_id=live-jordanbentley-1762827332
+🔧 Starting pipeline for jordanbentley...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_jordanbentley.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_jordanbentley.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+❌ Streamlink died immediately with exit code 1
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 442, in <module>
+    main()
+    ~~~~^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 270, in main
+    p_sl, p_ff, seg_pattern = start_pipeline(args.channel, out_dir)
+                              ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 141, in start_pipeline
+    raise RuntimeError(f"Streamlink failed to start. Check {sl_log}")
+RuntimeError: Streamlink failed to start. Check /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_jordanbentley.log
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_jordanbentley_7kqqcx5p
+🗂 Using streams row id=28a791f6-249a-4a9d-ad6f-82abaf16aec1 twitch_stream_id=live-jordanbentley-1762827419
+🔧 Starting pipeline for jordanbentley...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_jordanbentley.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_jordanbentley.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+❌ Streamlink died immediately with exit code 1
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 442, in <module>
+    main()
+    ~~~~^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 270, in main
+    p_sl, p_ff, seg_pattern = start_pipeline(args.channel, out_dir)
+                              ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 141, in start_pipeline
+    raise RuntimeError(f"Streamlink failed to start. Check {sl_log}")
+RuntimeError: Streamlink failed to start. Check /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_jordanbentley.log

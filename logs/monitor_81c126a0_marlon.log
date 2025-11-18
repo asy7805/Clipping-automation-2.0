@@ -1,0 +1,284 @@
+Device set to use mps:0
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u
+🔄 Pre-loading AI models...
+🔊 Loading Whisper model (base)...
+🧠 Loading emotion model (j-hartmann/emotion-english-distilroberta-base)...
+Device set to use cpu
+✅ Models pre-loaded and cached
+🗂 Using streams row id=1c927767-ace3-4fca-a18d-de1e492dd525 twitch_stream_id=live-marlon-1763144555
+🔧 Starting pipeline for marlon...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+✅ Pipeline started: streamlink PID 89686, ffmpeg PID 89687
+▶️ Recording... (Ctrl+C to stop)
+📁 Segment pattern: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_%05d.mp4
+📁 Output directory: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u
+🔍 Streamlink PID: 89686, FFmpeg PID: 89687
+📹 Processing seg_00000.mp4...
+⚠️ Skipping corrupted/incomplete file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00000.mp4: FFmpeg failed on /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00000.mp4: ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x12c806980] moov atom not found
+[in#0 @ 0x12c806730] Error opening input: Invalid data found when processing input
+Error opening input file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00000.mp4.
+Error opening input files: Invalid data found when processing input
+
+⏭️ Skipped (not interesting): seg_00000.mp4
+🗑️ Deleted seg_00000.mp4
+🔄 Iteration 10: 1 segments processed, 0 in buffer
+📹 Processing seg_00001.mp4...
+One per day. Did it? Hahaha. Hey, that's, you know. You're not funny. Oh my gosh, you're gonna be my family. Were you nervous? I'm nervous. I'm mad nervous. No, I really love you.
+🎧 Score: 0.771 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4277, 'keyword': 0.0} | One per day. Did it? Hahaha. Hey, that's, you know. You're not funny. Oh my gosh...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00001.mp4
+📹 Processing seg_00002.mp4...
+Gosh. In the savage, I'm on a diamond lady. I'm on a machine. See that's it. Mon almond, all of my favorite. See that, my favorite. It's hell a nature out here. You listen to old thug. How do you young thug? Yeah. Now you don't. I put them shut on my nose and talk about. Yes. But I actually put them in one or another. You know, I really think we have the same use of taste. No, I think we do too. No, no. Yesterday, I peeped in.
+🎧 Score: 0.955 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.8867, 'keyword': 0.0} | Gosh. In the savage, I'm on a diamond lady. I'm on a machine. See that's it. Mon...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00002.mp4
+📹 Processing seg_00003.mp4...
+I dropped it oh when I was singing I loop drop you're fun with it yeah Oh, oh, come on. Oh, oh, you know that yeah, I do now you don't yes, I do not like me. I got that dog in me. I got that dog in me I'm gonna horse these No, no You hungry you want to get somebody for this? No, no, no
+🎧 Score: 0.743 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.3572, 'keyword': 0.0} | I dropped it oh when I was singing I loop drop you're fun with it yeah Oh, oh, c...
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00003.mp4
+📹 Processing seg_00004.mp4...
+You want to sit be lately, you like to be lately. No, I'm not going to lie, you said 12, you put up a 12 on your back. Yeah, exactly like one. No, because you said, ah, be a little late. Yeah, I did say that, like 12 on the air. I'm assuming that you need a more time. I got it, and I won it, and I got it. And I won it, and I got it. And I got it. Wait, so like, what? You want to drop your bank account numbers really quickly. Man, what are you?
+🔥 Hype keywords detected!
+🎧 Score: 1.041 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.7283, 'keyword': 1.0} | You want to sit be lately, you like to be lately. No, I'm not going to lie, you ...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00004.mp4
+📹 Processing seg_00005.mp4...
+Talking about. Now I'm kidding. Oh my gosh, you wanna know something, Marlon? What? You wanna know something? So let me tell you something. Tsk. You don't know nine bodies, right? What's I do? Actually, what are you gonna say? Oh wait. Let me know some bullshit. You're not gonna know some bullshit. No, I saw this video. No, do not be on some bullshit. You got it. So there's all this video, like where someone was making one of those AI paragraph things about me. Like where the-
+🔥 Hype keywords detected!
+🎧 Score: 0.980 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5753, 'keyword': 1.0} | Talking about. Now I'm kidding. Oh my gosh, you wanna know something, Marlon? Wh...
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00005.mp4
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:221: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+One per day. Did it? Hahaha. Hey, that's, you know. You're not funny. Oh my gosh, you're gonna be my family. Were you nervous? I'm nervous. I'm mad nervous. No, I really love you.
+🎧 seg_00001.mp4 | Score: 0.771 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4277, 'keyword': 0.0} | One per day. Did it? Hahaha. Hey, that's, you know. You're n...
+Gosh. In the savage, I'm on a diamond lady. I'm on a machine. See that shit. Mon almond, all of my favorite. Yo, it's hell a nature out here. You listen to old thug. How do you young thug? Yeah. Now you don't. I put them shut all my nose and tongue bow. Yes. But I actually put them in one or another. You know, I really think we have the same use of taste. No, I think we do too. No, no, yes, today I have pizza.
+🎧 seg_00002.mp4 | Score: 0.941 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.8516, 'keyword': 0.0} | Gosh. In the savage, I'm on a diamond lady. I'm on a machine...
+I dropped it oh when I was singing I loop drop you're fun with it yeah Oh, oh, no, oh, you know that yeah, I do now you don't yes, I do no like me. I got that dog in me. I got that dog in me I'm gonna horse these No, no You hungry you want to get somebody for this? No, no, no, we go
+🎧 seg_00003.mp4 | Score: 0.775 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4382, 'keyword': 0.0} | I dropped it oh when I was singing I loop drop you're fun wi...
+You want to sit be lately, you like to be lately. No, I'm not going to lie. You would go, you said 12, you put that 12 on your top. Yeah, exactly like one. No, because you said, ah, be a little late. Yeah, I did say that, like 12 on the air. I'm assuming that you need a more time. I got it. And I want it. And I got it. And I want it. And I got it. And I got it. Wait, so like, what? You want to drop your bank account number, really? What are you?
+🔥 Hype keywords detected!
+🎧 seg_00004.mp4 | Score: 1.093 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.8581, 'keyword': 1.0} | You want to sit be lately, you like to be lately. No, I'm no...
+Talking about. Now I'm kidding. Oh my gosh, you wanna know something, Marlon? What? You wanna know something? So let me tell you something. Tsk. You don't know nine bodies, right? What's I do? Actually, what are you gonna say? Oh wait. Let me know some bullshit. You're not gonna know some bullshit, do that. No, I saw this video. No, do not be on some bullshit. You got it. So there's all this video where someone was making one of those AI paragraph things about me. Okay.
+🔥 Hype keywords detected!
+🎧 seg_00005.mp4 | Score: 0.978 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5702, 'keyword': 1.0} | Talking about. Now I'm kidding. Oh my gosh, you wanna know s...
+ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138105b20] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138105b20] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 2646 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720, 2518 kb/s, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/merged_1763144775.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 2518 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138308280] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138308280] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138106c80] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138106c80] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x138117360] video:27577KiB audio:1409KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.344339%
+frame= 5380 fps=0.0 q=-1.0 Lsize=   29085KiB time=00:01:30.01 bitrate=2647.0kbits/s speed=1.78e+03x    
+⬆️ Uploaded merged clip: raw/marlon/live-marlon-1763144555/20251114/segment_1763144795.mp4
+
+🎧 Clip created | Score: 1.004 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.76, 'keyword': 0.67} 🔥
+   Transcript: You want to sit be lately, you like to be lately. No, I'm not going to lie. You ...
+
+✅ Inserted clip into database: d5fede75-40d9-4a3f-9b1d-f85594a97e00
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00001.mp4
+🗑️ Deleted seg_00001.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00002.mp4
+🗑️ Deleted seg_00002.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00003.mp4
+🗑️ Deleted seg_00003.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00004.mp4
+🗑️ Deleted seg_00004.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00005.mp4
+🗑️ Deleted seg_00005.mp4
+📹 Processing seg_00006.mp4...
+They do the AI generated talking. They said, John is net worth started off at 500. I said, bitch, more like 100. I was thinking, oh shit, they done to me like, like I live in like fucking Beverly Hills. I was dating Madison Bears. Like they were going crazy. Wait, that was, what's the biggest lie somebody said about you online? Probably that, to be honest. Really? That you dated Madison Bears. You want to know something, my ex, compared me to Madison Bears so badly, that I wanted to be like her. I wanted to be just like her. I'm not.
+🔥 Hype keywords detected!
+🎧 Score: 0.917 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4181, 'keyword': 1.0} | They do the AI generated talking. They said, John is net worth started off at 50...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00006.mp4
+📹 Processing seg_00007.mp4...
+I was really bad. Everything I've heard so far, it was not bad. Oh! Okay! It's just shit, what's he driving like this to? I mean, you want the honest truth? Yeah, I'm screwed. Oh, fuck. Nah, actually you drive through my car everywhere. Oh yeah? Okay guys, but don't go online talking about you. Yeah, no, no, no, no, no, no. You don't get that text. I'm gonna get that text. No, you know what? They text me and said, I don't remember this happening. And my response was, I remember it very clearly like it was yesterday.
+🔥 Hype keywords detected!
+🎧 Score: 0.959 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5223, 'keyword': 1.0} | I was really bad. Everything I've heard so far, it was not bad. Oh! Okay! It's j...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00007.mp4
+📹 Processing seg_00008.mp4...
+That's what I said. You said that? Yeah, but they don't even know which one. Don't got it all Which are we lagging right here? We should be lagging right here. Where is it laggy? I think oh, we're here For not now. Yeah, no almost Chalim no frugga let me know frugga cuz we going up the hill right now. So hopefully Fuck hey, oh my gosh. Oh my gosh. I'm sorry. Come on. Wait. I took the wrong turn and I did 10 minutes now
+🔥 Hype keywords detected!
+🎧 Score: 0.900 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.3756, 'keyword': 1.0} | That's what I said. You said that? Yeah, but they don't even know which one. Don...
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00008.mp4
+📹 Processing seg_00009.mp4...
+We good? I bet. Now we're taking it. Oh, I know. You know this song. I do. Oh my god, I almost backed up into the truck. No careful, girl. I almost backed up into a truck and you didn't say any. Wait, watch out, watch out, watch out, watch out. Oh my god. I'm driving recklessly. Oh my god. Hey, you know when you got a focus on the road, you got to turn on your music. No, it's because you turned it.
+🔥 Hype keywords detected!
+🎧 Score: 0.859 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.2728, 'keyword': 1.0} | We good? I bet. Now we're taking it. Oh, I know. You know this song. I do. Oh my...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00009.mp4
+📹 Processing seg_00010.mp4...
+all the way up and you're trying to do light skins. I didn't. I cannot. Hold on. Your eye surgery. How did it go? Amazing. What do you think, bro? I just love it. Can I take a turn, bro? Wait, you see turn right here? Yeah. Hey, bud. Oh my gosh, this sharp ass turn. Hold on. Whoa, this scene we has roll right here. I feel like I'm gonna get so distracted driving with you and look on. I'm going to have to do it. That's my city.
+🔥 Hype keywords detected!
+🎧 Score: 0.973 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5579, 'keyword': 1.0} | all the way up and you're trying to do light skins. I didn't. I cannot. Hold on....
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00010.mp4
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:221: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+They do the AI generated talking. They said, John is net worth started off at 500. I said, bitch, more like 100. I was thinking, oh shit, they done to me like, like I live in like fucking Beverly Hills. I was dating Madison Bear. It's like, they were going crazy. Wait, that was, what's the biggest lie somebody said about you online? Probably that, to be honest. Really? That you dated Madison Bear. You want to know something, my ex, compared me to Madison Bear so badly, that I wanted to be like her? I wanted to be just like her. I'm not...
+🔥 Hype keywords detected!
+🎧 seg_00006.mp4 | Score: 0.923 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4331, 'keyword': 1.0} | They do the AI generated talking. They said, John is net wor...
+I was down really bad. Everything I've heard so far, it was down bad. Oh! Okay! It's just shit. What's he driving like this to? I mean, you want the honest truth? Yeah, I'm screwed. Oh, fuck. Nah, actually, you drive through my car everywhere. Oh yeah? Okay, guys, but don't go online talking about you. Yeah, no, no, no, no, no. You don't get that text. I'm gonna get that text. No, you know what? They text me and said, I don't remember this happening. And my response was, I remember it very clearly like it was yesterday.
+🔥 Hype keywords detected!
+🎧 seg_00007.mp4 | Score: 0.941 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4787, 'keyword': 1.0} | I was down really bad. Everything I've heard so far, it was ...
+That's what I said. You said that? Yeah, but they don't even know which one. Don't got it all Which are we lagging right here? We should be lagging right here. Where is it laggy? I think oh, we're here For not now. Yeah, no almost Chalim no frugga let me know frugga cuz we going up the hill right now. So hopefully Fuck hey, oh my gosh. Oh my gosh. I'm sorry. Come on. Wait. I took the wrong turn and I did 10 minutes now
+🔥 Hype keywords detected!
+🎧 seg_00008.mp4 | Score: 0.900 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.3756, 'keyword': 1.0} | That's what I said. You said that? Yeah, but they don't even...
+We good? I bet. Now we're taking it. Oh, I know. You know this song. I do. Oh my god, I almost backed up into the truck. No careful, girl. I almost backed up into a truck and you didn't say any. Wait, watch out, watch out, watch out, watch out. Oh my god. I'm driving recklessly. Oh my god. Hey, you know when you got a focus on the road, you got to turn on your music. No, it's because you turned it.
+🔥 Hype keywords detected!
+🎧 seg_00009.mp4 | Score: 0.859 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.2728, 'keyword': 1.0} | We good? I bet. Now we're taking it. Oh, I know. You know th...
+all the way up and you're trying to do light skins. I didn't. I cannot. Hold on. Your eye surgery. How did it go? Amazing. What do you think, bro? I just love it. Can I take a turn, bro? Wait, you see turn right here? Yeah. Hey, bud. Oh my gosh, this sharp ass turn. Hold on. Whoa, this scene we has roll right here. I feel like I'm gonna get so distracted driving with you and look on. I'm gonna try to work with you, bro. That's my city.
+🔥 Hype keywords detected!
+🎧 seg_00010.mp4 | Score: 0.954 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5109, 'keyword': 1.0} | all the way up and you're trying to do light skins. I didn't...
+ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x159707580] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x159707580] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 2563 kb/s
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720, 2435 kb/s, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/merged_1763144927.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 2435 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 h264_videotoolbox
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1597132c0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1597132c0] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1597132c0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1597132c0] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x149606810] video:26435KiB audio:1415KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.360871%
+frame= 5417 fps=0.0 q=-1.0 Lsize=   27950KiB time=00:01:30.59 bitrate=2527.4kbits/s speed=2.15e+03x    
+⬆️ Uploaded merged clip: raw/marlon/live-marlon-1763144555/20251114/segment_1763144949.mp4
+
+🎧 Clip created | Score: 0.940 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4742, 'keyword': 1.0} 🔥
+   Transcript: all the way up and you're trying to do light skins. I didn't. I cannot. Hold on....
+
+✅ Inserted clip into database: 90784344-6e3b-40b8-b9d3-433b786150c0
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00006.mp4
+🗑️ Deleted seg_00006.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00007.mp4
+🗑️ Deleted seg_00007.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00008.mp4
+🗑️ Deleted seg_00008.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00009.mp4
+🗑️ Deleted seg_00009.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00010.mp4
+🗑️ Deleted seg_00010.mp4
+🔄 Iteration 20: 1 segments processed, 0 in buffer
+📹 Processing seg_00011.mp4...
+⚠️ Skipping corrupted/incomplete file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00011.mp4: FFmpeg failed on /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00011.mp4: ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x149d045b0] moov atom not found
+[in#0 @ 0x149d04350] Error opening input: Invalid data found when processing input
+Error opening input file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00011.mp4.
+Error opening input files: Invalid data found when processing input
+
+⏭️ Skipped (not interesting): seg_00011.mp4
+🗑️ Deleted seg_00011.mp4
+🔄 Iteration 30: 2 segments processed, 0 in buffer
+🔄 Iteration 40: 2 segments processed, 0 in buffer
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-89678-buz6z9_d'}
+  warnings.warn(

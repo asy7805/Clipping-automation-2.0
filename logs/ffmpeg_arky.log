@@ -1,0 +1,3 @@
+[mpegts @ 0x141725500] Packet corrupt (stream = 1, dts = 583006410).
+[in#0/mpegts @ 0x1417252b0] corrupt input packet in stream 1
+[aist#0:0/aac @ 0x1416250c0] timestamp discontinuity (stream id=256): 120000000, new offset= -120000000

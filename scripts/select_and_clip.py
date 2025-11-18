@@ -84,8 +84,12 @@ def get_sentiment_pipeline():
 def extract_audio_from_video(video_path: str) -> str:
     """Extracts mono 16kHz WAV audio from MP4 using ffmpeg."""
     wav_path = str(video_path).rsplit(".", 1)[0] + ".wav"
+    
+    # Use the ffmpeg from WinGet installation
+    ffmpeg_path = os.path.expandvars(r"%LOCALAPPDATA%\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0-full_build\bin\ffmpeg.exe")
+    
     cmd = [
-        "ffmpeg",
+        ffmpeg_path,
         "-y",
         "-i",
         video_path,

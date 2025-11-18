@@ -1,0 +1,15 @@
+[cli][info] Found matching plugin twitch for URL https://twitch.tv/marlon
+[cli][info] Available streams: audio_only, 160p (worst), 360p, 480p, 720p60, 1080p60 (best)
+[cli][info] Opening stream: 1080p60 (hls)
+[plugins.twitch][info] Will skip ad segments
+[plugins.twitch][info] Detected advertisement break of 60 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[cli][info] Stream ended
+[cli][info] Closing currently open stream...
+error: Error when writing to output: [Errno 32] Broken pipe, exiting

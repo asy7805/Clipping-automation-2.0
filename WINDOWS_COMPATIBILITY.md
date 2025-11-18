@@ -2,7 +2,7 @@
 
 ## ✅ Windows Support Added
 
-The clipping automation system is now compatible with Windows!
+The AscensionClips system is now compatible with Windows!
 
 ### Changes Made:
 

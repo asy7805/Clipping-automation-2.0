@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Clipping Automation 2.0 API now includes integration with [Captions.ai](https://www.captions.ai) for professional-grade AI-powered video captioning, translation, and AI video generation.
+The AscensionClips API now includes integration with [Captions.ai](https://www.captions.ai) for professional-grade AI-powered video captioning, translation, and AI video generation.
 
 ## Features
 

@@ -34,7 +34,7 @@ const Settings = () => {
     <div className="container mx-auto px-6 py-8 max-w-5xl space-y-8">
       <div>
         <h1 className="text-3xl font-bold mb-2">⚙️ Settings</h1>
-        <p className="text-muted-foreground">Manage your clipping automation configuration</p>
+        <p className="text-muted-foreground">Manage your AscensionClips configuration</p>
       </div>
 
       {/* Current Configuration - Read Only */}

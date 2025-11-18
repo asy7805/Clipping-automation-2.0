@@ -85,7 +85,7 @@ export const DashboardLayout = () => {
             </div>
             <div className="min-w-0">
               <h1 className="font-bold text-sm text-foreground group-hover:text-primary transition-colors truncate">
-                Prism
+                AscensionClips
               </h1>
               <p className="text-xs font-semibold bg-gradient-to-r from-primary to-pink-500 bg-clip-text text-transparent">
                 AI-Powered Clipping

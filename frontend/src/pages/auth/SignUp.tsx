@@ -128,7 +128,7 @@ const SignUp = () => {
             </div>
             <h1 className="text-2xl font-bold mb-2">Create Your Account</h1>
             <p className="text-sm text-muted-foreground">
-              Start capturing viral moments automatically with Prism
+              Start capturing viral moments automatically with AscensionClips
             </p>
           </div>
 

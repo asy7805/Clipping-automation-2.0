@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Clipping Automation 2.0 - Environment Setup Script
+# AscensionClips - Environment Setup Script
 # This script sets up two separate virtual environments:
 # 1. Core environment for API orchestration
 # 2. ML environment for WhisperX and audio processing
 
 set -e  # Exit on any error
 
-echo "🚀 Setting up Clipping Automation 2.0 environments..."
+echo "🚀 Setting up AscensionClips environments..."
 
 # Check for ffmpeg
 echo "🔍 Checking for ffmpeg..."

@@ -1,4 +1,4 @@
-# Clipping Automation 2.0 Makefile
+# AscensionClips Makefile
 
 init-stream:
 	python3 scripts/init_stream_dirs.py --channel $${CHANNEL} --ingest-type $${TYPE} --chunk-seconds $${CHUNK} --output-root $${OUTPUT_ROOT:-./streams}

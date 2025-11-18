@@ -1,5 +1,5 @@
 /**
- * API client for Clipping Automation 2.0 backend
+ * API client for AscensionClips backend
  * Connects to FastAPI server at http://localhost:8000
  */
 

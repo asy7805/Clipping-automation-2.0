@@ -27,7 +27,7 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   },
   global: {
     headers: {
-      'X-Client-Info': 'clipping-automation-frontend',
+      'X-Client-Info': 'ascension-clips-frontend',
     },
   },
 })

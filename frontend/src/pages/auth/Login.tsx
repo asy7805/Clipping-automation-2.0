@@ -71,7 +71,7 @@ const Login = () => {
             </div>
             <h1 className="text-2xl font-bold mb-2">Welcome Back</h1>
             <p className="text-sm text-muted-foreground">
-              Sign in to your Prism account to continue
+              Sign in to your AscensionClips account to continue
             </p>
           </div>
 

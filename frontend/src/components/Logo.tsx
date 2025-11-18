@@ -12,13 +12,13 @@ export const Logo = ({
   className, 
   showText = true, 
   size = "lg",
-  useImage = false,
-  imageSrc = "/logo.svg"
+  useImage = true,  // Default to using image file
+  imageSrc = "/Ascension Clips Logo.png"  // Your uploaded logo file
 }: LogoProps) => {
   const sizeClasses = {
-    sm: "w-8 h-8",
-    md: "w-12 h-12",
-    lg: "w-16 h-16"
+    sm: "w-10 h-10",
+    md: "w-16 h-16",
+    lg: "w-20 h-20"
   };
 
   const textSizeClasses = {
@@ -27,18 +27,61 @@ export const Logo = ({
     lg: "text-2xl"
   };
 
-  // If using image file, render that instead
+  // Use image file by default - place your logo at public/logo.svg or public/logo.png
   if (useImage) {
     return (
       <div className={cn("flex items-center gap-3", className)}>
-        <img 
-          src={imageSrc} 
-          alt="Prism Logo" 
-          className={cn(sizeClasses[size], "object-contain")}
-        />
+        {/* Glow effect wrapper */}
+        <div className="relative group">
+          {/* Outer glow layer - animated pulse */}
+          <div 
+            className={cn(
+              "absolute inset-0 rounded-full",
+              "bg-gradient-to-br from-primary/40 via-primary/20 to-primary/10",
+              "blur-2xl opacity-70 animate-pulse",
+              sizeClasses[size],
+              "-z-0"
+            )}
+            style={{
+              transform: "scale(1.3)",
+              animationDuration: "3s"
+            }}
+          />
+          {/* Inner glow layer - subtle constant glow */}
+          <div 
+            className={cn(
+              "absolute inset-0 rounded-full",
+              "bg-primary/30 blur-xl opacity-50",
+              sizeClasses[size],
+              "-z-0"
+            )}
+            style={{
+              transform: "scale(1.15)"
+            }}
+          />
+          {/* Logo image with enhanced styling */}
+          <img 
+            src={imageSrc} 
+            alt="AscensionClips Logo" 
+            className={cn(
+              sizeClasses[size], 
+              "object-contain relative z-10",
+              "drop-shadow-2xl shadow-[0_0_30px_rgba(var(--primary)/0.5)]",
+              "transition-all duration-500 ease-in-out",
+              "group-hover:drop-shadow-[0_0_40px_rgba(var(--primary)/0.7)]",
+              "group-hover:scale-105",
+              "brightness-110 contrast-105"
+            )}
+          />
+        </div>
         {showText && (
-          <span className={cn("font-bold text-foreground", textSizeClasses[size])}>
-            Prism
+          <span className={cn(
+            "font-bold text-foreground relative",
+            "bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text",
+            textSizeClasses[size],
+            "drop-shadow-sm"
+          )}>
+            AscensionClips
           </span>
         )}
       </div>
@@ -47,50 +90,62 @@ export const Logo = ({
 
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      {/* Logo Graphic - Play button + Scissors + Sparkle */}
+      {/* Logo Graphic - Mountain with Play Button + Ascending Arrow */}
       <div className={cn("relative flex items-center justify-center", sizeClasses[size])}>
         <svg
-          viewBox="0 0 24 24"
+          viewBox="0 0 40 40"
           className="w-full h-full"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Play button triangle - off-white */}
+          <defs>
+            {/* Mask for play button cutout */}
+            <mask id="mountainMask">
+              <rect width="40" height="40" fill="white" />
+              <path d="M27 28 L29.5 28 L28.25 26.5 Z" fill="black" />
+            </mask>
+          </defs>
+          
+          {/* Ascending Arrow/Path - curves upward from lower-left, sweeps right */}
           <path
-            d="M8 5L16 12L8 19V5Z"
-            fill="#F5F5DC"
-            className="drop-shadow-lg"
+            d="M6 30 Q8 26, 10 22 Q12 18, 14 16 Q16 14, 18 13 Q20 12, 22 11.5 Q24 11, 26 10.5"
+            stroke="#006B7D"
+            strokeWidth="2.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
           />
           
-          {/* Scissors outline - light teal */}
-          <g stroke="#4DD0E1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none">
-            {/* Left handle */}
-            <path d="M6 7C6 7 7 6 8 6C9 6 10 7 10 8C10 9 9 10 8 10C7 10 6 9 6 8" />
-            {/* Right handle */}
-            <path d="M18 7C18 7 17 6 16 6C15 6 14 7 14 8C14 9 15 10 16 10C17 10 18 9 18 8" />
-            {/* Blade connection */}
-            <path d="M10 8L12 12M14 8L12 12" />
-            {/* Handles to center */}
-            <path d="M6 8L12 12M18 8L12 12" />
-          </g>
+          {/* Arrow tip pointing upward-right */}
+          <path
+            d="M24.5 10 L27 10.5 L25.5 12.5"
+            stroke="#006B7D"
+            strokeWidth="2.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="none"
+          />
           
-          {/* Sparkle - light teal, positioned top-right */}
-          <g transform="translate(16, 4)">
-            <path
-              d="M2 2L3 4L4 2M2 4L4 4M3 1L3 3"
-              stroke="#4DD0E1"
-              strokeWidth="1.2"
-              strokeLinecap="round"
-              fill="none"
-            />
-          </g>
+          {/* Jagged base/small peak for ascending path */}
+          <path
+            d="M6 30 L7 32 L6.5 34 L8 34 L6 30"
+            fill="#006B7D"
+            opacity="0.9"
+          />
+          
+          {/* Main Mountain Peak - large triangle on right with play button cutout */}
+          <path
+            d="M18 34 L32 34 L26 16 Z"
+            fill="#006B7D"
+            mask="url(#mountainMask)"
+          />
         </svg>
       </div>
       
       {/* Wordmark */}
       {showText && (
         <span className={cn("font-bold text-foreground", textSizeClasses[size])}>
-          Prism
+          AscensionClips
         </span>
       )}
     </div>

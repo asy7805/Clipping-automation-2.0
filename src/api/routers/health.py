@@ -20,7 +20,7 @@ async def health_check() -> Dict[str, Any]:
     return {
         "status": "healthy",
         "timestamp": datetime.utcnow().isoformat(),
-        "service": "clipping-automation-api"
+        "service": "ascension-clips-api"
     }
 
 @router.get("/health/detailed")
@@ -34,7 +34,7 @@ async def detailed_health_check() -> Dict[str, Any]:
     health_status = {
         "status": "healthy",
         "timestamp": datetime.utcnow().isoformat(),
-        "service": "clipping-automation-api",
+        "service": "ascension-clips-api",
         "checks": {
             "environment": {
                 "status": "ok",

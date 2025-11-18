@@ -2,13 +2,13 @@
 # Live Ingestion Monitor
 # Shows real-time status of the clipping system
 
-echo "🎬 Clipping Automation 2.0 - Live Monitor"
+echo "🎬 AscensionClips - Live Monitor"
 echo "=========================================="
 echo ""
 
 while true; do
     clear
-    echo "🎬 Clipping Automation 2.0 - Live Monitor"
+    echo "🎬 AscensionClips - Live Monitor"
     echo "=========================================="
     echo ""
     echo "📊 Process Status:"

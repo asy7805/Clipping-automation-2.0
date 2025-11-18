@@ -17,7 +17,7 @@ const Footer = () => {
               <Logo size="md" showText={true} />
             </div>
             <p className="text-sm text-muted-foreground">
-              AI-powered Twitch clipping automation for streamers.
+              AI-powered Twitch clip automation for streamers.
             </p>
           </div>
 
@@ -42,7 +42,7 @@ const Footer = () => {
 
         <div className="pt-8 border-t border-border/50 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © 2025 Prism. All rights reserved.
+            © 2025 AscensionClips. All rights reserved.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">

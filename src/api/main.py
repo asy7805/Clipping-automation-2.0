@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-FastAPI Server for Clipping Automation 2.0
+FastAPI Server for AscensionClips
 Provides REST API endpoints for clip management, analytics, and automation.
 """
 
@@ -38,7 +38,7 @@ async def lifespan(app: FastAPI):
     global watchdog_instance, watchdog_task
     
     # Startup
-    print("🚀 Starting Clipping Automation API...")
+    print("🚀 Starting AscensionClips API...")
     print(f"📡 Supabase URL: {os.getenv('SUPABASE_URL', 'Not configured')}")
     print(f"🤖 OpenAI API: {'✅ Configured' if os.getenv('OPENAI_API_KEY') else '❌ Missing'}")
     print(f"📺 Twitch API: {'✅ Configured' if os.getenv('TWITCH_CLIENT_ID') else '❌ Missing'}")
@@ -54,7 +54,7 @@ async def lifespan(app: FastAPI):
     yield
     
     # Shutdown
-    print("🛑 Shutting down Clipping Automation API...")
+    print("🛑 Shutting down AscensionClips API...")
     if watchdog_instance:
         watchdog_instance.stop()
     if watchdog_task:
@@ -67,7 +67,7 @@ async def lifespan(app: FastAPI):
 
 # Create FastAPI app
 app = FastAPI(
-    title="Clipping Automation 2.0 API",
+    title="AscensionClips API",
     description="REST API for automated clip collection, processing, and analytics",
     version="2.0.0",
     lifespan=lifespan
@@ -118,7 +118,7 @@ app.include_router(captions.router, prefix="/api/v1", tags=["captions"])
 async def root():
     """Root endpoint with API information."""
     return {
-        "message": "Clipping Automation 2.0 API",
+        "message": "AscensionClips API",
         "version": "2.0.0",
         "docs": "/docs",
         "health": "/api/v1/health"

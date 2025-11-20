@@ -2,15 +2,22 @@
 # This prevents Nixpacks from detecting requirements.txt
 
 [phases.setup]
-nixPkgs = ["python312", "poetry"]
+nixPkgs = ["python312"]
+cmds = [
+  "python3 -m pip install --upgrade pip",
+  "python3 -m pip install poetry",
+  "python3 -m poetry --version"
+]
 
 [phases.install]
 cmds = [
-  "poetry install --no-dev --no-root"
+  "python3 -m poetry config virtualenvs.create false",
+  "python3 -m poetry config virtualenvs.in-project false",
+  "python3 -m poetry install --no-dev --no-root"
 ]
 
 [phases.build]
 cmds = []
 
 [start]
-cmd = "cd src/api && poetry run uvicorn main:app --host 0.0.0.0 --port $PORT"
+cmd = "cd src/api && python3 -m poetry run uvicorn main:app --host 0.0.0.0 --port $PORT"

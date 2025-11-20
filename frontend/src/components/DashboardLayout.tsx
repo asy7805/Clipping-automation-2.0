@@ -25,6 +25,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import { NotificationDropdown } from "@/components/NotificationDropdown";
+import { SubscriptionBadge } from "@/components/SubscriptionBadge";
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
@@ -210,6 +211,9 @@ export const DashboardLayout = () => {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Subscription Status */}
+            <SubscriptionBadge showCredits={true} />
+            
             {/* Notification Dropdown */}
             <NotificationDropdown />
             

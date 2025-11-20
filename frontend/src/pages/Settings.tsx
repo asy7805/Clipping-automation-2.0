@@ -3,14 +3,39 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Database, HardDrive, Settings2, Zap, Bell, Brain } from "lucide-react";
+import { Database, HardDrive, Settings2, Zap, Bell, Brain, Globe } from "lucide-react";
 import { useDashboardStats } from "@/hooks/useStreamData";
 import { useClips } from "@/hooks/useClips";
 import { useMemo } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useTimezone } from "@/hooks/useTimezone";
+
+const COMMON_TIMEZONES = [
+  { label: "UTC", value: "UTC" },
+  { label: "Eastern Time (EST/EDT)", value: "America/New_York" },
+  { label: "Central Time (CST/CDT)", value: "America/Chicago" },
+  { label: "Mountain Time (MST/MDT)", value: "America/Denver" },
+  { label: "Pacific Time (PST/PDT)", value: "America/Los_Angeles" },
+  { label: "Alaska Time (AKST/AKDT)", value: "America/Anchorage" },
+  { label: "Hawaii Time (HST)", value: "Pacific/Honolulu" },
+  { label: "London (GMT/BST)", value: "Europe/London" },
+  { label: "Central European Time (CET)", value: "Europe/Paris" },
+  { label: "Japan (JST)", value: "Asia/Tokyo" },
+  { label: "Sydney (AEST)", value: "Australia/Sydney" },
+];
 
 const Settings = () => {
   const { data: stats, isLoading: statsLoading } = useDashboardStats();
   const { data: clipsData } = useClips({ limit: 1000 });
+  const { timezone, setTimezone } = useTimezone();
+  
+  const isCommon = COMMON_TIMEZONES.some(tz => tz.value === timezone);
 
   const { storageUsedGB, storageQuotaGB, totalClips, avgClipSizeMB, storagePercent } = useMemo(() => {
     const used = stats?.storageUsed ?? 0;
@@ -91,6 +116,40 @@ const Settings = () => {
               <p>✓ MP4 format (H.264)</p>
               <p>✓ Public URLs enabled</p>
             </div>
+          </div>
+        </div>
+      </Card>
+
+      {/* Preferences */}
+      <Card className="p-6 bg-card border-border">
+        <div className="flex items-center gap-3 mb-6">
+          <Globe className="w-6 h-6 text-primary" />
+          <h2 className="text-xl font-semibold">Preferences</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <Label>Timezone</Label>
+            <Select value={timezone} onValueChange={setTimezone}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select timezone" />
+              </SelectTrigger>
+              <SelectContent className="max-h-[300px]">
+                {COMMON_TIMEZONES.map((tz) => (
+                  <SelectItem key={tz.value} value={tz.value}>
+                    {tz.label}
+                  </SelectItem>
+                ))}
+                {!isCommon && timezone && (
+                  <SelectItem value={timezone}>
+                    {timezone.replace(/_/g, " ")} (Current)
+                  </SelectItem>
+                )}
+              </SelectContent>
+            </Select>
+            <p className="text-sm text-muted-foreground">
+              All dates and times will be displayed in this timezone.
+            </p>
           </div>
         </div>
       </Card>

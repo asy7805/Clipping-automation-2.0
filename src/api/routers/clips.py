@@ -106,10 +106,17 @@ async def get_clips(
         print(f"🎯 GET /clips called for user: {user_id[:8]}... (admin: {is_admin})")
         
         # Use admin client for admins to bypass RLS, regular client for normal users
-        if is_admin:
-            sb = get_admin_client()
-        else:
-            sb = get_client()
+        try:
+            if is_admin:
+                sb = get_admin_client()
+            else:
+                sb = get_client()
+        except Exception as e:
+            print(f"❌ Error creating Supabase client: {e}")
+            raise HTTPException(
+                status_code=500, 
+                detail=f"Failed to connect to database: {str(e)}"
+            )
         
         # Build query - admins see all clips, regular users see only their own
         if is_admin:
@@ -148,13 +155,34 @@ async def get_clips(
         elif sort_by == "lowest":
             query = query.order('confidence_score', desc=False)
         
-        # Get total count before pagination
-        count_result = count_query.execute()
+        # Get total count before pagination (with timeout protection)
+        # Skip count query entirely - it's slow and not critical for pagination
+        # We can estimate from results or just show "has more" based on limit
+        total_count = 0
+        # Don't run count query - it's too slow and causes timeouts
+        # Frontend can work with estimated pagination
         
-        total_count = count_result.count if count_result.count is not None else 0
-        
-        # Apply pagination
-        result = query.range(offset, offset + limit - 1).execute()
+        # Apply pagination with timeout protection
+        try:
+            # Limit query to reasonable size to prevent timeout
+            result = query.range(offset, offset + limit - 1).limit(limit).execute()
+        except Exception as e:
+            print(f"❌ Error executing clips query: {e}")
+            import traceback
+            traceback.print_exc()
+            
+            # Check if it's a timeout or connection issue
+            error_msg = str(e).lower()
+            if "timeout" in error_msg or "timed out" in error_msg:
+                raise HTTPException(
+                    status_code=504,  # Gateway Timeout
+                    detail="Database query timed out. Please try again with a smaller limit or different filters."
+                )
+            
+            raise HTTPException(
+                status_code=500,
+                detail=f"Failed to fetch clips: {str(e)}"
+            )
         
         clips = []
         for clip in result.data or []:
@@ -172,24 +200,39 @@ async def get_clips(
             }
             clips.append(clip_data)
         
-        print(f"✅ Returning {len(clips)} clips out of {total_count} total")
+        # Estimate pagination - if we got full limit, assume there are more
+        has_more = len(clips) == limit
+        estimated_total = offset + len(clips) + (1 if has_more else 0)
+        
+        print(f"✅ Returning {len(clips)} clips (estimated total: {estimated_total}+)")
         
         return {
             "clips": clips,
             "pagination": {
-                "total": total_count,
+                "total": estimated_total,  # Estimated, not exact
                 "page": (offset // limit) + 1,
                 "limit": limit,
                 "offset": offset,
-                "has_next": offset + limit < total_count,
+                "has_next": has_more,  # If we got full limit, assume there's more
                 "has_prev": offset > 0,
-                "total_pages": (total_count + limit - 1) // limit
+                "total_pages": None  # Unknown without count
             }
         }
         
     except Exception as e:
+        error_msg = str(e)
         print(f"❌ Error fetching clips: {e}")
-        raise HTTPException(status_code=500, detail=f"Failed to fetch clips: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        
+        # Check if it's a DNS/network error
+        if "nodename" in error_msg.lower() or "servname" in error_msg.lower() or "name resolution" in error_msg.lower():
+            raise HTTPException(
+                status_code=503,  # Service Unavailable
+                detail=f"Database connection error: Unable to resolve Supabase hostname. Please check your network connection and SUPABASE_URL environment variable."
+            )
+        
+        raise HTTPException(status_code=500, detail=f"Failed to fetch clips: {error_msg}")
 
 @router.get("/clips/{clip_id}", response_model=ClipResponse)
 async def get_clip(

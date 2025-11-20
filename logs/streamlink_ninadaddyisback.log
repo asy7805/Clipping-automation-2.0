@@ -5,3 +5,191 @@
 [cli][info] Stream ended
 [cli][info] Closing currently open stream...
 error: Error when writing to output: [Errno 32] Broken pipe, exiting
+[cli][info] Found matching plugin twitch for URL https://twitch.tv/ninadaddyisback
+[cli][info] Available streams: audio_only, 160p (worst), 360p, 480p, 720p60, 1080p60 (best)
+[cli][info] Opening stream: 1080p60 (hls)
+[plugins.twitch][info] Will skip ad segments
+[cli][info] Found matching plugin twitch for URL https://twitch.tv/ninadaddyisback
+[cli][info] Available streams: audio_only, 160p (worst), 360p, 480p, 720p60, 1080p60 (best)
+[cli][info] Opening stream: 1080p60 (hls)
+[plugins.twitch][info] Will skip ad segments
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.hls][error] Failed to fetch segment 7794: Unable to open URL: https://edec822a8c68.j.cloudfront.hls.ttvnw.net/v1/segment/CoYDlGNvkdJOvxdgE41wcMNqwp-fM6ynR3Wkd6j4fpEH7KePOjkIgvjWVNIRFBKvLz55A0fIE7oIRrqiV48Hh0c0j57kiusI3bduD9vHJnt4JIEnn0MPVVYtIziN7-WPlpU-CnSpVR1jnJ2X4cp6Jl8PZA00_4MLpWGoxC1kzaH2Q8KNqYIkP0Jx8LqkQaaOg8BgMMlYFnwkCggF2KFbg6n2Q-Ythn3DFDrc5MNwb4T3O2D0kHzCWJX8mkYhPK0R2FES42TTSKUcFnY0FQ8-e5WZpMdMM3LNeAgbzSqYT4ltO1akwrdn6zyCQd9aAxZ_kAhplM03-duSOBHadFfCyhLQDB5G45JbMkXzTb5i0DbJNzWJIOl8oSjhaW8UdKwyrQvu0Te5epl3PqWR0Uj1JTAGR8WFe7PEUdr4DTST1n6tkaGyHXUPsW40tKSg2_-04EbMX-wARzLc_E9kaVGLlIiBeJ9JH84vyOmWKz_AV5CHv0PzNGTBmv_gckRdu7pQ6Toj72z9JGSTGgxO61cHOhYe5iN-sKkgASoJdXMtZWFzdC0yMN4N.ts?dna=ClCQwUY7WDZwLNyqhzDJCMmPYYSDD3XVJGZCzYEixo43_yMxhavnQ5H_sj0aY8jCxN4ihutnNnMdZNvor71AwLYz9FkZD8B9DsfzS-SRrI3tGxoM4BEWoxdEsruGNpW9IAEqCXVzLWVhc3QtMjDeDQ (404 Client Error: Not Found for url: https://edec822a8c68.j.cloudfront.hls.ttvnw.net/v1/segment/CoYDlGNvkdJOvxdgE41wcMNqwp-fM6ynR3Wkd6j4fpEH7KePOjkIgvjWVNIRFBKvLz55A0fIE7oIRrqiV48Hh0c0j57kiusI3bduD9vHJnt4JIEnn0MPVVYtIziN7-WPlpU-CnSpVR1jnJ2X4cp6Jl8PZA00_4MLpWGoxC1kzaH2Q8KNqYIkP0Jx8LqkQaaOg8BgMMlYFnwkCggF2KFbg6n2Q-Ythn3DFDrc5MNwb4T3O2D0kHzCWJX8mkYhPK0R2FES42TTSKUcFnY0FQ8-e5WZpMdMM3LNeAgbzSqYT4ltO1akwrdn6zyCQd9aAxZ_kAhplM03-duSOBHadFfCyhLQDB5G45JbMkXzTb5i0DbJNzWJIOl8oSjhaW8UdKwyrQvu0Te5epl3PqWR0Uj1JTAGR8WFe7PEUdr4DTST1n6tkaGyHXUPsW40tKSg2_-04EbMX-wARzLc_E9kaVGLlIiBeJ9JH84vyOmWKz_AV5CHv0PzNGTBmv_gckRdu7pQ6Toj72z9JGSTGgxO61cHOhYe5iN-sKkgASoJdXMtZWFzdC0yMN4N.ts?dna=ClCQwUY7WDZwLNyqhzDJCMmPYYSDD3XVJGZCzYEixo43_yMxhavnQ5H_sj0aY8jCxN4ihutnNnMdZNvor71AwLYz9FkZD8B9DsfzS-SRrI3tGxoM4BEWoxdEsruGNpW9IAEqCXVzLWVhc3QtMjDeDQ)
+[stream.hls][error] Failed to fetch segment 7795: Unable to open URL: https://edec822a8c68.j.cloudfront.hls.ttvnw.net/v1/segment/CoYDLYbi6kozB5hJTqI25iF34FKmUEPt_d38D10AuKWVGWYgeIs8rVHCXUwpEeAfS5ayPyg7HzpA-rO-7p8FaBPn4gJ_JK_oEdYBUdaEQrZdzPS7mscwnINll-nC-7OE87zvkJuvnPQXdEoB5hXDtjL_DZUUPbqOvINaal0_GXndYUrwHg1rbAZWQHFB8IgDmm1McW2t2j-9x_0DV0m_ubekla_3EebUvWzO9XYGnXl5opWFr44Rl2yALpZrd07vb4J0El2F99qZuQw_tQXmgyyzt8ymCQJPhbKHCxujr74Ax3AFuHVY0io9LlSCLp1lHJkTD0H-0G9bn72XcLFfmruT1DeJwSeQb2xDpfc6Ey-6cSDriB3__CCJVnpvIEn5du4hBf9RcT7ZonZhVe-ckekDEMSO6tIboEYNFBNLPUkBQmfAVJ0JkX6ujtqi7PNmAHiTDxeXHfjS8Jysx3O28lrlJBOhsY343g8p3_zFTP1zUkuMxuaZplH6pEZoAZuFE_8hWayZpZRUGgzPG_P5altBMNzMVlMgASoJdXMtZWFzdC0yMN4N.ts?dna=ClCQwUY7WDZwLNyqhzDJCMmPYYSDD3XVJGZCzYEixo43_yMxhavnQ5H_sj0aY8jCxN4ihutnNnMdZNvor71AwLYz9FkZD8B9DsfzS-SRrI3tGxoM4BEWoxdEsruGNpW9IAEqCXVzLWVhc3QtMjDeDQ (404 Client Error: Not Found for url: https://edec822a8c68.j.cloudfront.hls.ttvnw.net/v1/segment/CoYDLYbi6kozB5hJTqI25iF34FKmUEPt_d38D10AuKWVGWYgeIs8rVHCXUwpEeAfS5ayPyg7HzpA-rO-7p8FaBPn4gJ_JK_oEdYBUdaEQrZdzPS7mscwnINll-nC-7OE87zvkJuvnPQXdEoB5hXDtjL_DZUUPbqOvINaal0_GXndYUrwHg1rbAZWQHFB8IgDmm1McW2t2j-9x_0DV0m_ubekla_3EebUvWzO9XYGnXl5opWFr44Rl2yALpZrd07vb4J0El2F99qZuQw_tQXmgyyzt8ymCQJPhbKHCxujr74Ax3AFuHVY0io9LlSCLp1lHJkTD0H-0G9bn72XcLFfmruT1DeJwSeQb2xDpfc6Ey-6cSDriB3__CCJVnpvIEn5du4hBf9RcT7ZonZhVe-ckekDEMSO6tIboEYNFBNLPUkBQmfAVJ0JkX6ujtqi7PNmAHiTDxeXHfjS8Jysx3O28lrlJBOhsY343g8p3_zFTP1zUkuMxuaZplH6pEZoAZuFE_8hWayZpZRUGgzPG_P5altBMNzMVlMgASoJdXMtZWFzdC0yMN4N.ts?dna=ClCQwUY7WDZwLNyqhzDJCMmPYYSDD3XVJGZCzYEixo43_yMxhavnQ5H_sj0aY8jCxN4ihutnNnMdZNvor71AwLYz9FkZD8B9DsfzS-SRrI3tGxoM4BEWoxdEsruGNpW9IAEqCXVzLWVhc3QtMjDeDQ)
+[stream.hls][error] Failed to fetch segment 7796: Unable to open URL: https://edec822a8c68.j.cloudfront.hls.ttvnw.net/v1/segment/CowD3jnO6AugKzgKkSUcXPGxxbJ73zmOGzMZXLOLkAeFoprZBVroohaSAC4a8DEALwfBxi1pHRv-vfaqkIv3GOc8MsyRkGgwkxTQHQ2UByXZoLjgcyioTM9N08nZA3NVUt1U-5XDnpVxyB46wudRzhewQG06y3qrbcqac8RKgDezuAYLRcsAIvXi3frz03yFFPmJ57uFvApeF87Oay6wPN6rjaS4YFYhl-KPPIKCLARwJBHIpYrR-CI5kKrilGX99CfO3xN0hi2u4z4hqU4aXojJuPBnwYxlnmVCMTzUmlMRV460Ltxz5_vuQ2TwIHp_5i3PGw13h88rqGtn3q8Bd5V5y-G6He1jxQdNLSA4L495t2I3akDwJvyv85R121WqFJkVnZxafNkaJ1uquxqYe_gjcsqnCt9RGVY0LatbkDRmNcmhCRu6cpelYb6tz7Z79Id4HAmwk33t8YjyktwKtmd1PcJEFfRwT8VflCm9_pqpENp3sGYAXarvutYiRnI4qdZrDrrXUbyzxKWeiIC2GgwpdrW0BWuF9oCx02UgASoJdXMtZWFzdC0yMN4N.ts?dna=ClCQwUY7WDZwLNyqhzDJCMmPYYSDD3XVJGZCzYEixo43_yMxhavnQ5H_sj0aY8jCxN4ihutnNnMdZNvor71AwLYz9FkZD8B9DsfzS-SRrI3tGxoM4BEWoxdEsruGNpW9IAEqCXVzLWVhc3QtMjDeDQ (403 Client Error: Forbidden for url: https://edec822a8c68.j.cloudfront.hls.ttvnw.net/v1/segment/CowD3jnO6AugKzgKkSUcXPGxxbJ73zmOGzMZXLOLkAeFoprZBVroohaSAC4a8DEALwfBxi1pHRv-vfaqkIv3GOc8MsyRkGgwkxTQHQ2UByXZoLjgcyioTM9N08nZA3NVUt1U-5XDnpVxyB46wudRzhewQG06y3qrbcqac8RKgDezuAYLRcsAIvXi3frz03yFFPmJ57uFvApeF87Oay6wPN6rjaS4YFYhl-KPPIKCLARwJBHIpYrR-CI5kKrilGX99CfO3xN0hi2u4z4hqU4aXojJuPBnwYxlnmVCMTzUmlMRV460Ltxz5_vuQ2TwIHp_5i3PGw13h88rqGtn3q8Bd5V5y-G6He1jxQdNLSA4L495t2I3akDwJvyv85R121WqFJkVnZxafNkaJ1uquxqYe_gjcsqnCt9RGVY0LatbkDRmNcmhCRu6cpelYb6tz7Z79Id4HAmwk33t8YjyktwKtmd1PcJEFfRwT8VflCm9_pqpENp3sGYAXarvutYiRnI4qdZrDrrXUbyzxKWeiIC2GgwpdrW0BWuF9oCx02UgASoJdXMtZWFzdC0yMN4N.ts?dna=ClCQwUY7WDZwLNyqhzDJCMmPYYSDD3XVJGZCzYEixo43_yMxhavnQ5H_sj0aY8jCxN4ihutnNnMdZNvor71AwLYz9FkZD8B9DsfzS-SRrI3tGxoM4BEWoxdEsruGNpW9IAEqCXVzLWVhc3QtMjDeDQ)
+[stream.segmented][warning] Sequence gap of 444 segments at position 7796. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 443 segments at position 7797. This is unsupported and will result in incoherent output data.
+[stream.hls][warning] Failed to reload playlist: Unable to open URL: https://use12.playlist.ttvnw.net/v1/playlist/CvkEzGnwNqvs5JZmYJW9Otdnr6V7uTpvwMar_x7PK--52Mvk1RKfIUD_th60RDh0UfRLoKRNBksnwAwuU65DjV3jU3OwcDOXhUyZKtdPAUj5XvRQnhGtHThZkFzUVtoW8KyFxYhW28myvW4LYvXLbFA09RTJt7Q0fA5s8HGSRt29Fo8jp6to-8WupT2BBaUaAh0cOaCbXdv-kbwvXFx33ZuTzyuixWa-U5E9Jss2ZU0G3jZVktJf5e_2xv2sYdGU9lf3JvmBz80OcfYB67QC9Pb5e6cx8rbufWvaCL19bHmu82yKe_wb_nOR9jt0Mg1znnvGvLAeTRmicc8a2iI_dL6BnHhy1dzGnuI_E8WGtDhkDwEQfuedrHnRnboVI8e0T8_iNDjRnBFL5HEAP8dFApI3gzqZGoaS2Q0rM7TbH_bxyZu5fhcZhzJvCw0Ti_YHw-Bi7ep1-_TI5FE52j0Bww-MCAoC9aVk1nEYW7VyzFlku0zi9FvZ6Fh2BO1EsXO9RRfcETk-j6WQUtPnOHk9J37iuFXPqABiqU_HaFluA__xWAFDkW6fp6zlJa8SQiUIFDz_3nz_yu7RA3hOeJVf3RMiX8VD2OEnn19sUKhXGih09q-KN7qKoGvGajWrQq28L9FsSALIJ6ulq3SFU4gDdAmdgMY9UDyl5gCJNNmbDebBrMYjzWOzvb7z05ymZNd3wbEgekv1Aox3ev4b97rdymoEeND6s75tRG4rLzx8cGyWpcfD1mlrv9nZhog687VAAzg4nVPWhIvjKKd8UWRz9UWJVMzhn2rAe9eKistKtD1yWkchhOe_NI4hzlpByXyd6OkPaQ9AWRU2T-VmGgzxK0i_xTvlM4ZAl1EgASoJdXMtZWFzdC0yMN4N.m3u8 (HTTPSConnectionPool(host='use12.playlist.ttvnw.net', port=443): Max retries exceeded with url: /v1/playlist/CvkEzGnwNqvs5JZmYJW9Otdnr6V7uTpvwMar_x7PK--52Mvk1RKfIUD_th60RDh0UfRLoKRNBksnwAwuU65DjV3jU3OwcDOXhUyZKtdPAUj5XvRQnhGtHThZkFzUVtoW8KyFxYhW28myvW4LYvXLbFA09RTJt7Q0fA5s8HGSRt29Fo8jp6to-8WupT2BBaUaAh0cOaCbXdv-kbwvXFx33ZuTzyuixWa-U5E9Jss2ZU0G3jZVktJf5e_2xv2sYdGU9lf3JvmBz80OcfYB67QC9Pb5e6cx8rbufWvaCL19bHmu82yKe_wb_nOR9jt0Mg1znnvGvLAeTRmicc8a2iI_dL6BnHhy1dzGnuI_E8WGtDhkDwEQfuedrHnRnboVI8e0T8_iNDjRnBFL5HEAP8dFApI3gzqZGoaS2Q0rM7TbH_bxyZu5fhcZhzJvCw0Ti_YHw-Bi7ep1-_TI5FE52j0Bww-MCAoC9aVk1nEYW7VyzFlku0zi9FvZ6Fh2BO1EsXO9RRfcETk-j6WQUtPnOHk9J37iuFXPqABiqU_HaFluA__xWAFDkW6fp6zlJa8SQiUIFDz_3nz_yu7RA3hOeJVf3RMiX8VD2OEnn19sUKhXGih09q-KN7qKoGvGajWrQq28L9FsSALIJ6ulq3SFU4gDdAmdgMY9UDyl5gCJNNmbDebBrMYjzWOzvb7z05ymZNd3wbEgekv1Aox3ev4b97rdymoEeND6s75tRG4rLzx8cGyWpcfD1mlrv9nZhog687VAAzg4nVPWhIvjKKd8UWRz9UWJVMzhn2rAe9eKistKtD1yWkchhOe_NI4hzlpByXyd6OkPaQ9AWRU2T-VmGgzxK0i_xTvlM4ZAl1EgASoJdXMtZWFzdC0yMN4N.m3u8 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x104651e50>: Failed to resolve 'use12.playlist.ttvnw.net' ([Errno 8] nodename nor servname provided, or not known)")))
+[stream.hls][warning] No new segments in playlist for more than 18.00s. Stopping...
+[stream.hls][warning] Failed to reload playlist: Unable to open URL: https://use12.playlist.ttvnw.net/v1/playlist/CvgEbWgDqViwZPcI-xrqcFSQhD4ekTnzcGDikg67zTK7xmhqCAlafiyqiFzKBur4uUiMlzhUIaiNFr4oajj99Qkf4cQfWtt17qYYLuIPyEku5ZA54Nat_XerHsm_mcdcfRbKCi7NUXzvrwmz1nLka_0eLhDObudCalUR4CPUqUSdaMMhZ3Nf4qs709sWqdKAbcij2vWcySKi_EFmvHCEOJjB9cwn2W1HA4U7VSuTMbcNM_BoXJaNwmRGHQb5b583Bjk_k5txTqm03SoZtbU9Jlg6PlP3S8ibGM733F22hUc8OY8sjDwK3heq5BsSbwQuqJcPpvsr3g3seolTun3Xz8oZyvA6c6-k9I-BDgY7a1kJrK3zVbImWIyryktdwXRlFn7940I4IhxRKS46OuVVB4VqfAgXByKsvh-L-snn4aRgzFcKKIGYRSUR5teuZUdll-e2KJL4W7QlhKk30trq-PDVRvkKT5pmPnUCuzEf0oTvb-LOSxXzZyNsra8D9Ra_-a-AMvVib0nofg2ol9cVFiuPizF5kfciXKs3l46p-bnyRmaEq8T68vO8z-e540uM80iE73fFDHBuqDaRkhqyPrM77YJRReGvxVFWA0FS_XpTa3bUV1s-tSYYk0UsRZHOaTH9u-YC1u-RL4MSNapixDEttFnHfNg9D1TsGyBoVwRAHSVRcPaWHOOdXhQvyd06cAfeB2Ty9xG-V4-1Pj1P_K5ly9alg-MUKdVIsp1tgO8GGng7rnTkN99PS6HtLMjuQRjEzp_spdLvo9i3KYU9JZR-92HlBpp1jCBxTvHqmbCP21z_73Pmcf0cQInREdvO0N1Re5GBkhOOVQ4aDBzed6Nk0S3JfwbG3CABKgl1cy1lYXN0LTIw3g0.m3u8 (HTTPSConnectionPool(host='use12.playlist.ttvnw.net', port=443): Max retries exceeded with url: /v1/playlist/CvgEbWgDqViwZPcI-xrqcFSQhD4ekTnzcGDikg67zTK7xmhqCAlafiyqiFzKBur4uUiMlzhUIaiNFr4oajj99Qkf4cQfWtt17qYYLuIPyEku5ZA54Nat_XerHsm_mcdcfRbKCi7NUXzvrwmz1nLka_0eLhDObudCalUR4CPUqUSdaMMhZ3Nf4qs709sWqdKAbcij2vWcySKi_EFmvHCEOJjB9cwn2W1HA4U7VSuTMbcNM_BoXJaNwmRGHQb5b583Bjk_k5txTqm03SoZtbU9Jlg6PlP3S8ibGM733F22hUc8OY8sjDwK3heq5BsSbwQuqJcPpvsr3g3seolTun3Xz8oZyvA6c6-k9I-BDgY7a1kJrK3zVbImWIyryktdwXRlFn7940I4IhxRKS46OuVVB4VqfAgXByKsvh-L-snn4aRgzFcKKIGYRSUR5teuZUdll-e2KJL4W7QlhKk30trq-PDVRvkKT5pmPnUCuzEf0oTvb-LOSxXzZyNsra8D9Ra_-a-AMvVib0nofg2ol9cVFiuPizF5kfciXKs3l46p-bnyRmaEq8T68vO8z-e540uM80iE73fFDHBuqDaRkhqyPrM77YJRReGvxVFWA0FS_XpTa3bUV1s-tSYYk0UsRZHOaTH9u-YC1u-RL4MSNapixDEttFnHfNg9D1TsGyBoVwRAHSVRcPaWHOOdXhQvyd06cAfeB2Ty9xG-V4-1Pj1P_K5ly9alg-MUKdVIsp1tgO8GGng7rnTkN99PS6HtLMjuQRjEzp_spdLvo9i3KYU9JZR-92HlBpp1jCBxTvHqmbCP21z_73Pmcf0cQInREdvO0N1Re5GBkhOOVQ4aDBzed6Nk0S3JfwbG3CABKgl1cy1lYXN0LTIw3g0.m3u8 (Caused by NameResolutionError("<urllib3.connection.HTTPSConnection object at 0x103955d10>: Failed to resolve 'use12.playlist.ttvnw.net' ([Errno 8] nodename nor servname provided, or not known)")))
+[stream.hls][warning] No new segments in playlist for more than 18.00s. Stopping...
+[cli][info] Stream ended
+[cli][info] Closing currently open stream...
+[cli][info] Stream ended
+[cli][info] Closing currently open stream...
+[cli][info] Found matching plugin twitch for URL https://twitch.tv/ninadaddyisback
+[cli][info] Available streams: audio_only, 160p (worst), 360p, 480p, 720p60, 1080p60 (best)
+[cli][info] Opening stream: 1080p60 (hls)
+[plugins.twitch][info] Will skip ad segments
+[plugins.twitch][info] Detected advertisement break of 30 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[cli][info] Found matching plugin twitch for URL https://twitch.tv/ninadaddyisback
+[cli][info] Available streams: audio_only, 160p (worst), 360p, 480p, 720p60, 1080p60 (best)
+[cli][info] Opening stream: 1080p60 (hls)
+[plugins.twitch][info] Will skip ad segments
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.segmented][warning] Sequence gap of 2 segments at position 13497. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 11 segments at position 13462. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 15 segments at position 13514. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 8 segments at position 13488. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 2 segments at position 13544. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 4 segments at position 13511. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 8 segments at position 13561. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 2 segments at position 13530. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 1 segment at position 13584. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 2 segments at position 13547. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 9 segments at position 13600. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 8 segments at position 13564. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 4 segments at position 13598. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 4 segments at position 13646. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 23 segments at position 13617. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 21 segments at position 13665. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 2 segments at position 13701. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 2 segments at position 13655. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 2 segments at position 13672. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 2 segments at position 13718. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 5 segments at position 13735. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 6 segments at position 13689. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 6 segments at position 13710. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 8 segments at position 13755. This is unsupported and will result in incoherent output data.
+[plugins.twitch][info] Detected advertisement break of 150 seconds
+[plugins.twitch][info] Detected advertisement break of 150 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.segmented][warning] Sequence gap of 3 segments at position 14446. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 5 segments at position 14502. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 20 segments at position 14464. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 22 segments at position 14522. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 11 segments at position 14499. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 21 segments at position 14559. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 17 segments at position 14525. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 10 segments at position 14571. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 11 segments at position 14622. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 10 segments at position 14596. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 10 segments at position 14648. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 6 segments at position 14621. This is unsupported and will result in incoherent output data.
+[plugins.twitch][info] Detected advertisement break of 180 seconds
+[stream.segmented][warning] Sequence gap of 2 segments at position 14673. This is unsupported and will result in incoherent output data.
+[plugins.twitch][info] Detected advertisement break of 150 seconds
+[stream.segmented][warning] Sequence gap of 2 segments at position 14642. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.segmented][warning] Sequence gap of 9 segments at position 14894. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 2 segments at position 14951. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 27 segments at position 14968. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 35 segments at position 14918. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 15 segments at position 15010. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 10 segments at position 14968. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 12 segments at position 14993. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 12 segments at position 15040. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 16 segments at position 15020. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 16 segments at position 15067. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 1 segment at position 15098. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 3 segments at position 15051. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 5 segments at position 15114. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 3 segments at position 15069. This is unsupported and will result in incoherent output data.
+[plugins.twitch][info] Detected advertisement break of 150 seconds
+[stream.segmented][warning] Sequence gap of 2 segments at position 15087. This is unsupported and will result in incoherent output data.
+[plugins.twitch][info] Detected advertisement break of 150 seconds
+[stream.segmented][warning] Sequence gap of 2 segments at position 15134. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.hls][info] Filtering out segments and pausing stream output
+[stream.hls][warning] Encountered a stream discontinuity. This is unsupported and will result in incoherent output data.
+[stream.hls][info] Resuming stream output
+[stream.segmented][warning] Sequence gap of 4 segments at position 15285. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 8 segments at position 15237. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 1 segment at position 15304. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 3 segments at position 15260. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 16 segments at position 15320. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 18 segments at position 15278. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 21 segments at position 15351. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 21 segments at position 15311. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 12 segments at position 15387. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 12 segments at position 15347. This is unsupported and will result in incoherent output data.
+[stream.segmented][warning] Sequence gap of 4 segments at position 15414. This is unsupported and will result in incoherent output data.
+[cli][info] Stream ended
+[cli][info] Closing currently open stream...
+error: Error when writing to output: [Errno 32] Broken pipe, exiting
+[cli][info] Stream ended
+[cli][info] Closing currently open stream...
+error: Error when writing to output: [Errno 32] Broken pipe, exiting

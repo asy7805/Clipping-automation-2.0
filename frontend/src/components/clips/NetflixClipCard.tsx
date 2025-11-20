@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/tooltip";
 import PostSchedulerModal from "@/components/PostSchedulerModal";
 
+import { useTimezone } from "@/hooks/useTimezone";
+import { Calendar, Droplet } from "lucide-react";
+
 interface NetflixClipCardProps {
   clip: Clip;
   view?: "grid" | "list";
@@ -57,6 +60,7 @@ const getTimeAgo = (dateString: string) => {
 
 export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) => {
   const { openPlayer } = useVideoPlayer();
+  const { formatDateTime } = useTimezone();
   const [showPostModal, setShowPostModal] = useState(false);
   const clampedScore = clampScore(clip.confidence_score);
   const stars = clampedScore > 0 ? getStarCount(clampedScore) : 0;
@@ -188,10 +192,59 @@ export const NetflixClipCard = ({ clip, view = "grid" }: NetflixClipCardProps) =
               />
             ))}
           </div>
-          <span className="text-xs text-muted-foreground">
-            {getTimeAgo(clip.created_at)}
-          </span>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="text-xs text-muted-foreground cursor-help hover:text-foreground transition-colors">
+                  {getTimeAgo(clip.created_at)}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="font-mono text-xs">{formatDateTime(clip.created_at)}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </div>
+
+        {/* Expiration and Watermark Badges */}
+        {(clip.expires_at || clip.has_watermark) && (
+          <div className="flex items-center gap-2 flex-wrap">
+            {clip.has_watermark && (
+              <Badge variant="outline" className="text-xs bg-blue-500/10 text-blue-400 border-blue-500/30">
+                <Droplet className="w-3 h-3 mr-1" />
+                Watermarked
+              </Badge>
+            )}
+            {clip.expires_at && (() => {
+              const expiresDate = new Date(clip.expires_at);
+              const now = new Date();
+              const daysUntilExpiry = Math.ceil((expiresDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+              
+              if (daysUntilExpiry < 0) {
+                return (
+                  <Badge variant="destructive" className="text-xs">
+                    <Calendar className="w-3 h-3 mr-1" />
+                    Expired
+                  </Badge>
+                );
+              } else if (daysUntilExpiry < 7) {
+                return (
+                  <Badge variant="destructive" className="text-xs bg-warning/10 text-warning border-warning/30">
+                    <Calendar className="w-3 h-3 mr-1" />
+                    Expires in {daysUntilExpiry} day{daysUntilExpiry !== 1 ? 's' : ''}
+                  </Badge>
+                );
+              } else {
+                return (
+                  <Badge variant="outline" className="text-xs text-muted-foreground">
+                    <Calendar className="w-3 h-3 mr-1" />
+                    Expires in {daysUntilExpiry} days
+                  </Badge>
+                );
+              }
+            })()}
+          </div>
+        )}
 
         {/* Post to Social Button */}
         <div className="pt-2">

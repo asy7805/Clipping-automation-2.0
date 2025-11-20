@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Pause, Play, Settings, Square, Users, Loader2, Wifi, Brain, Cloud, AlertTriangle, Cpu, HardDrive } from "lucide-react";
+import { Eye, Pause, Play, Settings, Square, Users, Loader2, Wifi, Brain, Cloud, AlertTriangle, Cpu, HardDrive, Clock } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
@@ -21,6 +21,14 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useTimezone } from "@/hooks/useTimezone";
+import { useSubscription } from "@/hooks/useSubscription";
 
 interface StreamMonitorCardProps {
   stream: {
@@ -37,6 +45,7 @@ interface StreamMonitorCardProps {
     lastClip: string;
     bufferProgress: number;
     bufferCount: { current: number; total: number };
+    session_started_at?: string; // For trial session limit tracking
   };
 }
 
@@ -46,6 +55,9 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const { formatDateTime } = useTimezone();
+  const { isTrial } = useSubscription();
+  const [sessionTimeRemaining, setSessionTimeRemaining] = useState<number | null>(null);
 
   const statusColors = {
     analyzing: "bg-success/10 text-success border-success/20",
@@ -75,6 +87,33 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
   
   // Get avatar props
   const { gradient, initials } = getChannelAvatarProps(stream.channel);
+
+  // Calculate session time remaining for trial users
+  useEffect(() => {
+    if (!isTrial || !stream.session_started_at || stream.status === "paused") {
+      setSessionTimeRemaining(null);
+      return;
+    }
+
+    const updateTimer = () => {
+      const sessionStart = new Date(stream.session_started_at).getTime();
+      const now = Date.now();
+      const elapsed = (now - sessionStart) / 1000; // seconds
+      const remaining = Math.max(0, 3600 - elapsed); // 1 hour = 3600 seconds
+      setSessionTimeRemaining(remaining);
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000); // Update every second
+
+    return () => clearInterval(interval);
+  }, [isTrial, stream.session_started_at, stream.status]);
+
+  const formatTimeRemaining = (seconds: number): string => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // Handle View button - navigate to clips filtered by channel
   const handleView = () => {
@@ -216,6 +255,23 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
               {actualWarnings.length} issue{actualWarnings.length !== 1 ? 's' : ''}
             </Badge>
           )}
+          {/* Session Timer for Trial Users */}
+          {isTrial && sessionTimeRemaining !== null && stream.status !== "paused" && (
+            <Badge 
+              className={cn(
+                "text-xs whitespace-nowrap border",
+                sessionTimeRemaining < 300 
+                  ? "bg-destructive/10 text-destructive border-destructive/30" 
+                  : sessionTimeRemaining < 600
+                  ? "bg-warning/10 text-warning border-warning/30"
+                  : "bg-blue-500/10 text-blue-400 border-blue-500/30"
+              )}
+              title="Trial session limit: 1 hour. Upgrade to Pro for unlimited sessions."
+            >
+              <Clock className="w-3 h-3 mr-1" />
+              {sessionTimeRemaining > 0 ? formatTimeRemaining(sessionTimeRemaining) : "Expired"}
+            </Badge>
+          )}
         </div>
       </div>
 
@@ -350,7 +406,18 @@ export const StreamMonitorCard = ({ stream }: StreamMonitorCardProps) => {
               <span>{displayClips} clips</span>
             </div>
             <div className="col-span-2 text-xs text-muted-foreground">
-              Last clip: {displayLastClip || 'analyzing...'}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="cursor-help decoration-dotted underline decoration-muted-foreground/50 underline-offset-2">
+                      Last clip: {displayLastClip || 'analyzing...'}
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{stats?.last_clip_at ? formatDateTime(stats.last_clip_at) : "No recent clips"}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
         </div>

@@ -26,6 +26,8 @@ export interface Clip {
   emotion?: string;
   emotion_score?: number;
   score_breakdown?: ScoreBreakdown;
+  expires_at?: string | null; // For trial clip expiration
+  has_watermark?: boolean; // For trial clip watermark indicator
 }
 
 interface UseClipsOptions {

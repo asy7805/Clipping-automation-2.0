@@ -5,6 +5,7 @@ interface MonitorStats {
   clips_captured: number;
   segments_analyzed: number;
   last_clip_time: string | null;
+  last_clip_at?: string | null;
   total_size_mb: number;
 }
 

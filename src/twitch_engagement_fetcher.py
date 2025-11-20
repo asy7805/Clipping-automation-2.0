@@ -144,6 +144,12 @@ class TwitchEngagementFetcher:
             params = {'login': channel_name.lower()}
             
             user_response = requests.get(user_url, headers=headers, params=params)
+            
+            # Handle 404 or other errors gracefully
+            if user_response.status_code == 404:
+                logger.warning(f"⚠️ User {channel_name} not found (404)")
+                return None
+            
             user_response.raise_for_status()
             user_data = user_response.json()
             
@@ -158,6 +164,17 @@ class TwitchEngagementFetcher:
             stream_params = {'user_id': user_id}
             
             stream_response = requests.get(stream_url, headers=headers, params=stream_params)
+            
+            # Handle 404 or other errors gracefully
+            if stream_response.status_code == 404:
+                logger.warning(f"⚠️ Stream info not found for {channel_name} (404)")
+                return {
+                    'is_live': False,
+                    'viewer_count': 0,
+                    'title': '',
+                    'user_id': user_id
+                }
+            
             stream_response.raise_for_status()
             stream_data = stream_response.json()
             

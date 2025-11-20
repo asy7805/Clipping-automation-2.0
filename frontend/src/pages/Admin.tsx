@@ -12,7 +12,10 @@ import { toast } from "sonner";
 import { supabase } from "@/lib/supabase";
 import { clampScore } from "@/lib/utils";
 import { Navigate } from "react-router-dom";
-import { Users, Video, Database, Activity, HardDrive, TrendingUp, Search, Shield, ShieldCheck, Trash2, RefreshCw, AlertCircle } from "lucide-react";
+import { Users, Video, Database, Activity, HardDrive, TrendingUp, Search, Shield, ShieldCheck, Trash2, RefreshCw, AlertCircle, Coins, Crown } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAdminCheck } from "@/hooks/useAdminCheck";
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 
@@ -40,6 +43,8 @@ interface User {
   last_sign_in_at?: string;
   monitor_count?: number;
   clip_count?: number;
+  subscription_tier?: string;
+  credits_remaining?: number;
 }
 
 interface Clip {
@@ -72,6 +77,15 @@ const Admin = () => {
   const [usersSearch, setUsersSearch] = useState("");
   const [clipsSearch, setClipsSearch] = useState("");
   const itemsPerPage = 20;
+  
+  // Credit and subscription management states
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [creditsDialogOpen, setCreditsDialogOpen] = useState(false);
+  const [subscriptionDialogOpen, setSubscriptionDialogOpen] = useState(false);
+  const [creditsAmount, setCreditsAmount] = useState("");
+  const [creditsDescription, setCreditsDescription] = useState("");
+  const [selectedTier, setSelectedTier] = useState<string>("free_trial");
+  const [tierCredits, setTierCredits] = useState("");
 
   // Fetch admin stats
   const { data: stats, isLoading: statsLoading } = useQuery<AdminStats>({
@@ -105,12 +119,42 @@ const Admin = () => {
         throw new Error(`Failed to fetch users: ${errorText}`);
       }
       const data = await response.json();
-      // Ensure all users have an id field
+      // Ensure all users have an id field and fetch subscription info
       if (data.users) {
-        data.users = data.users.map((u: any) => ({
-          ...u,
-          id: u.id || u.user_id || u.uid || null, // Try multiple possible field names
-        }));
+        const usersWithSubscription = await Promise.all(
+          data.users.map(async (u: any) => {
+            const userId = u.id || u.user_id || u.uid || null;
+            if (!userId) return { ...u, id: null };
+            
+            // Fetch subscription info for each user
+            try {
+              const subResponse = await fetch(`${API_BASE_URL}/api/v1/admin/users/${encodeURIComponent(userId)}/subscription`, {
+                headers: {
+                  Authorization: `Bearer ${session?.access_token}`,
+                },
+              });
+              if (subResponse.ok) {
+                const subData = await subResponse.json();
+                return {
+                  ...u,
+                  id: userId,
+                  subscription_tier: subData.tier,
+                  credits_remaining: subData.credits_remaining,
+                };
+              }
+            } catch (error) {
+              console.warn(`Failed to fetch subscription for user ${userId}:`, error);
+            }
+            
+            return {
+              ...u,
+              id: userId,
+              subscription_tier: 'free_trial',
+              credits_remaining: 0,
+            };
+          })
+        );
+        data.users = usersWithSubscription;
       }
       return data;
     },
@@ -263,6 +307,72 @@ const Admin = () => {
     },
     onError: (error: Error) => {
       toast.error(error.message || "Failed to stop monitor");
+    },
+  });
+
+  // Add credits mutation
+  const addCreditsMutation = useMutation({
+    mutationFn: async ({ userId, amount, description }: { userId: string; amount: number; description?: string }) => {
+      const { data: { session } } = await supabase.auth.getSession();
+      const response = await fetch(`${API_BASE_URL}/api/v1/admin/users/${encodeURIComponent(userId)}/credits`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${session?.access_token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ amount, description }),
+      });
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => response.statusText);
+        throw new Error(errorText || "Failed to add credits");
+      }
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast.success(data.message || `Added ${data.credits_added} credits`);
+      setCreditsDialogOpen(false);
+      setCreditsAmount("");
+      setCreditsDescription("");
+      queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+      // Also invalidate subscription queries so the user sees the update immediately
+      queryClient.invalidateQueries({ queryKey: ["userSubscription"] });
+      queryClient.invalidateQueries({ queryKey: ["subscription"] });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Failed to add credits");
+    },
+  });
+
+  // Update subscription tier mutation
+  const updateSubscriptionMutation = useMutation({
+    mutationFn: async ({ userId, tier, credits, expiresAt }: { userId: string; tier: string; credits?: number; expiresAt?: string }) => {
+      const { data: { session } } = await supabase.auth.getSession();
+      const response = await fetch(`${API_BASE_URL}/api/v1/admin/users/${encodeURIComponent(userId)}/subscription`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${session?.access_token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ tier, credits, expires_at: expiresAt }),
+      });
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => response.statusText);
+        throw new Error(errorText || "Failed to update subscription");
+      }
+      return response.json();
+    },
+    onSuccess: (data) => {
+      toast.success(data.message || `Subscription updated to ${data.tier}`);
+      setSubscriptionDialogOpen(false);
+      setSelectedTier("free_trial");
+      setTierCredits("");
+      queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+      // Also invalidate subscription queries so the user sees the update immediately
+      queryClient.invalidateQueries({ queryKey: ["userSubscription"] });
+      queryClient.invalidateQueries({ queryKey: ["subscription"] });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message || "Failed to update subscription");
     },
   });
 
@@ -573,6 +683,8 @@ const Admin = () => {
                       <TableRow>
                         <TableHead>Email</TableHead>
                         <TableHead>User ID</TableHead>
+                        <TableHead>Tier</TableHead>
+                        <TableHead>Credits</TableHead>
                         <TableHead>Joined</TableHead>
                         <TableHead>Last Login</TableHead>
                         <TableHead>Monitors</TableHead>
@@ -585,12 +697,187 @@ const Admin = () => {
                         <TableRow key={u.id || `user-${index}`}>
                           <TableCell className="font-medium">{u.email || 'Unknown'}</TableCell>
                           <TableCell className="font-mono text-xs">{u.id?.slice(0, 8)}...</TableCell>
+                          <TableCell>
+                            <Badge variant={u.subscription_tier === 'pro' ? 'default' : u.subscription_tier === 'free_trial' ? 'secondary' : 'outline'}>
+                              {u.subscription_tier || 'free_trial'}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="font-mono">{u.credits_remaining ?? 'N/A'}</TableCell>
                           <TableCell>{u.created_at ? new Date(u.created_at).toLocaleDateString() : 'N/A'}</TableCell>
                           <TableCell>{u.last_sign_in_at ? new Date(u.last_sign_in_at).toLocaleDateString() : 'Never'}</TableCell>
                           <TableCell>{u.monitor_count || 0}</TableCell>
                           <TableCell>{u.clip_count || 0}</TableCell>
                           <TableCell className="text-right">
-                            <div className="flex justify-end gap-2">
+                            <div className="flex justify-end gap-2 flex-wrap">
+                              <Dialog open={creditsDialogOpen && selectedUser?.id === u.id} onOpenChange={(open) => {
+                                setCreditsDialogOpen(open);
+                                if (!open) {
+                                  setSelectedUser(null);
+                                  setCreditsAmount("");
+                                  setCreditsDescription("");
+                                }
+                              }}>
+                                <DialogTrigger asChild>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => {
+                                      setSelectedUser(u);
+                                      setCreditsDialogOpen(true);
+                                    }}
+                                    disabled={!u.id || u.id === 'undefined' || u.id === 'null'}
+                                  >
+                                    <Coins className="h-4 w-4 mr-1" />
+                                    Credits
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>Add Credits</DialogTitle>
+                                    <DialogDescription>
+                                      Add credits to {u.email || u.id?.slice(0, 8)}... account
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <div className="space-y-4 py-4">
+                                    <div className="space-y-2">
+                                      <Label htmlFor="credits-amount">Amount</Label>
+                                      <Input
+                                        id="credits-amount"
+                                        type="number"
+                                        min="1"
+                                        placeholder="Enter credit amount"
+                                        value={creditsAmount}
+                                        onChange={(e) => setCreditsAmount(e.target.value)}
+                                      />
+                                    </div>
+                                    <div className="space-y-2">
+                                      <Label htmlFor="credits-description">Description (Optional)</Label>
+                                      <Input
+                                        id="credits-description"
+                                        placeholder="Reason for credit grant"
+                                        value={creditsDescription}
+                                        onChange={(e) => setCreditsDescription(e.target.value)}
+                                      />
+                                    </div>
+                                  </div>
+                                  <DialogFooter>
+                                    <Button variant="outline" onClick={() => {
+                                      setCreditsDialogOpen(false);
+                                      setSelectedUser(null);
+                                      setCreditsAmount("");
+                                      setCreditsDescription("");
+                                    }}>
+                                      Cancel
+                                    </Button>
+                                    <Button
+                                      onClick={() => {
+                                        if (!u.id || !creditsAmount || parseInt(creditsAmount) <= 0) {
+                                          toast.error("Please enter a valid credit amount");
+                                          return;
+                                        }
+                                        addCreditsMutation.mutate({
+                                          userId: u.id,
+                                          amount: parseInt(creditsAmount),
+                                          description: creditsDescription || undefined
+                                        });
+                                      }}
+                                      disabled={addCreditsMutation.isPending || !creditsAmount || parseInt(creditsAmount) <= 0}
+                                    >
+                                      {addCreditsMutation.isPending ? "Adding..." : "Add Credits"}
+                                    </Button>
+                                  </DialogFooter>
+                                </DialogContent>
+                              </Dialog>
+                              
+                              <Dialog open={subscriptionDialogOpen && selectedUser?.id === u.id} onOpenChange={(open) => {
+                                setSubscriptionDialogOpen(open);
+                                if (!open) {
+                                  setSelectedUser(null);
+                                  setSelectedTier("free_trial");
+                                  setTierCredits("");
+                                }
+                              }}>
+                                <DialogTrigger asChild>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    onClick={() => {
+                                      setSelectedUser(u);
+                                      setSelectedTier(u.subscription_tier || 'free_trial');
+                                      setSubscriptionDialogOpen(true);
+                                    }}
+                                    disabled={!u.id || u.id === 'undefined' || u.id === 'null'}
+                                  >
+                                    <Crown className="h-4 w-4 mr-1" />
+                                    Tier
+                                  </Button>
+                                </DialogTrigger>
+                                <DialogContent>
+                                  <DialogHeader>
+                                    <DialogTitle>Update Subscription Tier</DialogTitle>
+                                    <DialogDescription>
+                                      Change subscription tier for {u.email || u.id?.slice(0, 8)}...
+                                    </DialogDescription>
+                                  </DialogHeader>
+                                  <div className="space-y-4 py-4">
+                                    <div className="space-y-2">
+                                      <Label htmlFor="subscription-tier">Subscription Tier</Label>
+                                      <Select value={selectedTier} onValueChange={setSelectedTier}>
+                                        <SelectTrigger id="subscription-tier">
+                                          <SelectValue placeholder="Select tier" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                          <SelectItem value="free_trial">Free Trial</SelectItem>
+                                          <SelectItem value="pro">Pro</SelectItem>
+                                          <SelectItem value="pay_as_you_go">Pay As You Go</SelectItem>
+                                          <SelectItem value="expired">Expired</SelectItem>
+                                        </SelectContent>
+                                      </Select>
+                                    </div>
+                                    <div className="space-y-2">
+                                      <Label htmlFor="tier-credits">Credits (Optional - defaults based on tier)</Label>
+                                      <Input
+                                        id="tier-credits"
+                                        type="number"
+                                        min="0"
+                                        placeholder="Leave empty for default"
+                                        value={tierCredits}
+                                        onChange={(e) => setTierCredits(e.target.value)}
+                                      />
+                                      <p className="text-xs text-muted-foreground">
+                                        Defaults: Free Trial = 20, Pro = 150, Pay As You Go = 0, Expired = 0
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <DialogFooter>
+                                    <Button variant="outline" onClick={() => {
+                                      setSubscriptionDialogOpen(false);
+                                      setSelectedUser(null);
+                                      setSelectedTier("free_trial");
+                                      setTierCredits("");
+                                    }}>
+                                      Cancel
+                                    </Button>
+                                    <Button
+                                      onClick={() => {
+                                        if (!u.id) {
+                                          toast.error("Invalid user ID");
+                                          return;
+                                        }
+                                        updateSubscriptionMutation.mutate({
+                                          userId: u.id,
+                                          tier: selectedTier,
+                                          credits: tierCredits ? parseInt(tierCredits) : undefined
+                                        });
+                                      }}
+                                      disabled={updateSubscriptionMutation.isPending}
+                                    >
+                                      {updateSubscriptionMutation.isPending ? "Updating..." : "Update Tier"}
+                                    </Button>
+                                  </DialogFooter>
+                                </DialogContent>
+                              </Dialog>
+                              
                               <Button
                                 size="sm"
                                 variant="outline"

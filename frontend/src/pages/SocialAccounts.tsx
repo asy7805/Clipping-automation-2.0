@@ -17,6 +17,10 @@ import {
 } from "lucide-react";
 import { apiClient } from "@/lib/api";
 import { toast } from "sonner";
+import { useSubscription } from "@/hooks/useSubscription";
+import { UpgradeModal } from "@/components/UpgradeModal";
+import { Crown, Lock } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface SocialAccount {
   id: string;
@@ -36,7 +40,13 @@ interface OAuthResponse {
 
 const SocialAccounts = () => {
   const [isConnecting, setIsConnecting] = useState<string | null>(null);
+  const [showUpgrade, setShowUpgrade] = useState(false);
   const queryClient = useQueryClient();
+  const { isPro, isTrial, isExpired } = useSubscription();
+  const { isAdmin } = useAuth();
+  
+  // Admins always have Pro access
+  const hasProAccess = isPro || isAdmin;
 
   // Fetch social accounts
   const { data: accounts, isLoading, error } = useQuery({
@@ -119,11 +129,22 @@ const SocialAccounts = () => {
   });
 
   const handleConnect = async (platform: string) => {
+    // Check if user is Pro tier or admin
+    if (!hasProAccess) {
+      setShowUpgrade(true);
+      toast.error("Social posting is only available for Pro subscribers. Upgrade to Pro to enable this feature.");
+      return;
+    }
+    
     setIsConnecting(platform);
     try {
       await initiateOAuth.mutateAsync(platform);
-    } catch (error) {
+    } catch (error: any) {
       setIsConnecting(null);
+      // Check if error is 403 (Pro-only restriction)
+      if (error.message?.includes('403') || error.message?.includes('Pro')) {
+        setShowUpgrade(true);
+      }
     }
   };
 
@@ -182,12 +203,38 @@ const SocialAccounts = () => {
 
   return (
     <div className="space-y-6">
+      {/* Pro-Only Alert */}
+      {!hasProAccess && (
+        <Alert className="bg-blue-500/10 border-blue-500/30">
+          <Crown className="h-4 w-4 text-blue-400" />
+          <AlertDescription className="text-blue-400">
+            <div className="flex items-center justify-between">
+              <span>Social posting is only available for Pro subscribers.</span>
+              <Button
+                size="sm"
+                variant="outline"
+                className="ml-4 border-blue-500/30 text-blue-400 hover:bg-blue-500/20"
+                onClick={() => setShowUpgrade(true)}
+              >
+                Upgrade to Pro
+              </Button>
+            </div>
+          </AlertDescription>
+        </Alert>
+      )}
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Social Accounts</h1>
           <p className="text-muted-foreground mt-2">
             Connect your social media accounts to automatically post clips
+            {!hasProAccess && (
+              <span className="text-blue-400 ml-2">
+                <Lock className="w-3 h-3 inline mr-1" />
+                Pro only
+              </span>
+            )}
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -249,13 +296,18 @@ const SocialAccounts = () => {
                 </div>
                 <Button
                   onClick={() => handleConnect('tiktok')}
-                  disabled={isConnecting === 'tiktok'}
+                  disabled={isConnecting === 'tiktok' || !hasProAccess}
                   className="w-full"
                 >
                   {isConnecting === 'tiktok' ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                       Connecting...
+                    </>
+                  ) : !hasProAccess ? (
+                    <>
+                      <Lock className="w-4 h-4 mr-2" />
+                      Upgrade to Pro
                     </>
                   ) : (
                     <>
@@ -300,7 +352,7 @@ const SocialAccounts = () => {
                 <div className="flex gap-2">
                   <Button
                     onClick={() => handleConnect('youtube')}
-                    disabled={isConnecting === 'youtube'}
+                    disabled={isConnecting === 'youtube' || !hasProAccess}
                     variant="outline"
                     size="sm"
                     className="flex-1"
@@ -309,6 +361,11 @@ const SocialAccounts = () => {
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary mr-2"></div>
                         Connecting...
+                      </>
+                    ) : !hasProAccess ? (
+                      <>
+                        <Lock className="w-4 h-4 mr-2" />
+                        Upgrade to Pro
                       </>
                     ) : (
                       <>
@@ -333,13 +390,18 @@ const SocialAccounts = () => {
                 </div>
                 <Button
                   onClick={() => handleConnect('youtube')}
-                  disabled={isConnecting === 'youtube'}
+                  disabled={isConnecting === 'youtube' || !hasProAccess}
                   className="w-full"
                 >
                   {isConnecting === 'youtube' ? (
                     <>
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                       Connecting...
+                    </>
+                  ) : !hasProAccess ? (
+                    <>
+                      <Lock className="w-4 h-4 mr-2" />
+                      Upgrade to Pro
                     </>
                   ) : (
                     <>
@@ -444,6 +506,9 @@ const SocialAccounts = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Upgrade Modal */}
+      <UpgradeModal open={showUpgrade} onOpenChange={setShowUpgrade} />
     </div>
   );
 };

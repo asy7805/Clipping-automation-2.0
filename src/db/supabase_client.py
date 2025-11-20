@@ -48,7 +48,17 @@ def get_client() -> Client:
     global _client
     if _client is None:
         cfg = _load_config()
-        _client = create_client(cfg.url, cfg.key)
+        try:
+            _client = create_client(cfg.url, cfg.key)
+        except Exception as e:
+            error_msg = str(e)
+            if "nodename" in error_msg.lower() or "servname" in error_msg.lower():
+                raise RuntimeError(
+                    f"DNS resolution failed for Supabase URL: {cfg.url}. "
+                    f"Check your network connection and SUPABASE_URL environment variable. "
+                    f"Original error: {error_msg}"
+                )
+            raise
     return _client
 
 def get_admin_client() -> Client:
@@ -72,7 +82,17 @@ def get_admin_client() -> Client:
                 f"URL: {'set' if url else 'missing'}, Service Key: {'set' if service_key else 'missing'}"
             )
         
-        _admin_client = create_client(url, service_key)
+        try:
+            _admin_client = create_client(url, service_key)
+        except Exception as e:
+            error_msg = str(e)
+            if "nodename" in error_msg.lower() or "servname" in error_msg.lower():
+                raise RuntimeError(
+                    f"DNS resolution failed for Supabase URL: {url}. "
+                    f"Check your network connection and SUPABASE_URL environment variable. "
+                    f"Original error: {error_msg}"
+                )
+            raise
     return _admin_client
 
 
@@ -120,5 +140,23 @@ def get_public_url(bucket: str, path: str) -> str:
     """
     If the bucket is public, returns a direct URL. If private, you'll need a signed URL instead.
     """
-    sb = get_client()
-    return sb.storage.from_(bucket).get_public_url(path)
+    try:
+        sb = get_client()
+        # Construct public URL manually to avoid DNS issues
+        # Format: https://<project-ref>.supabase.co/storage/v1/object/public/<bucket>/<path>
+        supabase_url = os.getenv("SUPABASE_URL", "").rstrip('/')
+        if not supabase_url:
+            raise RuntimeError("SUPABASE_URL not set")
+        
+        # Remove trailing slash and construct public URL
+        public_url = f"{supabase_url}/storage/v1/object/public/{bucket}/{path}"
+        return public_url
+    except Exception as e:
+        # Fallback to Supabase client method if manual construction fails
+        try:
+            sb = get_client()
+            return sb.storage.from_(bucket).get_public_url(path)
+        except Exception as e2:
+            # If both fail, return a placeholder URL
+            print(f"⚠️ Warning: Could not generate public URL for {bucket}/{path}: {e2}")
+            return f"https://storage.supabase.co/{bucket}/{path}"

@@ -9,6 +9,12 @@ from datetime import datetime, timedelta
 from ..middleware.admin import require_admin, get_user_role
 from ..dependencies import get_current_user_id
 from db.supabase_client import get_client, get_admin_client
+from src.api.services.credit_service import get_user_credits, add_pay_as_you_go_credits
+from src.api.services.subscription_service import get_user_subscription_tier, get_subscription_info
+from db.supabase_client import get_admin_client
+from pydantic import BaseModel
+from typing import Optional
+from datetime import datetime, timezone, timedelta
 import logging
 
 logger = logging.getLogger(__name__)
@@ -23,15 +29,20 @@ async def check_admin_status(user_role: Dict = Depends(get_user_role)) -> Dict:
     Uses get_user_role for consistent admin checking.
     """
     try:
+        user_id = user_role.get('user_id', '')
+        is_admin_result = user_role.get('is_admin', False)
+        
+        logger.info(f"Admin check endpoint called for user {user_id[:8] if user_id else 'unknown'}...: is_admin={is_admin_result}")
+        
         return {
-            "user_id": user_role['user_id'],
-            "is_admin": user_role['is_admin']
+            "user_id": user_id,
+            "is_admin": is_admin_result
         }
     except Exception as e:
-        logger.error(f"Error in admin check endpoint: {e}")
+        logger.error(f"Error in admin check endpoint: {e}", exc_info=True)
         # Return safe default on error
         return {
-            "user_id": user_role.get('user_id', 'unknown'),
+            "user_id": user_role.get('user_id', 'unknown') if isinstance(user_role, dict) else 'unknown',
             "is_admin": False
         }
 
@@ -515,6 +526,205 @@ async def revoke_admin(
         raise
     except Exception as e:
         logger.error(f"Error revoking admin: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Request models for admin credit and subscription management
+class AddCreditsRequest(BaseModel):
+    amount: int
+    description: Optional[str] = None
+
+
+class UpdateSubscriptionTierRequest(BaseModel):
+    tier: str  # 'free_trial', 'pro', 'pay_as_you_go', 'expired'
+    credits: Optional[int] = None  # Optional: set credits when changing tier
+    expires_at: Optional[str] = None  # Optional: set expiration date (ISO format)
+
+
+@router.post("/admin/users/{target_user_id}/credits")
+async def add_user_credits(
+    target_user_id: str,
+    request: AddCreditsRequest,
+    admin_user_id: str = Depends(require_admin)
+) -> Dict:
+    """
+    Add credits to a user account.
+    Admin only.
+    """
+    try:
+        # Validate target_user_id
+        if not target_user_id or target_user_id == 'undefined' or target_user_id.strip() == '':
+            raise HTTPException(status_code=400, detail="Invalid user ID provided")
+        
+        # Validate amount
+        if request.amount <= 0:
+            raise HTTPException(status_code=400, detail="Credit amount must be positive")
+        
+        # Add credits using credit service
+        # Note: add_pay_as_you_go_credits doesn't accept description, so we'll log it separately
+        success = add_pay_as_you_go_credits(target_user_id, request.amount)
+        
+        # Log custom description if provided
+        if request.description and success:
+            try:
+                sb = get_admin_client()
+                transaction_data = {
+                    'user_id': target_user_id,
+                    'amount': request.amount,
+                    'transaction_type': 'admin_grant',
+                    'description': request.description or f"Admin grant by {admin_user_id[:8]}..."
+                }
+                sb.table('credit_transactions').insert(transaction_data).execute()
+            except Exception as log_error:
+                logger.warning(f"Failed to log custom transaction description: {log_error}")
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to add credits")
+        
+        # Get updated credit balance
+        new_balance = get_user_credits(target_user_id)
+        
+        logger.info(f"Admin {admin_user_id} added {request.amount} credits to user {target_user_id}. New balance: {new_balance}")
+        
+        return {
+            "success": True,
+            "message": f"Added {request.amount} credits to user account",
+            "user_id": target_user_id,
+            "credits_added": request.amount,
+            "new_balance": new_balance
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error adding credits to user {target_user_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/admin/users/{target_user_id}/subscription")
+async def update_user_subscription(
+    target_user_id: str,
+    request: UpdateSubscriptionTierRequest,
+    admin_user_id: str = Depends(require_admin)
+) -> Dict:
+    """
+    Update a user's subscription tier and optionally set credits.
+    Admin only.
+    """
+    try:
+        # Validate target_user_id
+        if not target_user_id or target_user_id == 'undefined' or target_user_id.strip() == '':
+            raise HTTPException(status_code=400, detail="Invalid user ID provided")
+        
+        # Validate tier
+        valid_tiers = ['free_trial', 'pro', 'pay_as_you_go', 'expired']
+        if request.tier not in valid_tiers:
+            raise HTTPException(status_code=400, detail=f"Invalid tier. Must be one of: {', '.join(valid_tiers)}")
+        
+        # Parse expiration date if provided
+        expires_at = None
+        if request.expires_at:
+            try:
+                expires_at = datetime.fromisoformat(request.expires_at.replace('Z', '+00:00'))
+            except ValueError:
+                raise HTTPException(status_code=400, detail="Invalid expires_at format. Use ISO 8601 format.")
+        
+        # If credits not specified, use defaults based on tier
+        credits = request.credits
+        if credits is None:
+            if request.tier == 'pro':
+                credits = 150  # Pro monthly credits
+            elif request.tier == 'free_trial':
+                credits = 20  # Trial credits
+            elif request.tier == 'pay_as_you_go':
+                credits = 0  # Start with 0, user purchases credits
+            else:  # expired
+                credits = 0
+        
+        # Update subscription directly in database
+        sb = get_admin_client()
+        now_utc = datetime.now(timezone.utc)
+        
+        # Default expiration for Pro tier (30 days from now)
+        if request.tier == 'pro' and expires_at is None:
+            expires_at = now_utc + timedelta(days=30)
+        
+        update_data = {
+            'subscription_tier': request.tier,
+            'credits_remaining': credits,
+            'subscription_started_at': now_utc.isoformat().replace('+00:00', 'Z'),
+            'subscription_expires_at': expires_at.isoformat().replace('+00:00', 'Z') if expires_at else None
+        }
+        
+        # Note: last_credit_reset_at column doesn't exist in user_profiles table
+        # It's only in the users table if that table exists separately
+        
+        # Try updating existing profile
+        update_result = sb.table('user_profiles').update(update_data).eq('id', target_user_id).execute()
+        
+        # If no rows updated, try inserting
+        if not update_result.data:
+            update_result = sb.table('user_profiles').insert({
+                'id': target_user_id,
+                **update_data
+            }).execute()
+        
+        if not update_result.data:
+            raise HTTPException(status_code=500, detail="Failed to update subscription")
+        
+        # Get updated subscription info
+        updated_subscription = get_subscription_info(target_user_id)
+        
+        logger.info(f"Admin {admin_user_id} updated subscription for user {target_user_id} to {request.tier} with {credits} credits")
+        
+        return {
+            "success": True,
+            "message": f"Subscription updated to {request.tier}",
+            "user_id": target_user_id,
+            "tier": request.tier,
+            "credits": credits,
+            "expires_at": expires_at.isoformat().replace('+00:00', 'Z') if expires_at else None,
+            "subscription": {
+                "tier": updated_subscription.get('tier', request.tier),
+                "credits_remaining": updated_subscription.get('credits_remaining', credits),
+                "subscription_expires_at": updated_subscription.get('subscription_expires_at')
+            }
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating subscription for user {target_user_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/admin/users/{target_user_id}/subscription")
+async def get_user_subscription_info(
+    target_user_id: str,
+    admin_user_id: str = Depends(require_admin)
+) -> Dict:
+    """
+    Get a user's subscription and credit information.
+    Admin only.
+    """
+    try:
+        # Validate target_user_id
+        if not target_user_id or target_user_id == 'undefined' or target_user_id.strip() == '':
+            raise HTTPException(status_code=400, detail="Invalid user ID provided")
+        
+        # Get subscription info
+        subscription_info = get_subscription_info(target_user_id)
+        
+        return {
+            "user_id": target_user_id,
+            "tier": subscription_info.get('tier', 'free_trial'),
+            "credits_remaining": subscription_info.get('credits_remaining', 0),
+            "trial_used": subscription_info.get('trial_used', False),
+            "subscription_started_at": subscription_info.get('subscription_started_at'),
+            "subscription_expires_at": subscription_info.get('subscription_expires_at')
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting subscription info for user {target_user_id}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

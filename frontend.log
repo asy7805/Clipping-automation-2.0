@@ -1,0 +1,137 @@
+
+> ascension-clips-frontend@0.0.0 dev
+> vite
+
+Re-optimizing dependencies because lockfile has changed
+
+  VITE v5.4.19  ready in 2122 ms
+
+  ➜  Local:   http://localhost:8080/
+  ➜  Network: http://10.17.62.87:8080/
+3:13:14 AM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+3:13:15 AM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+3:13:40 AM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+3:16:21 AM [vite] hmr update /src/index.css, /src/components/StreamMonitorCard.tsx
+3:17:33 AM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+3:17:37 AM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+3:17:55 AM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+3:18:49 AM [vite] hmr update /src/index.css, /src/components/clips/NetflixClipCard.tsx, /src/components/StreamMonitorCard.tsx
+3:18:49 AM [vite] hmr update /src/index.css, /src/components/StreamMonitorCard.tsx
+3:18:49 AM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+3:18:49 AM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+3:20:56 AM [vite] hmr update /src/pages/Settings.tsx, /src/index.css
+3:20:58 AM [vite] hmr update /src/pages/Settings.tsx, /src/index.css
+3:21:00 AM [vite] hmr update /src/pages/Settings.tsx, /src/index.css
+3:21:17 AM [vite] hmr update /src/pages/Settings.tsx, /src/index.css
+2:34:18 PM [vite] hmr update /src/index.css, /src/components/StreamMonitorCard.tsx
+2:34:18 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+2:34:18 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:34:18 PM [vite] hmr update /src/index.css, /src/components/clips/NetflixClipCard.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/Settings.tsx
+2:34:18 PM [vite] hmr update /src/pages/Settings.tsx, /src/index.css
+2:37:07 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+2:37:07 PM [vite] hmr update /src/index.css, /src/components/StreamMonitorCard.tsx
+2:37:07 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:37:08 PM [vite] hmr update /src/pages/Settings.tsx, /src/index.css
+2:37:08 PM [vite] hmr update /src/index.css, /src/components/clips/NetflixClipCard.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/Settings.tsx
+12:54:39 PM [vite] hmr update /src/index.css, /src/components/StreamMonitorCard.tsx
+12:54:39 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+12:54:39 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+12:54:39 PM [vite] hmr update /src/index.css, /src/components/clips/NetflixClipCard.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/Settings.tsx
+12:54:40 PM [vite] hmr update /src/pages/Settings.tsx, /src/index.css
+1:34:47 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+1:34:47 PM [vite] hmr update /src/index.css, /src/components/StreamMonitorCard.tsx
+1:34:47 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+1:34:47 PM [vite] hmr update /src/pages/Settings.tsx, /src/index.css
+1:34:47 PM [vite] hmr update /src/index.css, /src/components/clips/NetflixClipCard.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/Settings.tsx
+1:59:43 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/RecentClips.tsx, /src/components/dashboard/ActivityFeed.tsx, /src/pages/Settings.tsx, /src/components/dashboard/LiveMonitors.tsx, /src/components/dashboard/StatsGrid.tsx, /src/components/AddMonitorModal.tsx, /src/components/StreamMonitorCard.tsx, /src/components/PostSchedulerModal.tsx, /src/pages/SocialAccounts.tsx
+2:00:01 PM [vite] page reload src/hooks/useSubscription.ts
+2:00:01 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/RecentClips.tsx, /src/components/dashboard/ActivityFeed.tsx, /src/pages/Settings.tsx, /src/components/dashboard/LiveMonitors.tsx, /src/components/dashboard/StatsGrid.tsx, /src/components/AddMonitorModal.tsx, /src/components/StreamMonitorCard.tsx, /src/components/PostSchedulerModal.tsx, /src/pages/SocialAccounts.tsx
+2:03:49 PM [vite] hmr update /src/components/DashboardLayout.tsx, /src/index.css
+2:03:50 PM [vite] hmr update /src/components/DashboardLayout.tsx, /src/index.css
+2:04:02 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:04:07 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:04:08 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:04:09 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:04:13 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:04:15 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/LiveMonitors.tsx, /src/components/dashboard/StatsGrid.tsx, /src/pages/Settings.tsx
+2:04:16 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/LiveMonitors.tsx, /src/components/dashboard/StatsGrid.tsx, /src/pages/Settings.tsx
+2:04:26 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/RecentClips.tsx, /src/components/dashboard/ActivityFeed.tsx, /src/pages/Settings.tsx
+2:04:29 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+2:04:35 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+2:04:43 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:04:44 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:04:53 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:04:58 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:05:03 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:05:19 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:05:20 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:05:29 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:05:41 PM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+2:05:41 PM [vite] hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react-swc#consistent-components-exports
+2:05:41 PM [vite] hmr update /src/index.css, /src/App.tsx, /src/components/ProtectedRoute.tsx, /src/components/DashboardLayout.tsx, /src/pages/auth/Login.tsx, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx
+2:05:48 PM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+2:05:48 PM [vite] hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react-swc#consistent-components-exports
+2:05:48 PM [vite] hmr update /src/index.css, /src/App.tsx, /src/components/ProtectedRoute.tsx, /src/components/DashboardLayout.tsx, /src/pages/auth/Login.tsx, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx
+2:05:49 PM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+2:05:49 PM [vite] hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react-swc#consistent-components-exports
+2:05:49 PM [vite] hmr update /src/index.css, /src/App.tsx, /src/components/ProtectedRoute.tsx, /src/components/DashboardLayout.tsx, /src/pages/auth/Login.tsx, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx
+2:06:05 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+2:06:06 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+2:06:14 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:06:37 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/LiveMonitors.tsx, /src/components/dashboard/StatsGrid.tsx, /src/pages/Settings.tsx
+2:06:37 PM [vite] hmr update /src/components/SubscriptionBadge.tsx, /src/index.css
+2:06:37 PM [vite] hmr update /src/components/UpgradeModal.tsx, /src/index.css
+2:06:37 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/RecentClips.tsx, /src/components/dashboard/ActivityFeed.tsx, /src/pages/Settings.tsx
+2:06:37 PM [vite] hmr update /src/components/DashboardLayout.tsx, /src/index.css
+2:06:37 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:06:37 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+2:06:37 PM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+2:06:37 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:06:38 PM [vite] hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react-swc#consistent-components-exports
+2:06:38 PM [vite] hmr update /src/index.css, /src/App.tsx, /src/components/ProtectedRoute.tsx, /src/components/DashboardLayout.tsx, /src/pages/auth/Login.tsx, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx
+2:09:01 PM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+2:09:01 PM [vite] hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react-swc#consistent-components-exports
+2:09:01 PM [vite] hmr update /src/index.css, /src/App.tsx, /src/components/ProtectedRoute.tsx, /src/components/DashboardLayout.tsx, /src/pages/auth/Login.tsx, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx
+2:13:53 PM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+2:13:53 PM [vite] hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react-swc#consistent-components-exports
+2:13:53 PM [vite] hmr update /src/index.css, /src/App.tsx, /src/components/ProtectedRoute.tsx, /src/components/DashboardLayout.tsx, /src/pages/auth/Login.tsx, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx
+2:43:01 PM [vite] hmr update /src/components/clips/NetflixClipCard.tsx, /src/index.css
+2:43:01 PM [vite] hmr update /src/index.css, /src/components/StreamMonitorCard.tsx
+2:43:01 PM [vite] hmr update /src/components/StreamMonitorCard.tsx, /src/index.css
+2:43:01 PM [vite] hmr update /src/components/DashboardLayout.tsx, /src/index.css
+2:43:01 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+2:43:01 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/RecentClips.tsx, /src/components/dashboard/ActivityFeed.tsx, /src/pages/Settings.tsx, /src/pages/Clips.tsx, /src/components/dashboard/LiveMonitors.tsx, /src/components/dashboard/StatsGrid.tsx, /src/components/AddMonitorModal.tsx, /src/components/StreamMonitorCard.tsx, /src/components/PostSchedulerModal.tsx, /src/pages/SocialAccounts.tsx, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx
+2:43:01 PM [vite] hmr update /src/contexts/AuthContext.tsx, /src/index.css
+2:43:01 PM [vite] hmr update /src/index.css, /src/components/clips/NetflixClipCard.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/Settings.tsx
+2:43:01 PM [vite] hmr update /src/pages/Settings.tsx, /src/index.css
+2:43:01 PM [vite] hmr update /src/components/SubscriptionBadge.tsx, /src/index.css
+2:43:01 PM [vite] hmr update /src/index.css, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/SocialAccounts.tsx
+2:43:01 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/RecentClips.tsx, /src/components/dashboard/ActivityFeed.tsx, /src/pages/Settings.tsx, /src/pages/Clips.tsx
+2:43:01 PM [vite] hmr update /src/index.css, /src/components/NotificationDropdown.tsx, /src/pages/Dashboard.tsx, /src/components/dashboard/LiveMonitors.tsx, /src/components/dashboard/StatsGrid.tsx, /src/pages/Settings.tsx
+2:43:01 PM [vite] hmr update /src/components/UpgradeModal.tsx, /src/index.css
+2:43:01 PM [vite] hmr invalidate /src/contexts/AuthContext.tsx Could not Fast Refresh ("useAuth" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react-swc#consistent-components-exports
+2:43:01 PM [vite] hmr update /src/index.css, /src/App.tsx, /src/components/ProtectedRoute.tsx, /src/components/DashboardLayout.tsx, /src/pages/auth/Login.tsx, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/SocialAccounts.tsx, /src/pages/Clips.tsx
+4:31:40 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:31:45 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:31:48 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:31:55 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:31:57 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:32:06 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:32:12 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:32:53 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:39:28 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:39:30 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:39:43 PM [vite] hmr update /src/pages/Admin.tsx, /src/index.css
+4:43:06 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+4:43:09 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+4:43:14 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+4:43:16 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+4:43:25 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+4:43:31 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+4:43:37 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+4:43:37 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+4:43:39 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css
+4:43:50 PM [vite] hmr update /src/index.css, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/SocialAccounts.tsx
+4:43:52 PM [vite] hmr update /src/index.css, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/SocialAccounts.tsx
+4:44:08 PM [vite] hmr update /src/index.css, /src/components/SubscriptionBadge.tsx, /src/components/UpgradeModal.tsx, /src/components/StreamMonitorCard.tsx, /src/pages/SocialAccounts.tsx
+4:44:08 PM [vite] hmr update /src/pages/SocialAccounts.tsx, /src/index.css

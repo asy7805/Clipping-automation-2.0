@@ -137,6 +137,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           // Check admin status if user is logged in (non-blocking)
           if (currentUser) {
             checkAdminStatus(currentUser.id); // Don't await - let it run in background
+            // Auto-claim trial on first load if not already claimed (non-blocking)
+            claimTrialIfNeeded(currentUser.id); // Don't await - let it run in background
           } else {
             setIsAdmin(false);
           }
@@ -158,6 +160,61 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     initializeAuth();
 
+    // Auto-claim trial on first login (if not already claimed)
+    const claimTrialIfNeeded = async (userId: string) => {
+      try {
+        const apiBaseUrl = import.meta.env.VITE_API_URL;
+        if (!apiBaseUrl) {
+          console.warn('⚠️ VITE_API_URL not set, skipping trial claim');
+          return;
+        }
+
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          console.warn('⚠️ No session found, skipping trial claim');
+          return;
+        }
+
+        // Try to get subscription status first (more reliable endpoint)
+        try {
+          const statusResponse = await fetch(`${apiBaseUrl}/api/v1/subscription/status`, {
+            headers: {
+              Authorization: `Bearer ${session.access_token}`,
+            },
+          });
+
+          if (statusResponse.ok) {
+            const statusData = await statusResponse.json();
+            // If trial not used and credits are 0, claim trial
+            if (!statusData.trial_used && statusData.credits_remaining === 0 && statusData.tier === 'free_trial') {
+              // Claim trial credits
+              const claimResponse = await fetch(`${apiBaseUrl}/api/v1/subscription/claim-trial`, {
+                method: 'POST',
+                headers: {
+                  Authorization: `Bearer ${session.access_token}`,
+                },
+              });
+
+              if (claimResponse.ok) {
+                console.log('✅ Trial credits claimed automatically');
+              } else {
+                console.warn('⚠️ Failed to claim trial:', await claimResponse.text());
+              }
+            }
+          } else if (statusResponse.status === 404) {
+            // Endpoint doesn't exist yet - backend might need restart
+            console.warn('⚠️ Subscription endpoint not found (404). Backend may need restart.');
+          }
+        } catch (fetchError: any) {
+          // Silently fail - don't block login if trial claim fails
+          console.warn('⚠️ Failed to check/claim trial:', fetchError.message);
+        }
+      } catch (error) {
+        // Silently fail - don't block login if trial claim fails
+        console.warn('⚠️ Failed to auto-claim trial:', error);
+      }
+    };
+
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
@@ -178,6 +235,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Check admin status on sign in (non-blocking)
         if (currentUser && (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED')) {
           checkAdminStatus(currentUser.id); // Don't await - let it run in background
+          // Auto-claim trial on first sign-in (non-blocking)
+          if (event === 'SIGNED_IN') {
+            claimTrialIfNeeded(currentUser.id); // Don't await - let it run in background
+          }
         } else if (!currentUser) {
           setIsAdmin(false);
         }

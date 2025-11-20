@@ -1,201 +1,700 @@
 Device set to use mps:0
 🧠 Loading Whisper and Emotion model...
 ✅ Models loaded.
-📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u
-🔄 Pre-loading AI models...
-🔊 Loading Whisper model (base)...
-🧠 Loading emotion model (j-hartmann/emotion-english-distilroberta-base)...
-Device set to use cpu
-✅ Models pre-loaded and cached
-🗂 Using streams row id=1c927767-ace3-4fca-a18d-de1e492dd525 twitch_stream_id=live-marlon-1763144555
-🔧 Starting pipeline for marlon...
-📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
-📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 16, in <module>
+    from src.db.supabase_client import get_client, insert_row, fetch_one, get_public_url
+  File "/Users/aidanyap/Clipping-automation-2.0/src/db/supabase_client.py", line 157
+    sb = get_client()
+IndentationError: expected an indented block after 'try' statement on line 156
+Device set to use mps:0
 /opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
   self.stdout = io.open(c2pread, 'rb', bufsize)
-✅ Pipeline started: streamlink PID 89686, ffmpeg PID 89687
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc
+⚠️ User 81c126a0-99da-475b-9e93-0c9cb7ae8cf7 not found in users table, creating stream without user_id
+🗂 Using streams row id=776a00d5-121d-4074-ab89-acf29b5bb044 twitch_stream_id=live-marlon-1763581116
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 92342, ffmpeg PID 92343
 ▶️ Recording... (Ctrl+C to stop)
-📁 Segment pattern: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_%05d.mp4
-📁 Output directory: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u
-🔍 Streamlink PID: 89686, FFmpeg PID: 89687
+🔄 Iteration 20: 0 segments processed, 0 in buffer
 📹 Processing seg_00000.mp4...
-⚠️ Skipping corrupted/incomplete file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00000.mp4: FFmpeg failed on /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00000.mp4: ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
-  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
-  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
-  libavutil      59. 39.100 / 59. 39.100
-  libavcodec     61. 19.101 / 61. 19.101
-  libavformat    61.  7.100 / 61.  7.100
-  libavdevice    61.  3.100 / 61.  3.100
-  libavfilter    10.  4.100 / 10.  4.100
-  libswscale      8.  3.100 /  8.  3.100
-  libswresample   5.  3.100 /  5.  3.100
-  libpostproc    58.  3.100 / 58.  3.100
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x12c806980] moov atom not found
-[in#0 @ 0x12c806730] Error opening input: Invalid data found when processing input
-Error opening input file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00000.mp4.
-Error opening input files: Invalid data found when processing input
-
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00000.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
 ⏭️ Skipped (not interesting): seg_00000.mp4
 🗑️ Deleted seg_00000.mp4
-🔄 Iteration 10: 1 segments processed, 0 in buffer
 📹 Processing seg_00001.mp4...
-One per day. Did it? Hahaha. Hey, that's, you know. You're not funny. Oh my gosh, you're gonna be my family. Were you nervous? I'm nervous. I'm mad nervous. No, I really love you.
-🎧 Score: 0.771 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4277, 'keyword': 0.0} | One per day. Did it? Hahaha. Hey, that's, you know. You're not funny. Oh my gosh...
-✅ Interesting: True
-🔥 Added to buffer (1/5): seg_00001.mp4
-📹 Processing seg_00002.mp4...
-Gosh. In the savage, I'm on a diamond lady. I'm on a machine. See that's it. Mon almond, all of my favorite. See that, my favorite. It's hell a nature out here. You listen to old thug. How do you young thug? Yeah. Now you don't. I put them shut on my nose and talk about. Yes. But I actually put them in one or another. You know, I really think we have the same use of taste. No, I think we do too. No, no. Yesterday, I peeped in.
-🎧 Score: 0.955 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.8867, 'keyword': 0.0} | Gosh. In the savage, I'm on a diamond lady. I'm on a machine. See that's it. Mon...
-✅ Interesting: True
-🔥 Added to buffer (2/5): seg_00002.mp4
-📹 Processing seg_00003.mp4...
-I dropped it oh when I was singing I loop drop you're fun with it yeah Oh, oh, come on. Oh, oh, you know that yeah, I do now you don't yes, I do not like me. I got that dog in me. I got that dog in me I'm gonna horse these No, no You hungry you want to get somebody for this? No, no, no
-🎧 Score: 0.743 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.3572, 'keyword': 0.0} | I dropped it oh when I was singing I loop drop you're fun with it yeah Oh, oh, c...
-✅ Interesting: True
-🔥 Added to buffer (3/5): seg_00003.mp4
-📹 Processing seg_00004.mp4...
-You want to sit be lately, you like to be lately. No, I'm not going to lie, you said 12, you put up a 12 on your back. Yeah, exactly like one. No, because you said, ah, be a little late. Yeah, I did say that, like 12 on the air. I'm assuming that you need a more time. I got it, and I won it, and I got it. And I won it, and I got it. And I got it. Wait, so like, what? You want to drop your bank account numbers really quickly. Man, what are you?
-🔥 Hype keywords detected!
-🎧 Score: 1.041 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.7283, 'keyword': 1.0} | You want to sit be lately, you like to be lately. No, I'm not going to lie, you ...
-✅ Interesting: True
-🔥 Added to buffer (4/5): seg_00004.mp4
-📹 Processing seg_00005.mp4...
-Talking about. Now I'm kidding. Oh my gosh, you wanna know something, Marlon? What? You wanna know something? So let me tell you something. Tsk. You don't know nine bodies, right? What's I do? Actually, what are you gonna say? Oh wait. Let me know some bullshit. You're not gonna know some bullshit. No, I saw this video. No, do not be on some bullshit. You got it. So there's all this video, like where someone was making one of those AI paragraph things about me. Like where the-
-🔥 Hype keywords detected!
-🎧 Score: 0.980 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5753, 'keyword': 1.0} | Talking about. Now I'm kidding. Oh my gosh, you wanna know something, Marlon? Wh...
-✅ Interesting: True
-🔥 Added to buffer (5/5): seg_00005.mp4
-/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:221: UserWarning: PySoundFile failed. Trying audioread instead.
-  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
-/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
-	Deprecated as of librosa version 0.10.0.
-	It will be removed in librosa version 1.0.
-  y, sr_native = __audioread_load(path, offset, duration, dtype)
-One per day. Did it? Hahaha. Hey, that's, you know. You're not funny. Oh my gosh, you're gonna be my family. Were you nervous? I'm nervous. I'm mad nervous. No, I really love you.
-🎧 seg_00001.mp4 | Score: 0.771 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4277, 'keyword': 0.0} | One per day. Did it? Hahaha. Hey, that's, you know. You're n...
-Gosh. In the savage, I'm on a diamond lady. I'm on a machine. See that shit. Mon almond, all of my favorite. Yo, it's hell a nature out here. You listen to old thug. How do you young thug? Yeah. Now you don't. I put them shut all my nose and tongue bow. Yes. But I actually put them in one or another. You know, I really think we have the same use of taste. No, I think we do too. No, no, yes, today I have pizza.
-🎧 seg_00002.mp4 | Score: 0.941 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.8516, 'keyword': 0.0} | Gosh. In the savage, I'm on a diamond lady. I'm on a machine...
-I dropped it oh when I was singing I loop drop you're fun with it yeah Oh, oh, no, oh, you know that yeah, I do now you don't yes, I do no like me. I got that dog in me. I got that dog in me I'm gonna horse these No, no You hungry you want to get somebody for this? No, no, no, we go
-🎧 seg_00003.mp4 | Score: 0.775 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4382, 'keyword': 0.0} | I dropped it oh when I was singing I loop drop you're fun wi...
-You want to sit be lately, you like to be lately. No, I'm not going to lie. You would go, you said 12, you put that 12 on your top. Yeah, exactly like one. No, because you said, ah, be a little late. Yeah, I did say that, like 12 on the air. I'm assuming that you need a more time. I got it. And I want it. And I got it. And I want it. And I got it. And I got it. Wait, so like, what? You want to drop your bank account number, really? What are you?
-🔥 Hype keywords detected!
-🎧 seg_00004.mp4 | Score: 1.093 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.8581, 'keyword': 1.0} | You want to sit be lately, you like to be lately. No, I'm no...
-Talking about. Now I'm kidding. Oh my gosh, you wanna know something, Marlon? What? You wanna know something? So let me tell you something. Tsk. You don't know nine bodies, right? What's I do? Actually, what are you gonna say? Oh wait. Let me know some bullshit. You're not gonna know some bullshit, do that. No, I saw this video. No, do not be on some bullshit. You got it. So there's all this video where someone was making one of those AI paragraph things about me. Okay.
-🔥 Hype keywords detected!
-🎧 seg_00005.mp4 | Score: 0.978 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5702, 'keyword': 1.0} | Talking about. Now I'm kidding. Oh my gosh, you wanna know s...
-ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
-  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
-  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
-  libavutil      59. 39.100 / 59. 39.100
-  libavcodec     61. 19.101 / 61. 19.101
-  libavformat    61.  7.100 / 61.  7.100
-  libavdevice    61.  3.100 / 61.  3.100
-  libavfilter    10.  4.100 / 10.  4.100
-  libswscale      8.  3.100 /  8.  3.100
-  libswresample   5.  3.100 /  5.  3.100
-  libpostproc    58.  3.100 / 58.  3.100
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138105b20] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138105b20] Auto-inserting h264_mp4toannexb bitstream filter
-Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/merge_list.txt':
-  Duration: N/A, start: 0.000000, bitrate: 2646 kb/s
-  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720, 2518 kb/s, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 15360 tbn
-      Metadata:
-        handler_name    : VideoHandler
-        vendor_id       : [0][0][0][0]
-        encoder         : Lavc61.19.101 h264_videotoolbox
-  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
-      Metadata:
-        handler_name    : SoundHandler
-        vendor_id       : [0][0][0][0]
-Stream mapping:
-  Stream #0:0 -> #0:0 (copy)
-  Stream #0:1 -> #0:1 (copy)
-Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/merged_1763144775.mp4':
-  Metadata:
-    encoder         : Lavf61.7.100
-  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 2518 kb/s, 60 fps, 60 tbr, 15360 tbn
-      Metadata:
-        handler_name    : VideoHandler
-        vendor_id       : [0][0][0][0]
-        encoder         : Lavc61.19.101 h264_videotoolbox
-  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
-      Metadata:
-        handler_name    : SoundHandler
-        vendor_id       : [0][0][0][0]
-Press [q] to stop, [?] for help
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138308280] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138308280] Auto-inserting h264_mp4toannexb bitstream filter
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138106c80] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x138106c80] Auto-inserting h264_mp4toannexb bitstream filter
-[out#0/mp4 @ 0x138117360] video:27577KiB audio:1409KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.344339%
-frame= 5380 fps=0.0 q=-1.0 Lsize=   29085KiB time=00:01:30.01 bitrate=2647.0kbits/s speed=1.78e+03x    
-⬆️ Uploaded merged clip: raw/marlon/live-marlon-1763144555/20251114/segment_1763144795.mp4
-
-🎧 Clip created | Score: 1.004 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.76, 'keyword': 0.67} 🔥
-   Transcript: You want to sit be lately, you like to be lately. No, I'm not going to lie. You ...
-
-✅ Inserted clip into database: d5fede75-40d9-4a3f-9b1d-f85594a97e00
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00001.mp4
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00001.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00001.mp4
 🗑️ Deleted seg_00001.mp4
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00002.mp4
+🔄 Iteration 40: 2 segments processed, 0 in buffer
+📹 Processing seg_00002.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00002.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00002.mp4
 🗑️ Deleted seg_00002.mp4
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00003.mp4
+📹 Processing seg_00003.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00003.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00003.mp4
 🗑️ Deleted seg_00003.mp4
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00004.mp4
+📹 Processing seg_00004.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00004.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00004.mp4
 🗑️ Deleted seg_00004.mp4
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00005.mp4
+🔄 Iteration 60: 5 segments processed, 0 in buffer
+📹 Processing seg_00005.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00005.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00005.mp4
 🗑️ Deleted seg_00005.mp4
 📹 Processing seg_00006.mp4...
-They do the AI generated talking. They said, John is net worth started off at 500. I said, bitch, more like 100. I was thinking, oh shit, they done to me like, like I live in like fucking Beverly Hills. I was dating Madison Bears. Like they were going crazy. Wait, that was, what's the biggest lie somebody said about you online? Probably that, to be honest. Really? That you dated Madison Bears. You want to know something, my ex, compared me to Madison Bears so badly, that I wanted to be like her. I wanted to be just like her. I'm not.
-🔥 Hype keywords detected!
-🎧 Score: 0.917 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4181, 'keyword': 1.0} | They do the AI generated talking. They said, John is net worth started off at 50...
-✅ Interesting: True
-🔥 Added to buffer (1/5): seg_00006.mp4
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00006.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00006.mp4
+🗑️ Deleted seg_00006.mp4
 📹 Processing seg_00007.mp4...
-I was really bad. Everything I've heard so far, it was not bad. Oh! Okay! It's just shit, what's he driving like this to? I mean, you want the honest truth? Yeah, I'm screwed. Oh, fuck. Nah, actually you drive through my car everywhere. Oh yeah? Okay guys, but don't go online talking about you. Yeah, no, no, no, no, no, no. You don't get that text. I'm gonna get that text. No, you know what? They text me and said, I don't remember this happening. And my response was, I remember it very clearly like it was yesterday.
-🔥 Hype keywords detected!
-🎧 Score: 0.959 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5223, 'keyword': 1.0} | I was really bad. Everything I've heard so far, it was not bad. Oh! Okay! It's j...
-✅ Interesting: True
-🔥 Added to buffer (2/5): seg_00007.mp4
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00007.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00007.mp4
+🗑️ Deleted seg_00007.mp4
+🔄 Iteration 80: 8 segments processed, 0 in buffer
 📹 Processing seg_00008.mp4...
-That's what I said. You said that? Yeah, but they don't even know which one. Don't got it all Which are we lagging right here? We should be lagging right here. Where is it laggy? I think oh, we're here For not now. Yeah, no almost Chalim no frugga let me know frugga cuz we going up the hill right now. So hopefully Fuck hey, oh my gosh. Oh my gosh. I'm sorry. Come on. Wait. I took the wrong turn and I did 10 minutes now
-🔥 Hype keywords detected!
-🎧 Score: 0.900 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.3756, 'keyword': 1.0} | That's what I said. You said that? Yeah, but they don't even know which one. Don...
-✅ Interesting: True
-🔥 Added to buffer (3/5): seg_00008.mp4
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00008.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00008.mp4
+🗑️ Deleted seg_00008.mp4
 📹 Processing seg_00009.mp4...
-We good? I bet. Now we're taking it. Oh, I know. You know this song. I do. Oh my god, I almost backed up into the truck. No careful, girl. I almost backed up into a truck and you didn't say any. Wait, watch out, watch out, watch out, watch out. Oh my god. I'm driving recklessly. Oh my god. Hey, you know when you got a focus on the road, you got to turn on your music. No, it's because you turned it.
-🔥 Hype keywords detected!
-🎧 Score: 0.859 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.2728, 'keyword': 1.0} | We good? I bet. Now we're taking it. Oh, I know. You know this song. I do. Oh my...
-✅ Interesting: True
-🔥 Added to buffer (4/5): seg_00009.mp4
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00009.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00009.mp4
+🗑️ Deleted seg_00009.mp4
+🔄 Iteration 100: 10 segments processed, 0 in buffer
+🔄 Iteration 120: 10 segments processed, 0 in buffer
 📹 Processing seg_00010.mp4...
-all the way up and you're trying to do light skins. I didn't. I cannot. Hold on. Your eye surgery. How did it go? Amazing. What do you think, bro? I just love it. Can I take a turn, bro? Wait, you see turn right here? Yeah. Hey, bud. Oh my gosh, this sharp ass turn. Hold on. Whoa, this scene we has roll right here. I feel like I'm gonna get so distracted driving with you and look on. I'm going to have to do it. That's my city.
-🔥 Hype keywords detected!
-🎧 Score: 0.973 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5579, 'keyword': 1.0} | all the way up and you're trying to do light skins. I didn't. I cannot. Hold on....
-✅ Interesting: True
-🔥 Added to buffer (5/5): seg_00010.mp4
-/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:221: UserWarning: PySoundFile failed. Trying audioread instead.
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00010.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00010.mp4
+🗑️ Deleted seg_00010.mp4
+📹 Processing seg_00011.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00011.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00011.mp4
+🗑️ Deleted seg_00011.mp4
+📹 Processing seg_00012.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00012.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00012.mp4
+🗑️ Deleted seg_00012.mp4
+📹 Processing seg_00013.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00013.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00013.mp4
+🗑️ Deleted seg_00013.mp4
+🔄 Iteration 140: 14 segments processed, 0 in buffer
+📹 Processing seg_00014.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00014.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00014.mp4
+🗑️ Deleted seg_00014.mp4
+📹 Processing seg_00015.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00015.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00015.mp4
+🗑️ Deleted seg_00015.mp4
+📹 Processing seg_00016.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00016.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00016.mp4
+🗑️ Deleted seg_00016.mp4
+🔄 Iteration 160: 17 segments processed, 0 in buffer
+📹 Processing seg_00017.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ctgin1nc/seg_00017.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00017.mp4
+🗑️ Deleted seg_00017.mp4
+📹 Processing seg_00018.mp4...Device set to use mps:0
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv
+⚠️ User 81c126a0-99da-475b-9e93-0c9cb7ae8cf7 not found in users table, creating stream without user_id
+🗂 Using streams row id=664266ac-5500-4ed5-9454-42f9d530bd7b twitch_stream_id=live-marlon-1763582756
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 6639, ffmpeg PID 6648
+▶️ Recording... (Ctrl+C to stop)
+📹 Processing seg_00000.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00000.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00000.mp4
+🗑️ Deleted seg_00000.mp4
+📹 Processing seg_00001.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00001.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00001.mp4
+🗑️ Deleted seg_00001.mp4
+🔄 Iteration 20: 2 segments processed, 0 in buffer
+📹 Processing seg_00002.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00002.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00002.mp4
+🗑️ Deleted seg_00002.mp4
+📹 Processing seg_00003.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00003.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00003.mp4
+🗑️ Deleted seg_00003.mp4
+🔄 Iteration 40: 4 segments processed, 0 in buffer
+🔄 Iteration 60: 4 segments processed, 0 in buffer
+🔄 Iteration 80: 4 segments processed, 0 in buffer
+📹 Processing seg_00004.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00004.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00004.mp4
+🗑️ Deleted seg_00004.mp4
+📹 Processing seg_00005.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00005.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00005.mp4
+🗑️ Deleted seg_00005.mp4
+🔄 Iteration 100: 6 segments processed, 0 in buffer
+📹 Processing seg_00006.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00006.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00006.mp4
+🗑️ Deleted seg_00006.mp4
+📹 Processing seg_00007.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00007.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00007.mp4
+🗑️ Deleted seg_00007.mp4
+🔄 Iteration 120: 8 segments processed, 0 in buffer
+📹 Processing seg_00008.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00008.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00008.mp4
+🗑️ Deleted seg_00008.mp4
+📹 Processing seg_00009.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00009.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00009.mp4
+🗑️ Deleted seg_00009.mp4
+🔄 Iteration 140: 10 segments processed, 0 in buffer
+📹 Processing seg_00010.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00010.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00010.mp4
+🗑️ Deleted seg_00010.mp4
+📹 Processing seg_00011.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00011.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00011.mp4
+🗑️ Deleted seg_00011.mp4
+🔄 Iteration 160: 12 segments processed, 0 in buffer
+📹 Processing seg_00012.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00012.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00012.mp4
+🗑️ Deleted seg_00012.mp4
+📹 Processing seg_00013.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00013.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00013.mp4
+🗑️ Deleted seg_00013.mp4
+🔄 Iteration 180: 14 segments processed, 0 in buffer
+📹 Processing seg_00014.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00014.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00014.mp4
+🗑️ Deleted seg_00014.mp4
+🔄 Iteration 200: 15 segments processed, 0 in buffer
+🔄 Iteration 220: 15 segments processed, 0 in buffer
+📹 Processing seg_00015.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_7j965cwv/seg_00015.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00015.mp4
+🗑️ Deleted seg_00015.mp4
+⚠️ Pipeline process died! Streamlink: 0, FFmpeg: 0
+🔄 Restarting pipeline...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 14234, ffmpeg PID 14235
+✅ Pipeline restarted
+⚠️ Pipeline process died! Streamlink: 1, FFmpeg: 183
+🔄 Restarting pipeline...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 14284, ffmpeg PID 14293
+✅ Pipeline restarted/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+
+⚠️ Pipeline process died! Streamlink: 1, FFmpeg: 183
+🔄 Restarting pipeline...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 14343, ffmpeg PID 14344
+✅ Pipeline restarted
+⚠️ Pipeline process died! Streamlink: 1, FFmpeg: 183
+🔄 Restarting pipeline...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 14393, ffmpeg PID 14394
+✅ Pipeline restarted
+⚠️ Pipeline process died! Streamlink: 1, FFmpeg: 183
+🔄 Restarting pipeline...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+🗑️ Deleted seg_00016.mp4
+🗑️ Deleted seg_00017.mp4
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 554, in <module>
+    main()
+    ~~~~^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 403, in main
+    p_sl, p_ff, seg_pattern = start_pipeline(args.channel, out_dir)
+                              ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 204, in start_pipeline
+    raise RuntimeError(f"Streamlink died immediately with exit code {exit_code}")
+RuntimeError: Streamlink died immediately with exit code 1
+Device set to use mps:0
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5
+⚠️ User 81c126a0-99da-475b-9e93-0c9cb7ae8cf7 not found in users table, creating stream without user_id
+🗂 Using streams row id=45df54b6-f49d-4fa7-9cd2-a688aad7c386 twitch_stream_id=live-marlon-1763585206
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 23327, ffmpeg PID 23328
+▶️ Recording... (Ctrl+C to stop)
+📹 Processing seg_00000.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00000.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00000.mp4
+🗑️ Deleted seg_00000.mp4
+📹 Processing seg_00001.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00001.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00001.mp4
+🗑️ Deleted seg_00001.mp4
+🔄 Iteration 20: 2 segments processed, 0 in buffer
+🔄 Iteration 40: 2 segments processed, 0 in buffer
+🔄 Iteration 60: 2 segments processed, 0 in buffer
+🔄 Iteration 80: 2 segments processed, 0 in buffer
+📹 Processing seg_00002.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00002.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00002.mp4
+🗑️ Deleted seg_00002.mp4
+📹 Processing seg_00003.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00003.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00003.mp4
+🗑️ Deleted seg_00003.mp4
+📹 Processing seg_00004.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00004.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00004.mp4
+🗑️ Deleted seg_00004.mp4
+🔄 Iteration 100: 5 segments processed, 0 in buffer
+📹 Processing seg_00005.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00005.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00005.mp4
+🗑️ Deleted seg_00005.mp4
+📹 Processing seg_00006.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00006.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00006.mp4
+🗑️ Deleted seg_00006.mp4
+🔄 Iteration 120: 7 segments processed, 0 in buffer
+📹 Processing seg_00007.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00007.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00007.mp4
+🗑️ Deleted seg_00007.mp4
+📹 Processing seg_00008.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00008.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00008.mp4
+🗑️ Deleted seg_00008.mp4
+📹 Processing seg_00009.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00009.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00009.mp4
+🗑️ Deleted seg_00009.mp4
+🔄 Iteration 140: 10 segments processed, 0 in buffer
+📹 Processing seg_00010.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00010.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00010.mp4
+🗑️ Deleted seg_00010.mp4
+📹 Processing seg_00011.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00011.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00011.mp4
+🗑️ Deleted seg_00011.mp4
+🔄 Iteration 160: 12 segments processed, 0 in buffer
+📹 Processing seg_00012.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00012.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00012.mp4
+🗑️ Deleted seg_00012.mp4
+🔄 Iteration 180: 13 segments processed, 0 in buffer
+🔄 Iteration 200: 13 segments processed, 0 in buffer
+🔄 Iteration 220: 13 segments processed, 0 in buffer
+📹 Processing seg_00013.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00013.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00013.mp4
+🗑️ Deleted seg_00013.mp4
+🔄 Iteration 240: 14 segments processed, 0 in buffer
+📹 Processing seg_00014.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00014.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00014.mp4
+🗑️ Deleted seg_00014.mp4
+📹 Processing seg_00015.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00015.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00015.mp4
+🗑️ Deleted seg_00015.mp4
+🔄 Iteration 260: 16 segments processed, 0 in buffer
+📹 Processing seg_00016.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00016.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00016.mp4
+🗑️ Deleted seg_00016.mp4
+📹 Processing seg_00017.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00017.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00017.mp4
+🗑️ Deleted seg_00017.mp4
+🔄 Iteration 280: 18 segments processed, 0 in buffer
+📹 Processing seg_00018.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00018.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00018.mp4
+🗑️ Deleted seg_00018.mp4
+📹 Processing seg_00019.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00019.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00019.mp4
+🗑️ Deleted seg_00019.mp4
+📹 Processing seg_00020.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00020.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00020.mp4
+🗑️ Deleted seg_00020.mp4
+🔄 Iteration 300: 21 segments processed, 0 in buffer
+📹 Processing seg_00021.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00021.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00021.mp4
+🗑️ Deleted seg_00021.mp4
+📹 Processing seg_00022.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00022.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00022.mp4
+🗑️ Deleted seg_00022.mp4
+🔄 Iteration 320: 23 segments processed, 0 in buffer
+🔄 Iteration 340: 23 segments processed, 0 in buffer
+🔄 Iteration 360: 23 segments processed, 0 in buffer
+🔄 Iteration 380: 23 segments processed, 0 in buffer
+📹 Processing seg_00023.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00023.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00023.mp4
+🗑️ Deleted seg_00023.mp4
+📹 Processing seg_00024.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00024.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00024.mp4
+🗑️ Deleted seg_00024.mp4
+🔄 Iteration 400: 25 segments processed, 0 in buffer
+📹 Processing seg_00025.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00025.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00025.mp4
+🗑️ Deleted seg_00025.mp4
+📹 Processing seg_00026.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00026.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00026.mp4
+🗑️ Deleted seg_00026.mp4
+🔄 Iteration 420: 27 segments processed, 0 in buffer
+📹 Processing seg_00027.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00027.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00027.mp4
+🗑️ Deleted seg_00027.mp4
+📹 Processing seg_00028.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00028.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00028.mp4
+🗑️ Deleted seg_00028.mp4
+🔄 Iteration 440: 29 segments processed, 0 in buffer
+📹 Processing seg_00029.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00029.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00029.mp4
+🗑️ Deleted seg_00029.mp4
+📹 Processing seg_00030.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00030.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00030.mp4
+🗑️ Deleted seg_00030.mp4
+📹 Processing seg_00031.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00031.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00031.mp4
+🗑️ Deleted seg_00031.mp4
+🔄 Iteration 460: 32 segments processed, 0 in buffer
+📹 Processing seg_00032.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00032.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00032.mp4
+🗑️ Deleted seg_00032.mp4
+🔄 Iteration 480: 33 segments processed, 0 in buffer
+🔄 Iteration 500: 33 segments processed, 0 in buffer
+🔄 Iteration 520: 33 segments processed, 0 in buffer
+📹 Processing seg_00033.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00033.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00033.mp4
+🗑️ Deleted seg_00033.mp4
+📹 Processing seg_00034.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00034.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00034.mp4
+🗑️ Deleted seg_00034.mp4
+🔄 Iteration 540: 35 segments processed, 0 in buffer
+📹 Processing seg_00035.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00035.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00035.mp4
+🗑️ Deleted seg_00035.mp4
+📹 Processing seg_00036.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00036.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00036.mp4
+🗑️ Deleted seg_00036.mp4
+🔄 Iteration 560: 37 segments processed, 0 in buffer
+📹 Processing seg_00037.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00037.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00037.mp4
+🗑️ Deleted seg_00037.mp4
+📹 Processing seg_00038.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00038.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00038.mp4
+🗑️ Deleted seg_00038.mp4
+🔄 Iteration 580: 39 segments processed, 0 in buffer
+📹 Processing seg_00039.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00039.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00039.mp4
+🗑️ Deleted seg_00039.mp4
+📹 Processing seg_00040.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00040.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00040.mp4
+🗑️ Deleted seg_00040.mp4
+📹 Processing seg_00041.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00041.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00041.mp4
+🗑️ Deleted seg_00041.mp4
+🔄 Iteration 600: 42 segments processed, 0 in buffer
+📹 Processing seg_00042.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00042.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00042.mp4
+🗑️ Deleted seg_00042.mp4
+📹 Processing seg_00043.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00043.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00043.mp4
+🗑️ Deleted seg_00043.mp4
+🔄 Iteration 620: 44 segments processed, 0 in buffer
+🔄 Iteration 640: 44 segments processed, 0 in buffer
+🔄 Iteration 660: 44 segments processed, 0 in buffer
+🔄 Iteration 680: 44 segments processed, 0 in buffer
+📹 Processing seg_00044.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00044.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00044.mp4
+🗑️ Deleted seg_00044.mp4
+📹 Processing seg_00045.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00045.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00045.mp4
+🗑️ Deleted seg_00045.mp4
+🔄 Iteration 700: 46 segments processed, 0 in buffer
+📹 Processing seg_00046.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00046.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00046.mp4
+🗑️ Deleted seg_00046.mp4
+📹 Processing seg_00047.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00047.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00047.mp4
+🗑️ Deleted seg_00047.mp4
+🔄 Iteration 720: 48 segments processed, 0 in buffer
+📹 Processing seg_00048.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00048.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00048.mp4
+🗑️ Deleted seg_00048.mp4
+📹 Processing seg_00049.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00049.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00049.mp4
+🗑️ Deleted seg_00049.mp4
+🔄 Iteration 740: 50 segments processed, 0 in buffer
+📹 Processing seg_00050.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00050.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00050.mp4
+🗑️ Deleted seg_00050.mp4
+📹 Processing seg_00051.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00051.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00051.mp4
+🗑️ Deleted seg_00051.mp4
+📹 Processing seg_00052.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00052.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00052.mp4
+🗑️ Deleted seg_00052.mp4
+🔄 Iteration 760: 53 segments processed, 0 in buffer
+📹 Processing seg_00053.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00053.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00053.mp4
+🗑️ Deleted seg_00053.mp4
+🔄 Iteration 780: 54 segments processed, 0 in buffer
+🔄 Iteration 800: 54 segments processed, 0 in buffer
+🔄 Iteration 820: 54 segments processed, 0 in buffer
+📹 Processing seg_00054.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00054.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00054.mp4
+🗑️ Deleted seg_00054.mp4
+🔄 Iteration 840: 55 segments processed, 0 in buffer
+📹 Processing seg_00055.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00055.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00055.mp4
+🗑️ Deleted seg_00055.mp4
+📹 Processing seg_00056.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00056.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00056.mp4
+🗑️ Deleted seg_00056.mp4
+🔄 Iteration 860: 57 segments processed, 0 in buffer
+📹 Processing seg_00057.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00057.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00057.mp4
+🗑️ Deleted seg_00057.mp4
+📹 Processing seg_00058.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00058.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00058.mp4
+🗑️ Deleted seg_00058.mp4
+🔄 Iteration 880: 59 segments processed, 0 in buffer
+📹 Processing seg_00059.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00059.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00059.mp4
+🗑️ Deleted seg_00059.mp4
+📹 Processing seg_00060.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00060.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00060.mp4
+🗑️ Deleted seg_00060.mp4
+🔄 Iteration 900: 61 segments processed, 0 in buffer
+📹 Processing seg_00061.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00061.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00061.mp4
+🗑️ Deleted seg_00061.mp4
+📹 Processing seg_00062.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00062.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00062.mp4
+🗑️ Deleted seg_00062.mp4
+📹 Processing seg_00063.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00063.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00063.mp4
+🗑️ Deleted seg_00063.mp4
+🔄 Iteration 920: 64 segments processed, 0 in buffer
+🔄 Iteration 940: 64 segments processed, 0 in buffer
+🔄 Iteration 960: 64 segments processed, 0 in buffer
+🔄 Iteration 980: 64 segments processed, 0 in buffer
+📹 Processing seg_00064.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00064.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00064.mp4
+🗑️ Deleted seg_00064.mp4
+📹 Processing seg_00065.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00065.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00065.mp4
+🗑️ Deleted seg_00065.mp4
+🔄 Iteration 1000: 66 segments processed, 0 in buffer
+📹 Processing seg_00066.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00066.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00066.mp4
+🗑️ Deleted seg_00066.mp4
+📹 Processing seg_00067.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00067.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00067.mp4
+🗑️ Deleted seg_00067.mp4
+🔄 Iteration 1020: 68 segments processed, 0 in buffer
+📹 Processing seg_00068.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00068.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00068.mp4
+🗑️ Deleted seg_00068.mp4
+📹 Processing seg_00069.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00069.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00069.mp4
+🗑️ Deleted seg_00069.mp4
+🔄 Iteration 1040: 70 segments processed, 0 in buffer
+📹 Processing seg_00070.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00070.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00070.mp4
+🗑️ Deleted seg_00070.mp4
+📹 Processing seg_00071.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00071.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00071.mp4
+🗑️ Deleted seg_00071.mp4
+🔄 Iteration 1060: 72 segments processed, 0 in buffer
+📹 Processing seg_00072.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00072.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00072.mp4
+🗑️ Deleted seg_00072.mp4
+📹 Processing seg_00073.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00073.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00073.mp4
+🗑️ Deleted seg_00073.mp4
+🔄 Iteration 1080: 74 segments processed, 0 in buffer
+🔄 Iteration 1100: 74 segments processed, 0 in buffer
+📹 Processing seg_00074.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00074.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+
+⏭️ Skipped (not interesting): seg_00074.mp4
+🗑️ Deleted seg_00074.mp4
+📹 Processing seg_00075.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00075.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00075.mp4
+🗑️ Deleted seg_00075.mp4
+🔄 Iteration 1120: 76 segments processed, 0 in buffer
+📹 Processing seg_00076.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00076.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00076.mp4
+🗑️ Deleted seg_00076.mp4
+📹 Processing seg_00077.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00077.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00077.mp4
+🗑️ Deleted seg_00077.mp4
+📹 Processing seg_00078.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00078.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00078.mp4
+🗑️ Deleted seg_00078.mp4
+📹 Processing seg_00079.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00079.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00079.mp4
+🗑️ Deleted seg_00079.mp4
+🔄 Iteration 1140: 80 segments processed, 0 in buffer
+📹 Processing seg_00080.mp4...
+⚠️ Error processing /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_ff4vpxd5/seg_00080.mp4: [Errno 2] No such file or directory: '%LOCALAPPDATA%\\Microsoft\\WinGet\\Packages\\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\\ffmpeg-8.0-full_build\\bin\\ffmpeg.exe'
+⏭️ Skipped (not interesting): seg_00080.mp4
+🗑️ Deleted seg_00080.mp4
+🔄 Iteration 1160: 81 segments processed, 0 in buffer
+⚠️ Pipeline process died! Streamlink: 0, FFmpeg: 0
+🔄 Restarting pipeline...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+🗑️ Deleted seg_00081.mp4
+🗑️ Deleted seg_00082.mp4
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 554, in <module>
+    main()
+    ~~~~^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 403, in main
+    p_sl, p_ff, seg_pattern = start_pipeline(args.channel, out_dir)
+                              ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 204, in start_pipeline
+    raise RuntimeError(f"Streamlink died immediately with exit code {exit_code}")
+RuntimeError: Streamlink died immediately with exit code 1
+Device set to use mps:0
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+Device set to use mps:0
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+Device set to use cpu
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:249: UserWarning: PySoundFile failed. Trying audioread instead.
   y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
 /Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
 	Deprecated as of librosa version 0.10.0.
 	It will be removed in librosa version 1.0.
   y, sr_native = __audioread_load(path, offset, duration, dtype)
-They do the AI generated talking. They said, John is net worth started off at 500. I said, bitch, more like 100. I was thinking, oh shit, they done to me like, like I live in like fucking Beverly Hills. I was dating Madison Bear. It's like, they were going crazy. Wait, that was, what's the biggest lie somebody said about you online? Probably that, to be honest. Really? That you dated Madison Bear. You want to know something, my ex, compared me to Madison Bear so badly, that I wanted to be like her? I wanted to be just like her. I'm not...
-🔥 Hype keywords detected!
-🎧 seg_00006.mp4 | Score: 0.923 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4331, 'keyword': 1.0} | They do the AI generated talking. They said, John is net wor...
-I was down really bad. Everything I've heard so far, it was down bad. Oh! Okay! It's just shit. What's he driving like this to? I mean, you want the honest truth? Yeah, I'm screwed. Oh, fuck. Nah, actually, you drive through my car everywhere. Oh yeah? Okay, guys, but don't go online talking about you. Yeah, no, no, no, no, no. You don't get that text. I'm gonna get that text. No, you know what? They text me and said, I don't remember this happening. And my response was, I remember it very clearly like it was yesterday.
-🔥 Hype keywords detected!
-🎧 seg_00007.mp4 | Score: 0.941 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4787, 'keyword': 1.0} | I was down really bad. Everything I've heard so far, it was ...
-That's what I said. You said that? Yeah, but they don't even know which one. Don't got it all Which are we lagging right here? We should be lagging right here. Where is it laggy? I think oh, we're here For not now. Yeah, no almost Chalim no frugga let me know frugga cuz we going up the hill right now. So hopefully Fuck hey, oh my gosh. Oh my gosh. I'm sorry. Come on. Wait. I took the wrong turn and I did 10 minutes now
-🔥 Hype keywords detected!
-🎧 seg_00008.mp4 | Score: 0.900 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.3756, 'keyword': 1.0} | That's what I said. You said that? Yeah, but they don't even...
-We good? I bet. Now we're taking it. Oh, I know. You know this song. I do. Oh my god, I almost backed up into the truck. No careful, girl. I almost backed up into a truck and you didn't say any. Wait, watch out, watch out, watch out, watch out. Oh my god. I'm driving recklessly. Oh my god. Hey, you know when you got a focus on the road, you got to turn on your music. No, it's because you turned it.
-🔥 Hype keywords detected!
-🎧 seg_00009.mp4 | Score: 0.859 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.2728, 'keyword': 1.0} | We good? I bet. Now we're taking it. Oh, I know. You know th...
-all the way up and you're trying to do light skins. I didn't. I cannot. Hold on. Your eye surgery. How did it go? Amazing. What do you think, bro? I just love it. Can I take a turn, bro? Wait, you see turn right here? Yeah. Hey, bud. Oh my gosh, this sharp ass turn. Hold on. Whoa, this scene we has roll right here. I feel like I'm gonna get so distracted driving with you and look on. I'm gonna try to work with you, bro. That's my city.
-🔥 Hype keywords detected!
-🎧 seg_00010.mp4 | Score: 0.954 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5109, 'keyword': 1.0} | all the way up and you're trying to do light skins. I didn't...
 ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
   built with Apple clang version 17.0.0 (clang-1700.0.13.3)
   configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
@@ -207,15 +706,15 @@ ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
   libswscale      8.  3.100 /  8.  3.100
   libswresample   5.  3.100 /  5.  3.100
   libpostproc    58.  3.100 / 58.  3.100
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x159707580] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x159707580] Auto-inserting h264_mp4toannexb bitstream filter
-Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/merge_list.txt':
-  Duration: N/A, start: 0.000000, bitrate: 2563 kb/s
-  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720, 2435 kb/s, SAR 1:1 DAR 16:9, 60 fps, 60 tbr, 15360 tbn
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x134727450] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x134727450] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_110njw91/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 6753 kb/s
+  Stream #0:0(und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 6625 kb/s, 60 fps, 60 tbr, 15360 tbn
       Metadata:
         handler_name    : VideoHandler
         vendor_id       : [0][0][0][0]
-        encoder         : Lavc61.19.101 h264_videotoolbox
+        encoder         : Lavc61.19.101 libx264
   Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
       Metadata:
         handler_name    : SoundHandler
@@ -223,44 +722,127 @@ Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_ma
 Stream mapping:
   Stream #0:0 -> #0:0 (copy)
   Stream #0:1 -> #0:1 (copy)
-Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/merged_1763144927.mp4':
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_110njw91/merged_1763661702.mp4':
   Metadata:
     encoder         : Lavf61.7.100
-  Stream #0:0(und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], q=2-31, 2435 kb/s, 60 fps, 60 tbr, 15360 tbn
+  Stream #0:0(und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 6625 kb/s, 60 fps, 60 tbr, 15360 tbn
       Metadata:
         handler_name    : VideoHandler
         vendor_id       : [0][0][0][0]
-        encoder         : Lavc61.19.101 h264_videotoolbox
+        encoder         : Lavc61.19.101 libx264
   Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
       Metadata:
         handler_name    : SoundHandler
         vendor_id       : [0][0][0][0]
 Press [q] to stop, [?] for help
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1597132c0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1597132c0] Auto-inserting h264_mp4toannexb bitstream filter
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1597132c0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x1597132c0] Auto-inserting h264_mp4toannexb bitstream filter
-[out#0/mp4 @ 0x149606810] video:26435KiB audio:1415KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.360871%
-frame= 5417 fps=0.0 q=-1.0 Lsize=   27950KiB time=00:01:30.59 bitrate=2527.4kbits/s speed=2.15e+03x    
-⬆️ Uploaded merged clip: raw/marlon/live-marlon-1763144555/20251114/segment_1763144949.mp4
-
-🎧 Clip created | Score: 0.940 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4742, 'keyword': 1.0} 🔥
-   Transcript: all the way up and you're trying to do light skins. I didn't. I cannot. Hold on....
-
-✅ Inserted clip into database: 90784344-6e3b-40b8-b9d3-433b786150c0
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00006.mp4
-🗑️ Deleted seg_00006.mp4
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00007.mp4
-🗑️ Deleted seg_00007.mp4
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00008.mp4
-🗑️ Deleted seg_00008.mp4
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00009.mp4
-🗑️ Deleted seg_00009.mp4
-🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763144555/20251114/seg_00010.mp4
-🗑️ Deleted seg_00010.mp4
-🔄 Iteration 20: 1 segments processed, 0 in buffer
-📹 Processing seg_00011.mp4...
-⚠️ Skipping corrupted/incomplete file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00011.mp4: FFmpeg failed on /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00011.mp4: ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x134738790] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x134738790] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x134728810] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x134728810] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x134613040] video:49822KiB audio:972KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.135815%
+frame= 3689 fps=0.0 q=-1.0 Lsize=   50863KiB time=00:01:02.00 bitrate=6719.5kbits/s speed=1.27e+03x    
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+🧠 Loading Whisper and Emotion model...
+✅ Models loaded.
+📁 Writing temp segments to: /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_110njw91
+⚠️ User 81c126a0-99da-475b-9e93-0c9cb7ae8cf7 not found in users table, creating stream without user_id
+🗂 Using streams row id=d171a209-8412-4ef0-ab1d-6f1c3b204d5c twitch_stream_id=live-marlon-1763661402
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 50371, ffmpeg PID 50384
+▶️ Recording... (Ctrl+C to stop)
+📹 Processing seg_00000.mp4...
+🔊 Loading Whisper model (base)...
+It's like the day before, you know? I don't have so many hours for this, right? I get that, I understand, I understand.
+🧠 Loading emotion model (j-hartmann/emotion-english-distilroberta-base)...
+🎧 Score: 0.892 | {'energy': 1.0, 'pitch': 0.8093, 'emotion': 0.8485, 'keyword': 0.0} | It's like the day before, you know? I don't have so many hours for this, right? ...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00000.mp4
+📹 Processing seg_00001.mp4...
+We're getting in real bad luck. Thank you sir. Thank you. Take care, Nah. Stay safe Nah. I'm going to have to try to grow. Hey, yo, I know how to talk. All right. Yo, no, I got that right there. Oh, now you do definitely know this tone now. The action's a little strong. You know what I mean? Jeez, we haven't been spinning for a year. I have me thinking I'm going to come out and shoot with a shotgun on your porch. Sorry about that.
+🔥 Hype keywords detected!
+🎧 Score: 0.902 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.3797, 'keyword': 1.0} | We're getting in real bad luck. Thank you sir. Thank you. Take care, Nah. Stay s...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00001.mp4
+🔄 Iteration 20: 2 segments processed, 2 in buffer
+🔄 Iteration 40: 2 segments processed, 2 in buffer
+🔄 Iteration 60: 2 segments processed, 2 in buffer
+🔄 Iteration 80: 2 segments processed, 2 in buffer
+📹 Processing seg_00002.mp4...
+Yeah That's like the head off oh yeah, and then I got you action camera on there too So oh yeah, yeah, you want to put that over there for me? Yep Hi, so let's go over like a little bit of something something yeah, oh whenever you're like in holes Especially like water so the bite's gonna try and do its own thing
+🔥 Hype keywords detected!
+🎧 Score: 0.929 | {'energy': 0.962, 'pitch': 0.7897, 'emotion': 0.6114, 'keyword': 1.0} | Yeah That's like the head off oh yeah, and then I got you action camera on there...
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00002.mp4
+📹 Processing seg_00003.mp4...
+It's kind of like so whatever it ramps up shift up so you know what it like
+🔥 Hype keywords detected!
+🎧 Score: 1.119 | {'energy': 0.9739, 'pitch': 0.9773, 'emotion': 0.9586, 'keyword': 1.0} | It's kind of like so whatever it ramps up shift up so you know what it like...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00003.mp4
+📹 Processing seg_00004.mp4...
+Oh, that's just hard. It's like hardest they ship your foot
+🎧 Score: 0.717 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.2933, 'keyword': 0.0} | Oh, that's just hard. It's like hardest they ship your foot...
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00004.mp4
+It's like the day before, you know? I don't have so many hours for this, right? I get that, I understand, I understand.
+🎧 seg_00000.mp4 | Score: 0.892 | {'energy': 1.0, 'pitch': 0.8098, 'emotion': 0.8485, 'keyword': 0.0} | It's like the day before, you know? I don't have so many hou...
+We're getting in real bad luck. Thank you sir. Thank you. Take care, nah. Stay safe nah. I'm going to have to try to grow. Hey, yo, I know how to talk. All right. Yo, no, I got that right there. Oh, now you do definitely know this tone now. The action's a little strong, you know what I mean? Jeez, we haven't been spinning for a year. I'm thinking I'm going to come out shooting with a shotgun on your porch. Sorry about that.
+🔥 Hype keywords detected!
+🎧 seg_00001.mp4 | Score: 0.897 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.3669, 'keyword': 1.0} | We're getting in real bad luck. Thank you sir. Thank you. Ta...
+Yeah That's like the head off oh yeah, and then I got you action camera on there too So oh yeah, yeah, you want to put that over there for me? Yep Hi, so let's go over like a little bit of something something yeah, oh whenever you're like in holes Especially like water so the bite's gonna try and do its own thing
+🔥 Hype keywords detected!
+🎧 seg_00002.mp4 | Score: 0.930 | {'energy': 0.9628, 'pitch': 0.7952, 'emotion': 0.6114, 'keyword': 1.0} | Yeah That's like the head off oh yeah, and then I got you ac...
+It's kind of like so whatever it ramps up shift up so you know what it like
+🔥 Hype keywords detected!
+🎧 seg_00003.mp4 | Score: 1.119 | {'energy': 0.9739, 'pitch': 0.9773, 'emotion': 0.9586, 'keyword': 1.0} | It's kind of like so whatever it ramps up shift up so you kn...
+Oh, that's just hard. It's like hardest they ship your foot
+🎧 seg_00004.mp4 | Score: 0.717 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.2933, 'keyword': 0.0} | Oh, that's just hard. It's like hardest they ship your foot...
+⚠️ Merged clip too large (49.7 MB), compressing...
+✅ Compressed to 31.6 MB (from 49.7 MB)
+⬆️ Uploaded merged clip: raw/marlon/live-marlon-1763661402/20251120/segment_1763661727.mp4
+✅ Inserted clip into database: 70d3e725-d7fe-43d5-949d-03ea08d963ec
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00000.mp4
+🗑️ Deleted seg_00000.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00001.mp4
+🗑️ Deleted seg_00001.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00002.mp4
+🗑️ Deleted seg_00002.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00003.mp4
+🗑️ Deleted seg_00003.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00004.mp4
+🗑️ Deleted seg_00004.mp4
+⚠️ Pipeline process died! Streamlink: 1, FFmpeg: 0
+🔄 Restarting pipeline...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 54174, ffmpeg PID 54183
+✅ Pipeline restarted
+📹 Processing seg_00005.mp4...
+Let off the throttle every time you shift up or down. Oh god. So just let off the throttle. That's funny? Yeah. You know I feel for long, so let off the throttle.
+🎧 Score: 0.841 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.6016, 'keyword': 0.0} | Let off the throttle every time you shift up or down. Oh god. So just let off th...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00005.mp4
+📹 Processing seg_00000.mp4...
+I figured out I think I have all this work Damano was, I don't know, was, was, was gears. That's hard bro.
+🔥 Hype keywords detected!
+🎧 Score: 0.972 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.5541, 'keyword': 1.0} | I figured out I think I have all this work Damano was, I don't know, was, was, w...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00000.mp4
+📹 Processing seg_00001.mp4...
+That's tough. It's like, no, it's an easy thing. Trust me. So this one you turn the key over and you hold this brake and you start like a vehicle. Hold the brake, start like a vehicle. Like a vehicle? Like how you start a vehicle the key? Yeah, but I don't know where it was. I remember where I was just right here. Right there.
+🎧 Score: 0.730 | {'energy': 1.0, 'pitch': 0.7453, 'emotion': 0.4853, 'keyword': 0.0} | That's tough. It's like, no, it's an easy thing. Trust me. So this one you turn ...
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00001.mp4
+📹 Processing seg_00002.mp4...
+Alright, now we're just going to be in high whenever you're right here so watch out your legs right there. So that's just how I just ride around trails and then the lowest for mud ride. So you just go cruise around on it, that's got a lot of power so... So that's it? Yeah, yeah, yeah, yeah, yeah, yeah, yeah, yeah. I'll go back. Just go? Yeah./Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:249: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
   built with Apple clang version 17.0.0 (clang-1700.0.13.3)
   configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
   libavutil      59. 39.100 / 59. 39.100
@@ -271,14 +853,201 @@ frame= 5417 fps=0.0 q=-1.0 Lsize=   27950KiB time=00:01:30.59 bitrate=2527.4kbit
   libswscale      8.  3.100 /  8.  3.100
   libswresample   5.  3.100 /  5.  3.100
   libpostproc    58.  3.100 / 58.  3.100
-[mov,mp4,m4a,3gp,3g2,mj2 @ 0x149d045b0] moov atom not found
-[in#0 @ 0x149d04350] Error opening input: Invalid data found when processing input
-Error opening input file /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_gyepp__u/seg_00011.mp4.
-Error opening input files: Invalid data found when processing input
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x133805170] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x133805170] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_110njw91/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 5471 kb/s
+  Stream #0:0(und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 5342 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 libx264
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_110njw91/merged_1763661911.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 5342 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 libx264
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x132e04e00] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x133f059f0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x133f059f0] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x1338067f0] video:69122KiB audio:1458KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.145908%
+frame= 5551 fps=0.0 q=-1.0 Lsize=   70683KiB time=00:01:33.06 bitrate=6221.7kbits/s speed= 477x    
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:249: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+/Users/aidanyap/Clipping-automation-2.0/scripts/select_and_clip.py:249: UserWarning: PySoundFile failed. Trying audioread instead.
+  y, sr = librosa.load(file_path, sr=SAMPLE_RATE, mono=True)
+/Users/aidanyap/Clipping-automation-2.0/.venv/lib/python3.13/site-packages/librosa/core/audio.py:184: FutureWarning: librosa.core.audio.__audioread_load
+	Deprecated as of librosa version 0.10.0.
+	It will be removed in librosa version 1.0.
+  y, sr_native = __audioread_load(path, offset, duration, dtype)
+ffmpeg version 7.1.1 Copyright (c) 2000-2025 the FFmpeg developers
+  built with Apple clang version 17.0.0 (clang-1700.0.13.3)
+  configuration: --prefix=/opt/homebrew/Cellar/ffmpeg/7.1.1_3 --enable-shared --enable-pthreads --enable-version3 --cc=clang --host-cflags= --host-ldflags='-Wl,-ld_classic' --enable-ffplay --enable-gnutls --enable-gpl --enable-libaom --enable-libaribb24 --enable-libbluray --enable-libdav1d --enable-libharfbuzz --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librav1e --enable-librist --enable-librubberband --enable-libsnappy --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libtesseract --enable-libtheora --enable-libvidstab --enable-libvmaf --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx264 --enable-libx265 --enable-libxml2 --enable-libxvid --enable-lzma --enable-libfontconfig --enable-libfreetype --enable-frei0r --enable-libass --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenjpeg --enable-libspeex --enable-libsoxr --enable-libzmq --enable-libzimg --disable-libjack --disable-indev=jack --enable-videotoolbox --enable-audiotoolbox --enable-neon
+  libavutil      59. 39.100 / 59. 39.100
+  libavcodec     61. 19.101 / 61. 19.101
+  libavformat    61.  7.100 / 61.  7.100
+  libavdevice    61.  3.100 / 61.  3.100
+  libavfilter    10.  4.100 / 10.  4.100
+  libswscale      8.  3.100 /  8.  3.100
+  libswresample   5.  3.100 /  5.  3.100
+  libpostproc    58.  3.100 / 58.  3.100
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x143e32f40] Auto-inserting h264_mp4toannexb bitstream filter
+Input #0, concat, from '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_110njw91/merge_list.txt':
+  Duration: N/A, start: 0.000000, bitrate: 8304 kb/s
+  Stream #0:0(und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 8175 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 libx264
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:0 -> #0:0 (copy)
+  Stream #0:1 -> #0:1 (copy)
+Output #0, mp4, to '/var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_110njw91/merged_1763662204.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 8175 kb/s, 60 fps, 60 tbr, 15360 tbn
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.101 libx264
+  Stream #0:1(und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s
+      Metadata:
+        handler_name    : SoundHandler
+        vendor_id       : [0][0][0][0]
+Press [q] to stop, [?] for help
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x143e33d70] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x143e33d70] Auto-inserting h264_mp4toannexb bitstream filter
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x123f04ac0] st: 0 edit list: 1 Missing key frame while searching for timestamp: 0
+[mov,mp4,m4a,3gp,3g2,mj2 @ 0x123f04ac0] Auto-inserting h264_mp4toannexb bitstream filter
+[out#0/mp4 @ 0x143e3da90] video:55091KiB audio:1077KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.136095%
+frame= 4104 fps=0.0 q=-1.0 Lsize=   56244KiB time=00:01:08.43 bitrate=6732.8kbits/s speed= 881x    
 
-⏭️ Skipped (not interesting): seg_00011.mp4
-🗑️ Deleted seg_00011.mp4
-🔄 Iteration 30: 2 segments processed, 0 in buffer
-🔄 Iteration 40: 2 segments processed, 0 in buffer
-/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-89678-buz6z9_d'}
+🎧 Score: 0.763 | {'energy': 1.0, 'pitch': 0.3151, 'emotion': 0.835, 'keyword': 0.0} | Alright, now we're just going to be in high whenever you're right here so watch ...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00002.mp4
+🔄 Iteration 100: 4 segments processed, 4 in buffer
+📹 Processing seg_00003.mp4...
+... ... ... ... ... ... ... ... ... ...
+🎧 Score: 0.710 | {'energy': 1.0, 'pitch': 0.3988, 'emotion': 0.6497, 'keyword': 0.0} | ... ... ... ... ... ... ... ... ... ......
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00003.mp4
+Let off the throttle every time you shift up or down. Oh god. So just let off the throttle. That's funny? Yeah. You know I feel for long, so let off the throttle.
+🎧 seg_00005.mp4 | Score: 0.841 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.6016, 'keyword': 0.0} | Let off the throttle every time you shift up or down. Oh god...
+I figured out. Yeah, but my inkboard was here, it was on the hall of the river. I don't think it's rough. Oh, you just think it's rough. I inked half of this one. Damn, I know it was, I don't know it was, it was gears. That's hard, bro.
+🔥 Hype keywords detected!
+🎧 seg_00000.mp4 | Score: 0.950 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4988, 'keyword': 1.0} | I figured out. Yeah, but my inkboard was here, it was on the...
+That's tough. It's like, no, it's an easy thing. Trust me. So this one you turn the key over and you hold this brake and you start like a vehicle. Hold the brake, start like a vehicle. Like a vehicle? Like how you start a vehicle the key? Yeah, but I don't know where it was. I remember where I was just right here. Right there.
+🎧 seg_00001.mp4 | Score: 0.730 | {'energy': 1.0, 'pitch': 0.7452, 'emotion': 0.4853, 'keyword': 0.0} | That's tough. It's like, no, it's an easy thing. Trust me. S...
+Alright, now we're just going to be in high whenever you're right here so watch out your legs right there. So that's just how I just ride around trails and then the lowest for mud ride. So you just go cruise around on it, that's got a lot of power so... So that's it? Yeah, yeah, yeah, yeah, yeah, yeah, yeah, yeah, yeah. So you're going to be riding this one mate? How about say, yeah, yeah, yeah, I'll get back. Just go?
+🎧 seg_00002.mp4 | Score: 0.745 | {'energy': 1.0, 'pitch': 0.3151, 'emotion': 0.7896, 'keyword': 0.0} | Alright, now we're just going to be in high whenever you're ...
+... ... ... ... ... Ja, alaita on
+🎧 seg_00003.mp4 | Score: 0.786 | {'energy': 1.0, 'pitch': 0.3988, 'emotion': 0.84, 'keyword': 0.0} | ... ... ... ... ... Ja, alaita on...
+⚠️ Merged clip too large (69.0 MB), compressing...
+✅ Compressed to 47.3 MB (from 69.0 MB)
+⬆️ Uploaded merged clip: raw/marlon/live-marlon-1763661402/20251120/segment_1763661937.mp4
+✅ Inserted clip into database: aeed0291-bd76-416a-b75b-cf1ef7350b2f
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00005.mp4
+🗑️ Deleted seg_00005.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00000.mp4
+🗑️ Deleted seg_00000.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00001.mp4
+🗑️ Deleted seg_00001.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00002.mp4
+🗑️ Deleted seg_00002.mp4
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00003.mp4
+🗑️ Deleted seg_00003.mp4
+📹 Processing seg_00004.mp4...
+I'm going to try to go to the water. Oh my god, I never had that. Oh my god. Oh, he's so hot. All right. All right. Good. All right. All right. All right. All right. All right. Good.
+🔥 Hype keywords detected!
+🎧 Score: 0.835 | {'energy': 1.0, 'pitch': 0.2724, 'emotion': 0.6671, 'keyword': 1.0} | I'm going to try to go to the water. Oh my god, I never had that. Oh my god. Oh,...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00004.mp4
+⚠️ Pipeline process died! Streamlink: 1, FFmpeg: 0
+🔄 Restarting pipeline...
+📝 Streamlink log: /Users/aidanyap/Clipping-automation-2.0/logs/streamlink_marlon.log
+📝 FFmpeg log: /Users/aidanyap/Clipping-automation-2.0/logs/ffmpeg_marlon.log
+✅ Pipeline started: streamlink PID 56479, ffmpeg PID 56488
+✅ Pipeline restarted
+📹 Processing seg_00004.mp4...
+I'm going to try to go to the water. Oh my god, I never had that. Oh my god. Oh, he's so hot. All right. All right. Good. All right. All right. All right. All right. All right. Good.
+🔥 Hype keywords detected!
+🎧 Score: 0.835 | {'energy': 1.0, 'pitch': 0.2724, 'emotion': 0.6671, 'keyword': 1.0} | I'm going to try to go to the water. Oh my god, I never had that. Oh my god. Oh,...
+✅ Interesting: True
+🔥 Added to buffer (1/5): seg_00004.mp4
+📹 Processing seg_00000.mp4...
+YouTube, but we are currently here in Mississippi right now. We got my boy over at JP who just bought us out here to do ATV.
+🎧 Score: 0.894 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.7342, 'keyword': 0.0} | YouTube, but we are currently here in Mississippi right now. We got my boy over ...
+✅ Interesting: True
+🔥 Added to buffer (2/5): seg_00000.mp4
+📹 Processing seg_00001.mp4...
+the money made.
+🎧 Score: 0.599 | {'energy': 1.0, 'pitch': 0.2453, 'emotion': 0.469, 'keyword': 0.0} | the money made....
+✅ Interesting: True
+🔥 Added to buffer (3/5): seg_00001.mp4
+📹 Processing seg_00002.mp4...
+Bada bada bada bada I don't even wanna wear it like I have to, I feel like it helped me just like, it makes me, I don't like it She makes me dizzy for some reason bro, it feels weird
+🔥 Hype keywords detected!
+🎧 Score: 0.942 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4804, 'keyword': 1.0} | Bada bada bada bada I don't even wanna wear it like I have to, I feel like it he...
+✅ Interesting: True
+🔥 Added to buffer (4/5): seg_00002.mp4
+📹 Processing seg_00003.mp4...
+As the worst part of playing football bro growing up grow up every summer when you start practice It takes like two weeks. You just your head just hurts for too far right here. So I'm singing yeah, I Want to have one oh yeah
+🔥 Hype keywords detected!
+🎧 Score: 1.054 | {'energy': 0.8984, 'pitch': 1.0, 'emotion': 0.8486, 'keyword': 1.0} | As the worst part of playing football bro growing up grow up every summer when y...
+✅ Interesting: True
+🔥 Added to buffer (5/5): seg_00003.mp4
+❌ Error loading audio /var/folders/ds/267px0t926s0tg69t7sgz7x00000gn/T/live_marlon_110njw91/seg_00004.mp4: 
+🎧 seg_00004.mp4 | Score: 0.000 | {'energy': 0.0, 'pitch': 0.0, 'emotion': 0.0, 'keyword': 0.0} | ...
+YouTube, but we are currently here in Mississippi right now. We got my boy over at JP who just bought us out here to do ATV.
+🎧 seg_00000.mp4 | Score: 0.894 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.7342, 'keyword': 0.0} | YouTube, but we are currently here in Mississippi right now....
+the money made.
+🎧 seg_00001.mp4 | Score: 0.599 | {'energy': 1.0, 'pitch': 0.2453, 'emotion': 0.469, 'keyword': 0.0} | the money made....
+Bada bada bada bada I don't even wanna wear it like I have to, I feel like it helped me just like it makes me, I don't like it She makes me dizzy for some reason bro, it feels weird
+🔥 Hype keywords detected!
+🎧 seg_00002.mp4 | Score: 0.947 | {'energy': 1.0, 'pitch': 1.0, 'emotion': 0.4916, 'keyword': 1.0} | Bada bada bada bada I don't even wanna wear it like I have t...
+As the worst part of playing football bro growing up grow up every summer when you start practice It takes like two weeks. You just your head just hurts with too much. I just feel right here. So I'm singing yeah I feel like someone just crushes me. I know I know yeah I don't have I have one now how man
+🔥 Hype keywords detected!
+🎧 seg_00003.mp4 | Score: 1.062 | {'energy': 0.8992, 'pitch': 1.0, 'emotion': 0.8678, 'keyword': 1.0} | As the worst part of playing football bro growing up grow up...
+⚠️ Merged clip too large (54.9 MB), compressing...
+✅ Compressed to 35.1 MB (from 54.9 MB)
+⬆️ Uploaded merged clip: raw/marlon/live-marlon-1763661402/20251120/segment_1763662226.mp4
+✅ Inserted clip into database: 98c662f8-7e3e-42f2-b82d-c2da5163d589
+🗑️ Deleted from Supabase: raw/marlon/live-marlon-1763661402/20251120/seg_00004.mp4/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-50285-kq25jkck'}
   warnings.warn(
+Device set to use mps:0
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/subprocess.py:1029: RuntimeWarning: line buffering (buffering=1) isn't supported in binary mode, the default buffer size will be used
+  self.stdout = io.open(c2pread, 'rb', bufsize)
+Device set to use cpu
+/opt/homebrew/Cellar/python@3.13/3.13.5/Frameworks/Python.framework/Versions/3.13/lib/python3.13/multiprocessing/resource_tracker.py:301: UserWarning: resource_tracker: There appear to be 1 leaked semaphore objects to clean up at shutdown: {'/loky-60289-m6b6m5b_'}
+  warnings.warn(
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 9, in <module>
+    from process import merge_segments, delete_from_supabase,select_best_segments
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/process.py", line 41, in <module>
+    import whisper
+ModuleNotFoundError: No module named 'whisper'

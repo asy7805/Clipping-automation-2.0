@@ -9,8 +9,13 @@ import { ArrowLeft, Filter, Calendar, Star } from 'lucide-react';
 import { NetflixClipCard } from '../components/clips/NetflixClipCard';
 
 export const StreamerClips = () => {
-  const { streamerName } = useParams<{ streamerName: string }>();
+  const { streamerName: rawStreamerName } = useParams<{ streamerName: string }>();
   const navigate = useNavigate();
+  
+  // Safely extract streamerName - handle undefined and decode URL
+  const streamerName = rawStreamerName 
+    ? (typeof rawStreamerName === 'string' ? decodeURIComponent(rawStreamerName) : String(rawStreamerName))
+    : null;
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,9 +26,16 @@ export const StreamerClips = () => {
   const [sortBy, setSortBy] = useState<'newest' | 'oldest' | 'highest' | 'lowest'>('newest');
   const [showFilters, setShowFilters] = useState(false);
 
+  // Redirect if streamerName is missing
+  useEffect(() => {
+    if (!streamerName) {
+      navigate('/dashboard/clips');
+    }
+  }, [streamerName, navigate]);
+
   // Fetch clips for this specific streamer with pagination
   const { data: clipsData, isLoading, error } = useClips({
-    channel_name: streamerName,
+    channel_name: streamerName || undefined,
     min_score: scoreRange[0],
     max_score: scoreRange[1],
     sort_by: sortBy,
@@ -38,6 +50,24 @@ export const StreamerClips = () => {
   useEffect(() => {
     setCurrentPage(1);
   }, [scoreRange, sortBy]);
+
+  // Show loading/error if streamerName is missing
+  if (!streamerName) {
+    return (
+      <div className="p-6">
+        <div className="text-center py-12">
+          <p className="text-muted-foreground">Invalid streamer name</p>
+          <Button
+            variant="outline"
+            onClick={() => navigate('/dashboard/clips')}
+            className="mt-4"
+          >
+            Back to All Streamers
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   if (error) {
     return (
@@ -54,7 +84,7 @@ export const StreamerClips = () => {
           </Button>
         </div>
         <div className="text-center py-12">
-          <p className="text-muted-foreground">Error loading clips for {streamerName}</p>
+          <p className="text-muted-foreground">Error loading clips for {String(streamerName)}</p>
         </div>
       </div>
     );
@@ -75,7 +105,7 @@ export const StreamerClips = () => {
             Back to All Streamers
           </Button>
           <div>
-            <h1 className="text-2xl font-bold capitalize">{streamerName}</h1>
+            <h1 className="text-2xl font-bold capitalize">{String(streamerName)}</h1>
             <p className="text-muted-foreground">
               {paginationInfo ? `${paginationInfo.total} total clips` : `${clips.length} clips`}
             </p>
@@ -233,7 +263,7 @@ export const StreamerClips = () => {
             </div>
           ) : clips.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-muted-foreground">No clips found for {streamerName}</p>
+              <p className="text-muted-foreground">No clips found for {String(streamerName)}</p>
             </div>
           ) : (
             <>
@@ -284,3 +314,5 @@ export const StreamerClips = () => {
     </div>
   );
 };
+
+export default StreamerClips;

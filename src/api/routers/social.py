@@ -23,6 +23,8 @@ from src.posting.tiktok_publisher import TikTokPublisher
 from src.posting.youtube_publisher import YouTubePublisher
 from src.posting.tasks import post_to_social_media
 from ..dependencies import get_current_user_id
+from ..middleware.auth import get_current_user, User
+from ..services.subscription_service import is_pro_user
 
 # Load environment variables
 load_dotenv(Path(__file__).parent.parent.parent.parent / '.env')
@@ -197,6 +199,7 @@ async def initiate_oauth(
         state = secrets.token_urlsafe(32)
         oauth_states[state] = {
             'platform': platform,
+            'user_id': user_id,  # Store user ID for verification in callback
             'created_at': datetime.utcnow(),
             'expires_at': datetime.utcnow() + timedelta(minutes=10)
         }
@@ -251,16 +254,14 @@ async def get_youtube_channels(access_token: str, refresh_token: Optional[str] =
 
 
 @router.get("/notifications")
-async def get_notifications():
+async def get_notifications(current_user: User = Depends(get_current_user)):
     """
-    Get recent posting notifications for the user.
+    Get recent posting notifications for the authenticated user.
     Returns notifications for posts that have completed (success or failure).
     """
     try:
         supabase = get_client()
-        
-        # For now, use a default user ID (in production, get from JWT token)
-        user_id = "00000000-0000-0000-0000-000000000001"
+        user_id = current_user.id
         
         # Get recent completed posts (last 24 hours)
         from datetime import datetime, timedelta
@@ -297,13 +298,14 @@ async def get_notifications():
 
 
 @router.post("/auth/{platform}/callback")
-async def oauth_callback(platform: str, request: SocialAccountCreate):
+async def oauth_callback(platform: str, request: SocialAccountCreate, current_user: User = Depends(get_current_user)):
     """
     Handle OAuth callback and store tokens.
     
     Args:
         platform: Social media platform
         request: OAuth callback data
+        current_user: Authenticated user
     """
     try:
         # Validate state parameter
@@ -359,11 +361,24 @@ async def oauth_callback(platform: str, request: SocialAccountCreate):
             else:
                 user_info = await publisher.get_user_info()
         
-        # Store in database (in production, use proper user authentication)
+        # Store in database
         supabase = get_client()
         
-        # For now, use a default user ID (in production, get from JWT token)
-        user_id = "00000000-0000-0000-0000-000000000001"  # TODO: Get from authenticated user
+        # Verify state belongs to authenticated user (security check)
+        state_user_id = state_data.get('user_id')
+        if state_user_id and state_user_id != current_user.id:
+            logger.warning(f"State user_id mismatch: state={state_user_id}, authenticated={current_user.id}")
+            raise HTTPException(status_code=403, detail="OAuth state does not match authenticated user")
+        
+        # Use authenticated user's ID
+        user_id = current_user.id
+        
+        # Check if user is Pro tier (social posting is Pro only) - admins always have access
+        if not current_user.is_admin and not is_pro_user(user_id):
+            raise HTTPException(
+                status_code=403,
+                detail="Social posting is only available for Pro subscribers. Upgrade to Pro to enable this feature."
+            )
         
         account_data = {
             'user_id': user_id,
@@ -404,13 +419,30 @@ async def oauth_callback(platform: str, request: SocialAccountCreate):
 
 
 @router.get("/accounts")
-async def get_social_accounts():
-    """Get all linked social accounts for user."""
+async def get_social_accounts(current_user: User = Depends(get_current_user)):
+    """Get all linked social accounts for authenticated user."""
     try:
         supabase = get_client()
-        user_id = "00000000-0000-0000-0000-000000000001"  # TODO: Get from authenticated user
+        user_id = current_user.id
         
-        response = supabase.table('social_accounts').select('*').eq('user_id', user_id).eq('is_active', True).execute()
+        # Get all accounts for this user (both active and inactive)
+        # Frontend can filter if needed, but admins might want to see inactive accounts
+        response = supabase.table('social_accounts').select('*').eq('user_id', user_id).execute()
+        
+        # For admin users, also check for accounts stored with the old hardcoded admin user ID
+        # This handles migration from the old system where accounts were stored with a default admin ID
+        old_admin_id = "00000000-0000-0000-0000-000000000001"
+        if current_user.is_admin and user_id != old_admin_id:
+            old_accounts_response = supabase.table('social_accounts').select('*').eq('user_id', old_admin_id).execute()
+            if old_accounts_response.data:
+                # Migrate old accounts to current admin user ID
+                for old_account in old_accounts_response.data:
+                    # Update the account to use the current admin user ID
+                    supabase.table('social_accounts').update({'user_id': user_id}).eq('id', old_account['id']).execute()
+                    logger.info(f"Migrated social account {old_account['id']} from old admin ID to {user_id}")
+                
+                # Re-fetch accounts after migration
+                response = supabase.table('social_accounts').select('*').eq('user_id', user_id).execute()
         
         accounts = []
         for account in response.data:
@@ -432,11 +464,11 @@ async def get_social_accounts():
 
 
 @router.delete("/accounts/{account_id}")
-async def unlink_account(account_id: str):
+async def unlink_account(account_id: str, current_user: User = Depends(get_current_user)):
     """Unlink a social account."""
     try:
         supabase = get_client()
-        user_id = "00000000-0000-0000-0000-000000000001"  # TODO: Get from authenticated user
+        user_id = current_user.id
         
         # Verify account belongs to user
         account_response = supabase.table('social_accounts').select('*').eq('id', account_id).eq('user_id', user_id).execute()
@@ -457,16 +489,26 @@ async def unlink_account(account_id: str):
 
 
 @router.post("/post")
-async def schedule_post(request: PostScheduleRequest):
+async def schedule_post(request: PostScheduleRequest, current_user: User = Depends(get_current_user)):
     """
     Schedule or post immediately to social media.
+    Requires Pro subscription (admins always have access).
     
     Args:
         request: Post scheduling data
+        current_user: Authenticated user
     """
     try:
+        user_id = current_user.id
+        
+        # Check if user is Pro tier (social posting is Pro only) - admins always have access
+        if not current_user.is_admin and not is_pro_user(user_id):
+            raise HTTPException(
+                status_code=403,
+                detail="Social posting is only available for Pro subscribers. Upgrade to Pro to enable this feature."
+            )
+        
         supabase = get_client()
-        user_id = "00000000-0000-0000-0000-000000000001"  # TODO: Get from authenticated user
         
         # Validate accounts belong to user
         accounts_response = supabase.table('social_accounts').select('*').in_('id', request.account_ids).eq('user_id', user_id).eq('is_active', True).execute()
@@ -526,12 +568,13 @@ async def schedule_post(request: PostScheduleRequest):
 async def get_posting_queue(
     status: Optional[str] = Query(None, description="Filter by status"),
     limit: int = Query(50, ge=1, le=100, description="Number of items to return"),
-    offset: int = Query(0, ge=0, description="Number of items to skip")
+    offset: int = Query(0, ge=0, description="Number of items to skip"),
+    current_user: User = Depends(get_current_user)
 ):
     """Get posting queue with filters."""
     try:
         supabase = get_client()
-        user_id = "00000000-0000-0000-0000-000000000001"  # TODO: Get from authenticated user
+        user_id = current_user.id
         
         query = supabase.table('posting_queue').select('*, social_accounts(*)').eq('user_id', user_id)
         
@@ -570,11 +613,11 @@ async def get_posting_queue(
 
 
 @router.post("/queue/{queue_id}/retry")
-async def retry_queue_item(queue_id: str):
+async def retry_queue_item(queue_id: str, current_user: User = Depends(get_current_user)):
     """Retry a failed queue item."""
     try:
         supabase = get_client()
-        user_id = "00000000-0000-0000-0000-000000000001"  # TODO: Get from authenticated user
+        user_id = current_user.id
         
         # Verify queue item belongs to user
         queue_response = supabase.table('posting_queue').select('*').eq('id', queue_id).eq('user_id', user_id).execute()
@@ -606,11 +649,11 @@ async def retry_queue_item(queue_id: str):
 
 
 @router.delete("/queue/{queue_id}")
-async def cancel_queue_item(queue_id: str):
+async def cancel_queue_item(queue_id: str, current_user: User = Depends(get_current_user)):
     """Cancel a pending queue item."""
     try:
         supabase = get_client()
-        user_id = "00000000-0000-0000-0000-000000000001"  # TODO: Get from authenticated user
+        user_id = current_user.id
         
         # Verify queue item belongs to user
         queue_response = supabase.table('posting_queue').select('*').eq('id', queue_id).eq('user_id', user_id).execute()

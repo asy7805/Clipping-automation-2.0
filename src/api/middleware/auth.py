@@ -203,3 +203,38 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(o
         # Continue with is_admin_user = False
     
     return User(id=user_id, email=user_email, is_admin=is_admin_user)
+
+# Optional authentication scheme
+oauth2_scheme_optional = HTTPBearer(auto_error=False)
+
+async def get_current_user_optional(credentials: Optional[HTTPAuthorizationCredentials] = Depends(oauth2_scheme_optional)) -> Optional[User]:
+    """
+    FastAPI dependency to get current authenticated user from JWT token (optional).
+    Returns None if no credentials are provided.
+    """
+    if not credentials:
+        return None
+    
+    token = credentials.credentials
+    payload = verify_jwt_token(token)
+    
+    if not payload:
+        return None
+    
+    user_id = payload.get('sub')
+    user_email = payload.get('email')
+    
+    if not user_id or not user_email:
+        return None
+    
+    # Check if user is admin (use admin client to bypass RLS)
+    is_admin_user = False
+    try:
+        from db.supabase_client import get_admin_client
+        sb = get_admin_client()
+        admin_result = sb.table("admin_users").select("user_id").eq("user_id", user_id).execute()
+        is_admin_user = len(admin_result.data) > 0
+    except Exception as e:
+        logger.warning(f"Admin check failed for user {user_id[:8]}... (non-fatal): {e}")
+    
+    return User(id=user_id, email=user_email, is_admin=is_admin_user)

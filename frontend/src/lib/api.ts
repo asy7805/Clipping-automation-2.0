@@ -386,6 +386,21 @@ class APIClient {
       body: formData,
     });
   }
+
+  // Subscription
+  async getSubscriptionStatus() {
+    return this.request('/api/v1/subscription/status');
+  }
+
+  async claimTrial() {
+    return this.request('/api/v1/subscription/claim-trial', {
+      method: 'POST',
+    });
+  }
+
+  async getCreditTransactions(limit: number = 50, offset: number = 0) {
+    return this.request(`/api/v1/subscription/transactions?limit=${limit}&offset=${offset}`);
+  }
 }
 
 export const apiClient = new APIClient();

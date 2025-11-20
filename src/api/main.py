@@ -12,6 +12,14 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
+# Import LLM Observe for monitoring
+try:
+    import llmobserve
+    LLMOBSERVE_AVAILABLE = True
+except ImportError:
+    LLMOBSERVE_AVAILABLE = False
+    print("⚠️ llmobserve package not available - LLM monitoring disabled")
+
 # Add src to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
@@ -19,7 +27,15 @@ sys.path.append(str(Path(__file__).parent.parent))
 load_dotenv()
 
 # Import API routers
-from .routers import clips, analytics, streams, health, captions
+from .routers import clips, analytics, streams, health, captions, monitors, admin, social
+try:
+    from .routers import subscription
+    print("✅ Subscription router imported successfully")
+except Exception as e:
+    print(f"❌ Failed to import subscription router: {e}")
+    import traceback
+    traceback.print_exc()
+    subscription = None
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -30,6 +46,23 @@ async def lifespan(app: FastAPI):
     print(f"🤖 OpenAI API: {'✅ Configured' if os.getenv('OPENAI_API_KEY') else '❌ Missing'}")
     print(f"📺 Twitch API: {'✅ Configured' if os.getenv('TWITCH_CLIENT_ID') else '❌ Missing'}")
     print(f"🎬 Captions AI: {'✅ Configured' if os.getenv('CAPTIONS_AI_API_KEY') else '❌ Missing'}")
+    
+    # Initialize LLM Observe monitoring
+    if LLMOBSERVE_AVAILABLE:
+        llmobserve_api_key = os.getenv("LLMOBSERVE_API_KEY", "llmo_sk_068ee9bbc99e20dc940db32bc6a69e4bc943bcdd01405887")
+        if llmobserve_api_key:
+            try:
+                llmobserve.observe(
+                    collector_url="https://app.llmobserve.com",
+                    api_key=llmobserve_api_key
+                )
+                print("✅ LLM Observe monitoring initialized")
+            except Exception as e:
+                print(f"⚠️ Failed to initialize LLM Observe: {e}")
+        else:
+            print("⚠️ LLM Observe API key not configured")
+    else:
+        print("⚠️ LLM Observe not available - skipping initialization")
     
     yield
     
@@ -68,6 +101,19 @@ app.include_router(clips.router, prefix="/api/v1", tags=["clips"])
 app.include_router(analytics.router, prefix="/api/v1", tags=["analytics"])
 app.include_router(streams.router, prefix="/api/v1", tags=["streams"])
 app.include_router(captions.router, prefix="/api/v1", tags=["captions"])
+app.include_router(monitors.router, prefix="/api/v1", tags=["monitors"])
+app.include_router(admin.router, prefix="/api/v1", tags=["admin"])
+app.include_router(social.router, prefix="/api/v1", tags=["social"])
+if subscription:
+    try:
+        app.include_router(subscription.router, prefix="/api/v1", tags=["subscription"])
+        print("✅ Subscription router registered successfully")
+    except Exception as e:
+        print(f"❌ Failed to register subscription router: {e}")
+        import traceback
+        traceback.print_exc()
+else:
+    print("⚠️ Subscription router not available - skipping registration")
 
 @app.get("/")
 async def root():

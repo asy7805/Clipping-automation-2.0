@@ -15,6 +15,7 @@ export interface StreamData {
   lastClip: string;
   bufferProgress: number;
   bufferCount: { current: number; total: number };
+  session_started_at?: string; // For trial session limit tracking
 }
 
 export interface DashboardStats {
@@ -147,7 +148,8 @@ const fetchStreams = async (): Promise<StreamData[]> => {
           clips: stats.clips_captured || 0,
           lastClip: stats.last_clip_time ? `${Math.floor((Date.now() - new Date(stats.last_clip_time).getTime()) / 1000 / 60)}m ago` : (monitor.status === "stopped" ? "stopped" : "analyzing..."),
           bufferProgress: monitor.status === "stopped" ? 0 : (health.healthy ? Math.random() * 0.8 : 0),
-          bufferCount: { current: monitor.status === "stopped" ? 0 : Math.floor(Math.random() * 4), total: 5 }
+          bufferCount: { current: monitor.status === "stopped" ? 0 : Math.floor(Math.random() * 4), total: 5 },
+          session_started_at: monitor.session_started_at // Include session_started_at for trial timer
         } as StreamData;
       } catch (error) {
         console.error(`Error fetching data for ${monitor.channel_name}:`, error);

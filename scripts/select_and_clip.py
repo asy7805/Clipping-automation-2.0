@@ -81,12 +81,36 @@ def get_sentiment_pipeline():
 # -----------------------------------------
 # 🎧 Audio Extraction
 # -----------------------------------------
+def get_ffmpeg_path():
+    """Get FFmpeg path, checking multiple locations (Windows, macOS, Linux)."""
+    import shutil
+    
+    # First, try to find ffmpeg in PATH (works on all platforms)
+    ffmpeg_path = shutil.which("ffmpeg")
+    if ffmpeg_path:
+        return ffmpeg_path
+    
+    # Check for Windows WinGet installation (only on Windows)
+    if os.name == 'nt':  # Windows
+        winget_path = os.path.expandvars(
+            r"%LOCALAPPDATA%\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0-full_build\bin\ffmpeg.exe"
+        )
+        if os.path.exists(winget_path):
+            return winget_path
+    
+    # Check common system paths (macOS/Linux)
+    for path in ["/usr/bin/ffmpeg", "/usr/local/bin/ffmpeg", "/opt/homebrew/bin/ffmpeg"]:
+        if os.path.exists(path):
+            return path
+    
+    raise FileNotFoundError("FFmpeg not found. Please install FFmpeg.")
+
 def extract_audio_from_video(video_path: str) -> str:
     """Extracts mono 16kHz WAV audio from MP4 using ffmpeg."""
     wav_path = str(video_path).rsplit(".", 1)[0] + ".wav"
     
-    # Use the ffmpeg from WinGet installation
-    ffmpeg_path = os.path.expandvars(r"%LOCALAPPDATA%\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.0-full_build\bin\ffmpeg.exe")
+    # Use cross-platform FFmpeg path detection
+    ffmpeg_path = get_ffmpeg_path()
     
     cmd = [
         ffmpeg_path,

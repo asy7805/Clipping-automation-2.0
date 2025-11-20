@@ -26,7 +26,16 @@ const Clips = () => {
   // Group clips by streamer and calculate stats
   const streamerStats = useMemo(() => {
     const grouped = clips.reduce((acc, clip) => {
-      const channelName = clip.channel_name;
+      // Ensure channel_name is a string
+      const channelName = clip.channel_name 
+        ? (typeof clip.channel_name === 'string' ? clip.channel_name : String(clip.channel_name))
+        : 'unknown';
+      
+      if (!channelName || channelName === 'unknown') {
+        console.warn('Clip missing channel_name:', clip);
+        return acc;
+      }
+      
       if (!acc[channelName]) {
         acc[channelName] = {
           name: channelName,
@@ -67,8 +76,14 @@ const Clips = () => {
   }, [streamerStats, searchQuery]);
 
   // Handle streamer card click
-  const handleStreamerClick = (streamerName: string) => {
-    navigate(`/dashboard/clips/${encodeURIComponent(streamerName)}`);
+  const handleStreamerClick = (streamerName: string | any) => {
+    // Ensure streamerName is a string
+    const name = typeof streamerName === 'string' ? streamerName : String(streamerName || '');
+    if (!name) {
+      console.error('Invalid streamer name:', streamerName);
+      return;
+    }
+    navigate(`/dashboard/clips/${encodeURIComponent(name)}`);
   };
 
   // Get score category

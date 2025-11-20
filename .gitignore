@@ -26,7 +26,8 @@ env-*/
 *.ckpt
 
 # Audio/video processing
-*.ts
+# Note: *.ts pattern removed to allow TypeScript source files
+# Video transport stream files should be ignored via specific paths
 *.m3u8
 *.mpd
 .vercel

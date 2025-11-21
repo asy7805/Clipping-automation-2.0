@@ -19,12 +19,12 @@ build/
 *.egg
 
 # Backend source code (not needed for frontend)
-src/
-scripts/
-tests/
-tools/
-migrations/
-config/
+/src/
+/scripts/
+/tests/
+/tools/
+/migrations/
+/config/
 
 # Large data files
 *.mp4
@@ -38,9 +38,9 @@ config/
 *.pth
 *.pt
 *.ckpt
-data/
-logs/
-score_backups/
+/data/
+/logs/
+/score_backups/
 
 # Git (not needed in Docker image)
 .git/

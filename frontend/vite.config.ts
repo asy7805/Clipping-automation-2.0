@@ -6,9 +6,10 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
-// Removed explicit root - let Vite auto-detect from index.html location
-// This works better with Vercel's Root Directory setting
+// Explicitly set root to __dirname to ensure /src/main.tsx resolves correctly
+// __dirname points to the frontend/ directory where vite.config.ts is located
 export default defineConfig({
+  root: __dirname,
   base: "./",
   server: {
     host: "::",

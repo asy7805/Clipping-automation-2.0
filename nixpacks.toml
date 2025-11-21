@@ -14,7 +14,7 @@ cmds = [
 cmds = [
   "python3 -m poetry config virtualenvs.create false",
   "python3 -m poetry config virtualenvs.in-project false",
-  "python3 -m poetry install --no-dev --no-root"
+  "python3 -m poetry install --only main --no-root"
 ]
 
 [phases.build]

@@ -140,13 +140,15 @@ htmlcov/
 # Additional exclusions
 migrations/
 config/
-*.json
+score_backups/
+oauth_states.json
+demo_sorting_report.json
+*.log
+*.backup
+
+# Keep essential config files (don't exclude these)
 !pyproject.toml
 !railway.json
 !nixpacks.toml
 !package.json
-score_backups/
-oauth_states.json
-*.log
-*.backup
 

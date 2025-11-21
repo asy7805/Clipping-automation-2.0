@@ -1051,3 +1051,27 @@ Traceback (most recent call last):
   File "/Users/aidanyap/Clipping-automation-2.0/scripts/process.py", line 41, in <module>
     import whisper
 ModuleNotFoundError: No module named 'whisper'
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 9, in <module>
+    from process import merge_segments, delete_from_supabase,select_best_segments
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/process.py", line 41, in <module>
+    import whisper
+ModuleNotFoundError: No module named 'whisper'
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 9, in <module>
+    from process import merge_segments, delete_from_supabase,select_best_segments
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/process.py", line 41, in <module>
+    import whisper
+ModuleNotFoundError: No module named 'whisper'
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 9, in <module>
+    from process import merge_segments, delete_from_supabase,select_best_segments
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/process.py", line 41, in <module>
+    import whisper
+ModuleNotFoundError: No module named 'whisper'
+Traceback (most recent call last):
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/live_ingest.py", line 9, in <module>
+    from process import merge_segments, delete_from_supabase,select_best_segments
+  File "/Users/aidanyap/Clipping-automation-2.0/scripts/process.py", line 41, in <module>
+    import whisper
+ModuleNotFoundError: No module named 'whisper'

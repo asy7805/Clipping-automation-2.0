@@ -6,6 +6,7 @@ nixPkgs = ["python312", "curl"]
 cmds = [
   "curl -sSL https://bootstrap.pypa.io/get-pip.py -o get-pip.py",
   "python3 get-pip.py --break-system-packages",
+  "rm -f get-pip.py",
   "python3 -m pip install poetry --break-system-packages",
   "python3 -m poetry --version"
 ]

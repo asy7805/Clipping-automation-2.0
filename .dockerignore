@@ -63,9 +63,30 @@ tmp/
 .DS_Store
 
 # Documentation (optional - can be excluded)
-docs/*.md
+docs/
 *.md
+!README.md
 
 # Vercel
 .vercel/
+
+# Test files
+tests/
+test_*.py
+*_test.py
+
+# Backup and temporary files
+*.bak
+*.backup
+*.swp
+score_backups/
+oauth_states.json
+
+# Large tools directory (FFmpeg binaries not needed in container)
+tools/
+
+# CI/CD files
+.github/
+.gitlab-ci.yml
+.travis.yml
 

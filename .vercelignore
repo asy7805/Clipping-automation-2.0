@@ -1,0 +1,94 @@
+# Python virtual environments (not needed for frontend)
+venv/
+.venv/
+.venv-ml/
+venv-*/
+env/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Python dependencies and build artifacts
+*.egg-info/
+dist/
+build/
+*.so
+*.egg
+
+# Backend source code (not needed for frontend)
+src/
+scripts/
+tests/
+tools/
+migrations/
+config/
+
+# Large data files
+*.mp4
+*.mkv
+*.wav
+*.webm
+*.m3u8
+*.mpd
+*.bin
+*.safetensors
+*.pth
+*.pt
+*.ckpt
+data/
+logs/
+score_backups/
+
+# Git (not needed in Docker image)
+.git/
+.gitignore
+
+# Documentation (not needed in production)
+docs/
+*.md
+!README.md
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+temp/
+tmp/
+.DS_Store
+
+# Backend-specific files
+requirements.txt
+requirements-ml.txt
+pyproject.toml
+poetry.lock
+Procfile
+nixpacks.toml
+railway.json
+setup.sh
+Makefile
+
+# Backend scripts and utilities
+*.py
+!frontend/**/*.py
+
+# OAuth states (backend only)
+oauth_states.json
+
+# Test files
+test_*.py
+*_test.py
+

@@ -6,10 +6,9 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
-// Force cache bust: Changed root calculation to use process.cwd() fallback
-// This ensures Vite resolves paths correctly even with stale build cache
+// Removed explicit root - let Vite auto-detect from index.html location
+// This works better with Vercel's Root Directory setting
 export default defineConfig({
-  root: process.cwd(),
   base: "./",
   server: {
     host: "::",

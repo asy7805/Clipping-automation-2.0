@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
 // https://vitejs.dev/config/
+// Updated: Using relative paths for proper resolution in all environments
 export default defineConfig({
   base: "./",
   server: {

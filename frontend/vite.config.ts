@@ -6,10 +6,12 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
-// Explicitly set root to __dirname to ensure /src/main.tsx resolves correctly
-// __dirname points to the frontend/ directory where vite.config.ts is located
+// CRITICAL: root must be absolute path for Vercel builds
+// Using path.resolve to ensure absolute path even if __dirname is relative
+const rootPath = path.resolve(__dirname);
+
 export default defineConfig({
-  root: __dirname,
+  root: rootPath,
   base: "./",
   server: {
     host: "::",
@@ -18,8 +20,13 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": path.resolve(rootPath, "./src"),
     },
     extensions: [".mjs", ".js", ".mts", ".ts", ".jsx", ".tsx", ".json"],
+  },
+  build: {
+    rollupOptions: {
+      input: path.resolve(rootPath, "index.html"),
+    },
   },
 });

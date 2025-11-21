@@ -73,9 +73,6 @@ tmp/
 # Documentation (optional - can be excluded)
 docs/
 *.md
-!README.md
-!RAILWAY_BUILD_OPTIMIZATION.md
-RAILWAY_*.md
 RAILWAY_*.md
 DEPLOYMENT_*.md
 *_GUIDE.md
@@ -146,9 +143,6 @@ demo_sorting_report.json
 *.log
 *.backup
 
-# Keep essential config files (don't exclude these)
-!pyproject.toml
-!railway.json
-!nixpacks.toml
-!package.json
+# Note: Essential config files (pyproject.toml, railway.json, nixpacks.toml) are NOT excluded
+# They are TOML/JSON files but needed for Railway builds
 

@@ -143,6 +143,21 @@ demo_sorting_report.json
 *.log
 *.backup
 
+# Root-level utility/test scripts (not needed for Railway backend)
+*_fixed.py
+check_*.py
+cleanup_*.py
+fix_*.py
+list_*.py
+monitor_*.py
+realtime_*.py
+refresh_*.py
+sync_*.py
+test_*.py
+update_*.py
+capture_*.py
+monitor_*.sh
+
 # Note: Essential config files (pyproject.toml, railway.json, nixpacks.toml) are NOT excluded
 # They are TOML/JSON files but needed for Railway builds
 

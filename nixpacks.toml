@@ -15,28 +15,28 @@ cmds = [
 cmds = [
   "python3 -m poetry config virtualenvs.create false",
   "python3 -m poetry config virtualenvs.in-project false",
-  "python3 -m poetry install --only main --no-root",
+  "python3 -m poetry config installer.max-workers 10",
+  "python3 -m poetry config installer.parallel true",
+  "python3 -m poetry install --only main --no-root --no-interaction",
   "python3 -m poetry cache clear pypi --all"
 ]
 
 [phases.build]
 cmds = [
-  "echo 'Cleaning up unnecessary files to reduce image size...'",
-  "rm -rf /app/frontend 2>/dev/null || true",
-  "rm -rf /app/node_modules 2>/dev/null || true",
-  "rm -rf /app/.venv /app/venv 2>/dev/null || true",
-  "rm -rf /app/tools 2>/dev/null || true",
-  "rm -rf /app/logs 2>/dev/null || true",
-  "rm -rf /app/tests 2>/dev/null || true",
-  "rm -rf /app/docs 2>/dev/null || true",
-  "rm -rf /app/migrations 2>/dev/null || true",
-  "rm -rf /app/config 2>/dev/null || true",
-  "find /app -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true",
-  "find /app -name '*.pyc' -delete 2>/dev/null || true",
-  "find /app -name '*.pyo' -delete 2>/dev/null || true",
+  "echo 'Optimizing image size and removing unnecessary files...'",
+  # Remove large directories in parallel (faster)
+  "rm -rf /app/frontend /app/node_modules /app/.venv /app/venv /app/tools /app/logs /app/tests /app/docs /app/migrations /app/config /app/score_backups 2>/dev/null || true",
+  # Remove root-level utility/test scripts (not needed for Railway)
+  "rm -f /app/*_fixed.py /app/check_*.py /app/cleanup_*.py /app/fix_*.py /app/list_*.py /app/monitor_*.py /app/realtime_*.py /app/refresh_*.py /app/sync_*.py /app/test_*.py /app/update_*.py /app/capture_*.py 2>/dev/null || true",
+  # Remove log files and temporary files
+  "rm -f /app/*.log /app/*.srt /app/oauth_states.json /app/demo_*.json 2>/dev/null || true",
+  # Clean Python cache files (combined for speed)
+  "find /app -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true && find /app -name '*.pyc' -o -name '*.pyo' | xargs rm -f 2>/dev/null || true",
+  # Remove documentation except README
   "find /app -name '*.md' ! -name 'README.md' -delete 2>/dev/null || true",
+  # Clean pip cache
   "python3 -m pip cache purge 2>/dev/null || true",
-  "echo 'Cleanup complete'"
+  "echo 'Image optimization complete'"
 ]
 
 [start]

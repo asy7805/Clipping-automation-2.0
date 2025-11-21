@@ -21,10 +21,22 @@ cmds = [
 
 [phases.build]
 cmds = [
+  "echo 'Cleaning up unnecessary files to reduce image size...'",
+  "rm -rf /app/frontend 2>/dev/null || true",
+  "rm -rf /app/node_modules 2>/dev/null || true",
+  "rm -rf /app/.venv /app/venv 2>/dev/null || true",
+  "rm -rf /app/tools 2>/dev/null || true",
+  "rm -rf /app/logs 2>/dev/null || true",
+  "rm -rf /app/tests 2>/dev/null || true",
+  "rm -rf /app/docs 2>/dev/null || true",
+  "rm -rf /app/migrations 2>/dev/null || true",
+  "rm -rf /app/config 2>/dev/null || true",
   "find /app -type d -name '__pycache__' -exec rm -rf {} + 2>/dev/null || true",
   "find /app -name '*.pyc' -delete 2>/dev/null || true",
   "find /app -name '*.pyo' -delete 2>/dev/null || true",
-  "python3 -m pip cache purge 2>/dev/null || true"
+  "find /app -name '*.md' ! -name 'README.md' -delete 2>/dev/null || true",
+  "python3 -m pip cache purge 2>/dev/null || true",
+  "echo 'Cleanup complete'"
 ]
 
 [start]

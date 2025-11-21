@@ -6,10 +6,10 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vitejs.dev/config/
-// Explicitly set root to __dirname to ensure Vite resolves paths correctly
-// This makes /src/main.tsx resolve relative to the frontend directory
+// Force cache bust: Changed root calculation to use process.cwd() fallback
+// This ensures Vite resolves paths correctly even with stale build cache
 export default defineConfig({
-  root: __dirname,
+  root: process.cwd(),
   base: "./",
   server: {
     host: "::",

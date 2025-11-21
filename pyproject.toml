@@ -32,7 +32,7 @@ supabase = ">=2.0.0"
 numpy = ">=1.24.0"
 scikit-learn = ">=1.3.0"
 openai = ">=1.0.0"
-torch = ">=2.0.0"
+torch = {version = ">=2.0.0", source = "pytorch-cpu"}
 faster-whisper = "*"
 transformers = "*"
 librosa = ">=0.10.0"
@@ -51,6 +51,11 @@ redis = "==5.0.1"
 psutil = ">=5.9.0"
 # LLM monitoring (optional - package not yet available on PyPI)
 # llmobserve = ">=0.1.0"  # Install manually when available: pip install llmobserve
+
+[[tool.poetry.source]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.0.0"

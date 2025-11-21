@@ -6,9 +6,9 @@ import { useEffect, useState } from "react";
 export const StatsGrid = () => {
   const { data: stats, isLoading } = useDashboardStats();
   const [displayStats, setDisplayStats] = useState({
-    clipsToday: 127,
-    avgScore: 0.54,
-    storageUsed: 3.8,
+    clipsToday: 0,
+    avgScore: 0,
+    storageUsed: 0,
     totalClips: 0
   });
 
@@ -56,11 +56,11 @@ export const StatsGrid = () => {
           <div className="flex-1 min-w-0">
             <p className="text-xs md:text-sm text-muted-foreground mb-2 font-medium">Active Monitors</p>
             <p className="text-3xl md:text-4xl font-bold text-foreground count-up glow-text transition-all duration-500 mb-2">
-              {stats?.activeMonitors ?? 3}
+              {stats?.activeMonitors ?? 0}
             </p>
             <p className="text-xs text-success flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-success pulse-dot" />
-              +2 today
+              +{stats?.monitorsTrend ?? 0} today
             </p>
           </div>
           <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-success/10 flex items-center justify-center ring-2 ring-success/20 group-hover:scale-110 transition-transform flex-shrink-0 ml-3">
@@ -76,7 +76,7 @@ export const StatsGrid = () => {
             <p className="text-3xl md:text-4xl font-bold text-foreground count-up glow-text transition-all duration-500 mb-2">
               {displayStats.clipsToday}
             </p>
-            <p className="text-xs text-success">↑ {stats?.clipsTrend ?? 23}% vs yesterday</p>
+            <p className="text-xs text-success">↑ {stats?.clipsTrend ?? 0}% vs yesterday</p>
           </div>
           <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-primary/10 flex items-center justify-center ring-2 ring-primary/20 group-hover:scale-110 transition-transform flex-shrink-0 ml-3">
             <Film className="w-6 h-6 md:w-7 md:h-7 text-primary" />
@@ -95,7 +95,7 @@ export const StatsGrid = () => {
             <div className="mt-2 w-full bg-muted/30 rounded-full h-2 overflow-hidden">
               <div 
                 className="h-full rounded-full bg-gradient-to-r from-primary via-pink-500 to-primary bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite] transition-all duration-1000"
-                style={{ width: `${((stats?.storageUsed ?? 3.8) / (stats?.storageTotal ?? 10)) * 100}%` }}
+                style={{ width: `${((stats?.storageUsed ?? 0) / (stats?.storageTotal ?? 10)) * 100}%` }}
               />
             </div>
             <p className="text-xs text-muted-foreground mt-1.5">of {stats?.storageTotal ?? 10} GB</p>
@@ -124,7 +124,7 @@ export const StatsGrid = () => {
                   />
                 ))}
               </div>
-              <p className="text-xs text-success">↑ {stats?.scoreTrend.toFixed(2) ?? '0.03'}</p>
+              <p className="text-xs text-success">↑ {stats?.scoreTrend.toFixed(2) ?? '0.00'}</p>
             </div>
           </div>
           <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-warning/10 flex items-center justify-center ring-2 ring-warning/20 group-hover:scale-110 transition-transform flex-shrink-0 ml-3">

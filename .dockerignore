@@ -37,9 +37,17 @@ logs/
 
 # Frontend (not needed for backend deployment)
 frontend/
+frontend/**
 node_modules/
+**/node_modules/
 bun.lockb
 package-lock.json
+package.json
+tsconfig*.json
+vite.config.ts
+tailwind.config.ts
+postcss.config.js
+eslint.config.js
 
 # Data files
 data/
@@ -66,6 +74,28 @@ tmp/
 docs/
 *.md
 !README.md
+!RAILWAY_BUILD_OPTIMIZATION.md
+RAILWAY_*.md
+RAILWAY_*.md
+DEPLOYMENT_*.md
+*_GUIDE.md
+*_SETUP.md
+*_STATUS.md
+*_COMPLETE.md
+*_CHECKLIST.md
+CHANGELOG.md
+QUICK_FIX.md
+PERFORMANCE_*.md
+WINDOWS_*.md
+OFFLINE_*.md
+AI_*.md
+BACKEND_*.md
+CAPTIONS_*.md
+CRON_*.md
+SUBSCRIPTION_*.md
+SUPABASE_*.md
+IMPL*.md
+TESTING_*.md
 
 # Vercel
 .vercel/
@@ -89,4 +119,34 @@ tools/
 .github/
 .gitlab-ci.yml
 .travis.yml
+vercel.json
+.vercelignore
+
+# Large binary files
+*.wasm
+*.node
+*.dylib
+*.dll
+
+# Python cache and compiled files (already covered but be explicit)
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Additional exclusions
+migrations/
+config/
+*.json
+!pyproject.toml
+!railway.json
+!nixpacks.toml
+!package.json
+score_backups/
+oauth_states.json
+*.log
+*.backup
 

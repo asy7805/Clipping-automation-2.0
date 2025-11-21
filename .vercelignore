@@ -78,8 +78,11 @@ poetry.lock
 Procfile
 nixpacks.toml
 railway.json
+railway.json.bak
 setup.sh
 Makefile
+*.toml
+!frontend/**/*.toml
 
 # Backend scripts and utilities
 *.py

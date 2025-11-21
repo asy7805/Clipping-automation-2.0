@@ -29,8 +29,8 @@ export const useSubscription = () => {
   const { data: subscription, isLoading, error } = useQuery<SubscriptionStatus>({
     queryKey: ["subscription", user?.id],
     queryFn: async () => {
-      const response = await apiClient.get("/subscription/status");
-      return response.data;
+      const response = await apiClient.getSubscriptionStatus();
+      return response;
     },
     enabled: isAuthenticated && !!user,
     refetchInterval: 60000, // Refetch every minute
@@ -39,8 +39,8 @@ export const useSubscription = () => {
   // Claim trial mutation
   const claimTrialMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiClient.post("/subscription/claim-trial");
-      return response.data;
+      const response = await apiClient.claimTrial();
+      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["subscription", user?.id] });
@@ -51,8 +51,8 @@ export const useSubscription = () => {
   const { data: transactions } = useQuery<CreditTransaction[]>({
     queryKey: ["subscription-transactions", user?.id],
     queryFn: async () => {
-      const response = await apiClient.get("/subscription/transactions");
-      return response.data;
+      const response = await apiClient.getCreditTransactions();
+      return response as unknown as CreditTransaction[];
     },
     enabled: isAuthenticated && !!user,
   });
